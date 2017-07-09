@@ -1,12 +1,7 @@
 ﻿using GameTankCore;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Super_tank
@@ -21,8 +16,7 @@ namespace Super_tank
         {
             InitializeComponent();
             GraphicsOption();
-            this.Width = Board.Widtch;
-            this.Height = Board.Height;
+            this.ClientSize = new Size(Board.Widtch, Board.Height);
 
             timer = new Timer();
             timer.Interval = SettingsGame.TimerInterval;

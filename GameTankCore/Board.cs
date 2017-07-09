@@ -24,5 +24,33 @@ namespace GameTankCore
         {
             alloObjGame.Clear();
         }
+
+        public static ObjGame Colision(ObjGame obj)
+        {
+            ObjGame colisionObj = null;
+            for(int i = 0; i < alloObjGame.Count; i++)
+            {
+                if(!obj.Equals(alloObjGame[i]) && obj.BoundingBox.IntersectsWith(alloObjGame[i].BoundingBox))
+                {
+                    colisionObj = alloObjGame[i];
+                    break;
+                }
+            }
+            return colisionObj;
+        }
+
+        public static bool ColisionBoard(ObjGame obj)
+        {
+            if (obj.X < 0)
+                return true;
+            if (obj.Y < 0)
+                return true;
+            if (obj.X + obj.Width > width)
+                return true;
+            if (obj.Y + obj.Height > height)
+                return true;
+
+            return false;
+        }
     }
 }

@@ -8,11 +8,11 @@ namespace GameTankCore
 {
     class Tank : ITank
     {
-        private IMoveble movable;
+        private MoveObj movable;
         private IDriwer driver;
         private IShooter shooter;
 
-        public Tank(IMoveble movable, IDriwer driver, IShooter shooter)
+        public Tank(MoveObj movable, IDriwer driver, IShooter shooter)
         {
             this.movable = movable;
             this.driver = driver;

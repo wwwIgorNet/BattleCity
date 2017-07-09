@@ -1,6 +1,6 @@
 ﻿namespace GameTankCore
 {
-    interface ITank : IUpdatable
+    public interface ITank : IUpdatable
     {
     }
 }

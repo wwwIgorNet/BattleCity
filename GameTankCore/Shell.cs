@@ -9,9 +9,9 @@ namespace GameTankCore
     class Shell : IUpdatable
     {
         private int velocity;
-        private IMoveble movable;
+        private MoveObj movable;
 
-        public Shell(IMoveble movable, int velocity)
+        public Shell(MoveObj movable, int velocity)
         {
             this.velocity = velocity;
             this.movable = movable;
@@ -22,18 +22,19 @@ namespace GameTankCore
             switch (movable.Direction)
             {
                 case Direction.Up:
-                    movable.MoveUp(velocity);
+                    movable.Direction = Direction.Up;
                     break;
                 case Direction.Down:
-                    movable.MoveDown(velocity);
+                    movable.Direction = Direction.Down;
                     break;
                 case Direction.Left:
-                    movable.MoveLeft(velocity);
+                    movable.Direction = Direction.Left;
                     break;
                 case Direction.Right:
-                    movable.MoveRight(velocity);
+                    movable.Direction = Direction.Right;
                     break;
             }
+            movable.Move(4);
         }
     }
 }

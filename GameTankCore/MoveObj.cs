@@ -7,37 +7,39 @@ using System.Threading.Tasks;
 
 namespace GameTankCore
 {
-    class MoveObj : ObjGame, IMoveble
+    class MoveObj : ObjGame
     {
         private ICannon Cannon { get; set; }
         private Direction direction;
 
-        public Direction Direction { get { return direction; } }
+        public Direction Direction
+        {
+            get { return direction; }
+            set { direction = value; }
+        }
 
         public MoveObj(int x, int y, int width, int height, Direction direction) : base(x, y, width, height)
         {
             this.direction = direction;
         }
 
-        public void MoveUp(int offset)
+        public void Move(int offset)
         {
-            direction = Direction.Up;
-            Y -= offset;
-        }
-        public void MoveDown(int offset)
-        {
-            direction = Direction.Down;
-            Y += offset;
-        }
-        public void MoveLeft(int offset)
-        {
-            direction = Direction.Left;
-            X -= offset;
-        }
-        public void MoveRight(int offset)
-        {
-            direction = Direction.Right;
-            X += offset;
+            switch (direction)
+            {
+                case Direction.Up:
+                    Y -= offset;
+                    break;
+                case Direction.Down:
+                    Y += offset;
+                    break;
+                case Direction.Left:
+                    X -= offset;
+                    break;
+                case Direction.Right:
+                    X += offset;
+                    break;
+            }
         }
     }
 }
