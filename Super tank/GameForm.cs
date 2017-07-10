@@ -16,34 +16,78 @@ namespace Super_tank
         {
             InitializeComponent();
             GraphicsOption();
-            this.ClientSize = new Size(Board.Widtch, Board.Height);
+            this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
 
             timer = new Timer();
-            timer.Interval = SettingsGame.TimerInterval;
+            timer.Interval = Configuration.TimerInterval;
             timer.Tick += Timer_Tick;
             sprites = new List<Sprite>();
             game = new Game();
 
             foreach (var objBoard in Board.AlloObj)
             {
-                CreateSprite(objBoard);
+                if (objBoard is MoveObj)
+                    CreateMovableSprite((MoveObj)objBoard);
+                else
+                    CreateTile(objBoard);
             }
+            Board.AlloObj.CollectionChanged += AlloObj_CollectionChanged;
+
 
             game.Start();
             timer.Start();
         }
 
-        private void CreateSprite(ObjGame objBoard)
+        private void AlloObj_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
+                    foreach (ObjGame item in e.NewItems)
+                    {
+                        if (item is MoveObj)
+                            CreateMovableSprite((MoveObj)item);
+                        else
+                            CreateTile(item);
+                    }
+                    break;
+                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
+                    foreach(var item in e.OldItems)
+                    {
+                        sprites.RemoveAll(m => m.Obj.Equals(item));
+                    }
+                    break;
+            }
+        }
+
+        private void CreateTile(ObjGame objBoard)
         {
             switch (objBoard.Type)
             {
-                case "plain user":
-                    sprites.Add(new Sprite(objBoard, 
-                        SettingsGame.Content + "SmallTankPlayerUp_1.png"));
+                case TypeObjGame.BrickWall:
+                    sprites.Add(new Sprite(objBoard, Images.BrickWall));
                     break;
-                case "shell":
-                    sprites.Add(new Sprite(objBoard,
-                        SettingsGame.Content + "BulletUp.png"));
+            }
+        }
+
+        private void CreateMovableSprite(MoveObj obj)
+        {
+            Dictionary<Direction, Image> map = new Dictionary<Direction, Image>();
+            switch (obj.Type)
+            {
+                case TypeObjGame.PlainUserTank:
+                    map.Add(Direction.Up, Images.PlainUserTankUp);
+                    map.Add(Direction.Down, Images.PlainUserTankDown);
+                    map.Add(Direction.Left, Images.PlainUserTankLeft);
+                    map.Add(Direction.Right, Images.PlainUserTankRight);
+                    sprites.Add(new MovableSprite(map, obj));
+                    break;
+                case TypeObjGame.Shell:
+                    map.Add(Direction.Up, Images.ShellUp);
+                    map.Add(Direction.Down, Images.ShellDown);
+                    map.Add(Direction.Left, Images.ShellLeft);
+                    map.Add(Direction.Right, Images.ShellRight);
+                    sprites.Add(new MovableSprite(map, obj));
                     break;
             }
         }
@@ -55,13 +99,6 @@ namespace Super_tank
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            List<ObjGame> list = Board.AlloObj;
-            for (int i = 0; i < list.Count; i++)
-            {
-                if(!sprites.Exists(v => v.Obj.Equals(list[i])))
-                    CreateSprite(list[i]);
-            }
-
             this.Invalidate();
         }
 

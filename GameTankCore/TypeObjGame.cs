@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace GameTankCore
 {
-    public enum Direction
+    public enum TypeObjGame
     {
-        Up,
-        Down,
-        Left,
-        Right
+        PlainUserTank,
+        Shell,
+        BrickWall
     }
 }

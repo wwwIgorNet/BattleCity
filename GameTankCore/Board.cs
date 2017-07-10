@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,11 +10,11 @@ namespace GameTankCore
 {
     public static class Board
     {
-        private static List<ObjGame> alloObjGame = new List<ObjGame>();
-        private static readonly int width = SettingsGame.WidthBoard;
-        private static readonly int height = SettingsGame.HeightBoard;
+        private static readonly ObservableCollection<ObjGame> alloObjGame = new ObservableCollection<ObjGame>();
+        private static readonly int width = Configuration.WidthBoard;
+        private static readonly int height = Configuration.HeightBoard;
 
-        public static List<ObjGame> AlloObj
+        public static ObservableCollection<ObjGame> AlloObj
         {
             get { return alloObjGame; }
         }

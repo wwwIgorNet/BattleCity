@@ -43,7 +43,7 @@ namespace GameTankCore
                 Move(spead - 1);
             }
             ObjGame colision = Board.Colision(movable);
-            if (colision != null)
+            if (colision != null && colision.Type != TypeObjGame.Shell)
             {
                 movable.Move(-spead);
                 Move(spead - 1, colision);
@@ -52,10 +52,11 @@ namespace GameTankCore
 
         private void Move(int spead, ObjGame colision)
         {
+            movable.Move(spead);
             if (movable.BoundingBox.IntersectsWith(colision.BoundingBox))
             {
                 movable.Move(-spead);
-                Move(spead - 1);
+                Move(spead - 1, colision);
             }
         }
     }

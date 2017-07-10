@@ -20,13 +20,16 @@ namespace GameTankCore
         {
             Level.CreateLevel();
             timer = new Timer();
-            timer.Interval = SettingsGame.TimerInterval;
+            timer.Interval = Configuration.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Update();
+            lock (timer)
+            {
+                Update();
+            }
         }
 
         private void Update()

@@ -34,7 +34,7 @@ namespace GameTankCore
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
 
-        public String Type { get; set; }
+        public TypeObjGame Type { get; set; }
 
         public override bool Equals(object obj)
         {

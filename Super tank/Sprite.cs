@@ -1,5 +1,6 @@
 ﻿using GameTankCore;
 using System.Drawing;
+using System;
 
 namespace Super_tank
 {
@@ -8,16 +9,17 @@ namespace Super_tank
         private Image img;
         private ObjGame obj;
 
-        public Sprite(ObjGame obj, string imgPath)
+        public Sprite(ObjGame obj, Image img)
         {
             this.obj = obj;
-            img = Image.FromFile(imgPath);
+            this.img = img;
         }
 
 
         public ObjGame Obj { get { return obj; } }
+        protected Image Img { set { img = value; } }
 
-        public void Draw(Graphics g)
+        public virtual void Draw(Graphics g)
         {
             g.DrawImage(img, obj.BoundingBox);
         }

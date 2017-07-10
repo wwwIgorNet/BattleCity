@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GameTankCore
 {
-    class MoveObj : ObjGame
+    public class MoveObj : ObjGame
     {
         private ICannon Cannon { get; set; }
         private Direction direction;
