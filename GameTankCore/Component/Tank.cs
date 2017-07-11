@@ -8,7 +8,7 @@ namespace GameTankCore
 {
     class Tank : Unit, ITank
     {
-
+        private bool isOffset = true;
         private bool isParking;
         // Cтарое направление движения
         protected Direction oldDirection;
@@ -49,16 +49,26 @@ namespace GameTankCore
 
         public void Update()
         {
+            if (shooter != null)
+                shooter.Update();
+
             isParking = true;
             if (driver != null)
                 driver.Update();
-            oldDirection = Direction;
-            if (shooter != null)
-                shooter.Update();
+
+            if (oldDirection != Direction)
+            {
+                // если розвеонудлся на 180 градусов
+                int tmp = (int)(oldDirection - Direction);
+                if (tmp == 2 || tmp == -2)
+                    oldDirection = Direction;
+
+                else if (offsetToBorderTile(oldDirection))
+                    oldDirection = Direction;
+            }
+
             if (isParking)
                 offsetToBorderTile(Direction);
-            if (oldDirection != Direction)
-                offsetToBorderTile(oldDirection);
         }
 
         public override void Move()
@@ -77,55 +87,60 @@ namespace GameTankCore
         /// <summary>
         /// Смищение к границам тайла
         /// </summary>
-        private void offsetToBorderTile(Direction direction)
+        private bool offsetToBorderTile(Direction direction)
         {
             switch (direction)
             {
                 case Direction.Left:
-                    OffsetToLeft();
-                    break;
+                    return OffsetToLeft();
                 case Direction.Up:
-                    OffsetToUp();
-                    break;
+                    return OffsetToUp();
                 case Direction.Right:
-                    OffsetToRight();
-                    break;
+                    return OffsetToRight();
                 case Direction.Down:
-                    OffsetToDown();
-                    break;
+                    return OffsetToDown();
             }
+            return false;
         }
-        private void OffsetToDown()
+        private bool OffsetToDown()
         {
             int offset = Configuration.HeightTile - Y % Configuration.HeightTile;
-            if (offset == Configuration.HeightTile) return;
+            if (offset == Configuration.HeightTile)
+                return true;
 
             if (offset >= Velosity) Y += Velosity;
             else Y += offset;
+            return false;
         }
-        private void OffsetToRight()
+        private bool OffsetToRight()
         {
             int offset = Configuration.WidthTile - X % Configuration.WidthTile;
-            if (offset == Configuration.WidthTile) return;
+            if (offset == Configuration.WidthTile)
+                return true;
 
             if (offset >= Velosity) X += Velosity;
             else X += offset;
+            return false;
         }
-        private void OffsetToUp()
+        private bool OffsetToUp()
         {
             int offset = Y % Configuration.HeightTile;
-            if (offset == 0) return;
+            if (offset == 0)
+                return true;
 
             if (offset >= Velosity) Y -= Velosity;
             else Y -= offset;
+            return false;
         }
-        private void OffsetToLeft()
+        private bool OffsetToLeft()
         {
             int offset = X % Configuration.WidthTile;
-            if (offset == 0) return;
+            if (offset == 0)
+                return true;
 
             if (offset >= Velosity) X -= Velosity;
             else X -= offset;
+            return false;
         }
     }
 }
