@@ -72,22 +72,22 @@ namespace Super_tank
 
         private void CreateMovableSprite(Unit obj)
         {
-            Dictionary<Direction, Image> map = new Dictionary<Direction, Image>();
+            Dictionary<Direction, Image[]> map = new Dictionary<Direction, Image[]>();
             switch (obj.Type)
             {
                 case TypeObjGame.PlainUserTank:
-                    map.Add(Direction.Up, Images.PlainUserTankUp);
-                    map.Add(Direction.Down, Images.PlainUserTankDown);
-                    map.Add(Direction.Left, Images.PlainUserTankLeft);
-                    map.Add(Direction.Right, Images.PlainUserTankRight);
-                    sprites.Add(new MovableSprite(map, obj));
+                    map.Add(Direction.Up, new Image[] { Images.PlainUserTankUp, Images.PlainUserTankUp_2 });
+                    map.Add(Direction.Down, new Image[] { Images.PlainUserTankDown, Images.PlainUserTankDown_2 });
+                    map.Add(Direction.Left, new Image[] { Images.PlainUserTankLeft, Images.PlainUserTankLeft_2 });
+                    map.Add(Direction.Right, new Image[] { Images.PlainUserTankRight, Images.PlainUserTankRight_2 });
+                    sprites.Add(new MovableSprite(map, obj, 2));
                     break;
                 case TypeObjGame.Shell:
-                    map.Add(Direction.Up, Images.ShellUp);
-                    map.Add(Direction.Down, Images.ShellDown);
-                    map.Add(Direction.Left, Images.ShellLeft);
-                    map.Add(Direction.Right, Images.ShellRight);
-                    sprites.Add(new MovableSprite(map, obj));
+                    map.Add(Direction.Up, new Image[] { Images.ShellUp });
+                    map.Add(Direction.Down, new Image[] { Images.ShellDown });
+                    map.Add(Direction.Left, new Image[] { Images.ShellLeft });
+                    map.Add(Direction.Right, new Image[] { Images.ShellRight });
+                    sprites.Add(new MovableSprite(map, obj, 1));
                     break;
             }
         }

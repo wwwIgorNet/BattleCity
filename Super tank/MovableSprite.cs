@@ -10,11 +10,14 @@ namespace Super_tank
 {
     class MovableSprite : Sprite
     {
-        private Dictionary<Direction, Image> images;
+        private readonly int frameCount;
+        private int carentFrame;
+        private Dictionary<Direction, Image[]> images;
         private Unit obj;
 
-        public MovableSprite(Dictionary<Direction, Image> images, Unit obj) : base(obj, null)
+        public MovableSprite(Dictionary<Direction, Image[]> images, Unit obj, int frameCount) : base(obj, null)
         {
+            this.frameCount = frameCount;
             this.images = images;
             this.obj = obj;
             Update();
@@ -22,7 +25,8 @@ namespace Super_tank
 
         public void Update()
         {
-            base.Img = images[obj.Direction];
+            base.Img = images[obj.Direction]
+                [carentFrame == frameCount ? carentFrame = 0 : carentFrame++];
         }
 
         public override void Draw(Graphics g)
