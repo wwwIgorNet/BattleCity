@@ -8,31 +8,33 @@ namespace GameTankCore
 {
     static class Factory
     {
-        public static ITank CreateTank(TypeObjGame type)
+        public static Tank CreateTank(TypeObjGame type)
         {
-            ITank tank = null;
+            Tank tank = null;
             switch(type)
             {
                 case TypeObjGame.PlainUserTank:
-                    MoveObj movable = new MoveObj(20, 300, Configuration.WidthTank, Configuration.HeigthTank, Direction.Up);
-                    movable.Type = type;
-                    Board.AlloObj.Add(movable);
-                    tank = new Tank(movable,
-                                    new PlayerDriwer(movable, 3),
-                                    new PlayerShooter(
-                                    new Cannon(movable, 4)));
-                    Level.UpdateObjects.Add(tank);
+                    tank = new Tank(9 * Configuration.WidthTile, Configuration.HeightBoard - Configuration.HeigthTank, Configuration.WidthTank, Configuration.HeigthTank, Direction.Up, type, 3);
+                    tank.Driver = new PlayerDriwer(tank);
+                    tank.Cannon = new Cannon(tank, 4);
+                    tank.Shooter = new PlayerShooter();
+                    tank.Colision = new ColisionTank(tank);
                     break;
             }
             return tank;
         }
 
-        internal static ObjGame CreateBrickWall(int x, int y)
+        public static ObjGame CreateBrickWall(int x, int y)
         {
-            ObjGame obj = new ObjGame(x, y, Configuration.WidthTile, Configuration.HeightTile);
-            obj.Type = TypeObjGame.BrickWall;
-            Board.AlloObj.Add(obj);
+            ObjGame obj = new ObjGame(x, y, Configuration.WidthTile, Configuration.HeightTile, TypeObjGame.BrickWall);
             return obj;
+        }
+
+        public static Shell CreateShell(int x, int y, Direction direction, int velosity)
+        {
+            Shell shell = new Shell(x, y, Configuration.WidthShell, Configuration.HeightShell, direction, TypeObjGame.Shell, velosity);
+            shell.Colision = new ColisionShell(shell);
+            return shell;
         }
     }
 }

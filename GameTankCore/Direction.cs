@@ -9,8 +9,8 @@ namespace GameTankCore
     public enum Direction
     {
         Up,
+        Right,
         Down,
-        Left,
-        Right
+        Left
     }
 }

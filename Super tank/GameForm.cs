@@ -26,8 +26,8 @@ namespace Super_tank
 
             foreach (var objBoard in Board.AlloObj)
             {
-                if (objBoard is MoveObj)
-                    CreateMovableSprite((MoveObj)objBoard);
+                if (objBoard is Unit)
+                    CreateMovableSprite((Unit)objBoard);
                 else
                     CreateTile(objBoard);
             }
@@ -45,8 +45,8 @@ namespace Super_tank
                 case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
                     foreach (ObjGame item in e.NewItems)
                     {
-                        if (item is MoveObj)
-                            CreateMovableSprite((MoveObj)item);
+                        if (item is Unit)
+                            CreateMovableSprite((Unit)item);
                         else
                             CreateTile(item);
                     }
@@ -70,7 +70,7 @@ namespace Super_tank
             }
         }
 
-        private void CreateMovableSprite(MoveObj obj)
+        private void CreateMovableSprite(Unit obj)
         {
             Dictionary<Direction, Image> map = new Dictionary<Direction, Image>();
             switch (obj.Type)

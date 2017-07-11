@@ -10,13 +10,13 @@ namespace GameTankCore
     {
         private ICannon cannon;
 
-        public PlayerShooter(ICannon cannon)
-        {
-            this.cannon = cannon;
-        }
+        public ICannon Cannon { set { cannon = value; } }
 
         public void Update()
         {
+            if (cannon == null)
+                return;
+
             if (Keyboard.Space)
                 cannon.Fire();
         }

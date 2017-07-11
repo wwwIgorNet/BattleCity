@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameTankCore
 {
-    interface IDirection
+    interface IColision : IUpdatable
     {
-        Direction Direction { get; }
     }
 }

@@ -8,5 +8,6 @@ namespace GameTankCore
 {
     interface IShooter : IUpdatable
     {
+        ICannon Cannon { set; }
     }
 }

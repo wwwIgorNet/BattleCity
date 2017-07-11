@@ -1,15 +1,19 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace GameTankCore
 {
-    public class ObjGame
+    public class ObjGame : IDisposable
     {
         private Rectangle boundingBox;
+        public TypeObjGame type;
 
-        public ObjGame(int x, int y, int width, int height)
+        public ObjGame(int x, int y, int width, int height, TypeObjGame type)
         {
             boundingBox = new Rectangle(x, y, width, height);
+            this.type = type;
+            Board.AlloObj.Add(this);
         }
 
         public int X
@@ -33,8 +37,12 @@ namespace GameTankCore
             set { boundingBox.Height = value; }
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
-
-        public TypeObjGame Type { get; set; }
+        public TypeObjGame Type { get { return type; } }
+        
+        public virtual void Dispose()
+        {
+            Board.AlloObj.Remove(this);
+        }
 
         public override bool Equals(object obj)
         {

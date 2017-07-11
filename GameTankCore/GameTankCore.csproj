@@ -42,25 +42,27 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Board.cs" />
+    <Compile Include="Component\ColisionShell.cs" />
+    <Compile Include="Component\ColisionTank.cs" />
+    <Compile Include="Interface\IColision.cs" />
     <Compile Include="Direction.cs" />
     <Compile Include="Game.cs" />
-    <Compile Include="ICannon.cs" />
-    <Compile Include="IDirection.cs" />
-    <Compile Include="IDriwer.cs" />
-    <Compile Include="IShooter.cs" />
-    <Compile Include="ITank.cs" />
+    <Compile Include="Interface\ICannon.cs" />
+    <Compile Include="Interface\IDriwer.cs" />
+    <Compile Include="Interface\IShooter.cs" />
+    <Compile Include="Interface\ITank.cs" />
     <Compile Include="Level.cs" />
-    <Compile Include="IUpdatable.cs" />
+    <Compile Include="Interface\IUpdatable.cs" />
     <Compile Include="Keyboard.cs" />
-    <Compile Include="ObjGame.cs" />
-    <Compile Include="Cannon.cs" />
-    <Compile Include="PlayerDriwer.cs" />
-    <Compile Include="PlayerShooter.cs" />
+    <Compile Include="Component\ObjGame.cs" />
+    <Compile Include="Component\Cannon.cs" />
+    <Compile Include="Component\PlayerDriwer.cs" />
+    <Compile Include="Component\PlayerShooter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Shell.cs" />
-    <Compile Include="MoveObj.cs" />
-    <Compile Include="Tank.cs" />
+    <Compile Include="Component\Shell.cs" />
+    <Compile Include="Component\Unit.cs" />
+    <Compile Include="Component\Tank.cs" />
     <Compile Include="Factory.cs" />
     <Compile Include="TypeObjGame.cs" />
   </ItemGroup>
@@ -69,6 +71,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
