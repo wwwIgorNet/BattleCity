@@ -9,7 +9,7 @@ namespace GameTankCore
     /// <summary>
     /// Состояние клавиатуры
     /// </summary>
-    public  struct Keyboard
+    public struct Keyboard
     {
         public static bool Enter { get; set; }
         public static bool Escape { get; set; }

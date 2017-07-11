@@ -14,9 +14,9 @@ namespace GameTankCore
             switch(type)
             {
                 case TypeObjGame.PlainUserTank:
-                    tank = new Tank(9 * Configuration.WidthTile, Configuration.HeightBoard - Configuration.HeigthTank, Configuration.WidthTank, Configuration.HeigthTank, Direction.Up, type, 4);
+                    tank = new Tank(9 * Configuration.WidthTile, Configuration.HeightBoard - Configuration.HeigthTank, Configuration.WidthTank, Configuration.HeigthTank, Direction.Up, type, Configuration.VelostyPlainUserTank);
                     tank.Driver = new PlayerDriwer(tank);
-                    tank.Cannon = new Cannon(tank, 4);
+                    tank.Cannon = new Cannon(tank, Configuration.VelostyShellPlainUserTank);
                     tank.Shooter = new PlayerShooter();
                     tank.Colision = new ColisionTank(tank);
                     break;

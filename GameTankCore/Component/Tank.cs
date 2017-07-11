@@ -8,20 +8,21 @@ namespace GameTankCore
 {
     class Tank : Unit, ITank
     {
-        private bool isOffset = true;
         private bool isParking;
         // Cтарое направление движения
-        protected Direction oldDirection;
+        private Direction prevDirection;
+        private Direction newDirection;
+
         private IDriwer driver;
         private IShooter shooter;
         private ICannon cannon;
-        protected IColision colision;
+        private IColision colision;
 
         public Tank(int x, int y, int width, int height, Direction direction, TypeObjGame type, int velosity)
             : base(x, y, width, height, direction, type, velosity)
         {
             isParking = true;
-            oldDirection = Direction;
+            newDirection = prevDirection = Direction;
             Level.UpdateObjects.Add(this);
         }
 
@@ -52,23 +53,27 @@ namespace GameTankCore
             if (shooter != null)
                 shooter.Update();
 
+            prevDirection = Direction;
             isParking = true;
             if (driver != null)
                 driver.Update();
+            newDirection = Direction;
+            Direction = prevDirection;
 
-            if (oldDirection != Direction)
+            // если изменили направление
+            if (prevDirection != newDirection)
             {
                 // если розвеонудлся на 180 градусов
-                int tmp = (int)(oldDirection - Direction);
+                int tmp = (int)(prevDirection - newDirection);
                 if (tmp == 2 || tmp == -2)
-                    oldDirection = Direction;
+                    Direction = newDirection;
 
-                else if (offsetToBorderTile(oldDirection))
-                    oldDirection = Direction;
+                else if (offsetToBorderTile())
+                    Direction = newDirection;
             }
 
             if (isParking)
-                offsetToBorderTile(Direction);
+                offsetToBorderTile();
         }
 
         public override void Move()
@@ -87,9 +92,9 @@ namespace GameTankCore
         /// <summary>
         /// Смищение к границам тайла
         /// </summary>
-        private bool offsetToBorderTile(Direction direction)
+        private bool offsetToBorderTile()
         {
-            switch (direction)
+            switch (Direction)
             {
                 case Direction.Left:
                     return OffsetToLeft();
