@@ -20,7 +20,7 @@ namespace GameTankCore
         private static int windowClientWidth = 31 * 20;
         private static int countLevel = 1;
         private static int timerInterval = 20;
-        private static int velostyPlainUserTank = 4;
+        private static int velostyPlainUserTank = 3;
         private static int velostyShellPlainUserTank = 6;
 
         public static int VelostyPlainUserTank { get { return velostyPlainUserTank; } }
