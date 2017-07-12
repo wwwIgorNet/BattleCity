@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    enum TypeCommand
+    public enum TypeCommand
     {
         Draw
     }

@@ -4,7 +4,7 @@ using System.Drawing;
 
 namespace SuperTank
 {
-    class Unit : IDisposable
+    public class Unit : IDisposable
     {
         private Rectangle boundingBox;
         private TypeUnit type;

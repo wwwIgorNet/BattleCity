@@ -1,6 +1,6 @@
 ﻿namespace SuperTank
 {
-    interface ICommand
+    public interface ICommand
     {
         void Execute();
     }

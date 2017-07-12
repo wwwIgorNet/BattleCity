@@ -50,6 +50,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Entity\TypeCommand.cs" />
     <Compile Include="Entity\ViewUnit.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="Images.cs" />
     <Compile Include="Interface\ICommand.cs" />
     <Compile Include="Entity\Invoker.cs" />
@@ -59,6 +60,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="IRender.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Entity\Unit.cs" />
     <Compile Include="Program.cs" />

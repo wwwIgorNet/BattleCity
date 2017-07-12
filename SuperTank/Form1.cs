@@ -10,24 +10,22 @@ using System.Windows.Forms;
 
 namespace SuperTank
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IRender
     {
         private readonly Timer timer = new Timer();
         private readonly List<ViewUnit> drowable = new List<ViewUnit>();
+        private readonly Factory factory;
 
+        public  List<ViewUnit> Drowable { get { return drowable; } }
 
         public Form1()
         {
             InitializeComponent();
             GraphicsOption();
             this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
+            factory = new Factory(this);
 
-
-            Invoker invoker = new Invoker();
-            Unit tank = new Unit(20, 300, Configuration.WidthTank, Configuration.HeigthTank, TypeUnit.PlainTank, invoker);
-            ViewUnit vu = new ViewUnit(tank, Images.PlainTankUp);
-            drowable.Add(vu);
-
+            factory.CreateUnit(TypeUnit.PlainTank);
 
             timer.Interval = Configuration.TimerInterval;
             timer.Tick += Timer_Tick;

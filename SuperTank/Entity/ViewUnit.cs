@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class ViewUnit
+    public class ViewUnit
     {
         private Unit unit;
         private Image img;

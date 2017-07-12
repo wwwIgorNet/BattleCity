@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SuperTank
 {
-    class Invoker
+    public class Invoker
     {
         private Dictionary<TypeCommand, ICommand> commands = new Dictionary<TypeCommand, ICommand>();
 
