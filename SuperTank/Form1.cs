@@ -14,9 +14,8 @@ namespace SuperTank
     {
         private readonly Timer timer = new Timer();
         private readonly List<ViewUnit> drowable = new List<ViewUnit>();
-        private readonly Factory factory;
-
-        public  List<ViewUnit> Drowable { get { return drowable; } }
+        private readonly IFactory factory;
+        private readonly Plaeyr plaeyr;
 
         public Form1()
         {
@@ -25,16 +24,16 @@ namespace SuperTank
             this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
             factory = new Factory(this);
 
-            factory.CreateUnit(TypeUnit.PlainTank);
+            plaeyr = new Plaeyr(
+            factory.CreateUnit(TypeUnit.PlainTank));
 
             timer.Interval = Configuration.TimerInterval;
             timer.Tick += Timer_Tick;
+            timer.Start();
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            this.Invalidate();
-        }
+        public List<ViewUnit> Drowable { get { return drowable; } }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -83,6 +82,11 @@ namespace SuperTank
         private void GraphicsOption()
         {
             base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            plaeyr.Update();
+            this.Invalidate();
         }
     }
 }

@@ -8,6 +8,6 @@ namespace SuperTank
 {
     public enum TypeCommand
     {
-        Draw
+        Move
     }
 }

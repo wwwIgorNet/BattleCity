@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class Factory
+    class Factory : IFactory
     {
         private IRender render;
 
@@ -22,6 +22,7 @@ namespace SuperTank
             {
                 Invoker invoker = new Invoker();
                 res = new Unit(20, 300, Configuration.WidthTank, Configuration.HeigthTank, TypeUnit.PlainTank, invoker);
+                invoker.AddCommand(TypeCommand.Move, new CommandMove(res, 3));
                 render.Drowable.Add(new ViewUnit(res, Images.PlainTankUp));
             }
             return res;
