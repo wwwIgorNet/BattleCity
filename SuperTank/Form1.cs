@@ -12,11 +12,37 @@ namespace SuperTank
 {
     public partial class Form1 : Form
     {
+        private readonly Timer timer = new Timer();
+        private readonly List<ViewUnit> drowable = new List<ViewUnit>();
+
+
         public Form1()
         {
             InitializeComponent();
+            GraphicsOption();
+            this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
+
+
+            Invoker invoker = new Invoker();
+            Unit tank = new Unit(20, 300, Configuration.WidthTank, Configuration.HeigthTank, TypeUnit.PlainTank, invoker);
+            ViewUnit vu = new ViewUnit(tank, Images.PlainTankUp);
+            drowable.Add(vu);
+
+
+            timer.Interval = Configuration.TimerInterval;
+            timer.Tick += Timer_Tick;
         }
 
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            this.Invalidate();
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            drowable.ForEach(item => item.Draw(g));
+        }
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -54,6 +80,11 @@ namespace SuperTank
                 Keyboard.Enter = false;
             else if (e.KeyCode == Keys.Escape)
                 Keyboard.Escape = false;
+        }
+
+        private void GraphicsOption()
+        {
+            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
     }
 }
