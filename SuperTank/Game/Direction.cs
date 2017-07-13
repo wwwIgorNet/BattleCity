@@ -1,4 +1,4 @@
-﻿namespace SuperTank.Command
+﻿namespace SuperTank
 {
     enum Direction
     {

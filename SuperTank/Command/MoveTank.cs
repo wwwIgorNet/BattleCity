@@ -19,31 +19,19 @@ namespace SuperTank.Command
         public override void Move(int spead)
         {
             base.Move(spead);
-            MoveColision(Velosity);
+            MoveColision();
         }
 
-        private void MoveColision(int spead)
+        private void MoveColision()
         {
-            if (scene.ColisionBoard(Unit))
-            {
-                base.Move(-spead);
-                MoveColision(spead - 1);
-            }
+            while (scene.ColisionBoard(Unit)) base.Move(-1);
+
             Unit colision = scene.Colision(Unit);
             if (colision != null && colision.Type != TypeUnit.Shell)
             {
-                base.Move(-spead);
-                Move(spead - 1, colision);
-            }
-        }
-
-        private void Move(int spead, Unit colision)
-        {
-            base.Move(spead);
-            if (Unit.BoundingBox.IntersectsWith(colision.BoundingBox))
-            {
-                base.Move(-spead);
-                Move(spead - 1, colision);
+                do {
+                    base.Move(-1);
+                } while (Unit.BoundingBox.IntersectsWith(colision.BoundingBox)) ;
             }
         }
     }

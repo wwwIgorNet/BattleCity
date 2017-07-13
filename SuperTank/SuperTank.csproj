@@ -61,7 +61,7 @@
     <Compile Include="Game\ConfigurationBase.cs" />
     <Compile Include="Command\MoveTank.cs" />
     <Compile Include="Command\MoveCommand.cs" />
-    <Compile Include="Command\Direction.cs" />
+    <Compile Include="Game\Direction.cs" />
     <Compile Include="Command\TypeCommand.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\SortedView.cs" />
