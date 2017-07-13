@@ -21,11 +21,11 @@ namespace SuperTank
             this.plaeyr = plaeyr;
         }
 
-        public void CreateLevel()
+        public void CreateLevel(int level)
         {
-            scene.Units.Clear();
+            scene.Clear();
 
-            string[] linesTileMap = File.ReadAllLines(ConfigurationGme.Maps + 1);
+            string[] linesTileMap = File.ReadAllLines(ConfigurationGme.Maps + level);
             int x = 0, y = 0;
             foreach (string line in linesTileMap)
             {
@@ -34,7 +34,7 @@ namespace SuperTank
                     switch (c)
                     {
                         case '#':
-                            scene.Units.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
+                            scene.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
                             break;
                     }
                     x += ConfigurationGme.WidthTile;
@@ -44,7 +44,7 @@ namespace SuperTank
             }
             plaeyr.Unit.X = 9 * ConfigurationGme.WidthTile;
             plaeyr.Unit.Y = ConfigurationGme.HeightBoard - ConfigurationGme.HeigthTank;
-            scene.Units.Add(plaeyr.Unit);
+            scene.Add(plaeyr.Unit);
         }
     }
 }

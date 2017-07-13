@@ -29,7 +29,7 @@ namespace SuperTank
             factoryUnit = new FactoryUnit(scene);
             plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.PlainTank));
             levelManager = new LevelManager(scene, factoryUnit, plaeyr);
-            scene.Units.CollectionChanged += Units_CollectionChanged;
+            scene.SceneChenges += render.SceneChangedHendler;
         }
 
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -39,23 +39,8 @@ namespace SuperTank
 
         public void Start()
         {
-            levelManager.CreateLevel();
+            levelManager.CreateLevel(1);
             timer.Start();
-        }
-
-        private void Units_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    for (int i = 0; i < e.NewItems.Count; i++)
-                        render.SceneChanged(new SceneEventArgs(TypeAction.Add, (Unit)e.NewItems[i]));
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    for (int i = 0; i < e.NewItems.Count; i++)
-                        render.SceneChanged(new SceneEventArgs(TypeAction.Remove, (Unit)e.NewItems[i]));
-                    break;
-            }
         }
     }
 }

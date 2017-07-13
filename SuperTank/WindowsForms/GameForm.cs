@@ -29,7 +29,7 @@ namespace SuperTank.WindowsForms
             timer.Start();
         }
 
-        public void SceneChanged(SceneEventArgs e)
+        public void SceneChangedHendler(SceneEventArgs e)
         {
             switch (e.Action)
             {
