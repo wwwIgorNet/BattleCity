@@ -46,15 +46,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Command\BaseCommand.cs" />
+    <Compile Include="Command\BaseDirectionCommand.cs" />
+    <Compile Include="FactoryViewUnit.cs" />
+    <Compile Include="Interface\IFactoryViewUnit.cs" />
+    <Compile Include="PropertiesType.cs" />
     <Compile Include="Scene.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Command\MoveTank.cs" />
-    <Compile Include="Command\Move.cs" />
+    <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\Direction.cs" />
     <Compile Include="Command\TypeCommand.cs" />
-    <Compile Include="Entity\ViewUnit.cs" />
-    <Compile Include="Factory.cs" />
-    <Compile Include="Interface\IFactory.cs" />
+    <Compile Include="View\BaseView.cs" />
+    <Compile Include="View\ViewDirectionUnit.cs" />
+    <Compile Include="View\ViewUnit.cs" />
+    <Compile Include="FactoryUnit.cs" />
+    <Compile Include="Interface\IFactoryUnit.cs" />
     <Compile Include="Images.cs" />
     <Compile Include="Command\ICommand.cs" />
     <Compile Include="Entity\Invoker.cs" />
@@ -121,7 +128,7 @@
     <Content Include="Content\Textures\PlainTankUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PplainTankRight.png">
+    <Content Include="Content\Textures\PlainTankRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\ShellDown.png">

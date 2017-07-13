@@ -6,16 +6,16 @@ namespace SuperTank
 {
     public class Invoker
     {
-        private Dictionary<TypeCommand, ICommand> commands = new Dictionary<TypeCommand, ICommand>();
+        private Dictionary<TypeCommand, Action> commands = new Dictionary<TypeCommand, Action>();
 
-        public void AddCommand(TypeCommand type, ICommand commant)
+        public void AddCommand(TypeCommand type, Action commant)
         {
             commands.Add(type, commant);
         }
 
         public void Handl(TypeCommand command)
         {
-            commands[command].Execute();
+            commands[command].Invoke();
         }
     }
 }

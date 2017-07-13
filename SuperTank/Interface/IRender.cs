@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using SuperTank.View;
+using System.Collections.Generic;
 
-namespace SuperTank
+namespace SuperTank.Interface
 {
     internal interface IRender
     {
-        List<ViewUnit> Drowable { get; }
+        List<BaseView> Drowable { get; }
     }
 }

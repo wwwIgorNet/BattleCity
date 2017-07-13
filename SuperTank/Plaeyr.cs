@@ -19,13 +19,17 @@ namespace SuperTank
         public void Update()
         {
             if (Keyboard.Right)
-                unit.Execute(TypeCommand.MoveRight);
+                unit.Execute(TypeCommand.TurnRight);
             else if (Keyboard.Left)
-                unit.Execute(TypeCommand.MoveLeft);
+                unit.Execute(TypeCommand.TurnLeft);
             else if (Keyboard.Up)
-                unit.Execute(TypeCommand.MoveUp);
+                unit.Execute(TypeCommand.TurnUp);
             else if (Keyboard.Down)
-                unit.Execute(TypeCommand.MoveDown);
+                unit.Execute(TypeCommand.TurnDown);
+            else
+                return;
+
+            unit.Execute(TypeCommand.Move);
         }
     }
 }

@@ -5,22 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperTank
+namespace SuperTank.View
 {
-    public class ViewUnit
+    public class ViewUnit : BaseView
     {
-        private Unit unit;
         private Image img;
 
         public ViewUnit(Unit unit, Image img)
+            : base (unit)
         {
-            this.unit = unit;
             this.img = img;
         }
 
-        public void Draw(Graphics g)
+        public override void Draw(Graphics g)
         {
-            g.DrawImage(img, unit.BoundingBox);
+            g.DrawImage(img, Unit.BoundingBox);
         }
     }
 }

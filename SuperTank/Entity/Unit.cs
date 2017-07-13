@@ -10,6 +10,7 @@ namespace SuperTank
         private Rectangle boundingBox;
         private TypeUnit type;
         private Invoker invoker;
+        private readonly Dictionary<PropertiesType, Object> properties = new Dictionary<PropertiesType, object>();
 
 
         public Unit(int x, int y, int width, int height, TypeUnit type, Invoker invoker)
@@ -42,7 +43,9 @@ namespace SuperTank
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
-        
+        public Dictionary<PropertiesType, Object> Properties { get { return properties; } }
+
+
         public void Execute(TypeCommand command)
         {
             invoker.Handl(command);

@@ -8,10 +8,11 @@ namespace SuperTank.Command
 {
     public enum TypeCommand
     {
-        MoveUp,
-        MoveDown,
-        MoveRight,
-        MoveLeft,
+        Move,
+        TurnUp,
+        TurnDown,
+        TurnRight,
+        TurnLeft,
         Fire
     }
 }

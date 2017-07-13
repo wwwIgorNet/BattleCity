@@ -2,6 +2,7 @@
 {
     public enum TypeUnit
     {
-        PlainTank
+        PlainTank,
+        Shell
     }
 }

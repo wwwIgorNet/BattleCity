@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SuperTank.Interface;
+using SuperTank.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,8 +15,9 @@ namespace SuperTank
     public partial class Form1 : Form, IRender
     {
         private readonly Timer timer = new Timer();
-        private readonly List<ViewUnit> drowable = new List<ViewUnit>();
-        private readonly IFactory factory;
+        private readonly List<BaseView> drowable = new List<BaseView>();
+        private readonly IFactoryUnit factoryUnit;
+        private readonly IFactoryViewUnit factoryViewUnit;
         private readonly Plaeyr plaeyr;
 
         public Form1()
@@ -22,17 +25,19 @@ namespace SuperTank
             InitializeComponent();
             GraphicsOption();
             this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
-            factory = new Factory(this);
+            factoryUnit = new FactoryUnit();
+            factoryViewUnit = new FactoryViewUnit(this);
 
-            plaeyr = new Plaeyr(
-            factory.CreateUnit(TypeUnit.PlainTank));
+            Unit unit = factoryUnit.Create(TypeUnit.PlainTank);
+            factoryViewUnit.Create(unit);
+            plaeyr = new Plaeyr(unit);
 
             timer.Interval = Configuration.TimerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        public List<ViewUnit> Drowable { get { return drowable; } }
+        public List<BaseView> Drowable { get { return drowable; } }
 
         protected override void OnPaint(PaintEventArgs e)
         {
