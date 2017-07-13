@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class ConfigurationGme : ConfigurationBase
+    public class ConfigurationGame : ConfigurationBase
     {
         private static int countLevel = 1;
         public static string Maps { get { return @"Content\Maps\"; } }

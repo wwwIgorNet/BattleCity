@@ -25,7 +25,7 @@ namespace SuperTank
         {
             scene.Clear();
 
-            string[] linesTileMap = File.ReadAllLines(ConfigurationGme.Maps + level);
+            string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
             int x = 0, y = 0;
             foreach (string line in linesTileMap)
             {
@@ -37,13 +37,13 @@ namespace SuperTank
                             scene.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
                             break;
                     }
-                    x += ConfigurationGme.WidthTile;
+                    x += ConfigurationGame.WidthTile;
                 }
                 x = 0;
-                y += ConfigurationGme.HeightTile;
+                y += ConfigurationGame.HeightTile;
             }
-            plaeyr.Unit.X = 9 * ConfigurationGme.WidthTile;
-            plaeyr.Unit.Y = ConfigurationGme.HeightBoard - ConfigurationGme.HeigthTank;
+            plaeyr.Unit.X = 9 * ConfigurationGame.WidthTile;
+            plaeyr.Unit.Y = ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank;
             scene.Add(plaeyr.Unit);
         }
     }

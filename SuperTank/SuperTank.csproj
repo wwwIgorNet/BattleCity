@@ -50,7 +50,7 @@
     <Compile Include="Command\BaseDirectionCommand.cs" />
     <Compile Include="Command\BaseOffsetCommand.cs" />
     <Compile Include="Command\CommandStop.cs" />
-    <Compile Include="Game\ConfigurationGme.cs" />
+    <Compile Include="Game\ConfigurationGame.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\IPlaeyr.cs" />
     <Compile Include="Game\IScene.cs" />

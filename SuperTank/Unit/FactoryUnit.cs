@@ -28,7 +28,7 @@ namespace SuperTank
                 case TypeUnit.Shell:
                     break;
                 case TypeUnit.BrickWall:
-                    res = new Unit(x, y, ConfigurationGme.WidthTile, ConfigurationGme.HeightTile, type);
+                    res = new Unit(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, type);
                     break;
             }
             return res;
@@ -37,8 +37,8 @@ namespace SuperTank
         private Unit CreatePlainTank(int x, int y)
         {
             Invoker invoker = new Invoker();
-            Unit tank = new Unit(x, y, ConfigurationGme.WidthTank, ConfigurationGme.HeigthTank, TypeUnit.PlainTank);
-            tank.Properties[PropertiesType.Velosity] = ConfigurationGme.VelostyPlainTank;
+            Unit tank = new Unit(x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PlainTank);
+            tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
             invoker.AddCommand(TypeCommand.TurnDown, () => tank.Properties[PropertiesType.Direction] = Direction.Down);
             invoker.AddCommand(TypeCommand.TurnUp, 

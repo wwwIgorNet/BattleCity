@@ -14,64 +14,45 @@ namespace SuperTank.Command
 
         public abstract void Execute();
 
-        protected bool OffsetToBorderTile()
+        protected void OffsetToBorderTile()
         {
             switch (Direction)
             {
                 case Direction.Left:
-                    return OffsetToLeft();
+                    Offset(false, Unit.X, ConfigurationGame.WidthTile);
+                    break;
                 case Direction.Up:
-                    return OffsetToUp();
+                    Offset(false, Unit.Y, ConfigurationGame.HeightTile);
+                    break;
                 case Direction.Right:
-                    return OffsetToRight();
+                    Offset(true, Unit.X, ConfigurationGame.WidthTile);
+                    break;
                 case Direction.Down:
-                    return OffsetToDown();
+                    Offset(true, Unit.Y, ConfigurationGame.HeightTile);
+                    break;
             }
-            return false;
         }
-        private bool OffsetToDown()
+        /// <summary>
+        /// Смешение к границе тайла для управляемости танка на поворотах (зазор всего в 1 пиксель не даст проехать)
+        /// </summary>
+        /// <param name="directionDownOrRight">
+        /// Если направление движения в низ или в право передайом true иначе false, штоб знать в какую сторону смещаться
+        /// </param>
+        /// <param name="coordXOrY">
+        /// Если направление движения в лево или в право передайом координату X иначе Y
+        /// </param>
+        /// <param name="sizeSide">
+        /// Если направление движения в лево или в право передайом координату WidhtTile иначе HeightTile
+        /// </param>
+        private void Offset(bool directionDownOrRight, int coordXOrY, int sizeSide)
         {
-            int offset = ConfigurationGme.HeightTile - Unit.Y % ConfigurationGme.HeightTile;
-            if (offset == ConfigurationGme.HeightTile)
-                return true;
+            int offset = coordXOrY % sizeSide;
+            if (offset == 0) return;
 
-            if (offset >= Velosity)
-                Move(Velosity);
+            if (directionDownOrRight) offset = sizeSide - offset;
+
+            if (offset >= Velosity) Move(Velosity);
             else Move(offset);
-            return false;
-        }
-        private bool OffsetToRight()
-        {
-            int offset = ConfigurationGme.WidthTile - Unit.X % ConfigurationGme.WidthTile;
-            if (offset == ConfigurationGme.WidthTile)
-                return true;
-
-            if (offset >= Velosity)
-                Move(Velosity);
-            else Move(offset);
-            return false;
-        }
-        private bool OffsetToUp()
-        {
-            int offset = Unit.Y % ConfigurationGme.HeightTile;
-            if (offset == 0)
-                return true;
-
-            if (offset >= Velosity)
-                Unit.Y -= Velosity;
-            else Unit.Y -= offset;
-            return false;
-        }
-        private bool OffsetToLeft()
-        {
-            int offset = Unit.X % ConfigurationGme.WidthTile;
-            if (offset == 0)
-                return true;
-
-            if (offset >= Velosity)
-                Unit.X -= Velosity;
-            else Unit.X -= offset;
-            return false;
         }
     }
 }

@@ -7,8 +7,8 @@ namespace SuperTank
     public class Scene : IScene
     {
         private readonly List<Unit> units = new List<Unit>();
-        private readonly int width = ConfigurationGme.WidthBoard;
-        private readonly int height = ConfigurationGme.HeightBoard;
+        private readonly int width = ConfigurationGame.WidthBoard;
+        private readonly int height = ConfigurationGame.HeightBoard;
 
         public event Action<SceneEventArgs> SceneChenges;
 

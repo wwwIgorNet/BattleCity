@@ -19,6 +19,7 @@ namespace SuperTank.Command
 
         public override void Move(int spead)
         {
+            Unit.Properties[PropertiesType.IsStop] = false;
             base.Move(spead);
             MoveColision();
         }

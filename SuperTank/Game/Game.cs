@@ -17,7 +17,7 @@ namespace SuperTank
 
         public Game(IRender render)
         {
-            timer.Interval = ConfigurationGme.TimerInterval;
+            timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
 
             IScene scene = new Scene();
