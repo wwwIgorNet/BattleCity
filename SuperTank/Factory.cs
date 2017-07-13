@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperTank.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +23,10 @@ namespace SuperTank
             {
                 Invoker invoker = new Invoker();
                 res = new Unit(20, 300, Configuration.WidthTank, Configuration.HeigthTank, TypeUnit.PlainTank, invoker);
-                invoker.AddCommand(TypeCommand.Move, new CommandMove(res, 3));
+                invoker.AddCommand(TypeCommand.MoveUp, new MoveTank(res, Configuration.VelostyPlainTank, Direction.Up));
+                invoker.AddCommand(TypeCommand.MoveDown, new MoveTank(res, Configuration.VelostyPlainTank, Direction.Down));
+                invoker.AddCommand(TypeCommand.MoveLeft, new MoveTank(res, Configuration.VelostyPlainTank, Direction.Left));
+                invoker.AddCommand(TypeCommand.MoveRight, new MoveTank(res, Configuration.VelostyPlainTank, Direction.Right));
                 render.Drowable.Add(new ViewUnit(res, Images.PlainTankUp));
             }
             return res;

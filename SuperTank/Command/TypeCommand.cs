@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperTank
+namespace SuperTank.Command
 {
     public enum TypeCommand
     {
-        Move
+        MoveUp,
+        MoveDown,
+        MoveRight,
+        MoveLeft,
+        Fire
     }
 }

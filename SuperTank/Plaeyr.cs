@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperTank.Command;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,14 @@ namespace SuperTank
 
         public void Update()
         {
-            unit.Execute(TypeCommand.Move);
+            if (Keyboard.Right)
+                unit.Execute(TypeCommand.MoveRight);
+            else if (Keyboard.Left)
+                unit.Execute(TypeCommand.MoveLeft);
+            else if (Keyboard.Up)
+                unit.Execute(TypeCommand.MoveUp);
+            else if (Keyboard.Down)
+                unit.Execute(TypeCommand.MoveDown);
         }
     }
 }

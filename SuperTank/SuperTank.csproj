@@ -46,15 +46,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Board.cs" />
+    <Compile Include="Scene.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Entity\CommandMove.cs" />
-    <Compile Include="Entity\TypeCommand.cs" />
+    <Compile Include="Command\MoveTank.cs" />
+    <Compile Include="Command\Move.cs" />
+    <Compile Include="Command\Direction.cs" />
+    <Compile Include="Command\TypeCommand.cs" />
     <Compile Include="Entity\ViewUnit.cs" />
     <Compile Include="Factory.cs" />
-    <Compile Include="IFactory.cs" />
+    <Compile Include="Interface\IFactory.cs" />
     <Compile Include="Images.cs" />
-    <Compile Include="Interface\ICommand.cs" />
+    <Compile Include="Command\ICommand.cs" />
     <Compile Include="Entity\Invoker.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -62,7 +64,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IRender.cs" />
+    <Compile Include="Interface\IRender.cs" />
     <Compile Include="Keyboard.cs" />
     <Compile Include="Entity\Unit.cs" />
     <Compile Include="Plaeyr.cs" />

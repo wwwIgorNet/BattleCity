@@ -1,4 +1,4 @@
-﻿namespace SuperTank
+﻿namespace SuperTank.Command
 {
     public interface ICommand
     {

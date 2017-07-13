@@ -20,10 +20,10 @@ namespace SuperTank
         private static int windowClientWidth = 31 * 20;
         private static int countLevel = 1;
         private static int timerInterval = 20;
-        private static int velostyPlainUserTank = 3;
+        private static int velostyPlainTank = 3;
         private static int velostyShellPlainUserTank = 6;
 
-        public static int VelostyPlainUserTank { get { return velostyPlainUserTank; } }
+        public static int VelostyPlainTank { get { return velostyPlainTank; } }
         public static int VelostyShellPlainUserTank { get { return velostyShellPlainUserTank; } }
         public static int HeightTile { get { return heightTile; } }
         public static int WidthTile { get { return widthTile; } }
