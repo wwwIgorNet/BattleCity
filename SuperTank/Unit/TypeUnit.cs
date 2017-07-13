@@ -3,6 +3,7 @@
     public enum TypeUnit
     {
         PlainTank,
-        Shell
+        Shell,
+        BrickWall
     }
 }

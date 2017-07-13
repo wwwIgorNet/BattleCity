@@ -1,6 +1,6 @@
 ﻿using SuperTank.View;
 
-namespace SuperTank.Interface
+namespace SuperTank
 {
     interface IFactoryViewUnit
     {

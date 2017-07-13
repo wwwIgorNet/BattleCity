@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class Plaeyr
+    class Plaeyr : IPlaeyr
     {
         private Unit unit;
 
@@ -15,6 +15,8 @@ namespace SuperTank
         {
             this.unit = unit;
         }
+
+        public Unit Unit { get { return unit; } }
 
         public void Update()
         {

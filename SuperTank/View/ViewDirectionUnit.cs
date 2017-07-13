@@ -17,7 +17,10 @@ namespace SuperTank.View
             this.imges = imges;
         }
 
-        protected Direction Direction { get { return (Direction)Unit.Properties[PropertiesType.Direction]; } }
+        protected Direction Direction
+        {
+            get { return (Direction)Unit.Properties[PropertiesType.Direction]; }
+        }
 
         public override void Draw(Graphics g)
         {

@@ -1,7 +1,7 @@
-﻿using SuperTank.Interface;
-using SuperTank.View;
+﻿using SuperTank.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -10,34 +10,38 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SuperTank
+namespace SuperTank.WindowsForms
 {
-    public partial class Form1 : Form, IRender
+    public partial class GameForm : Form, IRender
     {
         private readonly Timer timer = new Timer();
         private readonly List<BaseView> drowable = new List<BaseView>();
-        private readonly IFactoryUnit factoryUnit;
-        private readonly IFactoryViewUnit factoryViewUnit;
-        private readonly Plaeyr plaeyr;
+        private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
 
-        public Form1()
+        public GameForm()
         {
             InitializeComponent();
             GraphicsOption();
-            this.ClientSize = new Size(Configuration.WidthBoard, Configuration.HeightBoard);
-            factoryUnit = new FactoryUnit();
-            factoryViewUnit = new FactoryViewUnit(this);
+            this.ClientSize = new Size(ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
 
-            Unit unit = factoryUnit.Create(TypeUnit.PlainTank);
-            factoryViewUnit.Create(unit);
-            plaeyr = new Plaeyr(unit);
-
-            timer.Interval = Configuration.TimerInterval;
+            timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
         }
 
-        public List<BaseView> Drowable { get { return drowable; } }
+        public void SceneChanged(SceneEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case TypeAction.Add:
+                    BaseView view = factoryViewUnit.Create(e.Unit);
+                    if(view != null) drowable.Add(view);
+                    break;
+                case TypeAction.Remove:
+                    drowable.RemoveAll(u => u.Equals(e.Unit));
+                    break;
+            }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -90,7 +94,6 @@ namespace SuperTank
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
-            plaeyr.Update();
             this.Invalidate();
         }
     }

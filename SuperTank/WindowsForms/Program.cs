@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace SuperTank
+namespace SuperTank.WindowsForms
 {
     static class Program
     {
@@ -16,7 +16,10 @@ namespace SuperTank
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            GameForm render = new GameForm();
+            Game game = new Game(render);
+            game.Start();
+            Application.Run(render);
         }
     }
 }

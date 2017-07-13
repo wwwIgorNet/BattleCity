@@ -13,7 +13,7 @@ namespace SuperTank
             commands.Add(type, commant);
         }
 
-        public void Handl(TypeCommand command)
+        public void Execute(TypeCommand command)
         {
             commands[command].Invoke();
         }

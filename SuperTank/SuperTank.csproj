@@ -48,11 +48,17 @@
   <ItemGroup>
     <Compile Include="Command\BaseCommand.cs" />
     <Compile Include="Command\BaseDirectionCommand.cs" />
-    <Compile Include="FactoryViewUnit.cs" />
-    <Compile Include="Interface\IFactoryViewUnit.cs" />
-    <Compile Include="PropertiesType.cs" />
-    <Compile Include="Scene.cs" />
-    <Compile Include="Configuration.cs" />
+    <Compile Include="Game\ConfigurationGme.cs" />
+    <Compile Include="Game\Game.cs" />
+    <Compile Include="Game\IPlaeyr.cs" />
+    <Compile Include="Game\IScene.cs" />
+    <Compile Include="Game\LevelManager.cs" />
+    <Compile Include="View\ConfigurationView.cs" />
+    <Compile Include="View\FactoryViewUnit.cs" />
+    <Compile Include="View\IFactoryViewUnit.cs" />
+    <Compile Include="Unit\PropertiesType.cs" />
+    <Compile Include="Game\Scene.cs" />
+    <Compile Include="Game\ConfigurationBase.cs" />
     <Compile Include="Command\MoveTank.cs" />
     <Compile Include="Command\MoveCommand.cs" />
     <Compile Include="Command\Direction.cs" />
@@ -60,26 +66,26 @@
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\ViewDirectionUnit.cs" />
     <Compile Include="View\ViewUnit.cs" />
-    <Compile Include="FactoryUnit.cs" />
-    <Compile Include="Interface\IFactoryUnit.cs" />
-    <Compile Include="Images.cs" />
+    <Compile Include="Unit\FactoryUnit.cs" />
+    <Compile Include="Unit\IFactoryUnit.cs" />
+    <Compile Include="View\Images.cs" />
     <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Entity\Invoker.cs" />
-    <Compile Include="Form1.cs">
+    <Compile Include="Unit\Invoker.cs" />
+    <Compile Include="WindowsForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="WindowsForms\GameForm.Designer.cs">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface\IRender.cs" />
-    <Compile Include="Keyboard.cs" />
-    <Compile Include="Entity\Unit.cs" />
-    <Compile Include="Plaeyr.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="View\IRender.cs" />
+    <Compile Include="Game\Keyboard.cs" />
+    <Compile Include="Unit\Unit.cs" />
+    <Compile Include="Game\Plaeyr.cs" />
+    <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeUnit.cs" />
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="Unit\TypeUnit.cs" />
+    <EmbeddedResource Include="WindowsForms\GameForm.resx">
+      <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -90,6 +96,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Content\Maps\1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -101,7 +110,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="WindowsForms\App.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Textures\BrickWall.png">

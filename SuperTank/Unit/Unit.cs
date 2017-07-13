@@ -5,7 +5,7 @@ using System.Drawing;
 
 namespace SuperTank
 {
-    public class Unit : IDisposable
+    public class Unit
     {
         private Rectangle boundingBox;
         private TypeUnit type;
@@ -13,12 +13,10 @@ namespace SuperTank
         private readonly Dictionary<PropertiesType, Object> properties = new Dictionary<PropertiesType, object>();
 
 
-        public Unit(int x, int y, int width, int height, TypeUnit type, Invoker invoker)
+        public Unit(int x, int y, int width, int height, TypeUnit type)
         {
             boundingBox = new Rectangle(x, y, width, height);
             this.type = type;
-            this.invoker = invoker;
-            Scene.AlloObj.Add(this);
         }
 
         public int X
@@ -44,15 +42,17 @@ namespace SuperTank
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
         public Dictionary<PropertiesType, Object> Properties { get { return properties; } }
+        public Invoker Commands
+        {
+            get { return invoker; }
+            set { invoker = value; }
+        }
 
 
         public void Execute(TypeCommand command)
         {
-            invoker.Handl(command);
-        }
-        public virtual void Dispose()
-        {
-            Scene.AlloObj.Remove(this);
+            if (invoker!= null)
+                invoker.Execute(command);
         }
         public override bool Equals(object obj)
         {

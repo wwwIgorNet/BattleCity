@@ -1,6 +1,6 @@
-﻿namespace SuperTank
+﻿namespace SuperTank.WindowsForms
 {
-    partial class Form1
+    partial class GameForm
     {
         /// <summary>
         /// Required designer variable.

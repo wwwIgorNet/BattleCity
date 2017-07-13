@@ -1,5 +1,4 @@
-﻿using SuperTank.Interface;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +11,6 @@ namespace SuperTank
 {
     class FactoryViewUnit : IFactoryViewUnit
     {
-
-        private IRender render;
-
-        public FactoryViewUnit(IRender render)
-        {
-            this.render = render;
-        }
-
         public BaseView Create(Unit unit)
         {
             BaseView res = null;
@@ -37,10 +28,12 @@ namespace SuperTank
                     break;
                 case TypeUnit.Shell:
                     break;
+                case TypeUnit.BrickWall:
+                    res = new ViewUnit(unit, Images.BrickWall);
+                    break;
                 default:
                     return null;
             }
-            render.Drowable.Add(res);
             return res;
         }
     }

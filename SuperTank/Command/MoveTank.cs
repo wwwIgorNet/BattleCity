@@ -8,9 +8,12 @@ namespace SuperTank.Command
 {
     class MoveTank : MoveCommand
     {
-        public MoveTank(Unit unit)
+        private IScene scene;
+
+        public MoveTank(Unit unit, IScene scene)
             : base(unit)
         {
+            this.scene = scene;
         }
 
         public override void Move(int spead)
@@ -21,12 +24,12 @@ namespace SuperTank.Command
 
         private void MoveColision(int spead)
         {
-            if (Scene.ColisionBoard(Unit))
+            if (scene.ColisionBoard(Unit))
             {
                 base.Move(-spead);
                 MoveColision(spead - 1);
             }
-            Unit colision = Scene.Colision(Unit);
+            Unit colision = scene.Colision(Unit);
             if (colision != null && colision.Type != TypeUnit.Shell)
             {
                 base.Move(-spead);

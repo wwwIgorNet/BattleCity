@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public static class Configuration
+    public class ConfigurationBase
     {
+        protected ConfigurationBase() { }
+
         private static int heightTile = 20;
         private static int widthTile = 20;
         private static int heightTank = 40;
@@ -18,7 +20,6 @@ namespace SuperTank
         private static int widthBoard = 26 * 20;
         private static int windowClientHeight = 28 * 20;
         private static int windowClientWidth = 31 * 20;
-        private static int countLevel = 1;
         private static int timerInterval = 20;
         private static int velostyPlainTank = 3;
         private static int velostyShellPlainUserTank = 6;
@@ -35,12 +36,6 @@ namespace SuperTank
         public static int WidthBoard { get { return widthBoard; } }
         public static int WindowClientHeight { get { return windowClientHeight; } }
         public static int WindowClientWidth { get { return windowClientWidth; } }
-        /// <summary>
-        /// Количество уровней
-        /// </summary>
-        public static int CountLevel { get { return countLevel; } }
         public static int TimerInterval { get { return timerInterval; } }
-        public static string Texture { get { return @"Content\Textures\"; } }
-        public static string Maps { get { return @"Content\Maps\"; } }
     }
 }
