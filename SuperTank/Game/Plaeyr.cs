@@ -29,8 +29,11 @@ namespace SuperTank
             else if (Keyboard.Down)
                 unit.Execute(TypeCommand.TurnDown);
             else
+            {
+                unit.Execute(TypeCommand.Stop);
                 return;
-
+            }
+            
             unit.Execute(TypeCommand.Move);
         }
     }

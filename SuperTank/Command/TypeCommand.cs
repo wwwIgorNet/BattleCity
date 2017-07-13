@@ -13,6 +13,7 @@ namespace SuperTank.Command
         TurnDown,
         TurnRight,
         TurnLeft,
-        Fire
+        Fire,
+        Stop
     }
 }

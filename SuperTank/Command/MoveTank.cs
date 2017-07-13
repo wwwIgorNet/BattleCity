@@ -14,12 +14,19 @@ namespace SuperTank.Command
             : base(unit)
         {
             this.scene = scene;
+            IsParcing = true;
         }
 
         public override void Move(int spead)
         {
             base.Move(spead);
             MoveColision();
+        }
+
+        private bool IsParcing
+        {
+            get { return (Boolean)Unit.Properties[PropertiesType.IsStop]; }
+            set { Unit.Properties[PropertiesType.IsStop] = value; }
         }
 
         private void MoveColision()

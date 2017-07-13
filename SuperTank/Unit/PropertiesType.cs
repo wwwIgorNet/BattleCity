@@ -9,6 +9,7 @@ namespace SuperTank
     public enum PropertiesType
     {
         Velosity,
-        Direction
+        Direction,
+        IsStop
     }
 }

@@ -45,6 +45,7 @@ namespace SuperTank
                 () => tank.Properties[PropertiesType.Direction] = Direction.Up);
             invoker.AddCommand(TypeCommand.TurnLeft, () => tank.Properties[PropertiesType.Direction] = Direction.Left);
             invoker.AddCommand(TypeCommand.TurnRight, () => tank.Properties[PropertiesType.Direction] = Direction.Right);
+            invoker.AddCommand(TypeCommand.Stop, new CommandStop(tank).Execute);
             invoker.AddCommand(TypeCommand.Move, new MoveTank(tank, scene).Execute);
             tank.Execute(TypeCommand.TurnUp);
             tank.Commands = invoker;
