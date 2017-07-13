@@ -58,10 +58,10 @@ namespace SuperTank
         {
             if (obj == null)
                 return false;
-            Unit tmp = obj as Unit;
-            if (tmp == null)
+            Unit unit = obj as Unit;
+            if (unit == null)
                 return false;
-            return Type.Equals(tmp.Type) && BoundingBox.Equals(tmp.BoundingBox);
+            return Type.Equals(unit.Type) && BoundingBox.Equals(unit.BoundingBox);
         }
     }
 }

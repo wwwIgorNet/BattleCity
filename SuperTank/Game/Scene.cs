@@ -1,35 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SuperTank
 {
     public class Scene : IScene
     {
-        private readonly ObservableCollection<Unit> units = new ObservableCollection<Unit>();
+        private readonly List<Unit> units = new List<Unit>();
         private readonly int width = ConfigurationGme.WidthBoard;
         private readonly int height = ConfigurationGme.HeightBoard;
-
-        public Scene()
-        {
-            units.CollectionChanged += Units_CollectionChanged;
-        }
-
-        private void Units_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Add:
-                    if (SceneChenges != null)
-                        for (int i = 0; i < e.NewItems.Count; i++)
-                            SceneChenges.Invoke(new SceneEventArgs(TypeAction.Add, (Unit)e.NewItems[i]));
-                    break;
-                case System.Collections.Specialized.NotifyCollectionChangedAction.Remove:
-                    if (SceneChenges != null)
-                        for (int i = 0; i < e.NewItems.Count; i++)
-                            SceneChenges.Invoke(new SceneEventArgs(TypeAction.Remove, (Unit)e.NewItems[i]));
-                    break;
-            }
-        }
 
         public event Action<SceneEventArgs> SceneChenges;
 
@@ -39,6 +18,7 @@ namespace SuperTank
         public void Clear()
         {
             units.Clear();
+            OnSceneChenges(new SceneEventArgs(TypeAction.Clear, null));
         }
         public Unit Colision(Unit unit)
         {
@@ -69,10 +49,18 @@ namespace SuperTank
         public void Add(Unit unit)
         {
             units.Add(unit);
+            OnSceneChenges(new SceneEventArgs(TypeAction.Add, unit));
         }
         public void Remove(Unit unit)
         {
             units.Remove(unit);
+            OnSceneChenges(new SceneEventArgs(TypeAction.Remove, unit));
+        }
+
+        protected void OnSceneChenges(SceneEventArgs e)
+        {
+            if (SceneChenges != null)
+                SceneChenges.Invoke(e);
         }
     }
 }

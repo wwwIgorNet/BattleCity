@@ -1,5 +1,6 @@
 ﻿using SuperTank.View;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -15,7 +16,7 @@ namespace SuperTank.WindowsForms
     public partial class GameForm : Form, IRender
     {
         private readonly Timer timer = new Timer();
-        private readonly List<BaseView> drowable = new List<BaseView>();
+        private readonly SortedView drowable = new SortedView();
         private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
 
         public GameForm()
@@ -23,7 +24,6 @@ namespace SuperTank.WindowsForms
             InitializeComponent();
             GraphicsOption();
             this.ClientSize = new Size(ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
-
             timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -38,7 +38,10 @@ namespace SuperTank.WindowsForms
                     if(view != null) drowable.Add(view);
                     break;
                 case TypeAction.Remove:
-                    drowable.RemoveAll(u => u.Equals(e.Unit));
+                    drowable.Remove(v => v.Equals(e.Unit));
+                    break;
+                case TypeAction.Clear:
+                    drowable.Clear();
                     break;
             }
         }
@@ -47,7 +50,7 @@ namespace SuperTank.WindowsForms
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
-            drowable.ForEach(item => item.Draw(g));
+            drowable.DrowAll(g);
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -95,6 +98,11 @@ namespace SuperTank.WindowsForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             this.Invalidate();
+        }
+
+        public int Compare(object x, object y)
+        {
+            throw new NotImplementedException();
         }
     }
 }

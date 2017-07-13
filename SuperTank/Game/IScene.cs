@@ -35,6 +35,7 @@ namespace SuperTank
     public enum TypeAction
     {
         Add,
-        Remove
+        Remove,
+        Clear
     }
 }
