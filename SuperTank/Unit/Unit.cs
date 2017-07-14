@@ -9,7 +9,7 @@ namespace SuperTank
     {
         private Rectangle boundingBox;
         private TypeUnit type;
-        private Invoker invoker;
+        private Invoker invoker = new Invoker();
         private readonly Dictionary<PropertiesType, Object> properties = new Dictionary<PropertiesType, object>();
 
 
@@ -51,7 +51,6 @@ namespace SuperTank
 
         public void Execute(TypeCommand command)
         {
-            if (invoker!= null)
                 invoker.Execute(command);
         }
         public override bool Equals(object obj)

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SuperTank.Command
 {
-    class MoveCommand : BaseDirectionCommand
+    abstract class CommandMove : BaseDirectionCommand
     {
-        public MoveCommand(Unit unit)
+        public CommandMove(Unit unit)
             : base(unit)
         {
         }
@@ -36,10 +36,6 @@ namespace SuperTank.Command
                     Unit.X -= spead;
                     break;
             }
-        }
-        public override void Execute()
-        {
-            Move(Velosity);
         }
     }
 }

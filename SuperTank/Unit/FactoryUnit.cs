@@ -1,4 +1,5 @@
 ﻿using SuperTank.Command;
+using SuperTank.Updatable;
 using SuperTank.View;
 using System;
 using System.Collections.Generic;
@@ -26,28 +27,39 @@ namespace SuperTank
                     res = CreatePlainTank(x, y);
                     break;
                 case TypeUnit.Shell:
+                    res = CreateShell(x, y);
                     break;
                 case TypeUnit.BrickWall:
-                    res = new Unit(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, type);
+                    res = CreateBrickWall(x, y);
                     break;
             }
             return res;
         }
 
+        private Unit CreateBrickWall(int x, int y)
+        {
+            Unit res = new Unit(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall);
+            return res;
+        }
+
+        private Unit CreateShell(int x, int y)
+        {
+            Unit shell = new Unit(x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
+            return shell;
+        }
+
         private Unit CreatePlainTank(int x, int y)
         {
-            Invoker invoker = new Invoker();
             Unit tank = new Unit(x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PlainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
-            invoker.AddCommand(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down).Execute);
-            invoker.AddCommand(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up).Execute);
-            invoker.AddCommand(TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left).Execute);
-            invoker.AddCommand(TypeCommand.TurnRight, new CommandTurn(tank, Direction.Right).Execute);
-            invoker.AddCommand(TypeCommand.Stop, new CommandStop(tank).Execute);
-            invoker.AddCommand(TypeCommand.Move, new MoveTank(tank, scene).Execute);
-            tank.Execute(TypeCommand.TurnUp);
-            tank.Commands = invoker;
+            tank.Commands.AddCommand(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down).Execute);
+            tank.Commands.AddCommand(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up).Execute);
+            tank.Commands.AddCommand(TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left).Execute);
+            tank.Commands.AddCommand(TypeCommand.TurnRight, new CommandTurn(tank, Direction.Right).Execute);
+            tank.Commands.AddCommand(TypeCommand.Stop, new CommandStop(tank).Execute);
+            tank.Commands.AddCommand(TypeCommand.Move, new CommandMoveTank(tank, scene).Execute);
+            tank.Commands.AddCommand(TypeCommand.Fire, new CommandFire(tank, this, scene, ConfigurationGame.VelostyShellPlainTank).Execute);
             return tank;
         }
     }

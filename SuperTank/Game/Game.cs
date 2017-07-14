@@ -11,25 +11,36 @@ namespace SuperTank
 {
     public class Game
     {
+        private static readonly Timer timer = new Timer();
+        private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
+
         public readonly IPlaeyr plaeyr;
-        private readonly Timer timer = new Timer();
         private readonly LevelManager levelManager;
 
-        public Game(IRender render)
+        static Game()
         {
             timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
+        }
 
+        public Game(IRender render)
+        {
             IScene scene = new Scene();
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
             plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.PlainTank));
+            Updatable.Add(plaeyr);
             levelManager = new LevelManager(scene, factoryUnit, plaeyr);
             scene.SceneChenges += render.SceneChangedHendler;
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        public static List<IUpdatable> Updatable { get { return updatable; } }
+
+        private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            plaeyr.Update();
+            for (int i = 0; i < Updatable.Count; i++)
+            {
+                Updatable[i].Update();
+            }
         }
 
         public void Start()

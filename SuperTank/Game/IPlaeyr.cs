@@ -1,8 +1,7 @@
 ﻿namespace SuperTank
 {
-    public interface IPlaeyr
+    public interface IPlaeyr: IUpdatable
     {
         Unit Unit { get; }
-        void Update();
     }
 }

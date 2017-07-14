@@ -10,6 +10,7 @@ namespace SuperTank
     {
         Velosity,
         Direction,
-        IsStop
+        IsStop,
+        Owner
     }
 }

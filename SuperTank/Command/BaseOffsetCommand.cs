@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace SuperTank.Command
 {
-    abstract class BaseOffsetCommand : MoveCommand
+    abstract class BaseOffsetCommand : CommandMove
     {
         public BaseOffsetCommand(Unit unit) : base(unit)
         {
         }
-
-        public abstract void Execute();
 
         protected bool OffsetToBorderTile()
         {

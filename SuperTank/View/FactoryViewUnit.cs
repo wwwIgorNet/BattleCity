@@ -14,25 +14,32 @@ namespace SuperTank
         public BaseView Create(Unit unit)
         {
             BaseView res = null;
+            Dictionary<Direction, Image> images;
             switch (unit.Type)
             {
                 case TypeUnit.PlainTank:
-                    Dictionary<Direction, Image> imges = new Dictionary<Direction, Image>
+                    images = new Dictionary<Direction, Image>
                     {
                         {Direction.Up, Images.PlainTankUp },
                         {Direction.Down, Images.PlainTankDown },
                         {Direction.Left, Images.PlainTankLeft },
                         {Direction.Right, Images.PlainTankRight }
                     };
-                    res = new ViewDirectionUnit(unit, imges);
+                    res = new ViewDirectionUnit(unit, images);
                     break;
                 case TypeUnit.Shell:
+                    images = new Dictionary<Direction, Image>
+                    {
+                        {Direction.Up, Images.ShellUp },
+                        {Direction.Down, Images.ShellDown },
+                        {Direction.Left, Images.ShellLeft },
+                        {Direction.Right, Images.ShellRight }
+                    };
+                    res = new ViewDirectionUnit(unit, images);
                     break;
                 case TypeUnit.BrickWall:
                     res = new ViewUnit(unit, Images.BrickWall);
                     break;
-                default:
-                    return null;
             }
             return res;
         }

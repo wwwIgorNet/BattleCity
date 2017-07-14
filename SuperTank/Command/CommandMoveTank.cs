@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SuperTank.Command
 {
-    class MoveTank : MoveCommand
+    class CommandMoveTank : CommandMove
     {
         private IScene scene;
 
-        public MoveTank(Unit unit, IScene scene)
+        public CommandMoveTank(Unit unit, IScene scene)
             : base(unit)
         {
             this.scene = scene;
@@ -41,6 +41,11 @@ namespace SuperTank.Command
                     base.Move(-1);
                 } while (Unit.BoundingBox.IntersectsWith(colision.BoundingBox)) ;
             }
+        }
+
+        public override void Execute()
+        {
+            Move(Velosity);
         }
     }
 }

@@ -36,18 +36,18 @@
       <FileName>Command\CommandTurn.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SuperTank.Command.MoveCommand" Collapsed="true">
+  <Class Name="SuperTank.Command.CommandMove" Collapsed="true">
     <Position X="2.75" Y="3.5" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Command\MoveCommand.cs</FileName>
+      <FileName>Command\CommandMove.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="SuperTank.Command.MoveTank" Collapsed="true">
+  <Class Name="SuperTank.Command.CommandMoveTank" Collapsed="true">
     <Position X="1.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAIAAAAAAAAAAAIAAAAAAAEAAAAAIAAAAAAA=</HashCode>
-      <FileName>Command\MoveTank.cs</FileName>
+      <FileName>Command\CommandMoveTank.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="SuperTank.Invoker" Collapsed="true">

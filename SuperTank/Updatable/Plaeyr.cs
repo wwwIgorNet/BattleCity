@@ -20,6 +20,9 @@ namespace SuperTank
 
         public void Update()
         {
+            if (Keyboard.Space)
+                Unit.Execute(TypeCommand.Fire);
+
             Direction carentDirection;
             if (Keyboard.Right)
                 carentDirection = Direction.Right;
