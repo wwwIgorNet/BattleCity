@@ -49,6 +49,7 @@
     <Compile Include="Command\BaseCommand.cs" />
     <Compile Include="Command\BaseDirectionCommand.cs" />
     <Compile Include="Command\BaseOffsetCommand.cs" />
+    <Compile Include="Command\CommandTurn.cs" />
     <Compile Include="Command\CommandStop.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />
     <Compile Include="Game\Game.cs" />
@@ -99,6 +100,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="ClassDiagramCommand.cd" />
     <None Include="Content\Maps\1">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

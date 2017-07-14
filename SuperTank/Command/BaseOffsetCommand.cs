@@ -14,23 +14,25 @@ namespace SuperTank.Command
 
         public abstract void Execute();
 
-        protected void OffsetToBorderTile()
+        protected bool OffsetToBorderTile()
         {
+            bool res = false;
             switch (Direction)
             {
                 case Direction.Left:
-                    Offset(false, Unit.X, ConfigurationGame.WidthTile);
+                    res = Offset(false, Unit.X, ConfigurationGame.WidthTile);
                     break;
                 case Direction.Up:
-                    Offset(false, Unit.Y, ConfigurationGame.HeightTile);
+                    res = Offset(false, Unit.Y, ConfigurationGame.HeightTile);
                     break;
                 case Direction.Right:
-                    Offset(true, Unit.X, ConfigurationGame.WidthTile);
+                    res = Offset(true, Unit.X, ConfigurationGame.WidthTile);
                     break;
                 case Direction.Down:
-                    Offset(true, Unit.Y, ConfigurationGame.HeightTile);
+                    res = Offset(true, Unit.Y, ConfigurationGame.HeightTile);
                     break;
             }
+            return res;
         }
         /// <summary>
         /// Смешение к границе тайла для управляемости танка на поворотах (зазор всего в 1 пиксель не даст проехать)
@@ -44,15 +46,19 @@ namespace SuperTank.Command
         /// <param name="sizeSide">
         /// Если направление движения в лево или в право передайом координату WidhtTile иначе HeightTile
         /// </param>
-        private void Offset(bool directionDownOrRight, int coordXOrY, int sizeSide)
+        /// <returns>
+        /// Если смищение == 0 return true else false
+        /// </returns>
+        private bool Offset(bool directionDownOrRight, int coordXOrY, int sizeSide)
         {
             int offset = coordXOrY % sizeSide;
-            if (offset == 0) return;
+            if (offset == 0) return true;
 
             if (directionDownOrRight) offset = sizeSide - offset;
 
             if (offset >= Velosity) Move(Velosity);
             else Move(offset);
+            return false;
         }
     }
 }

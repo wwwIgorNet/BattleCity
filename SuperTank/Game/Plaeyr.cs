@@ -20,21 +20,42 @@ namespace SuperTank
 
         public void Update()
         {
+            Direction carentDirection;
             if (Keyboard.Right)
-                unit.Execute(TypeCommand.TurnRight);
+                carentDirection = Direction.Right;
             else if (Keyboard.Left)
-                unit.Execute(TypeCommand.TurnLeft);
+                carentDirection = Direction.Left;
             else if (Keyboard.Up)
-                unit.Execute(TypeCommand.TurnUp);
+                carentDirection = Direction.Up;
             else if (Keyboard.Down)
-                unit.Execute(TypeCommand.TurnDown);
+                carentDirection = Direction.Down;
             else
             {
                 unit.Execute(TypeCommand.Stop);
                 return;
             }
-            
-            unit.Execute(TypeCommand.Move);
+
+            if ((Direction)Unit.Properties[PropertiesType.Direction] != carentDirection)
+            {
+
+                switch (carentDirection)
+                {
+                    case Direction.Up:
+                        unit.Execute(TypeCommand.TurnUp);
+                        break;
+                    case Direction.Right:
+                        unit.Execute(TypeCommand.TurnRight);
+                        break;
+                    case Direction.Down:
+                        unit.Execute(TypeCommand.TurnDown);
+                        break;
+                    case Direction.Left:
+                        unit.Execute(TypeCommand.TurnLeft);
+                        break;
+                }
+            }
+            else
+                unit.Execute(TypeCommand.Move);
         }
     }
 }
