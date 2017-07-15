@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 
 namespace SuperTank
 {
@@ -58,30 +59,19 @@ namespace SuperTank
             switch (unit.Type)
             {
                 case TypeUnit.PlainTank:
+                    sceneEventArgs.Properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
+                    sceneEventArgs.Properties[PropertiesType.IsStop] = unit.Properties[PropertiesType.IsStop];
+                    break;
                 case TypeUnit.Shell:
                     sceneEventArgs.Properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     break;
             }
 
             OnSceneChenges(sceneEventArgs);
-            unit.PropertyChenged += UnitChenged;
-        }
-        public void Remove(Unit unit)
-        {
-            units.Remove(unit);
-            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Remove);
-            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
-            OnSceneChenges(sceneEventArgs);
-            unit.PropertyChenged -= UnitChenged;
+            unit.PropertyChanged += Unit_PropertyChanged;
         }
 
-        protected void OnSceneChenges(SceneEventArgs e)
-        {
-            if (SceneChenges != null)
-                SceneChenges.Invoke(e);
-        }
-
-        public void UnitChenged(int id, PropertiesType type, object value)
+        private void Unit_PropertyChanged(int id, PropertiesType type, object value)
         {
             SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Update);
             sceneEventArgs.Properties[PropertiesType.ID] = id;
@@ -89,6 +79,21 @@ namespace SuperTank
             sceneEventArgs.Properties[PropertiesType.TypeUpdate] = type;
 
             OnSceneChenges(sceneEventArgs);
+        }
+
+        public void Remove(Unit unit)
+        {
+            units.Remove(unit);
+            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Remove);
+            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
+            OnSceneChenges(sceneEventArgs);
+            unit.PropertyChanged -= Unit_PropertyChanged;
+        }
+
+        protected void OnSceneChenges(SceneEventArgs e)
+        {
+            if (SceneChenges != null)
+                SceneChenges.Invoke(e);
         }
     }
 }

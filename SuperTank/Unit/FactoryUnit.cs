@@ -54,6 +54,7 @@ namespace SuperTank
             Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PlainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
+            tank.Properties[PropertiesType.IsStop] = true;
             tank.Commands.AddCommand(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down).Execute);
             tank.Commands.AddCommand(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up).Execute);
             tank.Commands.AddCommand(TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left).Execute);

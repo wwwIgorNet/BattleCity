@@ -16,7 +16,6 @@ namespace SuperTank
         void Clear();
         Unit Colision(Unit unit);
         bool ColisionBoard(Unit unit);
-        void UnitChenged(int id, PropertiesType type, object value);
     }
 
     public class SceneEventArgs

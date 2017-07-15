@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Drawing;
 
 namespace SuperTank
@@ -22,7 +23,8 @@ namespace SuperTank
             properties = new PropertiesUnit(this);
         }
 
-        public event Action<int, PropertiesType, object> PropertyChenged;
+        public event Action<int, PropertiesType, object> PropertyChanged;
+
         public int ID { get { return id; } }
         public int X
         {
@@ -63,12 +65,12 @@ namespace SuperTank
 
         public void Execute(TypeCommand command)
         {
-                invoker.Execute(command);
+            invoker.Execute(command);
         }
         protected void OnPropertyChenges(PropertiesType type, Object value)
         {
-            if (PropertyChenged != null)
-                PropertyChenged.Invoke(ID, type, value);
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(ID, type, value);
         }
         public override bool Equals(object obj)
         {

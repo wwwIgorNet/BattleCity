@@ -42,6 +42,9 @@ namespace SuperTank.WindowsForms
                     switch ((TypeUnit)e.Properties[PropertiesType.TypeUnit])
                     {
                         case TypeUnit.PlainTank:
+                            view.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
+                            view.Properties[PropertiesType.IsStop] = e.Properties[PropertiesType.IsStop];
+                            break;
                         case TypeUnit.Shell:
                             view.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
                             break;
@@ -59,7 +62,8 @@ namespace SuperTank.WindowsForms
                     switch ((PropertiesType)e.Properties[PropertiesType.TypeUpdate])
                     {
                         case PropertiesType.Direction:
-                            viewUpdate.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
+                        case PropertiesType.IsStop:
+                            viewUpdate.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]] = e.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]];
                             break;
                         case PropertiesType.X:
                             viewUpdate.X = (int)e.Properties[PropertiesType.X];

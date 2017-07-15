@@ -28,11 +28,25 @@ namespace SuperTank.View
                 return Validate(plainTankUp, "PlainTankUp.png");
             }
         }
+        public static Image PlainTankUp2
+        {
+            get
+            {
+                return Validate(plainTankUp, "PlainTankUp2.png");
+            }
+        }
         public static Image PlainTankDown
         {
             get
             {
                 return Validate(plainTankDown, "PlainTankDown.png");
+            }
+        }
+        public static Image PlainTankDown2
+        {
+            get
+            {
+                return Validate(plainTankDown, "PlainTankDown2.png");
             }
         }
         public static Image PlainTankLeft
@@ -42,11 +56,25 @@ namespace SuperTank.View
                 return Validate(plainTankLeft, "PlainTankLeft.png");
             }
         }
+        public static Image PlainTankLeft2
+        {
+            get
+            {
+                return Validate(plainTankLeft, "PlainTankLeft2.png");
+            }
+        }
         public static Image PlainTankRight
         {
             get
             {
                 return Validate(plainTankRight, "PlainTankRight.png");
+            }
+        }
+        public static Image PlainTankRight2
+        {
+            get
+            {
+                return Validate(plainTankRight, "PlainTankRight2.png");
             }
         }
         public static Image BrickWall

@@ -72,6 +72,7 @@
     <Compile Include="Game\Direction.cs" />
     <Compile Include="Command\TypeCommand.cs" />
     <Compile Include="View\SortedView.cs" />
+    <Compile Include="View\ViewAnimationDirectionUnit.cs" />
     <Compile Include="View\ViewDirectionUnit.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />
@@ -125,16 +126,16 @@
     <Content Include="Content\Textures\BrickWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankDown_2.png">
+    <Content Include="Content\Textures\PlainTankDown2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankLeft_2.png">
+    <Content Include="Content\Textures\PlainTankLeft2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankRight_2.png">
+    <Content Include="Content\Textures\PlainTankRight2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankPlayerUp_2.png">
+    <Content Include="Content\Textures\PlainTankUp2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\PlainTankDown.png">

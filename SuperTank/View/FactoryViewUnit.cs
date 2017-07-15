@@ -42,14 +42,18 @@ namespace SuperTank
         }
         private BaseView CreateViewPlainTank(int id, float x, float y)
         {
-            Dictionary<Direction, Image> images = new Dictionary<Direction, Image>
+            Dictionary<Direction, Image[]> images = new Dictionary<Direction, Image[]>
                     {
-                        {Direction.Up, Images.PlainTankUp },
-                        {Direction.Down, Images.PlainTankDown },
-                        {Direction.Left, Images.PlainTankLeft },
-                        {Direction.Right, Images.PlainTankRight }
+                        {Direction.Up, new []
+                        { Images.PlainTankUp, Images.PlainTankUp2 } },
+                        {Direction.Down, new []
+                        { Images.PlainTankDown, Images.PlainTankDown2 } },
+                        {Direction.Left, new [] 
+                        { Images.PlainTankLeft, Images.PlainTankLeft2 } },
+                        {Direction.Right,new []
+                        { Images.PlainTankRight, Images.PlainTankRight2 } }
                     };
-            return new ViewDirectionUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images);
+            return new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
         }
     }
 }
