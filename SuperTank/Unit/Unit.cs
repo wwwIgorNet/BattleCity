@@ -1,5 +1,6 @@
 ﻿using SuperTank.Command;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -31,8 +32,11 @@ namespace SuperTank
             get { return boundingBox.X; }
             set
             {
-                boundingBox.X = value;
-                OnPropertyChenges(PropertiesType.X, value);
+                if (boundingBox.X != value)
+                {
+                    boundingBox.X = value;
+                    OnPropertyChenges(PropertiesType.X, value);
+                }
             }
         }
         public int Y
@@ -40,8 +44,11 @@ namespace SuperTank
             get { return boundingBox.Y; }
             set
             {
-                boundingBox.Y = value;
-                OnPropertyChenges(PropertiesType.Y, value);
+                if (boundingBox.Y != value)
+                {
+                    boundingBox.Y = value;
+                    OnPropertyChenges(PropertiesType.Y, value);
+                }
             }
         }
         public int Width
@@ -56,7 +63,7 @@ namespace SuperTank
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
-        public PropertiesUnit Properties { get { return properties; } }
+        public IDictionary<PropertiesType, object> Properties { get { return properties; } }
         public Invoker Commands
         {
             get { return invoker; }
@@ -82,7 +89,7 @@ namespace SuperTank
             return unit.ID.Equals(ID) && Type.Equals(unit.Type) && BoundingBox.Equals(unit.BoundingBox);
         }
 
-        public class PropertiesUnit : Dictionary<PropertiesType, object>
+        private class PropertiesUnit : Dictionary<PropertiesType, object>, IDictionary<PropertiesType, object>
         {
             private Unit unit;
 
@@ -99,8 +106,13 @@ namespace SuperTank
                 }
                 set
                 {
-                    base[key] = value;
-                    unit.OnPropertyChenges(key, value);
+                    object obj;
+                    unit.Properties.TryGetValue(key, out obj);
+                    if (value != obj)
+                    {
+                        base[key] = value;
+                        unit.OnPropertyChenges(key, value);
+                    }
                 }
             }
         }
