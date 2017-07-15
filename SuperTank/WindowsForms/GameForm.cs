@@ -16,7 +16,7 @@ namespace SuperTank.WindowsForms
     public partial class GameForm : Form, IRender
     {
         private readonly Timer timer = new Timer();
-        private readonly SortedView drowable = new SortedView();
+        private readonly SortedView listDrowable = new SortedView();
         private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
 
         public GameForm()
@@ -34,14 +34,40 @@ namespace SuperTank.WindowsForms
             switch (e.Action)
             {
                 case TypeAction.Add:
-                    BaseView view = factoryViewUnit.Create(e.Unit);
-                    if(view != null) drowable.Add(view);
+                    BaseView view = factoryViewUnit.Create(
+                        (int)e.Properties[PropertiesType.ID],
+                        (int)e.Properties[PropertiesType.X],
+                        (int)e.Properties[PropertiesType.Y],
+                        (TypeUnit)e.Properties[PropertiesType.TypeUnit]);
+                    switch ((TypeUnit)e.Properties[PropertiesType.TypeUnit])
+                    {
+                        case TypeUnit.PlainTank:
+                        case TypeUnit.Shell:
+                            view.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
+                            break;
+                    }
+                    if (view != null) listDrowable.Add(view);
                     break;
                 case TypeAction.Remove:
-                    drowable.Remove(v => v.Equals(e.Unit));
+                    listDrowable.Remove((int)e.Properties[PropertiesType.ID]);
                     break;
                 case TypeAction.Clear:
-                    drowable.Clear();
+                    listDrowable.Clear();
+                    break;
+                case TypeAction.Update:
+                    BaseView viewUpdate = listDrowable.FindByID((int)e.Properties[PropertiesType.ID]);
+                    switch ((PropertiesType)e.Properties[PropertiesType.TypeUpdate])
+                    {
+                        case PropertiesType.Direction:
+                            viewUpdate.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
+                            break;
+                        case PropertiesType.X:
+                            viewUpdate.X = (int)e.Properties[PropertiesType.X];
+                            break;
+                        case PropertiesType.Y:
+                            viewUpdate.Y = (int)e.Properties[PropertiesType.Y];
+                            break;
+                    }
                     break;
             }
         }
@@ -50,7 +76,10 @@ namespace SuperTank.WindowsForms
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
-            drowable.DrowAll(g);
+            foreach (var item in listDrowable)
+            {
+                g.DrawImage(item.Img, item.X, item.Y, item.Width, item.Height);
+            }
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -98,11 +127,6 @@ namespace SuperTank.WindowsForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             this.Invalidate();
-        }
-
-        public int Compare(object x, object y)
-        {
-            throw new NotImplementedException();
         }
     }
 }

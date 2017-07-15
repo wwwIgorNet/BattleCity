@@ -11,37 +11,45 @@ namespace SuperTank
 {
     class FactoryViewUnit : IFactoryViewUnit
     {
-        public BaseView Create(Unit unit)
+        public BaseView Create(int id, float x, float y, TypeUnit typeUnit)
         {
             BaseView res = null;
-            Dictionary<Direction, Image> images;
-            switch (unit.Type)
+            switch (typeUnit)
             {
                 case TypeUnit.PlainTank:
-                    images = new Dictionary<Direction, Image>
-                    {
-                        {Direction.Up, Images.PlainTankUp },
-                        {Direction.Down, Images.PlainTankDown },
-                        {Direction.Left, Images.PlainTankLeft },
-                        {Direction.Right, Images.PlainTankRight }
-                    };
-                    res = new ViewDirectionUnit(unit, images);
+                    res = CreateViewPlainTank(id, x, y);
                     break;
                 case TypeUnit.Shell:
-                    images = new Dictionary<Direction, Image>
+                    res = CreateViewShell(id, x, y);
+                    break;
+                case TypeUnit.BrickWall:
+                    res = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
+                    break;
+            }
+            return res;
+        }
+
+        private BaseView CreateViewShell(int id, float x, float y)
+        {
+            Dictionary<Direction, Image>  images = new Dictionary<Direction, Image>
                     {
                         {Direction.Up, Images.ShellUp },
                         {Direction.Down, Images.ShellDown },
                         {Direction.Left, Images.ShellLeft },
                         {Direction.Right, Images.ShellRight }
                     };
-                    res = new ViewDirectionUnit(unit, images);
-                    break;
-                case TypeUnit.BrickWall:
-                    res = new ViewUnit(unit, Images.BrickWall);
-                    break;
-            }
-            return res;
+            return new ViewDirectionUnit(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 0, images);
+        }
+        private BaseView CreateViewPlainTank(int id, float x, float y)
+        {
+            Dictionary<Direction, Image> images = new Dictionary<Direction, Image>
+                    {
+                        {Direction.Up, Images.PlainTankUp },
+                        {Direction.Down, Images.PlainTankDown },
+                        {Direction.Left, Images.PlainTankLeft },
+                        {Direction.Right, Images.PlainTankRight }
+                    };
+            return new ViewDirectionUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images);
         }
     }
 }

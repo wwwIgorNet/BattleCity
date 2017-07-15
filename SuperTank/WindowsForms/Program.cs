@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -18,7 +19,8 @@ namespace SuperTank.WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
             GameForm render = new GameForm();
             Game game = new Game(render);
-            game.Start();
+            new Thread(game.Start).Start();
+            //game.Start();
             Application.Run(render);
         }
     }

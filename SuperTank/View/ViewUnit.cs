@@ -7,19 +7,15 @@ using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
-    public class ViewUnit : BaseView
+    class ViewUnit : BaseView
     {
         private Image img;
 
-        public ViewUnit(Unit unit, Image img)
-            : base (unit)
+        public ViewUnit(int id, float x, float y, float width, float height, int zIndex, Image img) : base(id, x, y, width, height, zIndex)
         {
             this.img = img;
         }
 
-        public override void Draw(Graphics g)
-        {
-            g.DrawImage(img, Unit.BoundingBox);
-        }
+        public override Image Img { get { return img; } }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 
 namespace SuperTank
 {
     public interface IScene
     {
-        int Height { get; }
-        int Widtch { get; }
+        Int32 Height { get; }
+        Int32 Widtch { get; }
         
         event Action<SceneEventArgs> SceneChenges;
 
@@ -15,27 +16,34 @@ namespace SuperTank
         void Clear();
         Unit Colision(Unit unit);
         bool ColisionBoard(Unit unit);
+        void UnitChenged(int id, PropertiesType type, object value);
     }
 
     public class SceneEventArgs
     {
         private TypeAction action;
-        private Unit unit;
+        private Dictionary<PropertiesType, Object> properties;
 
-        public SceneEventArgs(TypeAction action, Unit unit)
+        public SceneEventArgs(TypeAction action)
         {
             this.action = action;
-            this.unit = unit;
         }
 
         public TypeAction Action { get { return action; } }
-        public Unit Unit { get { return unit; } }
+        public Dictionary<PropertiesType, Object> Properties
+        {
+            get
+            {
+                return properties == null ? properties = new Dictionary<PropertiesType, object>() : properties;
+            }
+        }
     }
 
     public enum TypeAction
     {
         Add,
         Remove,
-        Clear
+        Clear,
+        Update
     }
 }

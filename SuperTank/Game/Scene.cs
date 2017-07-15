@@ -8,7 +8,7 @@ namespace SuperTank
     {
         private readonly List<Unit> units = new List<Unit>();
         private readonly int width = ConfigurationGame.WidthBoard;
-        private readonly int height = ConfigurationGame.HeightBoard;
+        private readonly int height = ConfigurationBase.HeightBoard;
 
         public event Action<SceneEventArgs> SceneChenges;
 
@@ -18,7 +18,7 @@ namespace SuperTank
         public void Clear()
         {
             units.Clear();
-            OnSceneChenges(new SceneEventArgs(TypeAction.Clear, null));
+            OnSceneChenges(new SceneEventArgs(TypeAction.Clear));
         }
         public Unit Colision(Unit unit)
         {
@@ -49,18 +49,46 @@ namespace SuperTank
         public void Add(Unit unit)
         {
             units.Add(unit);
-            OnSceneChenges(new SceneEventArgs(TypeAction.Add, unit));
+
+            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Add);
+            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
+            sceneEventArgs.Properties[PropertiesType.X] = unit.X;
+            sceneEventArgs.Properties[PropertiesType.Y] = unit.Y;
+            sceneEventArgs.Properties[PropertiesType.TypeUnit] = unit.Type;
+            switch (unit.Type)
+            {
+                case TypeUnit.PlainTank:
+                case TypeUnit.Shell:
+                    sceneEventArgs.Properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
+                    break;
+            }
+
+            OnSceneChenges(sceneEventArgs);
+            unit.PropertyChenged += UnitChenged;
         }
         public void Remove(Unit unit)
         {
             units.Remove(unit);
-            OnSceneChenges(new SceneEventArgs(TypeAction.Remove, unit));
+            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Remove);
+            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
+            OnSceneChenges(sceneEventArgs);
+            unit.PropertyChenged -= UnitChenged;
         }
 
         protected void OnSceneChenges(SceneEventArgs e)
         {
             if (SceneChenges != null)
                 SceneChenges.Invoke(e);
+        }
+
+        public void UnitChenged(int id, PropertiesType type, object value)
+        {
+            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Update);
+            sceneEventArgs.Properties[PropertiesType.ID] = id;
+            sceneEventArgs.Properties[type] = value;
+            sceneEventArgs.Properties[PropertiesType.TypeUpdate] = type;
+
+            OnSceneChenges(sceneEventArgs);
         }
     }
 }

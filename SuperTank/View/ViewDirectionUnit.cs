@@ -12,19 +12,20 @@ namespace SuperTank.View
     {
         private Dictionary<Direction, Image> imges;
 
-        public ViewDirectionUnit(Unit unit, Dictionary<Direction, Image> imges) : base(unit)
+        public ViewDirectionUnit(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image> imges)
+            : base(id, x, y, width, height, zIndex)
         {
             this.imges = imges;
         }
 
-        protected Direction Direction
+        public override Image Img
         {
-            get { return (Direction)Unit.Properties[PropertiesType.Direction]; }
+            get { return imges[Direction]; }
         }
 
-        public override void Draw(Graphics g)
+        protected Direction Direction
         {
-            g.DrawImage(imges[Direction], Unit.BoundingBox);
+            get { return (Direction)Properties[PropertiesType.Direction]; }
         }
     }
 }

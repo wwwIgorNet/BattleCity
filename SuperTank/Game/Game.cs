@@ -26,11 +26,11 @@ namespace SuperTank
         public Game(IRender render)
         {
             IScene scene = new Scene();
+            scene.SceneChenges += render.SceneChangedHendler;
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
             plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.PlainTank));
             Updatable.Add(plaeyr);
             levelManager = new LevelManager(scene, factoryUnit, plaeyr);
-            scene.SceneChenges += render.SceneChangedHendler;
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }

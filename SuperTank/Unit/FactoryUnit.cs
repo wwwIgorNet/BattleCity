@@ -12,6 +12,7 @@ namespace SuperTank
     public class FactoryUnit : IFactoryUnit
     {
         private IScene scene;
+        private int prevId = 0;
 
         public FactoryUnit(IScene scene)
         {
@@ -38,19 +39,19 @@ namespace SuperTank
 
         private Unit CreateBrickWall(int x, int y)
         {
-            Unit res = new Unit(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall);
+            Unit res = new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall);
             return res;
         }
 
         private Unit CreateShell(int x, int y)
         {
-            Unit shell = new Unit(x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
+            Unit shell = new Unit(prevId++, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
             return shell;
         }
 
         private Unit CreatePlainTank(int x, int y)
         {
-            Unit tank = new Unit(x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PlainTank);
+            Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PlainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
             tank.Commands.AddCommand(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down).Execute);

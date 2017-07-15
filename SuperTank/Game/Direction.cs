@@ -1,6 +1,6 @@
 ﻿namespace SuperTank
 {
-    enum Direction
+    public enum Direction
     {
         Up,
         Right,

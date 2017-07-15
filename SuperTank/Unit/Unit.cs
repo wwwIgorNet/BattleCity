@@ -1,6 +1,7 @@
 ﻿using SuperTank.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Drawing;
 
 namespace SuperTank
@@ -10,24 +11,36 @@ namespace SuperTank
         private Rectangle boundingBox;
         private TypeUnit type;
         private Invoker invoker = new Invoker();
-        private readonly Dictionary<PropertiesType, Object> properties = new Dictionary<PropertiesType, object>();
+        private readonly PropertiesUnit properties;
+        private readonly int id;
 
-
-        public Unit(int x, int y, int width, int height, TypeUnit type)
+        public Unit(int id, int x, int y, int width, int height, TypeUnit type)
         {
+            this.id = id;
             boundingBox = new Rectangle(x, y, width, height);
             this.type = type;
+            properties = new PropertiesUnit(this);
         }
 
+        public event Action<int, PropertiesType, object> PropertyChenged;
+        public int ID { get { return id; } }
         public int X
         {
             get { return boundingBox.X; }
-            set { boundingBox.X = value; }
+            set
+            {
+                boundingBox.X = value;
+                OnPropertyChenges(PropertiesType.X, value);
+            }
         }
         public int Y
         {
             get { return boundingBox.Y; }
-            set { boundingBox.Y = value; }
+            set
+            {
+                boundingBox.Y = value;
+                OnPropertyChenges(PropertiesType.Y, value);
+            }
         }
         public int Width
         {
@@ -41,17 +54,21 @@ namespace SuperTank
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
-        public Dictionary<PropertiesType, Object> Properties { get { return properties; } }
+        public PropertiesUnit Properties { get { return properties; } }
         public Invoker Commands
         {
             get { return invoker; }
             set { invoker = value; }
         }
 
-
         public void Execute(TypeCommand command)
         {
                 invoker.Execute(command);
+        }
+        protected void OnPropertyChenges(PropertiesType type, Object value)
+        {
+            if (PropertyChenged != null)
+                PropertyChenged.Invoke(ID, type, value);
         }
         public override bool Equals(object obj)
         {
@@ -60,7 +77,30 @@ namespace SuperTank
             Unit unit = obj as Unit;
             if (unit == null)
                 return false;
-            return Type.Equals(unit.Type) && BoundingBox.Equals(unit.BoundingBox);
+            return unit.ID.Equals(ID) && Type.Equals(unit.Type) && BoundingBox.Equals(unit.BoundingBox);
+        }
+
+        public class PropertiesUnit : Dictionary<PropertiesType, object>
+        {
+            private Unit unit;
+
+            public PropertiesUnit(Unit unit)
+            {
+                this.unit = unit;
+            }
+
+            public new object this[PropertiesType key]
+            {
+                get
+                {
+                    return base[key];
+                }
+                set
+                {
+                    base[key] = value;
+                    unit.OnPropertyChenges(key, value);
+                }
+            }
         }
     }
 }

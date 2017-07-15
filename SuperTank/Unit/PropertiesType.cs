@@ -11,6 +11,10 @@ namespace SuperTank
         Velosity,
         Direction,
         IsStop,
-        Owner
+        X,
+        Y,
+        ID,
+        TypeUnit,
+        TypeUpdate
     }
 }

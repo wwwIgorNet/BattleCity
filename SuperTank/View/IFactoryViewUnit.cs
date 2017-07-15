@@ -4,6 +4,6 @@ namespace SuperTank
 {
     interface IFactoryViewUnit
     {
-        BaseView Create(Unit unit);
+        BaseView Create(int id, float x, float y, TypeUnit typeUnit);
     }
 }

@@ -1,20 +1,38 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 
 namespace SuperTank.View
 {
     public abstract class BaseView
     {
-        private Unit unit;
+        private int id;
+        private Dictionary<PropertiesType, Object> properties;
 
-        public BaseView(Unit unit)
+        public BaseView(int id, float x, float y, float width, float height, int zIndex)
         {
-            this.unit = unit;
+            this.id = id;
+            X = x;
+            Y = y;
+            Width = width;
+            Height = height;
+            ZIndex = zIndex;
         }
 
-        public Unit Unit { get { return unit; } }
-        public int ZIndex { get; set; }
-
-        public abstract void Draw(Graphics g);
+        public abstract Image Img { get; }
+        public float X { get; set; }
+        public float Width { get; set; }
+        public float Y { get; set; }
+        public float Height { get; set; }
+        public int ID { get { return id; } }
+        public int ZIndex { get; }
+        public Dictionary<PropertiesType, Object> Properties
+        {
+            get
+            {
+                return properties == null ? properties = new Dictionary<PropertiesType, object>() : properties;
+            }
+        }
 
         public override bool Equals(object obj)
         {
@@ -24,14 +42,7 @@ namespace SuperTank.View
             if (obj == null)
                 return false;
 
-            return ZIndex.Equals(view.ZIndex) && Unit.Equals(view.Unit);
-        }
-        public bool Equals(Unit obj)
-        {
-            if (obj == null)
-                return false;
-
-            return Unit.Equals(obj);
+            return view.ID.Equals(ID);
         }
     }
 }

@@ -5,17 +5,17 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
 
 namespace SuperTank
 {
-    public class SortedView
+    public class SortedView : IEnumerable<BaseView>
     {
         private readonly SortedList<int, List<BaseView>> drowable = new SortedList<int, List<BaseView>>(new Int32());
 
         public void Add(BaseView view)
         {
             List<BaseView> list = null;
-
             if (!drowable.ContainsKey(view.ZIndex))
             {
                 list = new List<BaseView>();
@@ -26,22 +26,21 @@ namespace SuperTank
             list.Add(view);
         }
 
-        public void Remove(Predicate<BaseView> math)
+        public BaseView FindByID(int id)
         {
+            BaseView res = null;
             foreach (var item in drowable)
             {
-                item.Value.RemoveAll(math);
+                 res = item.Value.Find(v => v.ID == id);
             }
+            return res;
         }
 
-        public void DrowAll(Graphics g)
+        public void Remove(int id)
         {
             foreach (var item in drowable)
             {
-                for (int i = 0; i < item.Value.Count; i++)
-                {
-                    item.Value[i].Draw(g);
-                }
+                item.Value.RemoveAll(v => v.ID == id);
             }
         }
 
@@ -51,6 +50,22 @@ namespace SuperTank
             {
                 item.Value.Clear();
             }
+        }
+
+        public IEnumerator<BaseView> GetEnumerator()
+        {
+            for (int i = 0; i < drowable.Keys.Count; i++)
+            {
+                for (int y = 0; y < drowable.Values[i].Count; y++)
+                {
+                    yield return drowable.Values[i][y];
+                }
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
