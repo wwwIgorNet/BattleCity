@@ -23,19 +23,27 @@ namespace SuperTank.Command
             if (scene.ColisionBoard(Unit))
                 OnShellDestroy();
             Unit colision = scene.Colision(Unit);
-            if (colision != null && !Unit.Equals(colision))
+            if (colision != null)
             {
                 switch (colision.Type)
                 {
                     case TypeUnit.PlainTank:
+                        if (!Unit.Properties[PropertiesType.Owner].Equals(colision.Properties[PropertiesType.Owner]))
+                        {
+                            scene.Remove(colision);
+                            OnShellDestroy();
+                        }
                         break;
                     case TypeUnit.Shell:
+                        if (!Unit.Properties[PropertiesType.Owner].Equals(colision.Properties[PropertiesType.Owner]))
+                        {
+                            scene.Remove(colision);
+                            OnShellDestroy();
+                        }
                         break;
                     case TypeUnit.BrickWall:
                         scene.Remove(colision);
                         OnShellDestroy();
-                        break;
-                    default:
                         break;
                 }
             }

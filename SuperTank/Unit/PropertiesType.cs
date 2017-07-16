@@ -15,6 +15,7 @@ namespace SuperTank
         Y,
         ID,
         TypeUnit,
-        TypeUpdate
+        TypeUpdate,
+        Owner
     }
 }

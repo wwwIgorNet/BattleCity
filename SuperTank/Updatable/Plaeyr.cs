@@ -14,6 +14,7 @@ namespace SuperTank
         public Plaeyr(Unit unit)
         {
             this.unit = unit;
+            Unit.Properties[PropertiesType.Owner] = Owner.Plaeyr;
         }
 
         public Unit Unit { get { return unit; } }

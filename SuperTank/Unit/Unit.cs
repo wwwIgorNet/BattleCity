@@ -19,8 +19,8 @@ namespace SuperTank
         public Unit(int id, int x, int y, int width, int height, TypeUnit type)
         {
             this.id = id;
-            boundingBox = new Rectangle(x, y, width, height);
             this.type = type;
+            boundingBox = new Rectangle(x, y, width, height);
             properties = new PropertiesUnit(this);
         }
 
