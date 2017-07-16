@@ -16,6 +16,7 @@ namespace SuperTank
         ID,
         TypeUnit,
         TypeUpdate,
-        Owner
+        Owner,
+        Scoore
     }
 }

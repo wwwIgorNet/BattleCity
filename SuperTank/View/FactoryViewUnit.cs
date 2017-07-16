@@ -38,7 +38,19 @@ namespace SuperTank
                         {Direction.Left, Images.ShellLeft },
                         {Direction.Right, Images.ShellRight }
                     };
-            return new ViewDirectionUnit(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 0, images);
+
+            Image[] detonation = new Image[]
+            {
+                Images.ShellDetonation1,
+                Images.ShellDetonation1,
+                Images.ShellDetonation2,
+                Images.ShellDetonation2,
+                Images.ShellDetonation3,
+                Images.ShellDetonation3,
+                Images.ShellDetonation4,
+                Images.ShellDetonation4
+            };
+            return new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 0, images, detonation);
         }
         private BaseView CreateViewPlainTank(int id, float x, float y)
         {

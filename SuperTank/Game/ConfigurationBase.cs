@@ -18,12 +18,12 @@ namespace SuperTank
         private static int widthShell = 5;
         private static int heightBoard = 26 * 20;
         private static int widthBoard = 26 * 20;
-        private static int windowClientHeight = 28 * 20;
-        private static int windowClientWidth = 31 * 20;
         private static int timerInterval = 20;
         private static int velostyPlainTank = 3;
         private static int velostyShellPlainTank = 6;
+        private static int delayDetonation = 7;
 
+        public static int DelayDetonation { get { return delayDetonation; } }
         public static int VelostyPlainTank { get { return velostyPlainTank; } }
         public static int VelostyShellPlainTank { get { return velostyShellPlainTank; } }
         public static int HeightTile { get { return heightTile; } }
@@ -34,8 +34,6 @@ namespace SuperTank
         public static int WidthShell { get { return widthShell; } }
         public static int HeightBoard { get { return heightBoard; } }
         public static int WidthBoard { get { return widthBoard; } }
-        public static int WindowClientHeight { get { return windowClientHeight; } }
-        public static int WindowClientWidth { get { return windowClientWidth; } }
         public static int TimerInterval { get { return timerInterval; } }
     }
 }

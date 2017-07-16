@@ -21,60 +21,67 @@ namespace SuperTank.View
         private static Image shellRight;
         private static Image shellLeft;
 
+        private static Image shellDetonation1;
+        private static Image shellDetonation2;
+        private static Image shellDetonation3;
+        private static Image shellDetonation4;
+        private static Image shellDetonationBig;
+        private static Image shellDetonationBig2;
+
         public static Image PlainTankUp
         {
             get
             {
-                return Validate(plainTankUp, "PlainTankUp.png");
+                return Validate(plainTankUp, @"Tank\PlainTankUp.png");
             }
         }
         public static Image PlainTankUp2
         {
             get
             {
-                return Validate(plainTankUp, "PlainTankUp2.png");
+                return Validate(plainTankUp, @"Tank\PlainTankUp2.png");
             }
         }
         public static Image PlainTankDown
         {
             get
             {
-                return Validate(plainTankDown, "PlainTankDown.png");
+                return Validate(plainTankDown, @"Tank\PlainTankDown.png");
             }
         }
         public static Image PlainTankDown2
         {
             get
             {
-                return Validate(plainTankDown, "PlainTankDown2.png");
+                return Validate(plainTankDown, @"Tank\PlainTankDown2.png");
             }
         }
         public static Image PlainTankLeft
         {
             get
             {
-                return Validate(plainTankLeft, "PlainTankLeft.png");
+                return Validate(plainTankLeft, @"Tank\PlainTankLeft.png");
             }
         }
         public static Image PlainTankLeft2
         {
             get
             {
-                return Validate(plainTankLeft, "PlainTankLeft2.png");
+                return Validate(plainTankLeft, @"Tank\PlainTankLeft2.png");
             }
         }
         public static Image PlainTankRight
         {
             get
             {
-                return Validate(plainTankRight, "PlainTankRight.png");
+                return Validate(plainTankRight, @"Tank\PlainTankRight.png");
             }
         }
         public static Image PlainTankRight2
         {
             get
             {
-                return Validate(plainTankRight, "PlainTankRight2.png");
+                return Validate(plainTankRight, @"Tank\PlainTankRight2.png");
             }
         }
         public static Image BrickWall
@@ -88,14 +95,14 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(shellUp, "ShellUp.png");
+                return Validate(shellUp, @"Shell\ShellUp.png");
             }
         }
         public static Image ShellDown
         {
             get
             {
-                return Validate(shellDown, "ShellDown.png");
+                return Validate(shellDown, @"Shell\ShellDown.png");
             }
         }
 
@@ -104,14 +111,56 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(shellLeft, "ShellLeft.png");
+                return Validate(shellLeft, @"Shell\ShellLeft.png");
             }
         }
         public static Image ShellRight
         {
             get
             {
-                return Validate(shellRight, "ShellRight.png");
+                return Validate(shellRight, @"Shell\ShellRight.png");
+            }
+        }
+        public static Image ShellDetonation1
+        {
+            get
+            {
+                return Validate(shellDetonation1, @"Shell\Detonation1.png");
+            }
+        }
+        public static Image ShellDetonation2
+        {
+            get
+            {
+                return Validate(shellDetonation2, @"Shell\Detonation2.png");
+            }
+        }
+        public static Image ShellDetonation3
+        {
+            get
+            {
+                return Validate(shellDetonation3, @"Shell\Detonation3.png");
+            }
+        }
+        public static Image ShellDetonation4
+        {
+            get
+            {
+                return Validate(shellDetonation4, @"Shell\Detonation4.png");
+            }
+        }
+        public static Image ShellDetonationBig
+        {
+            get
+            {
+                return Validate(shellDetonationBig, @"Shell\DetonationBig.png");
+            }
+        }
+        public static Image ShellDetonationBig2
+        {
+            get
+            {
+                return Validate(shellDetonationBig2, @"Shell\DetonationBig2.png");
             }
         }
 

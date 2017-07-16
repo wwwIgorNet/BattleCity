@@ -23,7 +23,7 @@ namespace SuperTank.WindowsForms
         {
             InitializeComponent();
             GraphicsOption();
-            this.ClientSize = new Size(ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
+            this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
             timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -63,6 +63,7 @@ namespace SuperTank.WindowsForms
                     {
                         case PropertiesType.Direction:
                         case PropertiesType.IsStop:
+                        case PropertiesType.Scoore:
                             viewUpdate.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]] = e.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]];
                             break;
                         case PropertiesType.X:
@@ -80,9 +81,10 @@ namespace SuperTank.WindowsForms
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
+            g.FillRectangle(Brushes.Black, ConfigurationView.Boaed, ConfigurationView.Boaed, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
             foreach (var item in listDrowable)
             {
-                g.DrawImage(item.Img, item.X, item.Y, item.Width, item.Height);
+                g.DrawImage(item.Img, item.X + ConfigurationView.Boaed, item.Y + ConfigurationView.Boaed, item.Width, item.Height);
             }
         }
         protected override void OnKeyDown(KeyEventArgs e)

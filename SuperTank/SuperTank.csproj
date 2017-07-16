@@ -75,6 +75,7 @@
     <Compile Include="View\SortedView.cs" />
     <Compile Include="View\ViewAnimationDirectionUnit.cs" />
     <Compile Include="View\ViewDirectionUnit.cs" />
+    <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />
     <Compile Include="Unit\IFactoryUnit.cs" />
@@ -127,40 +128,58 @@
     <Content Include="Content\Textures\BrickWall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankDown2.png">
+    <Content Include="Content\Textures\Tank\PlainTankDown2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankLeft2.png">
+    <Content Include="Content\Textures\Tank\PlainTankLeft2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankRight2.png">
+    <Content Include="Content\Textures\Tank\PlainTankRight2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankUp2.png">
+    <Content Include="Content\Textures\Tank\PlainTankUp2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankDown.png">
+    <Content Include="Content\Textures\Tank\PlainTankDown.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankLeft.png">
+    <Content Include="Content\Textures\Tank\PlainTankLeft.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankUp.png">
+    <Content Include="Content\Textures\Tank\PlainTankUp.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\PlainTankRight.png">
+    <Content Include="Content\Textures\Tank\PlainTankRight.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\ShellDown.png">
+    <Content Include="Content\Textures\Shell\Detonation1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\ShellLeft.png">
+    <Content Include="Content\Textures\Shell\Detonation4.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\ShellRight.png">
+    <Content Include="Content\Textures\Shell\DetonationBig.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\ShellUp.png">
+    <Content Include="Content\Textures\Shell\DetonationBig2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\ShellDown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\ShellLeft.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\ShellRight.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\ShellUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\Detonation2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Shell\Detonation3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
