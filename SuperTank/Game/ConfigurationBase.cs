@@ -21,7 +21,7 @@ namespace SuperTank
         private static int timerInterval = 20;
         private static int velostyPlainTank = 3;
         private static int velostyShellPlainTank = 6;
-        private static int delayDetonation = 7;
+        private static int delayDetonation = 6;
 
         public static int DelayDetonation { get { return delayDetonation; } }
         public static int VelostyPlainTank { get { return velostyPlainTank; } }

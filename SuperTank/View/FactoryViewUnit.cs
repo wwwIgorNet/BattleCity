@@ -47,8 +47,6 @@ namespace SuperTank
                 Images.ShellDetonation2,
                 Images.ShellDetonation3,
                 Images.ShellDetonation3,
-                Images.ShellDetonation4,
-                Images.ShellDetonation4
             };
             return new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 0, images, detonation);
         }

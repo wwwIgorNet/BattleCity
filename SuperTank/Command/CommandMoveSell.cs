@@ -16,7 +16,7 @@ namespace SuperTank.Command
         {
             this.scene = scene;
             this.shellDetonaition = shellDetonaition;
-            this.Unit.Properties[PropertiesType.Scoore] = false;
+            Unit.Properties[PropertiesType.Scoore] = false;
         }
 
         public override void Execute()
@@ -69,6 +69,7 @@ namespace SuperTank.Command
         {
             scene.Remove(Unit);
             shellDetonaition.Invoke();
+            //if (colision != null) scene.Remove(colision);
         }
     }
 }
