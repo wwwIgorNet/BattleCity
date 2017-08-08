@@ -10,9 +10,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.ServiceModel;
 
 namespace SuperTank.WindowsForms
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class GameForm : Form, IRender
     {
         private readonly Timer timer = new Timer();
@@ -28,55 +30,7 @@ namespace SuperTank.WindowsForms
             timer.Tick += Timer_Tick;
             timer.Start();
         }
-
-        public void SceneChangedHendler(SceneEventArgs e)
-        {
-            switch (e.Action)
-            {
-                case TypeAction.Add:
-                    BaseView view = factoryViewUnit.Create(
-                        (int)e.Properties[PropertiesType.ID],
-                        (int)e.Properties[PropertiesType.X],
-                        (int)e.Properties[PropertiesType.Y],
-                        (TypeUnit)e.Properties[PropertiesType.TypeUnit]);
-                    switch ((TypeUnit)e.Properties[PropertiesType.TypeUnit])
-                    {
-                        case TypeUnit.PlainTank:
-                            view.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
-                            view.Properties[PropertiesType.IsStop] = e.Properties[PropertiesType.IsStop];
-                            break;
-                        case TypeUnit.Shell:
-                            view.Properties[PropertiesType.Direction] = e.Properties[PropertiesType.Direction];
-                            break;
-                    }
-                    if (view != null) listDrowable.Add(view);
-                    break;
-                case TypeAction.Remove:
-                    listDrowable.Remove((int)e.Properties[PropertiesType.ID]);
-                    break;
-                case TypeAction.Clear:
-                    listDrowable.Clear();
-                    break;
-                case TypeAction.Update:
-                    BaseView viewUpdate = listDrowable.FindByID((int)e.Properties[PropertiesType.ID]);
-                    switch ((PropertiesType)e.Properties[PropertiesType.TypeUpdate])
-                    {
-                        case PropertiesType.Direction:
-                        case PropertiesType.IsStop:
-                        case PropertiesType.Scoore:
-                            viewUpdate.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]] = e.Properties[(PropertiesType)e.Properties[PropertiesType.TypeUpdate]];
-                            break;
-                        case PropertiesType.X:
-                            viewUpdate.X = (int)e.Properties[PropertiesType.X];
-                            break;
-                        case PropertiesType.Y:
-                            viewUpdate.Y = (int)e.Properties[PropertiesType.Y];
-                            break;
-                    }
-                    break;
-            }
-        }
-
+        
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -133,6 +87,65 @@ namespace SuperTank.WindowsForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             this.Invalidate();
+        }
+
+        public void Add(int id, TypeUnit typeUnit, int x, int y, Property[] properties)
+        {
+            BaseView view = factoryViewUnit.Create(id, x, y, typeUnit);
+            if (properties != null)
+            {
+                switch (typeUnit)
+                {
+                    case TypeUnit.PlainTank:
+
+                        foreach (var p in properties)
+                        {
+                            if (p.Type == PropertiesType.Direction)
+                            {
+                                view.Properties[PropertiesType.Direction] = p.Value;
+                            }
+                            else if (p.Type == PropertiesType.IsStop)
+                            {
+                                view.Properties[PropertiesType.IsStop] = p.Value;
+                            }
+                        }
+                        break;
+                    case TypeUnit.Shell:
+                        view.Properties[PropertiesType.Direction] = properties[0].Value;
+                        break;
+                }
+            }
+            if (view != null) listDrowable.Add(view);
+        }
+
+        public void Remove(int id)
+        {
+            listDrowable.Remove(id);
+        }
+
+        public void Clear()
+        {
+            listDrowable.Clear();
+        }
+
+        public void Update(int id, PropertiesType prop, object value)
+        {
+
+            BaseView viewUpdate = listDrowable.FindByID(id);
+            switch (prop)
+            {
+                case PropertiesType.Direction:
+                case PropertiesType.IsStop:
+                case PropertiesType.Scoore:
+                    viewUpdate.Properties[prop] = value;
+                    break;
+                case PropertiesType.X:
+                    viewUpdate.X = (int)value;
+                    break;
+                case PropertiesType.Y:
+                    viewUpdate.Y = (int)value;
+                    break;
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperTank.View;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -7,11 +8,15 @@ namespace SuperTank
 {
     public class Scene : IScene
     {
+        private IRender render;
         private readonly List<Unit> units = new List<Unit>();
         private readonly int width = ConfigurationGame.WidthBoard;
         private readonly int height = ConfigurationBase.HeightBoard;
 
-        public event Action<SceneEventArgs> SceneChenges;
+        public Scene(IRender render)
+        {
+            this.render = render;
+        }
 
         public int Height { get { return height; } }
         public int Widtch { get { return width; } }
@@ -19,7 +24,7 @@ namespace SuperTank
         public void Clear()
         {
             units.Clear();
-            OnSceneChenges(new SceneEventArgs(TypeAction.Clear));
+            render.Clear();
         }
         public Unit Colision(Unit unit)
         {
@@ -50,50 +55,35 @@ namespace SuperTank
         public void Add(Unit unit)
         {
             units.Add(unit);
-
-            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Add);
-            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
-            sceneEventArgs.Properties[PropertiesType.X] = unit.X;
-            sceneEventArgs.Properties[PropertiesType.Y] = unit.Y;
-            sceneEventArgs.Properties[PropertiesType.TypeUnit] = unit.Type;
+            Property[] properties = null;
             switch (unit.Type)
             {
                 case TypeUnit.PlainTank:
-                    sceneEventArgs.Properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
-                    sceneEventArgs.Properties[PropertiesType.IsStop] = unit.Properties[PropertiesType.IsStop];
+                    properties = new Property[] {
+                        new Property {
+                            Type = PropertiesType.Direction,
+                            Value = unit.Properties[PropertiesType.Direction]
+                        }, new Property {
+                            Type = PropertiesType.IsStop,
+                            Value = unit.Properties[PropertiesType.IsStop]
+                        } };
                     break;
                 case TypeUnit.Shell:
-                    sceneEventArgs.Properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
+                    properties = new Property[] { new Property {
+                    Type = PropertiesType.Direction,
+                    Value = unit.Properties[PropertiesType.Direction]
+                    } };
                     break;
             }
+            render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
 
-            OnSceneChenges(sceneEventArgs);
-            unit.PropertyChanged += Unit_PropertyChanged;
-        }
-
-        private void Unit_PropertyChanged(int id, PropertiesType type, object value)
-        {
-            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Update);
-            sceneEventArgs.Properties[PropertiesType.ID] = id;
-            sceneEventArgs.Properties[type] = value;
-            sceneEventArgs.Properties[PropertiesType.TypeUpdate] = type;
-
-            OnSceneChenges(sceneEventArgs);
+            unit.PropertyChanged += render.Update;
         }
 
         public void Remove(Unit unit)
         {
             units.Remove(unit);
-            SceneEventArgs sceneEventArgs = new SceneEventArgs(TypeAction.Remove);
-            sceneEventArgs.Properties[PropertiesType.ID] = unit.ID;
-            OnSceneChenges(sceneEventArgs);
-            unit.PropertyChanged -= Unit_PropertyChanged;
-        }
-
-        protected void OnSceneChenges(SceneEventArgs e)
-        {
-            if (SceneChenges != null)
-                SceneChenges.Invoke(e);
+            render.Remove(unit.ID);
         }
     }
 }

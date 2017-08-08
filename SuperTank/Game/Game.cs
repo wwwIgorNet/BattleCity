@@ -25,8 +25,7 @@ namespace SuperTank
 
         public Game(IRender render)
         {
-            IScene scene = new Scene();
-            scene.SceneChenges += render.SceneChangedHendler;
+            IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
             plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.PlainTank));
             Updatable.Add(plaeyr);
@@ -47,6 +46,10 @@ namespace SuperTank
         {
             levelManager.CreateLevel(1);
             timer.Start();
+        }
+        public void Stop()
+        {
+            timer.Stop();
         }
     }
 }

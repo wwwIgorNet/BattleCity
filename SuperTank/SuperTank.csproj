@@ -35,6 +35,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -59,6 +61,7 @@
     <Compile Include="Game\IScene.cs" />
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\LevelManager.cs" />
+    <Compile Include="Game\Property.cs" />
     <Compile Include="Unit\Owner.cs" />
     <Compile Include="Updatable\UpdatableShell.cs" />
     <Compile Include="View\BaseView.cs" />
