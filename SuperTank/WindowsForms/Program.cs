@@ -28,26 +28,30 @@ namespace SuperTank.WindowsForms
             host.Open();
 
             ChannelFactory<IRender> factory = null;
+            Game game = null;
             ThreadPool.QueueUserWorkItem((s) =>
             {
                 factory = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
                 IRender render = factory.CreateChannel();
 
-                Game game = new Game(render);
+                game = new Game(render);
                 game.Start();
             });
 
-            ThreadPool.QueueUserWorkItem((s) =>
-            {
-                Game game = new Game(formRender);
-                game.Start();
-            });
+            //ThreadPool.QueueUserWorkItem((s) =>
+            //{
+            //    Game game = new Game(formRender);
+            //    game.Start();
+            //});
 
 
             Application.Run(formRender);
 
-            factory.Close();
-            host.Close();
+            Console.WriteLine("end");
+            game.Stop();
+            //factory.Close();
+            host.Abort();
+            //host.Close();
         }
     }
 }
