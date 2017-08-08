@@ -89,7 +89,7 @@ namespace SuperTank.WindowsForms
             this.Invalidate();
         }
 
-        public void Add(int id, TypeUnit typeUnit, int x, int y, Property[] properties)
+        public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
             BaseView view = factoryViewUnit.Create(id, x, y, typeUnit);
             if (properties != null)
@@ -97,21 +97,11 @@ namespace SuperTank.WindowsForms
                 switch (typeUnit)
                 {
                     case TypeUnit.PlainTank:
-
-                        foreach (var p in properties)
-                        {
-                            if (p.Type == PropertiesType.Direction)
-                            {
-                                view.Properties[PropertiesType.Direction] = p.Value;
-                            }
-                            else if (p.Type == PropertiesType.IsStop)
-                            {
-                                view.Properties[PropertiesType.IsStop] = p.Value;
-                            }
-                        }
+                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
+                        view.Properties[PropertiesType.IsStop] = properties[PropertiesType.IsStop];
                         break;
                     case TypeUnit.Shell:
-                        view.Properties[PropertiesType.Direction] = properties[0].Value;
+                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
                         break;
                 }
             }

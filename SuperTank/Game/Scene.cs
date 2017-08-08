@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Drawing;
 
 namespace SuperTank
 {
@@ -28,26 +29,29 @@ namespace SuperTank
         }
         public Unit Colision(Unit unit)
         {
-            Unit colisionUnit = null;
-            for (int i = 0; i < units.Count; i++)
-            {
-                if (!unit.Equals(units[i]) && unit.BoundingBox.IntersectsWith(units[i].BoundingBox))
-                {
-                    colisionUnit = units[i];
-                    break;
-                }
-            }
-            return colisionUnit;
+            return Colision(unit.BoundingBox, unit.ID);
         }
+        public Unit Colision(Rectangle rect, int unitId)
+        {
+            for (int i = 0; i < units.Count; i++)
+                if (units[i].ID != unitId && rect.IntersectsWith(units[i].BoundingBox))
+                    return units[i];
+            return null;
+        }
+
         public bool ColisionBoard(Unit unit)
         {
-            if (unit.X < 0)
+            return ColisionBoard(unit.BoundingBox);
+        }
+        public bool ColisionBoard(Rectangle rect)
+        {
+            if (rect.X < 0)
                 return true;
-            if (unit.Y < 0)
+            if (rect.Y < 0)
                 return true;
-            if (unit.X + unit.Width > width)
+            if (rect.X + rect.Width > width)
                 return true;
-            if (unit.Y + unit.Height > height)
+            if (rect.Y + rect.Height > height)
                 return true;
 
             return false;
@@ -55,24 +59,18 @@ namespace SuperTank
         public void Add(Unit unit)
         {
             units.Add(unit);
-            Property[] properties = null;
+            Dictionary<PropertiesType, object> properties = null;
             switch (unit.Type)
             {
                 case TypeUnit.PlainTank:
-                    properties = new Property[] {
-                        new Property {
-                            Type = PropertiesType.Direction,
-                            Value = unit.Properties[PropertiesType.Direction]
-                        }, new Property {
-                            Type = PropertiesType.IsStop,
-                            Value = unit.Properties[PropertiesType.IsStop]
-                        } };
+                    properties = new Dictionary<PropertiesType, object>();
+
+                    properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
+                    properties[PropertiesType.IsStop] = unit.Properties[PropertiesType.IsStop];
                     break;
                 case TypeUnit.Shell:
-                    properties = new Property[] { new Property {
-                    Type = PropertiesType.Direction,
-                    Value = unit.Properties[PropertiesType.Direction]
-                    } };
+                    properties = new Dictionary<PropertiesType, object>();
+                    properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     break;
             }
             render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);

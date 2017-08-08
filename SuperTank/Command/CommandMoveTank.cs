@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,11 +18,23 @@ namespace SuperTank.Command
             IsParcing = true;
         }
 
-        public override void Move(int spead)
+        private void Move(ref Rectangle rect, int spead)
         {
-            Unit.Properties[PropertiesType.IsStop] = false;
-            base.Move(spead);
-            MoveColision();
+            switch (Direction)
+            {
+                case Direction.Up:
+                    rect.Y -= spead;
+                    break;
+                case Direction.Right:
+                    rect.X += spead;
+                    break;
+                case Direction.Down:
+                    rect.Y += spead;
+                    break;
+                case Direction.Left:
+                    rect.X -= spead;
+                    break;
+            }
         }
 
         private bool IsParcing
@@ -32,20 +45,37 @@ namespace SuperTank.Command
 
         private void MoveColision()
         {
-            while (scene.ColisionBoard(Unit)) base.Move(-1);
+            Rectangle rect = Unit.BoundingBox;
+            Move(ref rect, Velosity);
 
-            Unit colision = scene.Colision(Unit);
+            while (scene.ColisionBoard(rect)) Move(ref rect, -1);
+
+            Unit colision = scene.Colision(rect, Unit.ID);
             if (colision != null && colision.Type != TypeUnit.Shell)
             {
-                do {
-                    base.Move(-1);
-                } while (Unit.BoundingBox.IntersectsWith(colision.BoundingBox)) ;
+                do
+                {
+                    Move(ref rect, -1);
+                } while (rect.IntersectsWith(colision.BoundingBox));
+            }
+            
+            switch (Direction)
+            {
+                case Direction.Up:
+                case Direction.Down:
+                    Unit.Y = rect.Y;
+                    break;
+                case Direction.Right:
+                case Direction.Left:
+                    Unit.X = rect.X;
+                    break;
             }
         }
 
         public override void Execute()
         {
-            Move(Velosity);
+            Unit.Properties[PropertiesType.IsStop] = false;
+            MoveColision();
         }
     }
 }

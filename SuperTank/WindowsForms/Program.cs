@@ -22,13 +22,10 @@ namespace SuperTank.WindowsForms
             GameForm formRender = new GameForm();
 
             ServiceHost host = null;
-            ThreadPool.QueueUserWorkItem((s) =>
-            {
-                host = new ServiceHost(formRender);
-                host.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-                host.Open();
-            });
+            host = new ServiceHost(formRender);
+            host.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+            host.Open();
 
             ChannelFactory<IRender> factory = null;
             ThreadPool.QueueUserWorkItem((s) =>
@@ -39,7 +36,14 @@ namespace SuperTank.WindowsForms
                 Game game = new Game(render);
                 game.Start();
             });
-            //game.Start();
+
+            ThreadPool.QueueUserWorkItem((s) =>
+            {
+                Game game = new Game(formRender);
+                game.Start();
+            });
+
+
             Application.Run(formRender);
 
             factory.Close();
