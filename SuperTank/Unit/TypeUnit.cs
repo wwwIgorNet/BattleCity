@@ -4,6 +4,11 @@
     {
         PlainTank,
         Shell,
-        BrickWall
+        BrickWall,
+        ConcreteWall,
+        Water,
+        Forest,
+        Ice,
+        Eagle
     }
 }

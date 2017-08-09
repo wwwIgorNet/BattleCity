@@ -36,12 +36,26 @@ namespace SuperTank
                         case '#':
                             scene.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
                             break;
+                        case '@':
+                            scene.Add(factoryUnit.Create(x, y, TypeUnit.ConcreteWall));
+                            break;
+                        case '~':
+                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Water));
+                            break;
+                        case '%':
+                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Forest));
+                            break;
+                        case '-':
+                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Ice));
+                            break;
                     }
                     x += ConfigurationGame.WidthTile;
                 }
                 x = 0;
                 y += ConfigurationGame.HeightTile;
             }
+            scene.Add(factoryUnit.Create(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2, TypeUnit.Eagle));
+
             plaeyr.Unit.X = 9 * ConfigurationGame.WidthTile;
             plaeyr.Unit.Y = ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank;
             scene.Add(plaeyr.Unit);

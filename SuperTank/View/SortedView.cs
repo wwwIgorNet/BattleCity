@@ -31,7 +31,8 @@ namespace SuperTank
             BaseView res = null;
             foreach (var item in drowable)
             {
-                 res = item.Value.Find(v => v.ID == id);
+                 res = item.Value.Find(v => v.ID.Equals(id));
+                if (res != null) break;
             }
             return res;
         }

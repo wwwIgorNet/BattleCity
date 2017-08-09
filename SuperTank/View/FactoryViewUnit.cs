@@ -11,25 +11,39 @@ namespace SuperTank
 {
     class FactoryViewUnit : IFactoryViewUnit
     {
-        public BaseView Create(int id, float x, float y, TypeUnit typeUnit)
+        public BaseView Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
         {
-            BaseView res = null;
             switch (typeUnit)
             {
                 case TypeUnit.PlainTank:
-                    res = CreateViewPlainTank(id, x, y);
-                    break;
+                    return CreateViewPlainTank(id, x, y, properties);
                 case TypeUnit.Shell:
-                    res = CreateViewShell(id, x, y);
-                    break;
+                    return CreateViewShell(id, x, y, properties);
                 case TypeUnit.BrickWall:
-                    res = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
-                    break;
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
+                case TypeUnit.ConcreteWall:
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.ConcreteWall);
+                case TypeUnit.Water:
+                    return CreateViewWater(id, x, y);
+                case TypeUnit.Forest:
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 1, Images.Forest);
+                case TypeUnit.Ice:
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, -1, Images.Ice);
+                case TypeUnit.Eagle:
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, -1, Images.Eagle);
             }
+            return null;
+        }
+
+        private BaseView CreateViewWater(int id, float x, float y)
+        {
+            Image[] images = { Images.Water_1, Images.Water_2, Images.Water_3 };
+
+            BaseView res = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, images, 3);
             return res;
         }
 
-        private BaseView CreateViewShell(int id, float x, float y)
+        private BaseView CreateViewShell(int id, float x, float y, Dictionary<PropertiesType, object> properties)
         {
             Dictionary<Direction, Image>  images = new Dictionary<Direction, Image>
                     {
@@ -48,9 +62,11 @@ namespace SuperTank
                 Images.ShellDetonation3,
                 Images.ShellDetonation3,
             };
-            return new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 0, images, detonation);
+            BaseView res = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 2, images, detonation);
+            res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
+            return res;
         }
-        private BaseView CreateViewPlainTank(int id, float x, float y)
+        private BaseView CreateViewPlainTank(int id, float x, float y, Dictionary<PropertiesType, object> properties)
         {
             Dictionary<Direction, Image[]> images = new Dictionary<Direction, Image[]>
                     {
@@ -63,7 +79,10 @@ namespace SuperTank
                         {Direction.Right,new []
                         { Images.PlainTankRight, Images.PlainTankRight2 } }
                     };
-            return new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
+            BaseView res = new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
+            res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
+            res.Properties[PropertiesType.IsStop] = properties[PropertiesType.IsStop];
+            return res;
         }
     }
 }

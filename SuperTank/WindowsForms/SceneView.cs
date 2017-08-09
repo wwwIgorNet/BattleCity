@@ -39,20 +39,7 @@ namespace SuperTank
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
-            BaseView view = factoryViewUnit.Create(id, x, y, typeUnit);
-            if (properties != null)
-            {
-                switch (typeUnit)
-                {
-                    case TypeUnit.PlainTank:
-                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-                        view.Properties[PropertiesType.IsStop] = properties[PropertiesType.IsStop];
-                        break;
-                    case TypeUnit.Shell:
-                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-                        break;
-                }
-            }
+            BaseView view = factoryViewUnit.Create(id, x, y, typeUnit, properties);
             if (view != null) listDrowable.Add(view);
         }
 

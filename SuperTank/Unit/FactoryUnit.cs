@@ -21,20 +21,51 @@ namespace SuperTank
 
         public Unit Create(int x, int y,TypeUnit type)
         {
-            Unit res = null;
             switch (type)
             {
                 case TypeUnit.PlainTank:
-                    res = CreatePlainTank(x, y);
-                    break;
+                    return CreatePlainTank(x, y);
                 case TypeUnit.Shell:
-                    res = CreateShell(x, y);
-                    break;
+                    return CreateShell(x, y);
                 case TypeUnit.BrickWall:
-                    res = CreateBrickWall(x, y);
-                    break;
+                    return CreateBrickWall(x, y);
+                case TypeUnit.ConcreteWall:
+                    return CreateConcreteWall(x, y);
+                case TypeUnit.Water:
+                    return CreateWater(x, y);
+                case TypeUnit.Forest:
+                    return CreateForest(x, y);
+                case TypeUnit.Ice:
+                    return CreateIce(x, y);
+                case TypeUnit.Eagle:
+                    return CreateEagle(x, y);
             }
-            return res;
+            return null;
+        }
+
+        private Unit CreateEagle(int x, int y)
+        {
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Eagle);
+        }
+
+        private Unit CreateIce(int x, int y)
+        {
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Ice);
+        }
+
+        private Unit CreateForest(int x, int y)
+        {
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Forest);
+        }
+
+        private Unit CreateWater(int x, int y)
+        {
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Water);
+        }
+
+        private Unit CreateConcreteWall(int x, int y)
+        {
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.ConcreteWall);
         }
 
         private Unit CreateBrickWall(int x, int y)
@@ -45,8 +76,7 @@ namespace SuperTank
 
         private Unit CreateShell(int x, int y)
         {
-            Unit shell = new Unit(prevId++, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
-            return shell;
+            return new Unit(prevId++, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
         }
 
         private Unit CreatePlainTank(int x, int y)

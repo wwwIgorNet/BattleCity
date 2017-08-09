@@ -27,6 +27,13 @@ namespace SuperTank.View
         private static Image shellDetonation4;
         private static Image shellDetonationBig;
         private static Image shellDetonationBig2;
+        private static Image concreteWall;
+        private static Image water_1;
+        private static Image water_2;
+        private static Image water_3;
+        private static Image forest;
+        private static Image ice;
+        private static Image eagle;
 
         public static Image PlainTankUp
         {
@@ -161,6 +168,60 @@ namespace SuperTank.View
             get
             {
                 return Validate(shellDetonationBig2, @"Shell\DetonationBig2.png");
+            }
+        }
+
+        public static Image ConcreteWall
+        {
+            get
+            {
+                return Validate(concreteWall, @"ConcreteWall.png");
+            }
+        }
+
+        public static Image Water_1
+        {
+            get
+            {
+                return Validate(water_1, @"Water\Water_1.png");
+            }
+        }
+        public static Image Water_2
+        {
+            get
+            {
+                return Validate(water_2, @"Water\Water_2.png");
+            }
+        }
+        public static Image Water_3
+        {
+            get
+            {
+                return Validate(water_3, @"Water\Water_3.png");
+            }
+        }
+
+        public static Image Forest
+        {
+            get
+            {
+                return Validate(forest, @"Forest.png");
+            }
+        }
+
+        public static Image Ice
+        {
+            get
+            {
+                return Validate(ice, @"Ice.png");
+            }
+        }
+
+        public static Image Eagle
+        {
+            get
+            {
+                return Validate(eagle, @"Eagle\Eagle.png");
             }
         }
 
