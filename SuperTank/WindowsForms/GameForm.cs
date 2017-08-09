@@ -14,32 +14,28 @@ using System.ServiceModel;
 
 namespace SuperTank.WindowsForms
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public partial class GameForm : Form, IRender
+    public partial class GameForm : Form
     {
-        private readonly Timer timer = new Timer();
-        private readonly SortedView listDrowable = new SortedView();
-        private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
-
-        public GameForm()
+        private SceneView sceneView;
+        public GameForm(SceneView sceneView)
         {
             InitializeComponent();
             GraphicsOption();
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
-            timer.Interval = ConfigurationView.TimerInterval;
-            timer.Tick += Timer_Tick;
-            timer.Start();
+
+            this.SuspendLayout();
+            this.sceneView = sceneView;
+            this.sceneView.Location = new Point(20, 20);
+            Controls.Add(sceneView);
+            this.ResumeLayout(false);
+
+            this.Focus();
         }
         
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
-            g.FillRectangle(Brushes.Black, ConfigurationView.Boaed, ConfigurationView.Boaed, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
-            foreach (var item in listDrowable)
-            {
-                g.DrawImage(item.Img, item.X + ConfigurationView.Boaed, item.Y + ConfigurationView.Boaed, item.Width, item.Height);
-            }
         }
         protected override void OnKeyDown(KeyEventArgs e)
         {
@@ -83,59 +79,6 @@ namespace SuperTank.WindowsForms
         private void GraphicsOption()
         {
             base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            this.Invalidate();
-        }
-
-        public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
-        {
-            BaseView view = factoryViewUnit.Create(id, x, y, typeUnit);
-            if (properties != null)
-            {
-                switch (typeUnit)
-                {
-                    case TypeUnit.PlainTank:
-                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-                        view.Properties[PropertiesType.IsStop] = properties[PropertiesType.IsStop];
-                        break;
-                    case TypeUnit.Shell:
-                        view.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-                        break;
-                }
-            }
-            if (view != null) listDrowable.Add(view);
-        }
-
-        public void Remove(int id)
-        {
-            listDrowable.Remove(id);
-        }
-
-        public void Clear()
-        {
-            listDrowable.Clear();
-        }
-
-        public void Update(int id, PropertiesType prop, object value)
-        {
-
-            BaseView viewUpdate = listDrowable.FindByID(id);
-            switch (prop)
-            {
-                case PropertiesType.Direction:
-                case PropertiesType.IsStop:
-                case PropertiesType.Scoore:
-                    viewUpdate.Properties[prop] = value;
-                    break;
-                case PropertiesType.X:
-                    viewUpdate.X = (int)value;
-                    break;
-                case PropertiesType.Y:
-                    viewUpdate.Y = (int)value;
-                    break;
-            }
         }
     }
 }

@@ -108,7 +108,7 @@ namespace SuperTank
                 {
                     object obj;
                     unit.Properties.TryGetValue(key, out obj);
-                    if (value != obj)
+                    if (!value.Equals(obj))
                     {
                         base[key] = value;
                         unit.OnPropertyChenges(key, value);
