@@ -45,24 +45,33 @@ namespace SuperTank
 
         private BaseView CreateViewShell(int id, float x, float y, Dictionary<PropertiesType, object> properties)
         {
-            Dictionary<Direction, Image>  images = new Dictionary<Direction, Image>
-                    {
-                        {Direction.Up, Images.ShellUp },
-                        {Direction.Down, Images.ShellDown },
-                        {Direction.Left, Images.ShellLeft },
-                        {Direction.Right, Images.ShellRight }
-                    };
+            Image image = null;
+            switch ((Direction)properties[PropertiesType.Direction])
+            {
+                case Direction.Up:
+                    image = Images.ShellUp;
+                    break;
+                case Direction.Right:
+                    image = Images.ShellRight;
+                    break;
+                case Direction.Down:
+                    image = Images.ShellDown;
+                    break;
+                case Direction.Left:
+                    image = Images.ShellLeft;
+                    break;
+            }
 
             Image[] detonation = new Image[]
             {
                 Images.ShellDetonation1,
                 Images.ShellDetonation1,
+                Images.ShellDetonation1,
                 Images.ShellDetonation2,
                 Images.ShellDetonation2,
-                Images.ShellDetonation3,
-                Images.ShellDetonation3,
+                Images.ShellDetonation3
             };
-            BaseView res = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 2, images, detonation);
+            BaseView res = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 2, image, detonation);
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
             return res;
         }

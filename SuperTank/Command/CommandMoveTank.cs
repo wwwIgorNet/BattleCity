@@ -50,8 +50,9 @@ namespace SuperTank.Command
 
             while (scene.ColisionBoard(rect)) Move(ref rect, -1);
 
-            foreach (Unit item in scene.Units)
+            for (int i = 0; i < scene.Units.Count; i++)
             {
+                Unit item = scene.Units[i];
                 if (item.BoundingBox.IntersectsWith(rect) && !item.Equals(this.Unit))
                 {
                     if (item.Type == TypeUnit.BrickWall || item.Type == TypeUnit.ConcreteWall || item.Type == TypeUnit.Water)

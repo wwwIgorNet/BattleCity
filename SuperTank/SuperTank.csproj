@@ -77,7 +77,6 @@
     <Compile Include="View\SortedView.cs" />
     <Compile Include="View\ViewAnimationDirectionUnit.cs" />
     <Compile Include="View\ViewAnimationUnit.cs" />
-    <Compile Include="View\ViewDirectionUnit.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />

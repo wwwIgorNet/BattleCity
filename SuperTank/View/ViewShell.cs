@@ -7,28 +7,29 @@ using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
-    class ViewShell : ViewDirectionUnit
+    class ViewShell : BaseView
     {
+        private Image imgeShell;
         private Image[] detonation;
         private int frame = 0;
 
-        public ViewShell(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image> imges, Image[] detonation)
-            : base(id, x, y, width, height, zIndex, imges)
+        public ViewShell(int id, float x, float y, float width, float height, int zIndex, Image imgeShell, Image[] detonation)
+            : base(id, x, y, width, height, zIndex)
         {
+            this.imgeShell = imgeShell;
             this.detonation = detonation;
-            Properties[PropertiesType.Scoore] = false;
+            Properties[PropertiesType.Detonation] = false;
         }
 
         public override Image Img
         {
             get
             {
-                if (Properties[PropertiesType.Scoore].Equals(false))
-                    return base.Img;
+                if (Properties[PropertiesType.Detonation].Equals(false))
+                    return imgeShell;
                 else
                 {
-                    if (frame == detonation.Length - 1) frame = detonation.Length - 1;
-                    else frame++;
+                    if (frame >= detonation.Length) return new Bitmap(1, 1);
 
                     float centerX = X + Width / 2;
                     float centerY = Y + Height / 2;
@@ -37,7 +38,7 @@ namespace SuperTank.View
                     X = centerX - Width / 2;
                     Y = centerY - Height / 2;
 
-                    return detonation[frame];
+                    return detonation[frame++];
                 }
             }
         }

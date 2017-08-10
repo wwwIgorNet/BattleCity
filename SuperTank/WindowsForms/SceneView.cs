@@ -61,7 +61,7 @@ namespace SuperTank
             {
                 case PropertiesType.Direction:
                 case PropertiesType.IsStop:
-                case PropertiesType.Scoore:
+                case PropertiesType.Detonation:
                     viewUpdate.Properties[prop] = value;
                     break;
                 case PropertiesType.X:

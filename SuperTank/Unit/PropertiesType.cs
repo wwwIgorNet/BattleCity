@@ -17,6 +17,6 @@ namespace SuperTank
         TypeUnit,
         TypeUpdate,
         Owner,
-        Scoore
+        Detonation
     }
 }
