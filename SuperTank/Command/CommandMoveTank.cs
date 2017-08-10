@@ -50,15 +50,20 @@ namespace SuperTank.Command
 
             while (scene.ColisionBoard(rect)) Move(ref rect, -1);
 
-            Unit colision = scene.Colision(rect, Unit.ID);
-            if (colision != null && colision.Type != TypeUnit.Shell)
+            foreach (Unit item in scene.Units)
             {
-                do
+                if (item.BoundingBox.IntersectsWith(rect) && !item.Equals(this.Unit))
                 {
-                    Move(ref rect, -1);
-                } while (rect.IntersectsWith(colision.BoundingBox));
+                    if (item.Type == TypeUnit.BrickWall || item.Type == TypeUnit.ConcreteWall || item.Type == TypeUnit.Water)
+                    {
+                        do
+                        {
+                            Move(ref rect, -1);
+                        } while (rect.IntersectsWith(item.BoundingBox));
+                    }
+                }
             }
-            
+
             switch (Direction)
             {
                 case Direction.Up:

@@ -21,7 +21,7 @@ namespace SuperTank.Command
 
         public override void Execute()
         {
-            if((bool)Unit.Properties[PropertiesType.Scoore])
+            if ((bool)Unit.Properties[PropertiesType.Scoore])
             {
                 if (delayDetonation == ConfigurationGame.DelayDetonation) OnShellDestroy();
                 delayDetonation++;
@@ -30,37 +30,40 @@ namespace SuperTank.Command
 
             Move(Velosity);
             if (scene.ColisionBoard(Unit))
-                // OnShellDestroy();
                 Unit.Properties[PropertiesType.Scoore] = true;
-            Unit colision = scene.Colision(Unit);
-            if (colision != null)
+            for(int i = 0; i < scene.Units.Count; i++)
             {
-                switch (colision.Type)
+                Unit item = scene.Units[i];
+                if(item.BoundingBox.IntersectsWith(this.Unit.BoundingBox) && !item.Equals(this.Unit))
+                switch (item.Type)
                 {
                     case TypeUnit.PlainTank:
-                        if (!Unit.Properties[PropertiesType.Owner].Equals(colision.Properties[PropertiesType.Owner]))
+                        if (!Unit.Properties[PropertiesType.Owner].Equals(item.Properties[PropertiesType.Owner]))
                         {
-                            scene.Remove(colision);
+                            scene.Remove(item);
                             // OnShellDestroy();
                             Unit.Properties[PropertiesType.Scoore] = true;
                         }
                         break;
                     case TypeUnit.Shell:
-                        if (!Unit.Properties[PropertiesType.Owner].Equals(colision.Properties[PropertiesType.Owner]))
+                        if (!Unit.Properties[PropertiesType.Owner].Equals(item.Properties[PropertiesType.Owner]))
                         {
                             if (Unit.Properties[PropertiesType.Scoore].Equals(false))
                             {
-                                scene.Remove(colision);
+                                scene.Remove(item);
                                 // OnShellDestroy();
                                 Unit.Properties[PropertiesType.Scoore] = true;
                             }
                         }
                         break;
                     case TypeUnit.BrickWall:
-                        scene.Remove(colision);
+                        scene.Remove(item);
                         // OnShellDestroy();
                         Unit.Properties[PropertiesType.Scoore] = true;
                         break;
+                        case TypeUnit.ConcreteWall:
+                            Unit.Properties[PropertiesType.Scoore] = true;
+                            break;
                 }
             }
         }

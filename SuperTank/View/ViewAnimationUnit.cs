@@ -12,7 +12,7 @@ namespace SuperTank.View
         private Image[] images;
         private int frame = 0;
         private readonly int DELAY;
-        private int delay = 0;
+        private int iterationDelay = 0;
 
         public ViewAnimationUnit(int id, float x, float y, float width, float height, int zIndex, Image[] images, int delay)
             : base(id, x, y, width, height, zIndex)
@@ -25,10 +25,10 @@ namespace SuperTank.View
         {
             get
             {
-                if (delay < DELAY) delay++;
+                if (iterationDelay < DELAY) iterationDelay++;
                 else
                 {
-                    delay = 0;
+                    iterationDelay = 0;
                     frame++;
                     if (frame >= images.Length) frame = 0;
                 }

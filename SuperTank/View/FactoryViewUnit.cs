@@ -39,7 +39,7 @@ namespace SuperTank
         {
             Image[] images = { Images.Water_1, Images.Water_2, Images.Water_3 };
 
-            BaseView res = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, images, 3);
+            BaseView res = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, images, 10);
             return res;
         }
 

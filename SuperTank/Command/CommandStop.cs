@@ -8,14 +8,15 @@ namespace SuperTank.Command
 {
     class CommandStop : BaseOffsetCommand
     {
+
         public CommandStop(Unit unit) : base(unit)
         {
         }
 
         public override void Execute()
         {
-            Unit.Properties[PropertiesType.IsStop] = true;
-            OffsetToBorderTile();
+            if (!(bool)Unit.Properties[PropertiesType.IsStop])
+                Unit.Properties[PropertiesType.IsStop] = OffsetToBorderTile();
         }
     }
 }

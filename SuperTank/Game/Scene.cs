@@ -27,17 +27,8 @@ namespace SuperTank
             units.Clear();
             render.Clear();
         }
-        public Unit Colision(Unit unit)
-        {
-            return Colision(unit.BoundingBox, unit.ID);
-        }
-        public Unit Colision(Rectangle rect, int unitId)
-        {
-            for (int i = 0; i < units.Count; i++)
-                if (units[i].ID != unitId && rect.IntersectsWith(units[i].BoundingBox))
-                    return units[i];
-            return null;
-        }
+        
+        public List<Unit> Units { get { return units; } }
 
         public bool ColisionBoard(Unit unit)
         {

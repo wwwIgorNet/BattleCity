@@ -12,9 +12,8 @@ namespace SuperTank
         void Add(Unit unit);
         void Remove(Unit unit);
         void Clear();
-        Unit Colision(Unit unit);
+        List<Unit> Units { get; }
         bool ColisionBoard(Unit unit);
-        Unit Colision(Rectangle rect, int unitId);
         bool ColisionBoard(Rectangle rect);
     }
 }
