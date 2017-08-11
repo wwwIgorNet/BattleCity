@@ -57,15 +57,12 @@ namespace SuperTank.Command
             }
             else Unit.Properties[PropertiesType.Glide] = false;
 
+            Console.WriteLine(colision.Count);
             for (int i = 0; i < colision.Count; i++)
             {
                 if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)
-                {
-                    do
-                    {
+                    while (rect.IntersectsWith(colision[i].BoundingBox))
                         Move(ref rect, -1);
-                    } while (rect.IntersectsWith(colision[i].BoundingBox));
-                }
             }
 
             while (scene.ColisionBoard(rect)) Move(ref rect, -1);
