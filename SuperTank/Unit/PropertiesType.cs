@@ -17,6 +17,7 @@ namespace SuperTank
         TypeUnit,
         TypeUpdate,
         Owner,
-        Detonation
+        Detonation,
+        Glide
     }
 }

@@ -48,22 +48,27 @@ namespace SuperTank.Command
             Rectangle rect = Unit.BoundingBox;
             Move(ref rect, Velosity);
 
-            while (scene.ColisionBoard(rect)) Move(ref rect, -1);
+            List<Unit> colision = ColisionWithUnit(rect);
 
-            for (int i = 0; i < scene.Units.Count; i++)
+            if (colision.Find(u => u.Type == TypeUnit.Ice) != null)
             {
-                Unit item = scene.Units[i];
-                if (item.BoundingBox.IntersectsWith(rect) && !item.Equals(this.Unit))
+                Unit.Properties[PropertiesType.Glide] = true;
+                Move(ref rect, 2);
+            }
+            else Unit.Properties[PropertiesType.Glide] = false;
+
+            for (int i = 0; i < colision.Count; i++)
+            {
+                if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)
                 {
-                    if (item.Type == TypeUnit.BrickWall || item.Type == TypeUnit.ConcreteWall || item.Type == TypeUnit.Water)
+                    do
                     {
-                        do
-                        {
-                            Move(ref rect, -1);
-                        } while (rect.IntersectsWith(item.BoundingBox));
-                    }
+                        Move(ref rect, -1);
+                    } while (rect.IntersectsWith(colision[i].BoundingBox));
                 }
             }
+
+            while (scene.ColisionBoard(rect)) Move(ref rect, -1);
 
             switch (Direction)
             {
@@ -76,6 +81,16 @@ namespace SuperTank.Command
                     Unit.X = rect.X;
                     break;
             }
+        }
+
+        private List<Unit> ColisionWithUnit(Rectangle rect)
+        {
+            List<Unit> res = new List<Unit>(2);
+            for (int i = 0; i < scene.Units.Count; i++)
+                if (rect.IntersectsWith(scene.Units[i].BoundingBox) && !scene.Units[i].Equals(this.Unit))
+                    res.Add(scene.Units[i]);
+
+            return res;
         }
 
         public override void Execute()
