@@ -27,7 +27,7 @@ namespace SuperTank
         {
             IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.PlainTank));
+            plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.StarCreatorTank));
             Updatable.Add(plaeyr);
             levelManager = new LevelManager(scene, factoryUnit, plaeyr);
         }

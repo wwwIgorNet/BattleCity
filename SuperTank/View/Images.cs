@@ -14,7 +14,6 @@ namespace SuperTank.View
         private static Image plainTankRight;
         private static Image plainTankLeft;
 
-        public static Image brickWall;
 
         private static Image shellUp;
         private static Image shellDown;
@@ -27,6 +26,8 @@ namespace SuperTank.View
         private static Image shellDetonation4;
         private static Image shellDetonationBig;
         private static Image shellDetonationBig2;
+
+        private static Image brickWall;
         private static Image concreteWall;
         private static Image water_1;
         private static Image water_2;
@@ -34,61 +35,64 @@ namespace SuperTank.View
         private static Image forest;
         private static Image ice;
         private static Image eagle;
+        private static Image star4;
+        private static Image star2;
+        private static Image star3;
 
         public static Image PlainTankUp
         {
             get
             {
-                return Validate(plainTankUp, @"Tank\PlainTankUp.png");
+                return Validate(plainTankUp, @"Tank\PlainTank\PlainTankUp.png");
             }
         }
         public static Image PlainTankUp2
         {
             get
             {
-                return Validate(plainTankUp, @"Tank\PlainTankUp2.png");
+                return Validate(plainTankUp, @"Tank\PlainTank\PlainTankUp2.png");
             }
         }
         public static Image PlainTankDown
         {
             get
             {
-                return Validate(plainTankDown, @"Tank\PlainTankDown.png");
+                return Validate(plainTankDown, @"Tank\PlainTank\PlainTankDown.png");
             }
         }
         public static Image PlainTankDown2
         {
             get
             {
-                return Validate(plainTankDown, @"Tank\PlainTankDown2.png");
+                return Validate(plainTankDown, @"Tank\PlainTank\PlainTankDown2.png");
             }
         }
         public static Image PlainTankLeft
         {
             get
             {
-                return Validate(plainTankLeft, @"Tank\PlainTankLeft.png");
+                return Validate(plainTankLeft, @"Tank\PlainTank\PlainTankLeft.png");
             }
         }
         public static Image PlainTankLeft2
         {
             get
             {
-                return Validate(plainTankLeft, @"Tank\PlainTankLeft2.png");
+                return Validate(plainTankLeft, @"Tank\PlainTank\PlainTankLeft2.png");
             }
         }
         public static Image PlainTankRight
         {
             get
             {
-                return Validate(plainTankRight, @"Tank\PlainTankRight.png");
+                return Validate(plainTankRight, @"Tank\PlainTank\PlainTankRight.png");
             }
         }
         public static Image PlainTankRight2
         {
             get
             {
-                return Validate(plainTankRight, @"Tank\PlainTankRight2.png");
+                return Validate(plainTankRight, @"Tank\PlainTank\PlainTankRight2.png");
             }
         }
         public static Image BrickWall
@@ -222,6 +226,35 @@ namespace SuperTank.View
             get
             {
                 return Validate(eagle, @"Eagle\Eagle.png");
+            }
+        }
+
+        public static Image Star1
+        {
+            get
+            {
+                return Validate(star4, @"Tank\Star1.png");
+            }
+        }
+        public static Image Star2
+        {
+            get
+            {
+                return Validate(star2, @"Tank\Star2.png");
+            }
+        }
+        public static Image Star3
+        {
+            get
+            {
+                return Validate(star3, @"Tank\Star2.png");
+            }
+        }
+        public static Image Star4
+        {
+            get
+            {
+                return Validate(star4, @"Tank\Star4.png");
             }
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace SuperTank.Command
 {
-    abstract class BaseCommand : ICommand
+    public abstract class BaseCommand : ICommand
     {
         private Unit unit;
 

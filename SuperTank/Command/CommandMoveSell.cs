@@ -38,7 +38,7 @@ namespace SuperTank.Command
                 if(item.BoundingBox.IntersectsWith(this.Unit.BoundingBox) && !item.Equals(this.Unit))
                     switch (item.Type)
                     {
-                        case TypeUnit.PlainTank:
+                        case TypeUnit.StarCreatorTank:
                             if (!Unit.Properties[PropertiesType.Owner].Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 scene.Remove(item);

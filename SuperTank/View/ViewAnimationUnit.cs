@@ -11,13 +11,13 @@ namespace SuperTank.View
     {
         private Image[] images;
         private int frame = 0;
-        private readonly int DELAY;
-        private int iterationDelay = 0;
+        private int iteration = 0;
+        private int updateInterval;
 
-        public ViewAnimationUnit(int id, float x, float y, float width, float height, int zIndex, Image[] images, int delay)
+        public ViewAnimationUnit(int id, float x, float y, float width, float height, int zIndex, Image[] images, int updateInterval)
             : base(id, x, y, width, height, zIndex)
         {
-            this.DELAY = delay;
+            this.updateInterval = updateInterval;
             this.images = images;
         }
 
@@ -25,12 +25,12 @@ namespace SuperTank.View
         {
             get
             {
-                if (iterationDelay < DELAY) iterationDelay++;
-                else
+                iteration++;
+                if (iteration % updateInterval == 0)
                 {
-                    iterationDelay = 0;
                     frame++;
-                    if (frame >= images.Length) frame = 0;
+                    if (frame >= images.Length)
+                        frame = 0;
                 }
                 return images[frame];
             }

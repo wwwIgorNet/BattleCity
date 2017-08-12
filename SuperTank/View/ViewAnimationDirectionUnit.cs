@@ -28,7 +28,6 @@ namespace SuperTank.View
                     currentFrame++;
                     if (currentFrame == countFrame) currentFrame = 0;
                 }
-                
                 return imges[Direction][currentFrame];
             }
         }

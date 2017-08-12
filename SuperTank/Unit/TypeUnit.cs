@@ -2,7 +2,7 @@
 {
     public enum TypeUnit
     {
-        PlainTank,
+        StarCreatorTank,
         Shell,
         BrickWall,
         ConcreteWall,

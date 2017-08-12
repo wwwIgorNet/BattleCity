@@ -39,8 +39,14 @@ namespace SuperTank.Command
 
         private bool IsParcing
         {
-            get { return (Boolean)Unit.Properties[PropertiesType.IsStop]; }
+            get { return (bool)Unit.Properties[PropertiesType.IsStop]; }
             set { Unit.Properties[PropertiesType.IsStop] = value; }
+        }
+
+        private bool IsGlide
+        {
+            get { return (bool)Unit.Properties[PropertiesType.Glide]; }
+            set { Unit.Properties[PropertiesType.Glide] = value; }
         }
 
         private void MoveColision()
@@ -52,12 +58,11 @@ namespace SuperTank.Command
 
             if (colision.Find(u => u.Type == TypeUnit.Ice) != null)
             {
-                Unit.Properties[PropertiesType.Glide] = true;
+                IsGlide = true;
                 Move(ref rect, 2);
             }
-            else Unit.Properties[PropertiesType.Glide] = false;
+            else IsGlide = false;
 
-            Console.WriteLine(colision.Count);
             for (int i = 0; i < colision.Count; i++)
             {
                 if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)

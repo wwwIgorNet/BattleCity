@@ -22,6 +22,7 @@ namespace SuperTank
         private static int velostyPlainTank = 3;
         private static int velostyShellPlainTank = 6;
         private static int delayDetonation = 6;
+        private static int delayAppearanceOfTank = 36;
 
         public static int DelayDetonation { get { return delayDetonation; } }
         public static int VelostyPlainTank { get { return velostyPlainTank; } }
@@ -35,5 +36,6 @@ namespace SuperTank
         public static int HeightBoard { get { return heightBoard; } }
         public static int WidthBoard { get { return widthBoard; } }
         public static int TimerInterval { get { return timerInterval; } }
+        public static int DelayAppearanceOfTank { get { return delayAppearanceOfTank; } }
     }
 }

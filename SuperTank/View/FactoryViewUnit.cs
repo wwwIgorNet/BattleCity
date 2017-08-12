@@ -15,7 +15,7 @@ namespace SuperTank
         {
             switch (typeUnit)
             {
-                case TypeUnit.PlainTank:
+                case TypeUnit.StarCreatorTank:
                     return CreateViewPlainTank(id, x, y, properties);
                 case TypeUnit.Shell:
                     return CreateViewShell(id, x, y, properties);

@@ -1,6 +1,6 @@
-﻿namespace SuperTank.WindowsForms
+﻿namespace SuperTank
 {
-    partial class GameForm
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -28,17 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.SuspendLayout();
-            // 
-            // GameForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(447, 278);
-            this.Name = "GameForm";
-            this.Text = "Super tank";
-            this.ResumeLayout(false);
-
+            this.Text = "Form1";
         }
 
         #endregion

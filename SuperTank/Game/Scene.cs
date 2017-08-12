@@ -53,7 +53,7 @@ namespace SuperTank
             Dictionary<PropertiesType, object> properties = null;
             switch (unit.Type)
             {
-                case TypeUnit.PlainTank:
+                case TypeUnit.StarCreatorTank:
                     properties = new Dictionary<PropertiesType, object>();
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];

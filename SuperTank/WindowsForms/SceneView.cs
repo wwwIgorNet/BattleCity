@@ -19,9 +19,9 @@ namespace SuperTank
 
         public SceneView()
         {
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = ConfigurationView.BackColor;
             GraphicsOption();
-            this.ClientSize = new Size(ConfigurationView.HeightBoard, ConfigurationView.WidthBoard);
+            this.ClientSize = new Size(ConfigurationView.HeightBoard + ConfigurationView.HeightTile * 2, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2);
             timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -31,9 +31,10 @@ namespace SuperTank
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
+            g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
             foreach (var item in listDrowable)
             {
-                g.DrawImage(item.Img, item.X, item.Y, item.Width, item.Height);
+                g.DrawImage(item.Img, item.X + ConfigurationView.WidthTile, item.Y + ConfigurationView.HeightTile, item.Width, item.Height);
             }
         }
 

@@ -20,12 +20,13 @@ namespace SuperTank.WindowsForms
         public GameForm(SceneView sceneView)
         {
             InitializeComponent();
+
             GraphicsOption();
+            this.BackColor = ConfigurationView.BackColor;
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
 
             this.SuspendLayout();
             this.sceneView = sceneView;
-            this.sceneView.Location = new Point(20, 20);
             Controls.Add(sceneView);
             this.ResumeLayout(false);
 
