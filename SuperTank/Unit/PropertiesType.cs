@@ -15,7 +15,6 @@ namespace SuperTank
         Y,
         ID,
         TypeUnit,
-        TypeUpdate,
         Owner,
         Detonation,
         Glide

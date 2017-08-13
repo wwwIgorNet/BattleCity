@@ -55,7 +55,22 @@ namespace SuperTank
             Dictionary<PropertiesType, object> properties = GetPropertiesForView(unit);
             render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
 
-            unit.PropertyChanged += render.Update;
+            unit.PropertyChanged += Unit_PropertyChanged;
+        }
+
+        private void Unit_PropertyChanged(int id, PropertiesType propType, object val)
+        {
+            switch (propType)
+            {
+                case PropertiesType.Direction:
+                case PropertiesType.IsStop:
+                case PropertiesType.X:
+                case PropertiesType.Y:
+                case PropertiesType.Detonation:
+                case PropertiesType.Glide:
+                    render.Update(id, propType, val);
+                    break;
+            }
         }
 
         private static Dictionary<PropertiesType, object> GetPropertiesForView(Unit unit)
@@ -68,6 +83,7 @@ namespace SuperTank
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsStop] = unit.Properties[PropertiesType.IsStop];
+                    properties[PropertiesType.Glide] = unit.Properties[PropertiesType.Glide];
                     break;
                 case TypeUnit.Shell:
                     properties = new Dictionary<PropertiesType, object>();
