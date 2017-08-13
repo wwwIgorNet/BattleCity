@@ -1,9 +1,11 @@
-﻿using SuperTank.View;
+﻿using SuperTank.Updatable;
+using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Drawing;
+using System.Threading;
 
 namespace SuperTank
 {
@@ -50,10 +52,18 @@ namespace SuperTank
         public void Add(Unit unit)
         {
             units.Add(unit);
+            Dictionary<PropertiesType, object> properties = GetPropertiesForView(unit);
+            render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
+
+            unit.PropertyChanged += render.Update;
+        }
+
+        private static Dictionary<PropertiesType, object> GetPropertiesForView(Unit unit)
+        {
             Dictionary<PropertiesType, object> properties = null;
             switch (unit.Type)
             {
-                case TypeUnit.StarCreatorTank:
+                case TypeUnit.PainTank:
                     properties = new Dictionary<PropertiesType, object>();
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
@@ -64,15 +74,27 @@ namespace SuperTank
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     break;
             }
-            render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
 
-            unit.PropertyChanged += render.Update;
+            return properties;
         }
 
         public void Remove(Unit unit)
         {
             units.Remove(unit);
             render.Remove(unit.ID);
+        }
+
+        public void AddRange(List<Unit> collection)
+        {
+            units.AddRange(collection);
+            List<UnitDataForView> data = new List<UnitDataForView>();
+            for (int i = 0; i < collection.Count; i++)
+            {
+                Unit u = collection[i];
+                data.Add(new UnitDataForView(u.ID, u.Type, u.X, u.Y, GetPropertiesForView(u)));
+            }
+
+            render.AddRange(data);
         }
     }
 }

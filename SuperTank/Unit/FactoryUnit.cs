@@ -23,7 +23,9 @@ namespace SuperTank
         {
             switch (type)
             {
-                case TypeUnit.StarCreatorTank:
+                case TypeUnit.Star: 
+                    return new Unit(prevId++, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Star);
+                case TypeUnit.PainTank:
                     return CreatePlainTank(x, y);
                 case TypeUnit.Shell:
                     return CreateShell(x, y);
@@ -81,21 +83,19 @@ namespace SuperTank
 
         private Unit CreatePlainTank(int x, int y)
         {
-            Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.StarCreatorTank);
+            Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
             tank.Properties[PropertiesType.IsStop] = true;
             tank.Properties[PropertiesType.Glide] = false;
-
-            Dictionary<TypeCommand, BaseCommand> commands = new Dictionary<TypeCommand, BaseCommand>() {
-                { TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down) },
-                { TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up) },
-                { TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left) },
-                { TypeCommand.TurnRight, new CommandTurn(tank, Direction.Right) },
-                { TypeCommand.Stop, new CommandStop(tank) },
-                { TypeCommand.Move, new CommandMoveTank(tank, scene) },
-                { TypeCommand.Fire, new CommandFire(tank, this, scene, ConfigurationGame.VelostyShellPlainTank) } };
-            Game.Updatable.Add(new AppearanceOfTank(tank, commands));
+            
+            tank.Commands.Add(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down));
+            tank.Commands.Add(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up));
+            tank.Commands.Add(TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left));
+            tank.Commands.Add(TypeCommand.TurnRight, new CommandTurn(tank, Direction.Right));
+            tank.Commands.Add(TypeCommand.Stop, new CommandStop(tank));
+            tank.Commands.Add(TypeCommand.Move, new CommandMoveTank(tank, scene));
+            tank.Commands.Add(TypeCommand.Fire, new CommandFire(tank, this, scene, ConfigurationGame.VelostyShellPlainTank));
 
             return tank;
         }

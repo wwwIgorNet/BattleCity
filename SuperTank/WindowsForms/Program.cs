@@ -23,7 +23,7 @@ namespace SuperTank.WindowsForms
             GameForm formRender = new GameForm(sceneView);
 
             //ServiceHost host = null;
-            //host = new ServiceHost(formRender);
+            //host = new ServiceHost(sceneView);
             //host.CloseTimeout = TimeSpan.FromMilliseconds(0);
             //host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
             //host.Open();
@@ -47,9 +47,9 @@ namespace SuperTank.WindowsForms
 
 
             Application.Run(formRender);
-            
+
             //game.Stop();
-            //host.Abort();
+            //host.Close();
         }
     }
 }

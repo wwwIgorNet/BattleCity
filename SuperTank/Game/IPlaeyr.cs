@@ -2,6 +2,6 @@
 {
     public interface IPlaeyr: IUpdatable
     {
-        Unit Unit { get; }
+        Unit Unit { get; set; }
     }
 }

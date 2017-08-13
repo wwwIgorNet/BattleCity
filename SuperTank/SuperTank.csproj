@@ -61,8 +61,9 @@
     <Compile Include="Game\IScene.cs" />
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\LevelManager.cs" />
+    <Compile Include="Game\UnitDataForView.cs" />
     <Compile Include="Unit\Owner.cs" />
-    <Compile Include="Updatable\AppearanceOfTank.cs" />
+    <Compile Include="Updatable\StarUpdate.cs" />
     <Compile Include="Updatable\UpdatableShell.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\ConfigurationView.cs" />

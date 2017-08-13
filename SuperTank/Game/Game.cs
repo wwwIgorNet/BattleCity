@@ -14,7 +14,7 @@ namespace SuperTank
         private static readonly Timer timer = new Timer();
         private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
 
-        public readonly IPlaeyr plaeyr;
+        public static readonly IPlaeyr plaeyr = new Plaeyr();
         private readonly LevelManager levelManager;
 
         static Game()
@@ -27,8 +27,6 @@ namespace SuperTank
         {
             IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            plaeyr = new Plaeyr(factoryUnit.Create(0, 0, TypeUnit.StarCreatorTank));
-            Updatable.Add(plaeyr);
             levelManager = new LevelManager(scene, factoryUnit, plaeyr);
         }
 

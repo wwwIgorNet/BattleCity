@@ -15,7 +15,9 @@ namespace SuperTank
         {
             switch (typeUnit)
             {
-                case TypeUnit.StarCreatorTank:
+                case TypeUnit.Star:
+                    return CreateStar(id, x, y);
+                case TypeUnit.PainTank:
                     return CreateViewPlainTank(id, x, y, properties);
                 case TypeUnit.Shell:
                     return CreateViewShell(id, x, y, properties);
@@ -33,6 +35,20 @@ namespace SuperTank
                     return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, -1, Images.Eagle);
             }
             return null;
+        }
+
+        private static BaseView CreateStar(int id, float x, float y)
+        {
+            Image[] images = new Image[]
+            {
+                        Images.Star1,
+                        Images.Star2,
+                        Images.Star3,
+                        Images.Star4,
+                        Images.Star3,
+                        Images.Star2,
+            };
+            return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, images, 4);
         }
 
         private BaseView CreateViewWater(int id, float x, float y)

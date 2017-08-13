@@ -8,17 +8,18 @@ namespace SuperTank
     {
         private Dictionary<TypeCommand, BaseCommand> commands = new Dictionary<TypeCommand, BaseCommand>();
 
-        public void AddCommand(TypeCommand type, BaseCommand commant)
+        public void Add(TypeCommand type, BaseCommand commant)
         {
             commands.Add(type, commant);
         }
 
         public void Execute(TypeCommand command)
         {
-            BaseCommand a;
-            commands.TryGetValue(command, out a);
-            if(a != null)
-                a.Execute();
+            //BaseCommand a;
+            //commands.TryGetValue(command, out a);
+            //if(a != null)
+            //    a.Execute();
+            commands[command].Execute();
         }
     }
 }

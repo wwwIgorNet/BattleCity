@@ -53,7 +53,7 @@ namespace SuperTank.Command
             Game.Updatable.Add(updatableShell);
             Action action = new Action(() => Game.Updatable.Remove(updatableShell));
             action += () => prevShell = null;
-            shell.Commands.AddCommand(TypeCommand.Move, new CommandMoveSell(shell, scene, action));
+            shell.Commands.Add(TypeCommand.Move, new CommandMoveSell(shell, scene, action));
             shell.Properties[PropertiesType.Owner] = Unit.Properties[PropertiesType.Owner];
             scene.Add(shell);
             prevShell = shell;

@@ -11,13 +11,15 @@ namespace SuperTank
     {
         private Unit unit;
 
-        public Plaeyr(Unit unit)
+        public Unit Unit
         {
-            this.unit = unit;
-            Unit.Properties[PropertiesType.Owner] = Owner.Plaeyr;
+            get { return unit; }
+            set
+            {
+                value.Properties[PropertiesType.Owner] = Owner.Plaeyr;
+                unit = value;
+            }
         }
-
-        public Unit Unit { get { return unit; } }
 
         public void Update()
         {

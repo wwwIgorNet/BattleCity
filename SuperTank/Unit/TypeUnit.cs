@@ -2,13 +2,14 @@
 {
     public enum TypeUnit
     {
-        StarCreatorTank,
+        PainTank,
         Shell,
         BrickWall,
         ConcreteWall,
         Water,
         Forest,
         Ice,
-        Eagle
+        Eagle,
+        Star
     }
 }

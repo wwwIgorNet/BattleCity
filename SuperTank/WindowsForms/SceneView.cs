@@ -82,5 +82,14 @@ namespace SuperTank
         {
             this.Invalidate();
         }
+
+        public void AddRange(List<UnitDataForView> collection)
+        {
+            for (int i = 0; i < collection.Count; i++)
+            {
+                UnitDataForView data = collection[i];
+                Add(data.ID, data.TypeUnit, data.X, data.Y, data.Properties);
+            }
+        }
     }
 }

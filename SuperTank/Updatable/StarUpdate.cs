@@ -1,4 +1,5 @@
-﻿using SuperTank.Command;
+﻿using SuperTank;
+using SuperTank.Command;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,16 +11,18 @@ namespace SuperTank.Updatable
     /// <summary>
     /// Появление танка в виде звезды
     /// </summary>
-    class AppearanceOfTank : IUpdatable
+    class StarUpdate : IUpdatable
     {
-        private Unit tank;
-        private Dictionary<TypeCommand, BaseCommand> commands;
+        private IPlaeyr plaeyr;
+        private IScene scene;
+        private Unit star;
         private int delay;
 
-        public AppearanceOfTank(Unit tank, Dictionary<TypeCommand, BaseCommand> commands)
+        public StarUpdate(Unit star, IPlaeyr plaeyr, IScene scene)
         {
-            this.tank = tank;
-            this.commands = commands;
+            this.star = star;
+            this.plaeyr = plaeyr;
+            this.scene = scene;
         }
 
         public void Update()
@@ -28,11 +31,11 @@ namespace SuperTank.Updatable
                 delay++;
             else
             {
-                foreach (var item in commands)
-                    tank.Commands.AddCommand(item.Key, item.Value);
                 Game.Updatable.Remove(this);
+                scene.Remove(star);
+                scene.Add(plaeyr.Unit);
+                Game.Updatable.Add(plaeyr);
             }
-            
         }
     }
 }

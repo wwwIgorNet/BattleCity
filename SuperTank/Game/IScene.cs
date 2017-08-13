@@ -15,5 +15,6 @@ namespace SuperTank
         List<Unit> Units { get; }
         bool ColisionBoard(Unit unit);
         bool ColisionBoard(Rectangle rect);
+        void AddRange(List<Unit> collection);
     }
 }

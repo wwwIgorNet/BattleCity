@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperTank.Updatable;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -24,7 +25,7 @@ namespace SuperTank
         public void CreateLevel(int level)
         {
             scene.Clear();
-
+            List<Unit> objGame = new List<Unit>();
             string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
             int x = 0, y = 0;
             foreach (string line in linesTileMap)
@@ -34,19 +35,19 @@ namespace SuperTank
                     switch (c)
                     {
                         case '#':
-                            scene.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
+                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
                             break;
                         case '@':
-                            scene.Add(factoryUnit.Create(x, y, TypeUnit.ConcreteWall));
+                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.ConcreteWall));
                             break;
                         case '~':
-                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Water));
+                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Water));
                             break;
                         case '%':
-                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Forest));
+                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Forest));
                             break;
                         case '-':
-                            scene.Add(factoryUnit.Create(x, y, TypeUnit.Ice));
+                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Ice));
                             break;
                     }
                     x += ConfigurationGame.WidthTile;
@@ -54,11 +55,22 @@ namespace SuperTank
                 x = 0;
                 y += ConfigurationGame.HeightTile;
             }
-            scene.Add(factoryUnit.Create(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2, TypeUnit.Eagle));
 
-            plaeyr.Unit.X = 9 * ConfigurationGame.WidthTile;
-            plaeyr.Unit.Y = ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank;
-            scene.Add(plaeyr.Unit);
+            objGame.Add(factoryUnit.Create(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2, TypeUnit.Eagle));
+
+            scene.AddRange(objGame);
+
+            plaeyr.Unit = factoryUnit.Create(9 * ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, TypeUnit.PainTank);
+            AddPlayerTank();
+        }
+
+        public void AddPlayerTank()
+        {
+            Game.Updatable.Remove(plaeyr);
+            Unit star = factoryUnit.Create(plaeyr.Unit.X, plaeyr.Unit.Y, TypeUnit.Star);
+            scene.Add(star);
+            Game.Updatable.Add(new StarUpdate(star, plaeyr, scene));
         }
     }
 }
