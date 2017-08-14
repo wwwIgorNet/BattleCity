@@ -22,6 +22,7 @@ namespace SuperTank.Audio
         private readonly MediaPlayer fire = new MediaPlayer();
         private readonly MediaPlayer gameStart = new MediaPlayer();
         private readonly MediaPlayer gameOver = new MediaPlayer();
+        private readonly MediaPlayer detonationBrickWall = new MediaPlayer();
 
         public SoundGame()
         {
@@ -40,6 +41,8 @@ namespace SuperTank.Audio
             detonationShell.Open(new Uri(ConfigurationView.SoundPath + "DetonationShell.wav", UriKind.Relative));
 
             glide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
+
+            detonationBrickWall.Open(new Uri(ConfigurationView.SoundPath + "DetonationBrickWall.wav", UriKind.Relative));
         }
 
         public void GameOver()
@@ -102,6 +105,13 @@ namespace SuperTank.Audio
             fire.Close();
             gameStart.Close();
             gameOver.Close();
+            detonationBrickWall.Close();
+        }
+
+        public void DetonationBrickWall()
+        {
+            detonationBrickWall.Stop();
+            detonationBrickWall.Play();
         }
     }
 }

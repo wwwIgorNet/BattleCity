@@ -21,5 +21,7 @@ namespace SuperTank.Audio
         void Move();
         [OperationContract(IsOneWay = true)]
         void Stop();
+        [OperationContract(IsOneWay = true)]
+        void DetonationBrickWall();
     }
 }

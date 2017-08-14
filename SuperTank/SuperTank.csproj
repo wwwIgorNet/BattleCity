@@ -141,6 +141,9 @@
     <None Include="WindowsForms\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sound\DetonationBrickWall.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sound\Glide.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

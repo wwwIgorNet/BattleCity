@@ -31,6 +31,7 @@ namespace SuperTank.Command
                 case TypeUnit.Shell:
                     break;
                 case TypeUnit.BrickWall:
+                    soundGame.DetonationBrickWall();
                     break;
                 case TypeUnit.ConcreteWall:
                     soundGame.DetonationShell();
