@@ -1,4 +1,5 @@
-﻿using SuperTank.View;
+﻿using SuperTank.Audio;
+using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -60,16 +61,18 @@ namespace SuperTank
             BaseView viewUpdate = listDrowable.FindByID(id);
             switch (prop)
             {
-                case PropertiesType.Direction:
-                case PropertiesType.IsStop:
-                case PropertiesType.Detonation:
-                    viewUpdate.Properties[prop] = value;
-                    break;
                 case PropertiesType.X:
                     viewUpdate.X = (int)value;
                     break;
                 case PropertiesType.Y:
                     viewUpdate.Y = (int)value;
+                    break;
+                //case PropertiesType.Direction:
+                //case PropertiesType.IsStop:
+                //case PropertiesType.Detonation:
+                //case PropertiesType.Glide:
+                default:
+                    viewUpdate.Properties[prop] = value;
                     break;
             }
         }

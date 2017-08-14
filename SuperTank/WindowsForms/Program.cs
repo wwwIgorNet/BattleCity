@@ -1,4 +1,5 @@
-﻿using SuperTank.View;
+﻿using SuperTank.Audio;
+using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,35 +22,36 @@ namespace SuperTank.WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
             SceneView sceneView = new SceneView();
             GameForm formRender = new GameForm(sceneView);
+            SoundGame.LoadSound();
 
-            //ServiceHost host = null;
-            //host = new ServiceHost(sceneView);
-            //host.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            //host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-            //host.Open();
+            ServiceHost host = null;
+            host = new ServiceHost(sceneView);
+            host.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+            host.Open();
 
-            //ChannelFactory<IRender> factory = null;
-            //Game game = null;
-            //ThreadPool.QueueUserWorkItem((s) =>
-            //{
-            //    factory = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-            //    IRender render = factory.CreateChannel();
-
-            //    game = new Game(render);
-            //    game.Start();
-            //});
-
+            ChannelFactory<IRender> factory = null;
+            Game game = null;
             ThreadPool.QueueUserWorkItem((s) =>
             {
-                Game game = new Game(sceneView);
+                factory = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+                IRender render = factory.CreateChannel();
+                
+                game = new Game(render);
                 game.Start();
             });
+
+            //ThreadPool.QueueUserWorkItem((s) =>
+            //{
+            //    Game game = new Game(sceneView);
+            //    game.Start();
+            //});
 
 
             Application.Run(formRender);
 
-            //game.Stop();
-            //host.Close();
+            game.Stop();
+            host.Close();
         }
     }
 }

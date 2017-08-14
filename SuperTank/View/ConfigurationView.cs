@@ -14,7 +14,8 @@ namespace SuperTank.View
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
         public static int WindowClientWidth { get { return windowClientWidth; } }
-        public static string Texture { get { return @"Content\Textures\"; } }
+        public static string TexturePath { get { return @"Content\Textures\"; } }
         public static Color BackColor { get { return SystemColors.ActiveBorder; } }
+        public static string SoundPath { get { return @"Content\Sound\"; } }
     }
 }

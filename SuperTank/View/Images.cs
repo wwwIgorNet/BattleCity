@@ -260,7 +260,7 @@ namespace SuperTank.View
 
         private static Image Validate(Image img, String imgName)
         {
-            return img == null ? img = Image.FromFile(ConfigurationView.Texture + imgName) : img;
+            return img == null ? img = Image.FromFile(ConfigurationView.TexturePath + imgName) : img;
         }
     }
 }
