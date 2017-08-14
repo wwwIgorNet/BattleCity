@@ -23,19 +23,25 @@ namespace SuperTank.Command
         {
             if ((bool)Unit.Properties[PropertiesType.Detonation])
             {
+                delayDetonation++;
                 if (delayDetonation == ConfigurationGame.DelayDetonation)
                     OnShellDestroy();
-                delayDetonation++;
+
                 return;
             }
 
             Move(Velosity);
+
             if (scene.ColisionBoard(Unit))
+            {
                 Unit.Properties[PropertiesType.Detonation] = true;
-            for(int i = 0; i < scene.Units.Count; i++)
+                return;
+            }
+
+            for (int i = 0; i < scene.Units.Count; i++)
             {
                 Unit item = scene.Units[i];
-                if(item.BoundingBox.IntersectsWith(this.Unit.BoundingBox) && !item.Equals(this.Unit))
+                if (item.BoundingBox.IntersectsWith(this.Unit.BoundingBox) && !item.Equals(this.Unit))
                     switch (item.Type)
                     {
                         case TypeUnit.PainTank:
@@ -58,7 +64,7 @@ namespace SuperTank.Command
                         case TypeUnit.BrickWall:
                             scene.Remove(item);
                             Unit.Properties[PropertiesType.Detonation] = true;
-                            break;
+                            return;
                         case TypeUnit.ConcreteWall:
                             Unit.Properties[PropertiesType.Detonation] = true;
                             break;

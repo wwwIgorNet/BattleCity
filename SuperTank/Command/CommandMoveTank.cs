@@ -55,20 +55,9 @@ namespace SuperTank.Command
             Move(ref rect, Velosity);
 
             List<Unit> colision = ColisionWithUnit(rect);
+            Ofset(ref rect, colision);
 
-            if (colision.Find(u => u.Type == TypeUnit.Ice) != null)
-            {
-                IsGlide = true;
-                Move(ref rect, 2);
-            }
-            else IsGlide = false;
-
-            for (int i = 0; i < colision.Count; i++)
-            {
-                if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)
-                    while (rect.IntersectsWith(colision[i].BoundingBox))
-                        Move(ref rect, -1);
-            }
+            Glide(ref rect, colision);
 
             while (scene.ColisionBoard(rect)) Move(ref rect, -1);
 
@@ -82,6 +71,31 @@ namespace SuperTank.Command
                 case Direction.Left:
                     Unit.X = rect.X;
                     break;
+            }
+        }
+
+        private void Glide(ref Rectangle rect, List<Unit> colision)
+        {
+            for (int i = 0; i < colision.Count; i++)
+            {
+                if (colision[i].Type == TypeUnit.Ice && rect.IntersectsWith(colision[i].BoundingBox))
+                {
+                    IsGlide = true;
+                    Move(ref rect, 2);
+                    Ofset(ref rect, colision);
+                    return;
+                }
+            }
+            IsGlide = false;
+        }
+
+        private void Ofset(ref Rectangle rect, List<Unit> colision)
+        {
+            for (int i = 0; i < colision.Count; i++)
+            {
+                if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)
+                    while (rect.IntersectsWith(colision[i].BoundingBox))
+                        Move(ref rect, -1);
             }
         }
 
