@@ -12,7 +12,6 @@ namespace SuperTank.Command
         private IFactoryUnit factoryUnit;
         private IScene scene;
         private int velosityFire;
-        private Unit prevShell;
 
         public CommandFire(Unit unit, IFactoryUnit factoryUnit, IScene scene, int velosityFire) : base(unit)
         {
@@ -21,15 +20,9 @@ namespace SuperTank.Command
             this.velosityFire = velosityFire;
         }
 
-        private bool IsFire
-        {
-            get { return (bool)Unit.Properties[PropertiesType.Fire]; }
-            set { Unit.Properties[PropertiesType.Fire] = value; }
-        }
-
         public override void Execute()
         {
-            if (IsFire) return;
+            if (PrevShell != null) return;
 
             Unit shell = null;
             int x = 0, y = 0;
@@ -60,12 +53,14 @@ namespace SuperTank.Command
             Action action = new Action(() =>
             {
                 Game.Updatable.Remove(updatableShell);
-                IsFire = false;
+                PrevShell = null;
             });
             shell.Commands.Add(TypeCommand.Move, new CommandMoveSell(shell, scene, action));
             shell.Properties[PropertiesType.Owner] = Unit.Properties[PropertiesType.Owner];
             scene.Add(shell);
-            IsFire = true;
+            PrevShell = shell;
         }
+
+        protected virtual Unit PrevShell { get; set; }
     }
 }

@@ -10,14 +10,12 @@ namespace SuperTank
     {
         Velosity,
         Direction,
-        IsStop,
+        IsParking,
         X,
         Y,
         ID,
         TypeUnit,
         Owner,
-        Detonation,
-        Glide,
-        Fire
+        Detonation
     }
 }

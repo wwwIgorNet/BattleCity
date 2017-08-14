@@ -33,7 +33,7 @@ namespace SuperTank.Updatable
             {
                 Game.Updatable.Remove(this);
                 scene.Remove(star);
-                scene.Add(plaeyr.Unit);
+                scene.Add(plaeyr.Tank);
                 Game.Updatable.Add(plaeyr);
             }
         }

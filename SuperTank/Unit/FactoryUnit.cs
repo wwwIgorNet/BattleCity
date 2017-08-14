@@ -87,9 +87,7 @@ namespace SuperTank
             Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
-            tank.Properties[PropertiesType.IsStop] = true;
-            tank.Properties[PropertiesType.Glide] = false;
-            tank.Properties[PropertiesType.Fire] = false;
+            tank.Properties[PropertiesType.IsParking] = true;
 
             tank.Commands.Add(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down));
             tank.Commands.Add(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up));
@@ -99,6 +97,21 @@ namespace SuperTank
             tank.Commands.Add(TypeCommand.Move, new CommandMoveTank(tank, scene));
             tank.Commands.Add(TypeCommand.Fire, new CommandFire(tank, this, scene, ConfigurationGame.VelostyShellPlainTank));
 
+            return tank;
+        }
+
+        public Unit CreatePlaeyrTank(int x, int y, TypeUnit type, ISoundGame soundGame)
+        {
+            Unit tank = null;
+            switch (type)
+            {
+                case TypeUnit.PainTank:
+                    tank = CreatePlainTank(x, y);
+                    tank.Commands.Replace(TypeCommand.Move, new CommandMoveTankWithSound(tank, scene, soundGame));
+                    tank.Commands.Replace(TypeCommand.Stop, new CommandStopWithSound(tank, soundGame));
+                    tank.Commands.Replace(TypeCommand.Fire, new CommandFireWithSound(tank, this, scene, ConfigurationGame.VelostyShellPlainTank, soundGame));
+                    break;
+            }
             return tank;
         }
     }

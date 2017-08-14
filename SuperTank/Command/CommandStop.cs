@@ -15,8 +15,8 @@ namespace SuperTank.Command
 
         public override void Execute()
         {
-            if (!(bool)Unit.Properties[PropertiesType.IsStop])
-                Unit.Properties[PropertiesType.IsStop] = OffsetToBorderTile();
+            if (!(bool)Unit.Properties[PropertiesType.IsParking])
+                Unit.Properties[PropertiesType.IsParking] = OffsetToBorderTile();
         }
     }
 }

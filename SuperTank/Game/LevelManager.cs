@@ -14,15 +14,13 @@ namespace SuperTank
     {
         private readonly IScene scene;
         private readonly IFactoryUnit factoryUnit;
-        private readonly IPlaeyr plaeyr;
-        private readonly ISoundGame soundGame;
+        private IPlaeyr plaeyr;
 
-        public LevelManager(IScene scene, IFactoryUnit factoryUnit, IPlaeyr plaeyr, ISoundGame soundGame)
+        public LevelManager(IScene scene, IFactoryUnit factoryUnit, IPlaeyr plaeyr)
         {
             this.scene = scene;
             this.factoryUnit = factoryUnit;
             this.plaeyr = plaeyr;
-            this.soundGame = soundGame;
         }
 
         public void CreateLevel(int level)
@@ -63,38 +61,17 @@ namespace SuperTank
 
             scene.AddRange(objGame);
 
-            plaeyr.Unit = factoryUnit.Create(9 * ConfigurationGame.WidthTile,
-                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, TypeUnit.PainTank);
-            AddPlayerTank();
+            plaeyr.Tank = factoryUnit.CreatePlaeyrTank(9 * ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, TypeUnit.PainTank, Game.SoundGame);
+            AddPlayerTank(plaeyr);
         }
 
-        public void AddPlayerTank()
+        public void AddPlayerTank(IPlaeyr plaeyr)
         {
             Game.Updatable.Remove(plaeyr);
-            Unit star = factoryUnit.Create(plaeyr.Unit.X, plaeyr.Unit.Y, TypeUnit.Star);
+            Unit star = factoryUnit.Create(plaeyr.Tank.X, plaeyr.Tank.Y, TypeUnit.Star);
             scene.Add(star);
-            plaeyr.Unit.PropertyChanged += Unit_PropertyChanged;
             Game.Updatable.Add(new StarUpdate(star, plaeyr, scene));
-        }
-
-        private void Unit_PropertyChanged(int id, PropertiesType propType, object objVal)
-        {
-            switch (propType)
-            {
-                case PropertiesType.IsStop:
-                    if ((bool)objVal) soundGame.Stop();
-                    else soundGame.Move();
-                    break;
-                case PropertiesType.Detonation:
-                    break;
-                case PropertiesType.Glide:
-                    if ((bool)objVal) soundGame.Glide();
-                    break;
-                case PropertiesType.Fire:
-                    if ((bool)objVal) soundGame.Fire();
-                    //else soundGame.DetonationShell();
-                    break;
-            }
         }
     }
 }

@@ -39,15 +39,11 @@ namespace SuperTank.Command
 
         protected virtual bool IsParcing
         {
-            get { return (bool)Unit.Properties[PropertiesType.IsStop]; }
-            set { Unit.Properties[PropertiesType.IsStop] = value; }
+            get { return (bool)Unit.Properties[PropertiesType.IsParking]; }
+            set { Unit.Properties[PropertiesType.IsParking] = value; }
         }
 
-        protected virtual bool IsGlide
-        {
-            get { return (bool)Unit.Properties[PropertiesType.Glide]; }
-            set { Unit.Properties[PropertiesType.Glide] = value; }
-        }
+        protected virtual bool IsGlide { get; set; }
 
         private void MoveColision()
         {
@@ -111,7 +107,7 @@ namespace SuperTank.Command
 
         public override void Execute()
         {
-            Unit.Properties[PropertiesType.IsStop] = false;
+            IsParcing = false;
             MoveColision();
         }
     }

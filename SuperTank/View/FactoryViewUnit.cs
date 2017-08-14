@@ -106,7 +106,7 @@ namespace SuperTank
                     };
             BaseView res = new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-            res.Properties[PropertiesType.IsStop] = properties[PropertiesType.IsStop];
+            res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
             return res;
         }
     }

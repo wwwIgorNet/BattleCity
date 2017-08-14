@@ -58,7 +58,11 @@
     <Compile Include="Command\BaseDirectionCommand.cs" />
     <Compile Include="Command\BaseOffsetCommand.cs" />
     <Compile Include="Command\CommandFire.cs" />
+    <Compile Include="Command\CommandFireWithSound.cs" />
     <Compile Include="Command\CommandMoveSell.cs" />
+    <Compile Include="Command\CommandMoveSellWithSound.cs" />
+    <Compile Include="Command\CommandMoveTankWithSound.cs" />
+    <Compile Include="Command\CommandStopWithSound.cs" />
     <Compile Include="Command\CommandTurn.cs" />
     <Compile Include="Command\CommandStop.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />

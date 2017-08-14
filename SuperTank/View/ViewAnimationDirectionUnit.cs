@@ -40,7 +40,7 @@ namespace SuperTank.View
         {
             get
             {
-                return (bool)Properties[PropertiesType.IsStop];
+                return (bool)Properties[PropertiesType.IsParking];
             }
         }
     }

@@ -8,20 +8,27 @@ namespace SuperTank.Command
 {
     class CommandMoveSell : CommandMove
     {
-        private IScene scene;
-        private Action shellDetonaition;
         private int delayDetonation = 0;
 
         public CommandMoveSell(Unit unit, IScene scene, Action shellDetonaition) : base(unit)
         {
-            this.scene = scene;
-            this.shellDetonaition = shellDetonaition;
-            Unit.Properties[PropertiesType.Detonation] = false;
+            Scene = scene;
+            ShellDetonaition = shellDetonaition;
+            IsDetonation = false;
         }
+
+        protected bool IsDetonation
+        {
+            set { Unit.Properties[PropertiesType.Detonation] = value; }
+            get { return (bool)Unit.Properties[PropertiesType.Detonation]; }
+        }
+
+        public IScene Scene { get; internal set; }
+        public Action ShellDetonaition { get; internal set; }
 
         public override void Execute()
         {
-            if ((bool)Unit.Properties[PropertiesType.Detonation])
+            if (IsDetonation)
             {
                 delayDetonation++;
                 if (delayDetonation == ConfigurationGame.DelayDetonation)
@@ -32,50 +39,55 @@ namespace SuperTank.Command
 
             Move(Velosity);
 
-            if (scene.ColisionBoard(Unit))
+            if (Scene.ColisionBoard(Unit))
             {
-                Unit.Properties[PropertiesType.Detonation] = true;
+                Detonation(null);
                 return;
             }
 
-            for (int i = 0; i < scene.Units.Count; i++)
+            for (int i = 0; i < Scene.Units.Count; i++)
             {
-                Unit item = scene.Units[i];
+                Unit item = Scene.Units[i];
                 if (item.BoundingBox.IntersectsWith(this.Unit.BoundingBox) && !item.Equals(this.Unit))
                     switch (item.Type)
                     {
                         case TypeUnit.PainTank:
                             if (!Unit.Properties[PropertiesType.Owner].Equals(item.Properties[PropertiesType.Owner]))
                             {
-                                scene.Remove(item);
-                                Unit.Properties[PropertiesType.Detonation] = true;
+                                Detonation(item);
+                                return;
                             }
                             break;
                         case TypeUnit.Shell:
                             if (!Unit.Properties[PropertiesType.Owner].Equals(item.Properties[PropertiesType.Owner]))
                             {
-                                if (Unit.Properties[PropertiesType.Detonation].Equals(false))
+                                if (IsDetonation.Equals(false))
                                 {
-                                    scene.Remove(item);
-                                    Unit.Properties[PropertiesType.Detonation] = true;
+                                    Detonation(item);
+                                    return;
                                 }
                             }
                             break;
                         case TypeUnit.BrickWall:
-                            scene.Remove(item);
-                            Unit.Properties[PropertiesType.Detonation] = true;
+                            Detonation(item);
                             return;
                         case TypeUnit.ConcreteWall:
-                            Unit.Properties[PropertiesType.Detonation] = true;
+                            Detonation(null);
                             break;
                     }
             }
         }
 
-        private void OnShellDestroy()
+        protected virtual void Detonation(Unit item)
         {
-            scene.Remove(Unit);
-            shellDetonaition.Invoke();
+            if(item != null) Scene.Remove(item);
+            IsDetonation = true;
+        }
+
+        protected virtual void OnShellDestroy()
+        {
+            Scene.Remove(Unit);
+            ShellDetonaition.Invoke();
         }
     }
 }

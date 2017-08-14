@@ -15,9 +15,9 @@ namespace SuperTank
         private static readonly Timer timer = new Timer();
         private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
 
-        public static readonly IPlaeyr plaeyr = new Plaeyr();
+        private static readonly IPlaeyr plaeyr = new Plaeyr();
         private readonly LevelManager levelManager;
-        private readonly ISoundGame soundGame;
+        private static ISoundGame soundGame;
 
         static Game()
         {
@@ -27,12 +27,13 @@ namespace SuperTank
 
         public Game(IRender render, ISoundGame soundGame)
         {
-            this.soundGame = soundGame;
+            Game.soundGame = soundGame;
             IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            levelManager = new LevelManager(scene, factoryUnit, plaeyr, soundGame);
+            levelManager = new LevelManager(scene, factoryUnit, plaeyr);
         }
         
+        public static ISoundGame SoundGame { get { return soundGame; } }
         public static List<IUpdatable> Updatable { get { return updatable; } }
 
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)

@@ -63,11 +63,11 @@ namespace SuperTank
             switch (propType)
             {
                 case PropertiesType.Direction:
-                case PropertiesType.IsStop:
+                case PropertiesType.IsParking:
                 case PropertiesType.X:
                 case PropertiesType.Y:
                 case PropertiesType.Detonation:
-                case PropertiesType.Glide:
+                //case PropertiesType.Glide:
                     render.Update(id, propType, val);
                     break;
             }
@@ -82,8 +82,8 @@ namespace SuperTank
                     properties = new Dictionary<PropertiesType, object>();
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
-                    properties[PropertiesType.IsStop] = unit.Properties[PropertiesType.IsStop];
-                    properties[PropertiesType.Glide] = unit.Properties[PropertiesType.Glide];
+                    properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
+                    //properties[PropertiesType.Glide] = unit.Properties[PropertiesType.Glide];
                     break;
                 case TypeUnit.Shell:
                     properties = new Dictionary<PropertiesType, object>();

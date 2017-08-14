@@ -9,22 +9,22 @@ namespace SuperTank
 {
     class Plaeyr : IPlaeyr
     {
-        private Unit unit;
+        private Unit tank;
 
-        public Unit Unit
+        public Unit Tank
         {
-            get { return unit; }
+            get { return tank; }
             set
             {
                 value.Properties[PropertiesType.Owner] = Owner.Plaeyr;
-                unit = value;
+                tank = value;
             }
         }
 
         public void Update()
         {
             if (Keyboard.Space)
-                Unit.Execute(TypeCommand.Fire);
+                Tank.Execute(TypeCommand.Fire);
 
             Direction carentDirection;
             if (Keyboard.Right)
@@ -37,31 +37,31 @@ namespace SuperTank
                 carentDirection = Direction.Down;
             else
             {
-                unit.Execute(TypeCommand.Stop);
+                tank.Execute(TypeCommand.Stop);
                 return;
             }
 
-            if ((Direction)Unit.Properties[PropertiesType.Direction] != carentDirection)
+            if ((Direction)Tank.Properties[PropertiesType.Direction] != carentDirection)
             {
 
                 switch (carentDirection)
                 {
                     case Direction.Up:
-                        unit.Execute(TypeCommand.TurnUp);
+                        tank.Execute(TypeCommand.TurnUp);
                         break;
                     case Direction.Right:
-                        unit.Execute(TypeCommand.TurnRight);
+                        tank.Execute(TypeCommand.TurnRight);
                         break;
                     case Direction.Down:
-                        unit.Execute(TypeCommand.TurnDown);
+                        tank.Execute(TypeCommand.TurnDown);
                         break;
                     case Direction.Left:
-                        unit.Execute(TypeCommand.TurnLeft);
+                        tank.Execute(TypeCommand.TurnLeft);
                         break;
                 }
             }
             else
-                unit.Execute(TypeCommand.Move);
+                tank.Execute(TypeCommand.Move);
         }
     }
 }
