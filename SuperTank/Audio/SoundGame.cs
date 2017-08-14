@@ -6,105 +6,99 @@ using System.Threading.Tasks;
 using System.Media;
 using SuperTank.View;
 using System.Drawing;
+using System.Windows.Media;
+using System.ServiceModel;
 
 namespace SuperTank.Audio
 {
-    class SoundGame
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    class SoundGame : ISoundGame
     {
-        public static void LoadSound()
+        public SoundGame()
         {
-            soundMove.Open(new Uri(ConfigurationView.SoundPath + "SoundMove.wav", UriKind.Relative));
+            move.Open(new Uri(ConfigurationView.SoundPath + "SoundMove.wav", UriKind.Relative));
 
-            soundStop.Open(new Uri(ConfigurationView.SoundPath + "SoundStop.wav", UriKind.Relative));
+            stop.Open(new Uri(ConfigurationView.SoundPath + "SoundStop.wav", UriKind.Relative));
 
             gameStart.Open(new Uri(ConfigurationView.SoundPath + "GameStart.wav", UriKind.Relative));
 
             gameOver.Open(new Uri(ConfigurationView.SoundPath + "GameOver.wav", UriKind.Relative));
 
-            soundFire.Open(new Uri(ConfigurationView.SoundPath + "Fire.wav", UriKind.Relative));
+            fire.Open(new Uri(ConfigurationView.SoundPath + "Fire.wav", UriKind.Relative));
 
-            soundBigDetonation.Open(new Uri(ConfigurationView.SoundPath + "DetonationShellBig.wav", UriKind.Relative));
+            bigDetonation.Open(new Uri(ConfigurationView.SoundPath + "DetonationShellBig.wav", UriKind.Relative));
 
-            soundDetonation.Open(new Uri(ConfigurationView.SoundPath + "Detonation.wav", UriKind.Relative));
+            detonation.Open(new Uri(ConfigurationView.SoundPath + "Detonation.wav", UriKind.Relative));
 
-            soundGlide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
+            glide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
         }
 
-        private static System.Windows.Media.MediaPlayer gameOver = new System.Windows.Media.MediaPlayer();
-        public static void GameOver()
+        private MediaPlayer gameOver = new MediaPlayer();
+        public void GameOver()
         {
             gameOver.Stop();
             gameOver.Play();
         }
 
-        private static System.Windows.Media.MediaPlayer gameStart = new System.Windows.Media.MediaPlayer();
-        public static void GameStart()
+        private MediaPlayer gameStart = new MediaPlayer();
+        public void GameStart()
         {
             gameStart.Stop();
             gameStart.Play();
         }
 
-        private static System.Windows.Media.MediaPlayer soundFire = new System.Windows.Media.MediaPlayer();
-        public static void SoundFire()
+        private MediaPlayer fire = new MediaPlayer();
+        public void Fire()
         {
-            soundFire.Stop();
-            soundFire.Play();
+            fire.Stop();
+            fire.Play();
         }
 
-        private static System.Windows.Media.MediaPlayer soundBigDetonation = new System.Windows.Media.MediaPlayer();
-        public static void SoundBigDetonation()
+        private MediaPlayer bigDetonation = new MediaPlayer();
+        public void BigDetonation()
         {
-            soundBigDetonation.Stop();
-            soundBigDetonation.Play();
+            bigDetonation.Stop();
+            bigDetonation.Play();
         }
 
 
-        private static System.Windows.Media.MediaPlayer soundDetonation = new System.Windows.Media.MediaPlayer();
-        public static void SoundDetonation()
+        private MediaPlayer detonation = new MediaPlayer();
+        public void Detonation()
         {
-            soundDetonation.Stop();
-            soundDetonation.Play();
+            detonation.Stop();
+            detonation.Play();
         }
 
-        private static System.Windows.Media.MediaPlayer soundGlide = new System.Windows.Media.MediaPlayer();
-        public static void SoundGlide()
+        private MediaPlayer glide = new MediaPlayer();
+        public void Glide()
         {
-            soundGlide.Play();
+            glide.Play();
         }
 
-        private static System.Windows.Media.MediaPlayer soundMove = new System.Windows.Media.MediaPlayer();
-        private static bool move;
-        public static void SoundMove()
+        private MediaPlayer move = new MediaPlayer();
+        ///private bool move;
+        public void Move()
         {
             //if (!move)
             //{
-            soundStop.Stop();
-            soundMove.Play();
+            stop.Stop();
+            move.Play();
             //    move = true;
             //    stop = false;
             //}
         }
 
-        private static System.Windows.Media.MediaPlayer soundStop = new System.Windows.Media.MediaPlayer();
-        private static bool stop;
-        public static void SoundStop()
+        private MediaPlayer stop = new MediaPlayer();
+        //private bool stop;
+        public void Stop()
         {
             //if (!stop)
             //{
-            soundMove.Stop();
-            soundStop.Play();
+            move.Stop();
+            stop.Play();
                 //stop = true;
                 //move = false;
             //}
         }
-
-    public static void Stop()
-    {
-        SoundGame.soundMove.Stop();
-        SoundGame.soundStop.Stop();
-        move = false;
-        stop = false;
-    }
-
 }
 }

@@ -13,15 +13,15 @@ namespace SuperTank.Audio
         {
             set
             {
-                if (value) SoundGame.SoundStop();
-                else SoundGame.SoundMove();
+                //if (value) SoundGame.SoundStop();
+                //else SoundGame.SoundMove();
             }
         }
         public bool Glide
         {
             set
             {
-                if (value) SoundGame.SoundGlide();
+                //if (value) SoundGame.SoundGlide();
             }
         }
 

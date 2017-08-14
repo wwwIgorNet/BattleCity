@@ -22,21 +22,28 @@ namespace SuperTank.WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
             SceneView sceneView = new SceneView();
             GameForm formRender = new GameForm(sceneView);
-            SoundGame.LoadSound();
+            SoundGame soundGame = new SoundGame();
 
-            ServiceHost host = null;
-            host = new ServiceHost(sceneView);
-            host.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            host.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-            host.Open();
+            ServiceHost hostSound = new ServiceHost(soundGame);
+            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
+            hostSound.Open();
 
-            ChannelFactory<IRender> factory = null;
+
+            ServiceHost hostSceneView = new ServiceHost(sceneView);
+            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+            hostSceneView.Open();
+
             Game game = null;
             ThreadPool.QueueUserWorkItem((s) =>
             {
-                factory = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-                IRender render = factory.CreateChannel();
-                
+                ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+                IRender render = factoryRender.CreateChannel();
+
+                ChannelFactory<ISoundGame> factorySound  = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
+                ISoundGame ISoundGame = factorySound.CreateChannel();
+
                 game = new Game(render);
                 game.Start();
             });
@@ -51,7 +58,8 @@ namespace SuperTank.WindowsForms
             Application.Run(formRender);
 
             game.Stop();
-            host.Close();
+            hostSceneView.Close();
+            hostSound.Close();
         }
     }
 }

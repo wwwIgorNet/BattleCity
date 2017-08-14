@@ -52,6 +52,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio\ISoundGame.cs" />
     <Compile Include="Audio\PlaeyrAudio.cs" />
     <Compile Include="Audio\SoundGame.cs" />
     <Compile Include="Command\BaseCommand.cs" />
