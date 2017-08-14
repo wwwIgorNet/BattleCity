@@ -12,8 +12,17 @@ using System.ServiceModel;
 namespace SuperTank.Audio
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class SoundGame : ISoundGame
+    class SoundGame : ISoundGame, IDisposable
     {
+        private readonly MediaPlayer stop = new MediaPlayer();
+        private readonly MediaPlayer move = new MediaPlayer();
+        private readonly MediaPlayer glide = new MediaPlayer();
+        private readonly MediaPlayer detonationShell = new MediaPlayer();
+        private readonly MediaPlayer bigDetonation = new MediaPlayer();
+        private readonly MediaPlayer fire = new MediaPlayer();
+        private readonly MediaPlayer gameStart = new MediaPlayer();
+        private readonly MediaPlayer gameOver = new MediaPlayer();
+
         public SoundGame()
         {
             move.Open(new Uri(ConfigurationView.SoundPath + "SoundMove.wav", UriKind.Relative));
@@ -28,33 +37,29 @@ namespace SuperTank.Audio
 
             bigDetonation.Open(new Uri(ConfigurationView.SoundPath + "DetonationShellBig.wav", UriKind.Relative));
 
-            detonation.Open(new Uri(ConfigurationView.SoundPath + "Detonation.wav", UriKind.Relative));
+            detonationShell.Open(new Uri(ConfigurationView.SoundPath + "DetonationShell.wav", UriKind.Relative));
 
             glide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
         }
 
-        private MediaPlayer gameOver = new MediaPlayer();
         public void GameOver()
         {
             gameOver.Stop();
             gameOver.Play();
         }
 
-        private MediaPlayer gameStart = new MediaPlayer();
         public void GameStart()
         {
             gameStart.Stop();
             gameStart.Play();
         }
 
-        private MediaPlayer fire = new MediaPlayer();
         public void Fire()
         {
             fire.Stop();
             fire.Play();
         }
 
-        private MediaPlayer bigDetonation = new MediaPlayer();
         public void BigDetonation()
         {
             bigDetonation.Stop();
@@ -62,43 +67,41 @@ namespace SuperTank.Audio
         }
 
 
-        private MediaPlayer detonation = new MediaPlayer();
-        public void Detonation()
+        public void DetonationShell()
         {
-            detonation.Stop();
-            detonation.Play();
+            detonationShell.Stop();
+            detonationShell.Play();
         }
 
-        private MediaPlayer glide = new MediaPlayer();
         public void Glide()
         {
+            glide.Stop();
             glide.Play();
         }
 
-        private MediaPlayer move = new MediaPlayer();
-        ///private bool move;
         public void Move()
         {
-            //if (!move)
-            //{
             stop.Stop();
             move.Play();
-            //    move = true;
-            //    stop = false;
-            //}
         }
 
-        private MediaPlayer stop = new MediaPlayer();
-        //private bool stop;
         public void Stop()
         {
-            //if (!stop)
-            //{
             move.Stop();
             stop.Play();
-                //stop = true;
-                //move = false;
-            //}
+
         }
-}
+
+        public void Dispose()
+        {
+            stop.Close();
+            move.Close();
+            glide.Close();
+            detonationShell.Close();
+            bigDetonation.Close();
+            fire.Close();
+            gameStart.Close();
+            gameOver.Close();
+        }
+    }
 }

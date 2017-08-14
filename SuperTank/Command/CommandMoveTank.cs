@@ -37,13 +37,13 @@ namespace SuperTank.Command
             }
         }
 
-        private bool IsParcing
+        protected virtual bool IsParcing
         {
             get { return (bool)Unit.Properties[PropertiesType.IsStop]; }
             set { Unit.Properties[PropertiesType.IsStop] = value; }
         }
 
-        private bool IsGlide
+        protected virtual bool IsGlide
         {
             get { return (bool)Unit.Properties[PropertiesType.Glide]; }
             set { Unit.Properties[PropertiesType.Glide] = value; }

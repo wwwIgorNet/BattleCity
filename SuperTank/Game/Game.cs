@@ -1,4 +1,5 @@
 ﻿using SuperTank;
+using SuperTank.Audio;
 using SuperTank.View;
 using System;
 using System.Collections.Generic;
@@ -9,13 +10,14 @@ using System.Timers;
 
 namespace SuperTank
 {
-    public class Game
+    public class Game : IDisposable
     {
         private static readonly Timer timer = new Timer();
         private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
 
         public static readonly IPlaeyr plaeyr = new Plaeyr();
         private readonly LevelManager levelManager;
+        private readonly ISoundGame soundGame;
 
         static Game()
         {
@@ -23,13 +25,14 @@ namespace SuperTank
             timer.Elapsed += Timer_Elapsed;
         }
 
-        public Game(IRender render)
+        public Game(IRender render, ISoundGame soundGame)
         {
+            this.soundGame = soundGame;
             IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            levelManager = new LevelManager(scene, factoryUnit, plaeyr);
+            levelManager = new LevelManager(scene, factoryUnit, plaeyr, soundGame);
         }
-
+        
         public static List<IUpdatable> Updatable { get { return updatable; } }
 
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -45,7 +48,8 @@ namespace SuperTank
             levelManager.CreateLevel(1);
             timer.Start();
         }
-        public void Stop()
+
+        public void Dispose()
         {
             timer.Stop();
         }

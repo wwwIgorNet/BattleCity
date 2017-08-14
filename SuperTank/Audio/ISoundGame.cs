@@ -3,7 +3,7 @@
 namespace SuperTank.Audio
 {
     [ServiceContract]
-    interface ISoundGame
+    public interface ISoundGame
     {
         [OperationContract(IsOneWay = true)]
         void GameOver();
@@ -12,7 +12,7 @@ namespace SuperTank.Audio
         [OperationContract(IsOneWay = true)]
         void BigDetonation();
         [OperationContract(IsOneWay = true)]
-        void Detonation();
+        void DetonationShell();
         [OperationContract(IsOneWay = true)]
         void Fire();
         [OperationContract(IsOneWay = true)]

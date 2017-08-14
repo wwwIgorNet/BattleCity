@@ -1,4 +1,5 @@
-﻿using SuperTank.Command;
+﻿using SuperTank.Audio;
+using SuperTank.Command;
 using SuperTank.Updatable;
 using SuperTank.View;
 using System;
@@ -88,7 +89,8 @@ namespace SuperTank
             tank.Properties[PropertiesType.Direction] = Direction.Up;
             tank.Properties[PropertiesType.IsStop] = true;
             tank.Properties[PropertiesType.Glide] = false;
-            
+            tank.Properties[PropertiesType.Fire] = false;
+
             tank.Commands.Add(TypeCommand.TurnDown, new CommandTurn(tank, Direction.Down));
             tank.Commands.Add(TypeCommand.TurnUp, new CommandTurn(tank, Direction.Up));
             tank.Commands.Add(TypeCommand.TurnLeft, new CommandTurn(tank, Direction.Left));

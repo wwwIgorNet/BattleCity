@@ -12,6 +12,13 @@ namespace SuperTank.WindowsForms
 {
     static class Program
     {
+        private static ChannelFactory<IRender> factoryRender;
+        private static ChannelFactory<ISoundGame> factorySound;
+        private static ServiceHost hostSound;
+        private static ServiceHost hostSceneView;
+        private static Game game;
+        private static SoundGame soundGame;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -22,29 +29,28 @@ namespace SuperTank.WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
             SceneView sceneView = new SceneView();
             GameForm formRender = new GameForm(sceneView);
-            SoundGame soundGame = new SoundGame();
+            soundGame = new SoundGame();
 
-            ServiceHost hostSound = new ServiceHost(soundGame);
+            hostSound = new ServiceHost(soundGame);
             hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
             hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
             hostSound.Open();
 
 
-            ServiceHost hostSceneView = new ServiceHost(sceneView);
+            hostSceneView = new ServiceHost(sceneView);
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
             hostSceneView.Open();
 
-            Game game = null;
             ThreadPool.QueueUserWorkItem((s) =>
             {
-                ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+                factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
                 IRender render = factoryRender.CreateChannel();
 
-                ChannelFactory<ISoundGame> factorySound  = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
-                ISoundGame ISoundGame = factorySound.CreateChannel();
+                factorySound  = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
+                ISoundGame sound= factorySound.CreateChannel();
 
-                game = new Game(render);
+                game = new Game(render, sound);
                 game.Start();
             });
 
@@ -55,9 +61,16 @@ namespace SuperTank.WindowsForms
             //});
 
 
+            formRender.FormClosing += FormRender_FormClosing;
             Application.Run(formRender);
+        }
 
-            game.Stop();
+        private static void FormRender_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            soundGame.Dispose();
+            game.Dispose();
+            factoryRender.Close();
+            factorySound.Close();
             hostSceneView.Close();
             hostSound.Close();
         }

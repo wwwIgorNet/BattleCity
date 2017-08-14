@@ -21,9 +21,15 @@ namespace SuperTank.Command
             this.velosityFire = velosityFire;
         }
 
+        private bool IsFire
+        {
+            get { return (bool)Unit.Properties[PropertiesType.Fire]; }
+            set { Unit.Properties[PropertiesType.Fire] = value; }
+        }
+
         public override void Execute()
         {
-            if (prevShell != null) return;
+            if (IsFire) return;
 
             Unit shell = null;
             int x = 0, y = 0;
@@ -51,12 +57,15 @@ namespace SuperTank.Command
             shell.Properties[PropertiesType.Velosity] = velosityFire;
             UpdatableShell updatableShell = new UpdatableShell(shell);
             Game.Updatable.Add(updatableShell);
-            Action action = new Action(() => Game.Updatable.Remove(updatableShell));
-            action += () => prevShell = null;
+            Action action = new Action(() =>
+            {
+                Game.Updatable.Remove(updatableShell);
+                IsFire = false;
+            });
             shell.Commands.Add(TypeCommand.Move, new CommandMoveSell(shell, scene, action));
             shell.Properties[PropertiesType.Owner] = Unit.Properties[PropertiesType.Owner];
             scene.Add(shell);
-            prevShell = shell;
+            IsFire = true;
         }
     }
 }
