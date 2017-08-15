@@ -16,17 +16,12 @@ namespace SuperTank.Command
             this.soundGame = soundGame;
         }
 
-        protected override Unit PrevShell
+        protected override Unit CreateShell(int x, int y)
         {
-            set
-            {
-                base.PrevShell = value;
-                if (value != null)
-                {
-                    soundGame.Fire();
-                    value.Commands.Replace(TypeCommand.Move, new CommandMoveSellWithSound((CommandMoveSell)value.Commands.Get(TypeCommand.Move), soundGame));
-                }
-            }
+            Unit shell = base.CreateShell(x, y);
+            shell.Commands.Replace(TypeCommand.Move, new CommandMoveSellWithSound((CommandMoveSell)shell.Commands.Get(TypeCommand.Move), soundGame));
+            soundGame.Fire();
+            return shell;
         }
     }
 }

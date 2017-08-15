@@ -18,7 +18,10 @@ namespace SuperTank.Command
             this.scene = scene;
             this.factoryUnit = factoryUnit;
             this.velosityFire = velosityFire;
+            PrevShell = null;
         }
+
+        protected virtual Unit PrevShell { get; set; }
 
         public override void Execute()
         {
@@ -45,22 +48,27 @@ namespace SuperTank.Command
                     y = Unit.Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            shell = factoryUnit.Create(x, y, TypeUnit.Shell);
+            shell = CreateShell(x, y);
+        }
+
+        protected virtual Unit CreateShell(int x, int y)
+        {
+            Unit shell = factoryUnit.Create(x, y, TypeUnit.Shell);
+            PrevShell = shell;
+
             shell.Properties[PropertiesType.Direction] = Direction;
             shell.Properties[PropertiesType.Velosity] = velosityFire;
             UpdatableShell updatableShell = new UpdatableShell(shell);
             Game.Updatable.Add(updatableShell);
             Action action = new Action(() =>
             {
-                Game.Updatable.Remove(updatableShell);
                 PrevShell = null;
+                Game.Updatable.Remove(updatableShell);
             });
             shell.Commands.Add(TypeCommand.Move, new CommandMoveSell(shell, scene, action));
             shell.Properties[PropertiesType.Owner] = Unit.Properties[PropertiesType.Owner];
             scene.Add(shell);
-            PrevShell = shell;
+            return shell;
         }
-
-        protected virtual Unit PrevShell { get; set; }
     }
 }

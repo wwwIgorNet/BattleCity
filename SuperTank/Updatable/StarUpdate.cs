@@ -35,6 +35,7 @@ namespace SuperTank.Updatable
                 scene.Remove(star);
                 scene.Add(plaeyr.Tank);
                 Game.Updatable.Add(plaeyr);
+                plaeyr.Tank.Properties[PropertiesType.IsParking] = !(bool)plaeyr.Tank.Properties[PropertiesType.IsParking];
             }
         }
     }

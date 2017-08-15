@@ -43,6 +43,23 @@ namespace SuperTank.Audio
             glide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
 
             detonationBrickWall.Open(new Uri(ConfigurationView.SoundPath + "DetonationBrickWall.wav", UriKind.Relative));
+
+            fire.MediaEnded += MediaEnded_Stop;
+            detonationBrickWall.MediaEnded += MediaEnded_Stop;
+            detonationShell.MediaEnded += MediaEnded_Stop;
+            glide.MediaEnded += MediaEnded_Stop;
+            move.MediaEnded += MediaEnded_Play;
+            stop.MediaEnded += MediaEnded_Play;
+        }
+
+        private void MediaEnded_Play(object sender, EventArgs e)
+        {
+            ((MediaPlayer)sender).Play();
+        }
+
+        private void MediaEnded_Stop(object sender, EventArgs e)
+        {
+            ((MediaPlayer)sender).Stop();
         }
 
         public void GameOver()
