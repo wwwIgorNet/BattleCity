@@ -1,5 +1,4 @@
-﻿using SuperTank.Command;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class Plaeyr : IPlaeyr
+    class PlaeyrDriver : IDriver
     {
         private Tank tank;
 
@@ -28,6 +27,12 @@ namespace SuperTank
 
         public void Update()
         {
+            if ((bool)Tank.Properties[PropertiesType.Detonation])
+            {
+                Game.Updatable.Remove(this);
+                return;
+            }
+
             if (Keyboard.Space)
                 tank.Fire();
 

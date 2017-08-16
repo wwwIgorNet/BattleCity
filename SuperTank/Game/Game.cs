@@ -15,7 +15,7 @@ namespace SuperTank
         private static readonly Timer timer = new Timer();
         private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
 
-        private static readonly IPlaeyr plaeyr = new Plaeyr();
+        private static readonly IDriver plaeyr = new PlaeyrDriver();
         private readonly LevelManager levelManager;
         private static ISoundGame soundGame;
 
@@ -29,8 +29,7 @@ namespace SuperTank
         {
             Game.soundGame = soundGame;
             IScene scene = new Scene(render);
-            IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            levelManager = new LevelManager(scene, factoryUnit, plaeyr, soundGame);
+            levelManager = new LevelManager(scene, plaeyr, soundGame);
         }
         
         public static ISoundGame SoundGame { get { return soundGame; } }

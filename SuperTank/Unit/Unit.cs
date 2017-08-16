@@ -1,5 +1,4 @@
-﻿using SuperTank.Command;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -14,7 +13,6 @@ namespace SuperTank
 
         private Rectangle boundingBox;
         private TypeUnit type;
-        private Invoker invoker = new Invoker();
         private readonly PropertiesUnit properties;
         private readonly int id;
 
@@ -68,16 +66,7 @@ namespace SuperTank
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
         public IDictionary<PropertiesType, object> Properties { get { return properties; } }
-        public Invoker Commands
-        {
-            get { return invoker; }
-            set { invoker = value; }
-        }
-
-        public void Execute(TypeCommand command)
-        {
-            invoker.Execute(command);
-        }
+        
         protected void OnPropertyChenges(PropertiesType type, Object value)
         {
             if (PropertyChanged != null)

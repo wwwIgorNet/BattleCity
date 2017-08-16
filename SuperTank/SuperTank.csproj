@@ -55,31 +55,21 @@
   <ItemGroup>
     <Compile Include="Audio\ISoundGame.cs" />
     <Compile Include="Audio\SoundGame.cs" />
-    <Compile Include="Command\BaseCommand.cs" />
-    <Compile Include="Command\BaseDirectionCommand.cs" />
-    <Compile Include="Command\BaseOffsetCommand.cs" />
-    <Compile Include="Command\CommandFire.cs" />
-    <Compile Include="Command\CommandFireWithSound.cs" />
-    <Compile Include="Command\CommandMoveSell.cs" />
-    <Compile Include="Command\CommandMoveSellWithSound.cs" />
-    <Compile Include="Command\CommandMoveTankWithSound.cs" />
-    <Compile Include="Command\CommandStopWithSound.cs" />
-    <Compile Include="Command\CommandTurn.cs" />
-    <Compile Include="Command\CommandStop.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />
+    <Compile Include="Game\EnemyDriver.cs" />
     <Compile Include="Game\Game.cs" />
-    <Compile Include="Game\IPlaeyr.cs" />
+    <Compile Include="Game\IDriver.cs" />
     <Compile Include="Game\IScene.cs" />
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\LevelManager.cs" />
     <Compile Include="Game\UnitDataForView.cs" />
     <Compile Include="Unit\MovableUnit.cs" />
     <Compile Include="Unit\Owner.cs" />
+    <Compile Include="Unit\PlaeyrShell.cs" />
     <Compile Include="Unit\Shell.cs" />
     <Compile Include="Unit\Star.cs" />
     <Compile Include="Unit\Tank.cs" />
     <Compile Include="Unit\TankPlaetr.cs" />
-    <Compile Include="Updatable\UpdatableShell.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\ConfigurationView.cs" />
     <Compile Include="View\FactoryViewUnit.cs" />
@@ -87,20 +77,13 @@
     <Compile Include="Unit\PropertiesType.cs" />
     <Compile Include="Game\Scene.cs" />
     <Compile Include="Game\ConfigurationBase.cs" />
-    <Compile Include="Command\CommandMoveTank.cs" />
-    <Compile Include="Command\CommandMove.cs" />
     <Compile Include="Game\Direction.cs" />
-    <Compile Include="Command\TypeCommand.cs" />
     <Compile Include="View\SortedView.cs" />
     <Compile Include="View\ViewAnimationDirectionUnit.cs" />
     <Compile Include="View\ViewAnimationUnit.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
-    <Compile Include="Unit\FactoryUnit.cs" />
-    <Compile Include="Unit\IFactoryUnit.cs" />
     <Compile Include="View\Images.cs" />
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Unit\Invoker.cs" />
     <Compile Include="WindowsForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,7 +93,7 @@
     <Compile Include="View\IRender.cs" />
     <Compile Include="Game\Keyboard.cs" />
     <Compile Include="Unit\Unit.cs" />
-    <Compile Include="Updatable\Plaeyr.cs" />
+    <Compile Include="Updatable\PlaeyrDriver.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\TypeUnit.cs" />

@@ -8,11 +8,11 @@ namespace SuperTank
 {
     public class Star : Unit, IUpdatable
     {
-        private IPlaeyr plaeyr;
+        private IDriver plaeyr;
         private IScene scene;
         private int delay;
 
-        public Star(int id, int x, int y, int width, int height, TypeUnit type, IPlaeyr plaeyr, IScene scene) : base(id, x, y, width, height, type)
+        public Star(int id, int x, int y, int width, int height, TypeUnit type, IDriver plaeyr, IScene scene) : base(id, x, y, width, height, type)
         {
             this.plaeyr = plaeyr;
             this.scene = scene;

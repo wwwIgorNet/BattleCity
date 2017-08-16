@@ -1,5 +1,4 @@
 ﻿using SuperTank.Audio;
-using SuperTank.Updatable;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,15 +12,13 @@ namespace SuperTank
     public class LevelManager
     {
         private readonly IScene scene;
-        private readonly IFactoryUnit factoryUnit;
-        private IPlaeyr plaeyr;
+        private IDriver plaeyrDriver;
         private ISoundGame soundGame;
 
-        public LevelManager(IScene scene, IFactoryUnit factoryUnit, IPlaeyr plaeyr, ISoundGame soundGame)
+        public LevelManager(IScene scene, IDriver plaeyrDriver, ISoundGame soundGame)
         {
             this.scene = scene;
-            this.factoryUnit = factoryUnit;
-            this.plaeyr = plaeyr;
+            this.plaeyrDriver = plaeyrDriver;
             this.soundGame = soundGame;
         }
 
@@ -38,19 +35,19 @@ namespace SuperTank
                     switch (c)
                     {
                         case '#':
-                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.BrickWall));
+                            objGame.Add(new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall));
                             break;
                         case '@':
-                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.ConcreteWall));
+                            objGame.Add(new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.ConcreteWall));
                             break;
                         case '~':
-                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Water));
+                            objGame.Add(new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Water));
                             break;
                         case '%':
-                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Forest));
+                            objGame.Add(new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Forest));
                             break;
                         case '-':
-                            objGame.Add(factoryUnit.Create(x, y, TypeUnit.Ice));
+                            objGame.Add(new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Ice));
                             break;
                     }
                     x += ConfigurationGame.WidthTile;
@@ -59,18 +56,29 @@ namespace SuperTank
                 y += ConfigurationGame.HeightTile;
             }
 
-            objGame.Add(factoryUnit.Create(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2, TypeUnit.Eagle));
+            objGame.Add(new Unit(Unit.NextID,
+                12 * ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2,
+                ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightTile,
+                TypeUnit.Eagle));
 
             scene.AddRange(objGame);
 
-            AddPlayerTank(plaeyr);
+            plaeyrDriver.Tank = new TankPlaetr(Unit.NextID, 9 * ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.PainTank, scene, ConfigurationGame.VelostyPlainTank, Direction.Up, ConfigurationGame.VelostyShellPlainTank, soundGame);
+
+            IDriver enemyDriver = new EnemyDriver();
+            enemyDriver.Tank = new Tank(Unit.NextID, 0, 0, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.PainTank, scene, ConfigurationGame.VelostyPlainTank, Direction.Up, ConfigurationGame.VelostyShellPlainTank);
+            enemyDriver.Tank.Direction = Direction.Down;
+            AddTank(enemyDriver);
+
+            AddTank(plaeyrDriver);
         }
 
-        public void AddPlayerTank(IPlaeyr plaeyr)
+        public void AddTank(IDriver driver)
         {
-            plaeyr.Tank = new TankPlaetr(Unit.NextID, 9 * ConfigurationGame.WidthTile,
-                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2 , TypeUnit.PainTank, scene, factoryUnit, ConfigurationGame.VelostyPlainTank, Direction.Up, ConfigurationGame.VelostyShellPlainTank, soundGame);
-            Star star = new Star(Unit.NextID, plaeyr.Tank.X, plaeyr.Tank.Y, plaeyr.Tank.Width, plaeyr.Tank.Height, TypeUnit.Star, plaeyr, scene);
+            Star star = new Star(Unit.NextID, driver.Tank.X, driver.Tank.Y, driver.Tank.Width, driver.Tank.Height, TypeUnit.Star, driver, scene);
             star.Start();
         }
     }

@@ -1,6 +1,4 @@
-﻿using SuperTank.Command;
-using SuperTank.Updatable;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -11,17 +9,15 @@ namespace SuperTank
 {
     public class Tank : MovableUnit
     {
-        private IFactoryUnit factoryUnit;
         private IScene scene;
         private int velosityShell;
 
-        public Tank(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, IFactoryUnit factoryUnit, int velosity, Direction direction, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
+        public Tank(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, int velosity, Direction direction, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
         {
             this.scene = scene;
-            this.factoryUnit = factoryUnit;
             this.velosityShell = velosityShell;
             Properties[PropertiesType.IsParking] = true;
-
+            Properties[PropertiesType.Detonation] = false;
         }
 
         #region Move
@@ -97,7 +93,7 @@ namespace SuperTank
         {
             for (int i = 0; i < colision.Count; i++)
             {
-                if (colision[i].Type == TypeUnit.BrickWall || colision[i].Type == TypeUnit.ConcreteWall || colision[i].Type == TypeUnit.Water)
+                if (!(colision[i].Type == TypeUnit.Shell) && !(colision[i].Type == TypeUnit.Forest) && !(colision[i].Type == TypeUnit.Ice))
                     while (rect.IntersectsWith(colision[i].BoundingBox))
                         Move(ref rect, -1);
             }
@@ -190,7 +186,7 @@ namespace SuperTank
 
         public virtual Shell Shell { get; set; }
 
-        public virtual bool Fire()
+        public bool Fire()
         {
             if (Shell != null) return false;
 
@@ -214,10 +210,15 @@ namespace SuperTank
                     y = Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            Shell shell = new Shell(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell, velosityShell, Direction, this, scene);
+            Shell shell = GetShell(x, y, velosityShell, scene);
             Shell = shell;
             shell.Start();
             return true;
+        }
+
+        protected virtual Shell GetShell(int x, int y, int velosityShell, IScene scene)
+        {
+            return new Shell(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell, velosityShell, Direction, this, scene);
         }
         #endregion
     }

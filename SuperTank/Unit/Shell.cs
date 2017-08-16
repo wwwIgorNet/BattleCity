@@ -41,12 +41,9 @@ namespace SuperTank
             Move(Velosity);
 
             if (scene.ColisionBoard(this))
-            {
                 Detonation(null, false);
-                return;
-            }
-
-            ColisionWichUnit();
+            else
+                ColisionWichUnit();
         }
 
         protected Owner Owner
@@ -65,35 +62,35 @@ namespace SuperTank
         {
             for (int i = 0; i < scene.Units.Count; i++)
             {
-                if (scene.Units[i].BoundingBox.IntersectsWith(this.BoundingBox) && !scene.Units[i].Equals(this))
-                    TestUnit(scene.Units[i]);
-            }
-        }
-
-        private void TestUnit(Unit item)
-        {
-            switch (item.Type)
-            {
-                case TypeUnit.PainTank:
-                    if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                Unit item = scene.Units[i];
+                if (item.BoundingBox.IntersectsWith(this.BoundingBox) && !item.Equals(this))
+                {
+                    switch (item.Type)
                     {
-                        Detonation(item, true);
-                        return;
+                        case TypeUnit.PainTank:
+                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                            {
+                                Detonation(item, true);
+                                item.Properties[PropertiesType.Detonation] = true;
+                                return;
+                            }
+                            break;
+                        case TypeUnit.Shell:
+                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                            {
+                                ((Shell)item).OnShellDestroy();
+                                OnShellDestroy();
+                                return;
+                            }
+                            break;
+                        case TypeUnit.BrickWall:
+                            Detonation(item, true);
+                            return;
+                        case TypeUnit.ConcreteWall:
+                            Detonation(item, false);
+                            break;
                     }
-                    break;
-                case TypeUnit.Shell:
-                    if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
-                    {
-                        Detonation(item, true);
-                        return;
-                    }
-                    break;
-                case TypeUnit.BrickWall:
-                    Detonation(item, true);
-                    return;
-                case TypeUnit.ConcreteWall:
-                    Detonation(item, false);
-                    break;
+                }
             }
         }
 

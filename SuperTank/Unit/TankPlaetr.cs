@@ -11,7 +11,7 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, IFactoryUnit factoryUnit, int velosity, Direction direction, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, scene, factoryUnit, velosity, direction, velosityShell)
+        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, int velosity, Direction direction, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, scene, velosity, direction, velosityShell)
         {
             this.soundGame = soundGame;
         }
@@ -41,12 +41,10 @@ namespace SuperTank
             }
         }
 
-        public override bool Fire()
+        protected override Shell GetShell(int x, int y, int velosityShell, IScene scene)
         {
-            bool isFire = base.Fire();
-            if (isFire) soundGame.Fire();
-
-            return isFire;
+            soundGame.Fire();
+            return new PlaeyrShell(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell, velosityShell, Direction, this, scene, soundGame);
         }
     }
 }

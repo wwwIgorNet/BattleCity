@@ -2,7 +2,7 @@
 
 namespace SuperTank
 {
-    public interface IPlaeyr: IUpdatable
+    public interface IDriver: IUpdatable
     {
         Tank Tank { get; set; }
     }

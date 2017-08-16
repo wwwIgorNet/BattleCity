@@ -1,0 +1,40 @@
+﻿using SuperTank.Audio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SuperTank
+{
+    class PlaeyrShell : Shell
+    {
+        private ISoundGame soundGame;
+
+        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, IScene scene, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank, scene)
+        {
+            this.soundGame = soundGame;
+        }
+
+        protected override void Detonation(Unit item, bool removeItem)
+        {
+            base.Detonation(item, removeItem);
+            if (item == null) soundGame.DetonationShell();
+            else
+            {
+                switch (item.Type)
+                {
+                    case TypeUnit.PainTank:
+                        soundGame.BigDetonation();
+                        break;
+                    case TypeUnit.BrickWall:
+                        soundGame.DetonationBrickWall();
+                        break;
+                    case TypeUnit.ConcreteWall:
+                        soundGame.DetonationShell();
+                        break;
+                }
+            }
+        }
+    }
+}
