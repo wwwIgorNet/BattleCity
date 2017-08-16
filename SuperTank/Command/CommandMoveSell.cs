@@ -45,6 +45,11 @@ namespace SuperTank.Command
                 return;
             }
 
+            ColisionWichUnit();
+        }
+
+        private void ColisionWichUnit()
+        {
             for (int i = 0; i < Scene.Units.Count; i++)
             {
                 Unit item = Scene.Units[i];

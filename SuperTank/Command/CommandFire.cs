@@ -18,7 +18,7 @@ namespace SuperTank.Command
             this.scene = scene;
             this.factoryUnit = factoryUnit;
             this.velosityFire = velosityFire;
-            PrevShell = null;
+            //PrevShell = null;
         }
 
         protected virtual Unit PrevShell { get; set; }

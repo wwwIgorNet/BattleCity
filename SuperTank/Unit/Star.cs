@@ -1,28 +1,28 @@
-﻿using SuperTank;
-using SuperTank.Command;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SuperTank.Updatable
+namespace SuperTank
 {
-    /// <summary>
-    /// Появление танка в виде звезды
-    /// </summary>
-    class StarUpdate : IUpdatable
+    public class Star : Unit, IUpdatable
     {
         private IPlaeyr plaeyr;
         private IScene scene;
-        private Unit star;
         private int delay;
 
-        public StarUpdate(Unit star, IPlaeyr plaeyr, IScene scene)
+        public Star(int id, int x, int y, int width, int height, TypeUnit type, IPlaeyr plaeyr, IScene scene) : base(id, x, y, width, height, type)
         {
-            this.star = star;
             this.plaeyr = plaeyr;
             this.scene = scene;
+        }
+
+        public void Start()
+        {
+            Game.Updatable.Remove(plaeyr);
+            scene.Add(this);
+            Game.Updatable.Add(this);
         }
 
         public void Update()
@@ -31,11 +31,11 @@ namespace SuperTank.Updatable
                 delay++;
             else
             {
-                Game.Updatable.Remove(this);
-                scene.Remove(star);
+                scene.Remove(this);
                 scene.Add(plaeyr.Tank);
                 Game.Updatable.Add(plaeyr);
                 plaeyr.Tank.Properties[PropertiesType.IsParking] = !(bool)plaeyr.Tank.Properties[PropertiesType.IsParking];
+                Game.Updatable.Remove(this);
             }
         }
     }

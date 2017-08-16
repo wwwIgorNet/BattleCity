@@ -30,7 +30,7 @@ namespace SuperTank
             Game.soundGame = soundGame;
             IScene scene = new Scene(render);
             IFactoryUnit factoryUnit = new FactoryUnit(scene);
-            levelManager = new LevelManager(scene, factoryUnit, plaeyr);
+            levelManager = new LevelManager(scene, factoryUnit, plaeyr, soundGame);
         }
         
         public static ISoundGame SoundGame { get { return soundGame; } }

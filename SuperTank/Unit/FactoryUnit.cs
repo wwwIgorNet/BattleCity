@@ -13,7 +13,6 @@ namespace SuperTank
     public class FactoryUnit : IFactoryUnit
     {
         private IScene scene;
-        private int prevId = 0;
 
         public FactoryUnit(IScene scene)
         {
@@ -25,7 +24,7 @@ namespace SuperTank
             switch (type)
             {
                 case TypeUnit.Star: 
-                    return new Unit(prevId++, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Star);
+                    return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Star);
                 case TypeUnit.PainTank:
                     return CreatePlainTank(x, y);
                 case TypeUnit.Shell:
@@ -48,43 +47,43 @@ namespace SuperTank
 
         private Unit CreateEagle(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Eagle);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Eagle);
         }
 
         private Unit CreateIce(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Ice);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Ice);
         }
 
         private Unit CreateForest(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Forest);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Forest);
         }
 
         private Unit CreateWater(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Water);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.Water);
         }
 
         private Unit CreateConcreteWall(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.ConcreteWall);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.ConcreteWall);
         }
 
         private Unit CreateBrickWall(int x, int y)
         {
-            Unit res = new Unit(prevId++, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall);
+            Unit res = new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, TypeUnit.BrickWall);
             return res;
         }
 
         private Unit CreateShell(int x, int y)
         {
-            return new Unit(prevId++, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
+            return new Unit(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell);
         }
 
         private Unit CreatePlainTank(int x, int y)
         {
-            Unit tank = new Unit(prevId++, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PainTank);
+            Unit tank = new Unit(Unit.NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, TypeUnit.PainTank);
             tank.Properties[PropertiesType.Velosity] = ConfigurationGame.VelostyPlainTank;
             tank.Properties[PropertiesType.Direction] = Direction.Up;
             tank.Properties[PropertiesType.IsParking] = true;

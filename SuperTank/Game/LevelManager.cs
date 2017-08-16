@@ -15,12 +15,14 @@ namespace SuperTank
         private readonly IScene scene;
         private readonly IFactoryUnit factoryUnit;
         private IPlaeyr plaeyr;
+        private ISoundGame soundGame;
 
-        public LevelManager(IScene scene, IFactoryUnit factoryUnit, IPlaeyr plaeyr)
+        public LevelManager(IScene scene, IFactoryUnit factoryUnit, IPlaeyr plaeyr, ISoundGame soundGame)
         {
             this.scene = scene;
             this.factoryUnit = factoryUnit;
             this.plaeyr = plaeyr;
+            this.soundGame = soundGame;
         }
 
         public void CreateLevel(int level)
@@ -61,17 +63,15 @@ namespace SuperTank
 
             scene.AddRange(objGame);
 
-            plaeyr.Tank = factoryUnit.CreatePlaeyrTank(9 * ConfigurationGame.WidthTile,
-                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, TypeUnit.PainTank, Game.SoundGame);
             AddPlayerTank(plaeyr);
         }
 
         public void AddPlayerTank(IPlaeyr plaeyr)
         {
-            Game.Updatable.Remove(plaeyr);
-            Unit star = factoryUnit.Create(plaeyr.Tank.X, plaeyr.Tank.Y, TypeUnit.Star);
-            scene.Add(star);
-            Game.Updatable.Add(new StarUpdate(star, plaeyr, scene));
+            plaeyr.Tank = new TankPlaetr(Unit.NextID, 9 * ConfigurationGame.WidthTile,
+                ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2 , TypeUnit.PainTank, scene, factoryUnit, ConfigurationGame.VelostyPlainTank, Direction.Up, ConfigurationGame.VelostyShellPlainTank, soundGame);
+            Star star = new Star(Unit.NextID, plaeyr.Tank.X, plaeyr.Tank.Y, plaeyr.Tank.Width, plaeyr.Tank.Height, TypeUnit.Star, plaeyr, scene);
+            star.Start();
         }
     }
 }

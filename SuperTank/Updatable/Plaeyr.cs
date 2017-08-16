@@ -9,22 +9,27 @@ namespace SuperTank
 {
     class Plaeyr : IPlaeyr
     {
-        private Unit tank;
+        private Tank tank;
 
-        public Unit Tank
+        public Tank Tank
         {
             get { return tank; }
             set
             {
-                value.Properties[PropertiesType.Owner] = Owner.Plaeyr;
                 tank = value;
+                tank.Properties[PropertiesType.Owner] = Owner.Plaeyr;
             }
+        }
+
+        private Direction TankDirection
+        {
+            get { return (Direction)Tank.Properties[PropertiesType.Direction]; }
         }
 
         public void Update()
         {
             if (Keyboard.Space)
-                Tank.Execute(TypeCommand.Fire);
+                tank.Fire();
 
             Direction carentDirection;
             if (Keyboard.Right)
@@ -37,31 +42,14 @@ namespace SuperTank
                 carentDirection = Direction.Down;
             else
             {
-                tank.Execute(TypeCommand.Stop);
+                tank.Stop();
                 return;
             }
 
-            if ((Direction)Tank.Properties[PropertiesType.Direction] != carentDirection)
-            {
-
-                switch (carentDirection)
-                {
-                    case Direction.Up:
-                        tank.Execute(TypeCommand.TurnUp);
-                        break;
-                    case Direction.Right:
-                        tank.Execute(TypeCommand.TurnRight);
-                        break;
-                    case Direction.Down:
-                        tank.Execute(TypeCommand.TurnDown);
-                        break;
-                    case Direction.Left:
-                        tank.Execute(TypeCommand.TurnLeft);
-                        break;
-                }
-            }
-            else
-                tank.Execute(TypeCommand.Move);
+            // если направление изменилось поворачиваем пока не изменится направление
+            if (TankDirection != carentDirection)
+                tank.Turn(carentDirection);
+            else tank.Move();
         }
     }
 }

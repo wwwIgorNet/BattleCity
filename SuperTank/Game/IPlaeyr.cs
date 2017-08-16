@@ -1,7 +1,9 @@
-﻿namespace SuperTank
+﻿using SuperTank.Audio;
+
+namespace SuperTank
 {
     public interface IPlaeyr: IUpdatable
     {
-        Unit Tank { get; set; }
+        Tank Tank { get; set; }
     }
 }

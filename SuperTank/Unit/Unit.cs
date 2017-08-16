@@ -10,6 +10,8 @@ namespace SuperTank
 {
     public class Unit
     {
+        private static int nextId = 0;
+
         private Rectangle boundingBox;
         private TypeUnit type;
         private Invoker invoker = new Invoker();
@@ -22,8 +24,10 @@ namespace SuperTank
             this.type = type;
             boundingBox = new Rectangle(x, y, width, height);
             properties = new PropertiesUnit(this);
+            nextId++;
         }
 
+        public static int NextID { get { return nextId; } }
         public event Action<int, PropertiesType, object> PropertyChanged;
 
         public int ID { get { return id; } }
