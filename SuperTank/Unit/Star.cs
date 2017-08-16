@@ -31,11 +31,11 @@ namespace SuperTank
                 delay++;
             else
             {
+                Game.Updatable.Remove(this);
                 scene.Remove(this);
                 scene.Add(plaeyr.Tank);
                 Game.Updatable.Add(plaeyr);
                 plaeyr.Tank.Properties[PropertiesType.IsParking] = !(bool)plaeyr.Tank.Properties[PropertiesType.IsParking];
-                Game.Updatable.Remove(this);
             }
         }
     }
