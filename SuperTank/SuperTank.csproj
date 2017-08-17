@@ -174,7 +174,7 @@
     <Content Include="Content\Textures\Ice.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\Detonation1.png">
+    <Content Include="Content\Textures\Detonation\Detonation1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\PlainTank\PlainTankDown2.png">
@@ -201,13 +201,13 @@
     <Content Include="Content\Textures\Tank\PlainTank\PlainTankRight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\Detonation4.png">
+    <Content Include="Content\Textures\Detonation\Detonation4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\DetonationBig.png">
+    <Content Include="Content\Textures\Detonation\DetonationBig.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\DetonationBig2.png">
+    <Content Include="Content\Textures\Detonation\DetonationBig2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Shell\ShellDown.png">
@@ -222,10 +222,10 @@
     <Content Include="Content\Textures\Shell\ShellUp.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\Detonation2.png">
+    <Content Include="Content\Textures\Detonation\Detonation2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Shell\Detonation3.png">
+    <Content Include="Content\Textures\Detonation\Detonation3.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Star1.png">

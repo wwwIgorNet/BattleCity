@@ -34,8 +34,12 @@ namespace SuperTank.View
 
         protected Direction Direction
         {
-            get { return (Direction)Properties[PropertiesType.Direction]; }
+            get
+            {
+                return (Direction)Properties[PropertiesType.Direction];
+            }
         }
+
         protected bool IsStop
         {
             get

@@ -92,6 +92,22 @@ namespace SuperTank
         }
         private BaseView CreateViewPlainTank(int id, float x, float y, Dictionary<PropertiesType, object> properties)
         {
+            //Image[] img = new Image[]
+            //   {
+            //    Images.ShellDetonation1,
+            //    Images.ShellDetonation2,
+            //    Images.ShellDetonation3,
+            //    Images.ShellDetonationBig,
+            //    Images.ShellDetonationBig,
+            //    Images.ShellDetonationBig2,
+            //    Images.ShellDetonationBig2,
+            //    Images.ShellDetonation3,
+            //    Images.ShellDetonation2,
+            //    Images.ShellDetonation1
+
+            //   };
+            //ViewAnimationUnit detonation = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, img, 2);
+
             Dictionary<Direction, Image[]> images = new Dictionary<Direction, Image[]>
                     {
                         {Direction.Up, new []
@@ -106,6 +122,7 @@ namespace SuperTank
             BaseView res = new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
             res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
+            //res.Properties[PropertiesType.BigDetonation] = properties[PropertiesType.BigDetonation];
             return res;
         }
     }

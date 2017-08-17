@@ -70,8 +70,8 @@ namespace SuperTank
                         case TypeUnit.PainTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
-                                Detonation(item, true);
                                 item.Properties[PropertiesType.Detonation] = true;
+                                Detonation(item, true);
                                 return;
                             }
                             break;

@@ -13,8 +13,7 @@ namespace SuperTank.View
         private static Image plainTankDown;
         private static Image plainTankRight;
         private static Image plainTankLeft;
-
-
+        
         private static Image shellUp;
         private static Image shellDown;
         private static Image shellRight;
@@ -38,6 +37,7 @@ namespace SuperTank.View
         private static Image star4;
         private static Image star2;
         private static Image star3;
+
 
         public static Image PlainTankUp
         {
@@ -95,13 +95,7 @@ namespace SuperTank.View
                 return Validate(plainTankRight, @"Tank\PlainTank\PlainTankRight2.png");
             }
         }
-        public static Image BrickWall
-        {
-            get
-            {
-                return Validate(brickWall, "BrickWall.png");
-            }
-        }
+
         public static Image ShellUp
         {
             get
@@ -116,8 +110,6 @@ namespace SuperTank.View
                 return Validate(shellDown, @"Shell\ShellDown.png");
             }
         }
-
-
         public static Image ShellLeft
         {
             get
@@ -136,53 +128,45 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(shellDetonation1, @"Shell\Detonation1.png");
+                return Validate(shellDetonation1, @"Detonation\Detonation1.png");
             }
         }
         public static Image ShellDetonation2
         {
             get
             {
-                return Validate(shellDetonation2, @"Shell\Detonation2.png");
+                return Validate(shellDetonation2, @"Detonation\Detonation2.png");
             }
         }
         public static Image ShellDetonation3
         {
             get
             {
-                return Validate(shellDetonation3, @"Shell\Detonation3.png");
+                return Validate(shellDetonation3, @"Detonation\Detonation3.png");
             }
         }
         public static Image ShellDetonation4
         {
             get
             {
-                return Validate(shellDetonation4, @"Shell\Detonation4.png");
+                return Validate(shellDetonation4, @"Detonation\Detonation4.png");
             }
         }
         public static Image ShellDetonationBig
         {
             get
             {
-                return Validate(shellDetonationBig, @"Shell\DetonationBig.png");
+                return Validate(shellDetonationBig, @"Detonation\DetonationBig.png");
             }
         }
         public static Image ShellDetonationBig2
         {
             get
             {
-                return Validate(shellDetonationBig2, @"Shell\DetonationBig2.png");
+                return Validate(shellDetonationBig2, @"Detonation\DetonationBig2.png");
             }
         }
-
-        public static Image ConcreteWall
-        {
-            get
-            {
-                return Validate(concreteWall, @"ConcreteWall.png");
-            }
-        }
-
+        
         public static Image Water_1
         {
             get
@@ -205,6 +189,13 @@ namespace SuperTank.View
             }
         }
 
+        public static Image BrickWall
+        {
+            get
+            {
+                return Validate(brickWall, "BrickWall.png");
+            }
+        }
         public static Image Forest
         {
             get
@@ -212,12 +203,18 @@ namespace SuperTank.View
                 return Validate(forest, @"Forest.png");
             }
         }
-
         public static Image Ice
         {
             get
             {
                 return Validate(ice, @"Ice.png");
+            }
+        }
+        public static Image ConcreteWall
+        {
+            get
+            {
+                return Validate(concreteWall, @"ConcreteWall.png");
             }
         }
 

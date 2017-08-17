@@ -66,7 +66,7 @@ namespace SuperTank
                 case PropertiesType.X:
                 case PropertiesType.Y:
                 case PropertiesType.Detonation:
-                //case PropertiesType.Glide:
+                    //case PropertiesType.Glide:
                     render.Update(id, propType, val);
                     break;
             }
