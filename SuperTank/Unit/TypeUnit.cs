@@ -10,6 +10,7 @@
         Forest,
         Ice,
         Eagle,
-        Star
+        Star,
+        BigDetonation
     }
 }

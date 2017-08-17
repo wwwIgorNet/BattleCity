@@ -63,6 +63,7 @@
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\LevelManager.cs" />
     <Compile Include="Game\UnitDataForView.cs" />
+    <Compile Include="Unit\BigDetonation.cs" />
     <Compile Include="Unit\MovableUnit.cs" />
     <Compile Include="Unit\Owner.cs" />
     <Compile Include="Unit\PlaeyrShell.cs" />
@@ -71,6 +72,7 @@
     <Compile Include="Unit\Tank.cs" />
     <Compile Include="Unit\TankPlaetr.cs" />
     <Compile Include="View\BaseView.cs" />
+    <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\ConfigurationView.cs" />
     <Compile Include="View\FactoryViewUnit.cs" />
     <Compile Include="View\IFactoryViewUnit.cs" />

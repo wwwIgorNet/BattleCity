@@ -41,7 +41,7 @@ namespace SuperTank
             if (j == 0)
             {
                 j = random.Next(0, 100);
-                tank.Fire();
+                //tank.Fire();
             }
             else j--;
 

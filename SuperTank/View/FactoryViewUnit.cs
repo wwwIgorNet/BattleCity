@@ -32,8 +32,32 @@ namespace SuperTank
                     return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, -1, Images.Ice);
                 case TypeUnit.Eagle:
                     return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, -1, Images.Eagle);
+                case TypeUnit.BigDetonation:
+                    return CreateBigDetonation(id, x, y);
             }
             return null;
+        }
+
+        private BaseView CreateBigDetonation(int id, float x, float y)
+        {
+            Image[] img = new Image[]
+               {
+                Images.ShellDetonation1,
+                Images.ShellDetonation2,
+                Images.ShellDetonation3,
+                Images.ShellDetonationBig,
+                Images.ShellDetonationBig,
+                Images.ShellDetonationBig,
+                Images.ShellDetonationBig2,
+                Images.ShellDetonationBig2,
+                Images.ShellDetonationBig2,
+                Images.ShellDetonation3,
+                Images.ShellDetonation2,
+                Images.ShellDetonation1
+
+               };
+            BigDetonationView detonation = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, img, 2);
+            return detonation;
         }
 
         private static BaseView CreateStar(int id, float x, float y)
@@ -92,22 +116,6 @@ namespace SuperTank
         }
         private BaseView CreateViewPlainTank(int id, float x, float y, Dictionary<PropertiesType, object> properties)
         {
-            //Image[] img = new Image[]
-            //   {
-            //    Images.ShellDetonation1,
-            //    Images.ShellDetonation2,
-            //    Images.ShellDetonation3,
-            //    Images.ShellDetonationBig,
-            //    Images.ShellDetonationBig,
-            //    Images.ShellDetonationBig2,
-            //    Images.ShellDetonationBig2,
-            //    Images.ShellDetonation3,
-            //    Images.ShellDetonation2,
-            //    Images.ShellDetonation1
-
-            //   };
-            //ViewAnimationUnit detonation = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, img, 2);
-
             Dictionary<Direction, Image[]> images = new Dictionary<Direction, Image[]>
                     {
                         {Direction.Up, new []

@@ -93,9 +93,17 @@ namespace SuperTank
         {
             for (int i = 0; i < colision.Count; i++)
             {
-                if (!(colision[i].Type == TypeUnit.Shell) && !(colision[i].Type == TypeUnit.Forest) && !(colision[i].Type == TypeUnit.Ice))
-                    while (rect.IntersectsWith(colision[i].BoundingBox))
-                        Move(ref rect, -1);
+                switch (colision[i].Type)
+                {
+                    case TypeUnit.PainTank:
+                    case TypeUnit.BrickWall:
+                    case TypeUnit.ConcreteWall:
+                    case TypeUnit.Water:
+                    case TypeUnit.Star:
+                        while (rect.IntersectsWith(colision[i].BoundingBox))
+                            Move(ref rect, -1);
+                        break;
+                }       
             }
         }
 
@@ -120,6 +128,7 @@ namespace SuperTank
 
         public void Stop()
         {
+            // если танк двигается
             if (!IsParking)
                 IsParking = OffsetToBorderTile();
         }
@@ -165,10 +174,35 @@ namespace SuperTank
             int offset = coordXOrY % sizeSide;
             if (offset == 0) return true;
 
+
             if (directionDownOrRight) offset = sizeSide - offset;
 
-            if (offset >= Velosity) Move(Velosity);
-            else Move(offset);
+            int vel;
+            if (offset >= Velosity)
+                vel = Velosity;
+            else vel = offset;
+
+            Rectangle rect = BoundingBox;
+            Move(ref rect, vel);
+
+            List<Unit> colision = ColisionWithUnit(rect);
+            Ofset(ref rect, colision);
+
+            switch (Direction)
+            {
+                case Direction.Up:
+                case Direction.Down:
+                    Y = rect.Y;
+                    break;
+                case Direction.Right:
+                case Direction.Left:
+                    X = rect.X;
+                    break;
+            }
+
+            if (colision.Find(u => u.Type == TypeUnit.PainTank) != null)
+                return true;
+
             return false;
         }
         #endregion
@@ -177,6 +211,11 @@ namespace SuperTank
 
         public void Turn(Direction dir)
         {
+            // если розвернулся на 180 градусов
+            int tmp = (int)(Direction - dir);
+            if (tmp == 2 || tmp == -2)
+                Direction = dir;
+
             if (OffsetToBorderTile())
                 Direction = dir;
         }

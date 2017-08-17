@@ -27,7 +27,7 @@ namespace SuperTank
 
         public void Update()
         {
-            if (delay < ConfigurationGame.DelayAppearanceOfTank)
+            if (delay < ConfigurationGame.TimeAppearanceOfTank)
                 delay++;
             else
             {

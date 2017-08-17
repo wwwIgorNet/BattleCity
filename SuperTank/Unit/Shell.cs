@@ -32,7 +32,7 @@ namespace SuperTank
             if (IsDetonation)
             {
                 delayDetonation++;
-                if (delayDetonation == ConfigurationGame.DelayDetonation)
+                if (delayDetonation == ConfigurationGame.TimeDetonation)
                     OnShellDestroy();
 
                 return;
@@ -72,6 +72,8 @@ namespace SuperTank
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
                                 Detonation(item, true);
+                                BigDetonation detonation = new BigDetonation(Unit.NextID, item.X, item.Y, item.Width, item.Height, TypeUnit.BigDetonation, scene);
+                                detonation.Start();
                                 return;
                             }
                             break;
