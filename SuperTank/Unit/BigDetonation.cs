@@ -8,28 +8,34 @@ namespace SuperTank
 {
     class BigDetonation : Unit, IUpdatable
     {
-        private IScene scene;
         private int iterationUpdate;
 
-        public BigDetonation(int id, int x, int y, int width, int height, TypeUnit type, IScene scene) : base(id, x, y, width, height, type)
-        {
-            this.scene = scene;
-        }
+        public BigDetonation(int id, int x, int y, int width, int height, TypeUnit type) : base(id, x, y, width, height, type)
+        { }
+
+        public BigDetonation(int x, int y, int width, int height, TypeUnit type) : base(x, y, width, height, type)
+        { }
+
+        public BigDetonation(Unit unit, TypeUnit type) : base(unit.X, unit.Y, unit.Width, unit.Height, type)
+        { }
 
         public void Update()
         {
             iterationUpdate++;
-            if(iterationUpdate == ConfigurationGame.TimeBigDetonation)
-            {
-                Game.Updatable.Remove(this);
-                scene.Remove(this);
-            }
+            if (iterationUpdate == ConfigurationGame.TimeBigDetonation)
+                Dispose();
         }
 
-        internal void Start()
+        public void Start()
         {
             Game.Updatable.Add(this);
-            scene.Add(this);
+            AddToScene();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            Game.Updatable.Remove(this);
         }
     }
 }

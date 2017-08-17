@@ -54,25 +54,32 @@ namespace SuperTank.WindowsForms
                 game.Start();
             });
 
-            //ThreadPool.QueueUserWorkItem((s) =>
-            //{
-            //    Game game = new Game(sceneView);
-            //    game.Start();
-            //});
-
-
             formRender.FormClosing += FormRender_FormClosing;
             Application.Run(formRender);
         }
 
+        private static bool wcfClose;
         private static void FormRender_FormClosing(object sender, FormClosingEventArgs e)
         {
-            soundGame.Dispose();
-            game.Dispose();
-            factoryRender.Close();
-            factorySound.Close();
-            hostSceneView.Close();
-            hostSound.Close();
+            if (!wcfClose)
+            {
+                e.Cancel = true;
+                soundGame.Dispose();
+                game.Dispose();
+                ThreadPool.QueueUserWorkItem(s =>
+                {
+                    factorySound.Close();
+                    factoryRender.Close();
+                    hostSound.Close();
+                    hostSceneView.Close();
+                    wcfClose = true;
+
+                    ((Form)sender).Invoke((MethodInvoker)delegate ()
+                    {
+                        ((Form)sender).Close();
+                    });
+                });
+            }
         }
     }
 }

@@ -8,34 +8,30 @@ using System.Threading;
 
 namespace SuperTank
 {
-    public class Scene : IScene
+    public static class Scene
     {
-        private IRender render;
-        private readonly List<Unit> units = new List<Unit>();
-        private readonly int width = ConfigurationGame.WidthBoard;
-        private readonly int height = ConfigurationBase.HeightBoard;
+        private static readonly List<Unit> units = new List<Unit>();
+        private static readonly int width = ConfigurationGame.WidthBoard;
+        private static readonly int height = ConfigurationBase.HeightBoard;
 
-        public Scene(IRender render)
-        {
-            this.render = render;
-        }
+        public static IRender Render { get; set; }
 
-        public int Height { get { return height; } }
-        public int Widtch { get { return width; } }
+        public static int Height { get { return height; } }
+        public static int Widtch { get { return width; } }
 
-        public void Clear()
+        public static void Clear()
         {
             units.Clear();
-            render.Clear();
+            Render.Clear();
         }
         
-        public List<Unit> Units { get { return units; } }
+        public static List<Unit> Units { get { return units; } }
 
-        public bool ColisionBoard(Unit unit)
+        public static bool ColisionBoard(Unit unit)
         {
             return ColisionBoard(unit.BoundingBox);
         }
-        public bool ColisionBoard(Rectangle rect)
+        public static bool ColisionBoard(Rectangle rect)
         {
             if (rect.X < 0)
                 return true;
@@ -48,16 +44,16 @@ namespace SuperTank
 
             return false;
         }
-        public void Add(Unit unit)
+        public static void Add(Unit unit)
         {
             units.Add(unit);
             Dictionary<PropertiesType, object> properties = GetPropertiesForView(unit);
-            render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
+            Render.Add(unit.ID, unit.Type, unit.X, unit.Y, properties);
 
             unit.PropertyChanged += Unit_PropertyChanged;
         }
 
-        private void Unit_PropertyChanged(int id, PropertiesType propType, object val)
+        private static void Unit_PropertyChanged(int id, PropertiesType propType, object val)
         {
             switch (propType)
             {
@@ -67,7 +63,7 @@ namespace SuperTank
                 case PropertiesType.Y:
                 case PropertiesType.Detonation:
                     //case PropertiesType.Glide:
-                    render.Update(id, propType, val);
+                    Render.Update(id, propType, val);
                     break;
             }
         }
@@ -93,13 +89,13 @@ namespace SuperTank
             return properties;
         }
 
-        public void Remove(Unit unit)
+        public static void Remove(Unit unit)
         {
             units.Remove(unit);
-            render.Remove(unit.ID);
+            Render.Remove(unit.ID);
         }
 
-        public void AddRange(List<Unit> collection)
+        public static void AddRange(List<Unit> collection)
         {
             units.AddRange(collection);
             List<UnitDataForView> data = new List<UnitDataForView>();
@@ -109,7 +105,7 @@ namespace SuperTank
                 data.Add(new UnitDataForView(u.ID, u.Type, u.X, u.Y, GetPropertiesForView(u)));
             }
 
-            render.AddRange(data);
+            Render.AddRange(data);
         }
     }
 }

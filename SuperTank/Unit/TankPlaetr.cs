@@ -11,7 +11,12 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, int velosity, Direction direction, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, scene, velosity, direction, velosityShell)
+        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
+        {
+            this.soundGame = soundGame;
+        }
+
+        public TankPlaetr(int x, int y, TypeUnit type, int velosity, Direction direction, IDriver driver, int velosityShell, TypeUnit typeShell, ISoundGame soundGame) : base(x, y, type, velosity, direction, driver, typeShell, velosityShell)
         {
             this.soundGame = soundGame;
         }
@@ -41,10 +46,17 @@ namespace SuperTank
             }
         }
 
-        protected override Shell GetShell(int x, int y, int velosityShell, IScene scene)
+        protected override Shell GetShell(int x, int y, int velosityShell)
         {
             soundGame.Fire();
-            return new PlaeyrShell(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell, velosityShell, Direction, this, scene, soundGame);
+            return new PlaeyrShell(x, y, TypeUnit.Shell, velosityShell, Direction, this, soundGame);
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            soundGame.TankDispouse();
+            soundGame.BigDetonation();
         }
     }
 }

@@ -7,14 +7,27 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class Tank : MovableUnit
+    public class Tank : MovableUnit, IUpdatable
     {
-        private IScene scene;
         private int velosityShell;
+        private TypeUnit typeShell;
+        private IDriver driver;
 
-        public Tank(int id, int x, int y, int width, int height, TypeUnit type, IScene scene, int velosity, Direction direction, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
+        public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
         {
-            this.scene = scene;
+            Init(velosityShell, typeShell, driver);
+        }
+
+        public Tank(int x, int y, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell)
+            : base(x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction)
+        {
+            Init(velosityShell, typeShell, driver);
+        }
+
+        private void Init(int velosityShell, TypeUnit typeShell, IDriver driver)
+        {
+            this.driver = driver;
+            this.typeShell = typeShell;
             this.velosityShell = velosityShell;
             Properties[PropertiesType.IsParking] = true;
             Properties[PropertiesType.Detonation] = false;
@@ -59,7 +72,7 @@ namespace SuperTank
 
             Glide(ref rect, colision);
 
-            while (scene.ColisionBoard(rect)) Move(ref rect, -1);
+            while (Scene.ColisionBoard(rect)) Move(ref rect, -1);
 
             switch (Direction)
             {
@@ -110,9 +123,9 @@ namespace SuperTank
         private List<Unit> ColisionWithUnit(Rectangle rect)
         {
             List<Unit> res = new List<Unit>(2);
-            for (int i = 0; i < scene.Units.Count; i++)
-                if (rect.IntersectsWith(scene.Units[i].BoundingBox) && !scene.Units[i].Equals(this))
-                    res.Add(scene.Units[i]);
+            for (int i = 0; i < Scene.Units.Count; i++)
+                if (rect.IntersectsWith(Scene.Units[i].BoundingBox) && !Scene.Units[i].Equals(this))
+                    res.Add(Scene.Units[i]);
 
             return res;
         }
@@ -249,16 +262,33 @@ namespace SuperTank
                     y = Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            Shell shell = GetShell(x, y, velosityShell, scene);
+            Shell shell = GetShell(x, y, velosityShell);
             Shell = shell;
             shell.Start();
             return true;
         }
 
-        protected virtual Shell GetShell(int x, int y, int velosityShell, IScene scene)
+        protected virtual Shell GetShell(int x, int y, int velosityShell)
         {
-            return new Shell(Unit.NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, TypeUnit.Shell, velosityShell, Direction, this, scene);
+            return new Shell(x, y, TypeUnit.Shell, velosityShell, Direction, this);
         }
         #endregion
+
+        public void Update()
+        {
+            driver.Update();
+        }
+
+        public void Start()
+        {
+            Game.Updatable.Add(this);
+            AddToScene();
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            Game.Updatable.Remove(this);
+        }
     }
 }

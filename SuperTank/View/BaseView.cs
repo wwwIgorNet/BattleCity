@@ -44,5 +44,10 @@ namespace SuperTank.View
 
             return view.ID.Equals(ID);
         }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
     }
 }

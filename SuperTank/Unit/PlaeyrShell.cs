@@ -11,7 +11,17 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, IScene scene, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank, scene)
+        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank)
+        {
+            this.soundGame = soundGame;
+        }
+
+        public PlaeyrShell(int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(x, y, width, height, type, velosity, direction, ownerTank)
+        {
+            this.soundGame = soundGame;
+        }
+
+        public PlaeyrShell(int x, int y, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(x, y, type, velosity, direction, ownerTank)
         {
             this.soundGame = soundGame;
         }

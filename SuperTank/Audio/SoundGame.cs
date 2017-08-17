@@ -130,5 +130,11 @@ namespace SuperTank.Audio
             detonationBrickWall.Stop();
             detonationBrickWall.Play();
         }
+
+        public void TankDispouse()
+        {
+            stop.Stop();
+            move.Stop();
+        }
     }
 }

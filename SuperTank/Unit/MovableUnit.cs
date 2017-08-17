@@ -14,6 +14,12 @@ namespace SuperTank
             Direction = direction;
         }
 
+        public MovableUnit(int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction) : base(x, y, width, height, type)
+        {
+            Velosity = velosity;
+            Direction = direction;
+        }
+
         public int Velosity
         {
             get { return (int)Properties[PropertiesType.Velosity]; }

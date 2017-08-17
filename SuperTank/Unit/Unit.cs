@@ -7,10 +7,9 @@ using System.Drawing;
 
 namespace SuperTank
 {
-    public class Unit
+    public class Unit : IDisposable
     {
         private static int nextId = 0;
-
         private Rectangle boundingBox;
         private TypeUnit type;
         private readonly PropertiesUnit properties;
@@ -25,8 +24,17 @@ namespace SuperTank
             nextId++;
         }
 
+        public Unit(int x, int y, int width, int height, TypeUnit type)
+            :this(Unit.NextID, x, y, width, height, type)
+        { }
+
+        public Unit(int x, int y, TypeUnit type)
+            :this(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, type)
+        { }
+
         public static int NextID { get { return nextId; } }
         public event Action<int, PropertiesType, object> PropertyChanged;
+        public event Action<Unit> UnitDisposable;
 
         public int ID { get { return id; } }
         public int X
@@ -56,12 +64,22 @@ namespace SuperTank
         public int Width
         {
             get { return boundingBox.Width; }
-            set { boundingBox.Width = value; }
+            set
+            {
+                if (value != boundingBox.Width)
+                {
+                    boundingBox.Width = value;
+                }
+            }
         }
         public int Height
         {
             get { return boundingBox.Height; }
-            set { boundingBox.Height = value; }
+            set
+            {
+                if (value != boundingBox.Height)
+                    boundingBox.Height = value;
+            }
         }
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
@@ -79,7 +97,29 @@ namespace SuperTank
             Unit unit = obj as Unit;
             if (unit == null)
                 return false;
-            return unit.ID.Equals(ID) && Type.Equals(unit.Type) && BoundingBox.Equals(unit.BoundingBox);
+            return unit.ID.Equals(ID);
+        }
+
+        public override int GetHashCode()
+        {
+            return ID.GetHashCode();
+        }
+
+        public void OnUnitDisposable()
+        {
+            if (UnitDisposable != null)
+                UnitDisposable.Invoke(this);
+        }
+
+        public virtual void Dispose()
+        {
+            Scene.Remove(this);
+            OnUnitDisposable();
+        }
+
+        public void AddToScene()
+        {
+            Scene.Add(this);
         }
 
         private class PropertiesUnit : Dictionary<PropertiesType, object>, IDictionary<PropertiesType, object>

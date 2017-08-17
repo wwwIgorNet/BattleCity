@@ -8,13 +8,24 @@ namespace SuperTank
 {
     public class Shell : MovableUnit, IUpdatable
     {
-        private IScene scene;
         private int delayDetonation = 0;
         private Tank ownerTank;
 
-        public Shell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, IScene scene) : base(id, x, y, width, height, type, velosity, direction)
+        public Shell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : base(id, x, y, width, height, type, velosity, direction)
         {
-            this.scene = scene;
+            Init(ownerTank);
+        }
+
+        public Shell(int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : base(x, y, width, height, type, velosity, direction)
+        {
+            Init(ownerTank);
+        }
+
+        public Shell(int x, int y, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : this(x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosity, direction, ownerTank)
+        { }
+
+        private void Init(Tank ownerTank)
+        {
             this.ownerTank = ownerTank;
             Owner = (Owner)ownerTank.Properties[PropertiesType.Owner];
             ownerTank.Shell = null;
@@ -24,7 +35,7 @@ namespace SuperTank
         public void Start()
         {
             Game.Updatable.Add(this);
-            scene.Add(this);
+            AddToScene();
         }
 
         public void Update()
@@ -33,14 +44,14 @@ namespace SuperTank
             {
                 delayDetonation++;
                 if (delayDetonation == ConfigurationGame.TimeDetonation)
-                    OnShellDestroy();
+                    Dispose();
 
                 return;
             }
 
             Move(Velosity);
 
-            if (scene.ColisionBoard(this))
+            if (Scene.ColisionBoard(this))
                 Detonation(null, false);
             else
                 ColisionWichUnit();
@@ -60,9 +71,9 @@ namespace SuperTank
 
         private void ColisionWichUnit()
         {
-            for (int i = 0; i < scene.Units.Count; i++)
+            for (int i = 0; i < Scene.Units.Count; i++)
             {
-                Unit item = scene.Units[i];
+                Unit item = Scene.Units[i];
                 if (item.BoundingBox.IntersectsWith(this.BoundingBox) && !item.Equals(this))
                 {
                     switch (item.Type)
@@ -72,7 +83,7 @@ namespace SuperTank
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
                                 Detonation(item, true);
-                                BigDetonation detonation = new BigDetonation(Unit.NextID, item.X, item.Y, item.Width, item.Height, TypeUnit.BigDetonation, scene);
+                                BigDetonation detonation = new BigDetonation(item, TypeUnit.BigDetonation);
                                 detonation.Start();
                                 return;
                             }
@@ -80,8 +91,8 @@ namespace SuperTank
                         case TypeUnit.Shell:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
-                                ((Shell)item).OnShellDestroy();
-                                OnShellDestroy();
+                                ((Shell)item).Dispose();
+                                Dispose();
                                 return;
                             }
                             break;
@@ -96,16 +107,16 @@ namespace SuperTank
             }
         }
 
-        protected virtual void Detonation(Unit item, bool removeItem)
+        protected virtual void Detonation(Unit item, bool dispouse)
         {
-            if (item != null && removeItem) scene.Remove(item);
+            if (item != null && dispouse) item.Dispose();
             IsDetonation = true;
         }
 
 
-        protected virtual void OnShellDestroy()
+        public override void Dispose()
         {
-            scene.Remove(this);
+            base.Dispose();
             Game.Updatable.Remove(this);
             ownerTank.Shell = null;
         }

@@ -8,35 +8,42 @@ namespace SuperTank
 {
     public class Star : Unit, IUpdatable
     {
-        private IDriver plaeyr;
-        private IScene scene;
+        private Tank tank;
         private int delay;
 
-        public Star(int id, int x, int y, int width, int height, TypeUnit type, IDriver plaeyr, IScene scene) : base(id, x, y, width, height, type)
+        public Star(int id, int x, int y, int width, int height, TypeUnit type, Tank tank) : base(id, x, y, width, height, type)
         {
-            this.plaeyr = plaeyr;
-            this.scene = scene;
+            this.tank = tank;
         }
+
+        public Star(int x, int y, int width, int height, TypeUnit type, Tank tank) : base(x, y, width, height, type)
+        {
+            this.tank = tank;
+        }
+
+        public Star(TypeUnit type, Tank tank) : this(tank.X, tank.Y, tank.Width, tank.Height, type, tank)
+        { }
 
         public void Start()
         {
-            Game.Updatable.Remove(plaeyr);
-            scene.Add(this);
+            AddToScene();
             Game.Updatable.Add(this);
         }
 
         public void Update()
         {
-            if (delay < ConfigurationGame.TimeAppearanceOfTank)
-                delay++;
-            else
-            {
-                Game.Updatable.Remove(this);
-                scene.Remove(this);
-                scene.Add(plaeyr.Tank);
-                Game.Updatable.Add(plaeyr);
-                plaeyr.Tank.Properties[PropertiesType.IsParking] = !(bool)plaeyr.Tank.Properties[PropertiesType.IsParking];
-            }
+            if (delay == ConfigurationGame.TimeAppearanceOfTank)
+                Dispose();
+            else delay++;
+        }
+
+        public override void Dispose()
+        {
+            Console.WriteLine("Dispose " + tank.ID);
+            base.Dispose();
+            Game.Updatable.Remove(this);
+            tank.Start();
+            tank.Properties[PropertiesType.IsParking] = !(bool)tank.Properties[PropertiesType.IsParking];
         }
     }
 }

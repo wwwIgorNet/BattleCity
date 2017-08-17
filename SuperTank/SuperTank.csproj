@@ -59,7 +59,6 @@
     <Compile Include="Game\EnemyDriver.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\IDriver.cs" />
-    <Compile Include="Game\IScene.cs" />
     <Compile Include="Game\IUpdatable.cs" />
     <Compile Include="Game\LevelManager.cs" />
     <Compile Include="Game\UnitDataForView.cs" />
