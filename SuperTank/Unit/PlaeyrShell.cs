@@ -16,16 +16,6 @@ namespace SuperTank
             this.soundGame = soundGame;
         }
 
-        public PlaeyrShell(int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(x, y, width, height, type, velosity, direction, ownerTank)
-        {
-            this.soundGame = soundGame;
-        }
-
-        public PlaeyrShell(int x, int y, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(x, y, type, velosity, direction, ownerTank)
-        {
-            this.soundGame = soundGame;
-        }
-
         protected override void Detonation(Unit item, bool removeItem)
         {
             base.Detonation(item, removeItem);
@@ -33,7 +23,7 @@ namespace SuperTank
             else
             {
                 switch (item.Type)
-                {
+                {//todo
                     case TypeUnit.PainTank:
                         soundGame.BigDetonation();
                         break;

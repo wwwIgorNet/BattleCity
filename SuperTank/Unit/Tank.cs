@@ -9,26 +9,13 @@ namespace SuperTank
 {
     public class Tank : MovableUnit, IUpdatable
     {
-        private int velosityShell;
         private TypeUnit typeShell;
         private IDriver driver;
 
-        public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
-        {
-            Init(velosityShell, typeShell, driver);
-        }
-
-        public Tank(int x, int y, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell)
-            : base(x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction)
-        {
-            Init(velosityShell, typeShell, driver);
-        }
-
-        private void Init(int velosityShell, TypeUnit typeShell, IDriver driver)
+        public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell) : base(id, x, y, width, height, type, velosity, direction)
         {
             this.driver = driver;
             this.typeShell = typeShell;
-            this.velosityShell = velosityShell;
             Properties[PropertiesType.IsParking] = true;
             Properties[PropertiesType.Detonation] = false;
         }
@@ -107,7 +94,8 @@ namespace SuperTank
             for (int i = 0; i < colision.Count; i++)
             {
                 switch (colision[i].Type)
-                {
+                {//todo
+                    case TypeUnit.PainTankPlaeyr:
                     case TypeUnit.PainTank:
                     case TypeUnit.BrickWall:
                     case TypeUnit.ConcreteWall:
@@ -213,7 +201,7 @@ namespace SuperTank
                     break;
             }
 
-            if (colision.Find(u => u.Type == TypeUnit.PainTank) != null)
+            if (colision.Find(u => u.Type == TypeUnit.PainTankPlaeyr) != null)
                 return true;
 
             return false;
@@ -262,15 +250,15 @@ namespace SuperTank
                     y = Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            Shell shell = GetShell(x, y, velosityShell);
+            Shell shell = GetShell(x, y);
             Shell = shell;
             shell.Start();
             return true;
         }
 
-        protected virtual Shell GetShell(int x, int y, int velosityShell)
+        protected virtual Shell GetShell(int x, int y)
         {
-            return new Shell(x, y, TypeUnit.Shell, velosityShell, Direction, this);
+            return FactoryUnit.CreateShell(x, y, typeShell, Direction, this);
         }
         #endregion
 

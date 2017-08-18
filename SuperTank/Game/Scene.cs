@@ -73,6 +73,8 @@ namespace SuperTank
             Dictionary<PropertiesType, object> properties = null;
             switch (unit.Type)
             {
+                // todo
+                case TypeUnit.PainTankPlaeyr:
                 case TypeUnit.PainTank:
                     properties = new Dictionary<PropertiesType, object>();
 

@@ -56,7 +56,9 @@
     <Compile Include="Audio\ISoundGame.cs" />
     <Compile Include="Audio\SoundGame.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />
+    <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\EnemyDriver.cs" />
+    <Compile Include="Unit\FactoryUnit.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\IDriver.cs" />
     <Compile Include="Game\IKeyboard.cs" />

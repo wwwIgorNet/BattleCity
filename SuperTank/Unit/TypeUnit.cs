@@ -2,7 +2,6 @@
 {
     public enum TypeUnit
     {
-        PainTank,
         Shell,
         BrickWall,
         ConcreteWall,
@@ -11,6 +10,16 @@
         Ice,
         Eagle,
         Star,
-        BigDetonation
+        BigDetonation,
+
+        PainTankPlaeyr,
+        ArmoredPersonnelCarrierTankPlaeyr,
+        QuickFireTankPlaeyr,
+        ArmoredTankPlaeyr,
+
+        PainTank,
+        ArmoredPersonnelCarrierTank,
+        QuickFireTank,
+        ArmoredTank
     }
 }

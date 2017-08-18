@@ -16,7 +16,9 @@ namespace SuperTank
             {
                 case TypeUnit.Star:
                     return CreateStar(id, x, y);
-                case TypeUnit.PainTank:
+                case TypeUnit.PainTankPlaeyr:
+                    return CreateViewPlainTank(id, x, y, properties);
+                case TypeUnit.PainTank:// todo
                     return CreateViewPlainTank(id, x, y, properties);
                 case TypeUnit.Shell:
                     return CreateViewShell(id, x, y, properties);

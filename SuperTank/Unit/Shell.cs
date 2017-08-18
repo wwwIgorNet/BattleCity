@@ -13,19 +13,6 @@ namespace SuperTank
 
         public Shell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : base(id, x, y, width, height, type, velosity, direction)
         {
-            Init(ownerTank);
-        }
-
-        public Shell(int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : base(x, y, width, height, type, velosity, direction)
-        {
-            Init(ownerTank);
-        }
-
-        public Shell(int x, int y, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : this(x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosity, direction, ownerTank)
-        { }
-
-        private void Init(Tank ownerTank)
-        {
             this.ownerTank = ownerTank;
             Owner = (Owner)ownerTank.Properties[PropertiesType.Owner];
             ownerTank.Shell = null;
@@ -78,12 +65,14 @@ namespace SuperTank
                 {
                     switch (item.Type)
                     {
+                        // todo
+                        case TypeUnit.PainTankPlaeyr:
                         case TypeUnit.PainTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
                                 Detonation(item, true);
-                                BigDetonation detonation = new BigDetonation(item, TypeUnit.BigDetonation);
+                                BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
                                 detonation.Start();
                                 return;
                             }

@@ -24,14 +24,6 @@ namespace SuperTank
             nextId++;
         }
 
-        public Unit(int x, int y, int width, int height, TypeUnit type)
-            :this(Unit.NextID, x, y, width, height, type)
-        { }
-
-        public Unit(int x, int y, TypeUnit type)
-            :this(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, type)
-        { }
-
         public static int NextID { get { return nextId; } }
         public event Action<int, PropertiesType, object> PropertyChanged;
         public event Action<Unit> UnitDisposable;

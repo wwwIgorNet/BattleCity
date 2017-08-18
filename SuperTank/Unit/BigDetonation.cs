@@ -13,12 +13,6 @@ namespace SuperTank
         public BigDetonation(int id, int x, int y, int width, int height, TypeUnit type) : base(id, x, y, width, height, type)
         { }
 
-        public BigDetonation(int x, int y, int width, int height, TypeUnit type) : base(x, y, width, height, type)
-        { }
-
-        public BigDetonation(Unit unit, TypeUnit type) : base(unit.X, unit.Y, unit.Width, unit.Height, type)
-        { }
-
         public void Update()
         {
             iterationUpdate++;
