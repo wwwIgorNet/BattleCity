@@ -8,7 +8,13 @@ namespace SuperTank
 {
     class PlaeyrDriver : IDriver
     {
+        private IKeyboard keyboard;
         private Tank tank;
+
+        public PlaeyrDriver(IKeyboard keyboard)
+        {
+            this.keyboard = keyboard;
+        }
 
         public Tank Tank
         {
@@ -33,17 +39,17 @@ namespace SuperTank
                 return;
             }
 
-            if (Keyboard.Space)
+            if (keyboard.Space)
                 tank.Fire();
 
             Direction carentDirection;
-            if (Keyboard.Right)
+            if (keyboard.Right)
                 carentDirection = Direction.Right;
-            else if (Keyboard.Left)
+            else if (keyboard.Left)
                 carentDirection = Direction.Left;
-            else if (Keyboard.Up)
+            else if (keyboard.Up)
                 carentDirection = Direction.Up;
-            else if (Keyboard.Down)
+            else if (keyboard.Down)
                 carentDirection = Direction.Down;
             else
             {

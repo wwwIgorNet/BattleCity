@@ -14,6 +14,8 @@ namespace SuperTank.WindowsForms
     {
         private static ChannelFactory<IRender> factoryRender;
         private static ChannelFactory<ISoundGame> factorySound;
+        private static ChannelFactory<IKeyboard> factoryKeyboard;
+        private static ServiceHost hostKeyboard;
         private static ServiceHost hostSound;
         private static ServiceHost hostSceneView;
         private static Game game;
@@ -28,8 +30,9 @@ namespace SuperTank.WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             SceneView sceneView = new SceneView();
-            GameForm formRender = new GameForm(sceneView);
             soundGame = new SoundGame();
+            GameForm formRender = new GameForm(sceneView);
+            formRender.FormClosing += FormRender_FormClosing;
 
             hostSound = new ServiceHost(soundGame);
             hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
@@ -44,17 +47,27 @@ namespace SuperTank.WindowsForms
 
             ThreadPool.QueueUserWorkItem((s) =>
             {
+                Keyboard keyboard = new Keyboard();
+                hostKeyboard = new ServiceHost(keyboard);
+                hostKeyboard.CloseTimeout = TimeSpan.FromMilliseconds(0);
+                hostKeyboard.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
+                hostKeyboard.Open();
+
                 factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
                 IRender render = factoryRender.CreateChannel();
 
                 factorySound  = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
                 ISoundGame sound= factorySound.CreateChannel();
 
-                game = new Game(render, sound);
+
+                render.Init();
+                game = new Game(render, sound, keyboard);
                 game.Start();
             });
 
-            formRender.FormClosing += FormRender_FormClosing;
+            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
+            formRender.Keyboard = factoryKeyboard.CreateChannel();
+            
             Application.Run(formRender);
         }
 
@@ -68,8 +81,10 @@ namespace SuperTank.WindowsForms
                 game.Dispose();
                 ThreadPool.QueueUserWorkItem(s =>
                 {
+                    factoryKeyboard.Close();
                     factorySound.Close();
                     factoryRender.Close();
+                    hostKeyboard.Close();
                     hostSound.Close();
                     hostSceneView.Close();
                     wcfClose = true;

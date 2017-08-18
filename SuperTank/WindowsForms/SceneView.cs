@@ -94,5 +94,8 @@ namespace SuperTank
                 Add(data.ID, data.TypeUnit, data.X, data.Y, data.Properties);
             }
         }
+
+        public void Init()
+        { }
     }
 }

@@ -24,13 +24,16 @@ namespace SuperTank
             timer.Elapsed += Timer_Elapsed;
         }
 
-        public Game(IRender render, ISoundGame soundGame)
+        public Game(IRender render, ISoundGame soundGame, IKeyboard keyboard)
         {
+            Game.Keyboard = keyboard;
             Game.soundGame = soundGame;
             Scene.Render = render;
             levelManager = new LevelManager(soundGame);
         }
         
+
+        public static IKeyboard Keyboard { get; set; }
         public static ISoundGame SoundGame { get { return soundGame; } }
         public static List<IUpdatable> Updatable { get { return updatable; } }
 

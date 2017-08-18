@@ -61,7 +61,7 @@ namespace SuperTank
             Scene.AddRange(objGame);
 
 
-            IDriver plaeyrDriver = new PlaeyrDriver();
+            IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
             plaeyrDriver.Tank = new TankPlaetr(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
                     , TypeUnit.PainTank, ConfigurationGame.VelostyPlainTank, Direction.Up, plaeyrDriver, ConfigurationGame.VelostyShellPlainTank, TypeUnit.Shell, soundGame);
 

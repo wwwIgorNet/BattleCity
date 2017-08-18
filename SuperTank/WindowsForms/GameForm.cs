@@ -16,7 +16,9 @@ namespace SuperTank.WindowsForms
 {
     public partial class GameForm : Form
     {
+        private IKeyboard keyboard;
         private SceneView sceneView;
+
         public GameForm(SceneView sceneView)
         {
             InitializeComponent();
@@ -32,7 +34,14 @@ namespace SuperTank.WindowsForms
 
             this.Focus();
         }
-        
+
+        public IKeyboard Keyboard
+        {
+            get { return keyboard; }
+            set { keyboard = value; }
+        }
+
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -42,39 +51,35 @@ namespace SuperTank.WindowsForms
         {
             base.OnKeyDown(e);
 
-            if (e.KeyCode == Keys.Left)
-                Keyboard.Left = true;
-            else if (e.KeyCode == Keys.Right)
-                Keyboard.Right = true;
-            else if (e.KeyCode == Keys.Up)
-                Keyboard.Up = true;
-            else if (e.KeyCode == Keys.Down)
-                Keyboard.Down = true;
-            else if (e.KeyCode == Keys.Space)
-                Keyboard.Space = true;
-            else if (e.KeyCode == Keys.Enter)
-                Keyboard.Enter = true;
-            else if (e.KeyCode == Keys.Escape)
-                Keyboard.Escape = true;
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                case Keys.Right:
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Space:
+                case Keys.Enter:
+                case Keys.Escape:
+                    keyboard.KeyDown(e.KeyCode);
+                    break;
+            }
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
 
-            if (e.KeyCode == Keys.Left)
-                Keyboard.Left = false;
-            else if (e.KeyCode == Keys.Right)
-                Keyboard.Right = false;
-            else if (e.KeyCode == Keys.Up)
-                Keyboard.Up = false;
-            else if (e.KeyCode == Keys.Down)
-                Keyboard.Down = false;
-            else if (e.KeyCode == Keys.Space)
-                Keyboard.Space = false;
-            else if (e.KeyCode == Keys.Enter)
-                Keyboard.Enter = false;
-            else if (e.KeyCode == Keys.Escape)
-                Keyboard.Escape = false;
+            switch (e.KeyCode)
+            {
+                case Keys.Left:
+                case Keys.Right:
+                case Keys.Up:
+                case Keys.Down:
+                case Keys.Space:
+                case Keys.Enter:
+                case Keys.Escape:
+                    keyboard.KeyUp(e.KeyCode);
+                    break;
+            }
         }
 
         private void GraphicsOption()
