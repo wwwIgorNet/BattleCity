@@ -42,16 +42,12 @@ namespace SuperTank
         {
             IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
             plaeyrDriver.Tank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
-                    , TypeUnit.PainTankPlaeyr, Direction.Up, plaeyrDriver, soundGame);
+                    , TypeUnit.SmallTankPlaeyr, Direction.Up, plaeyrDriver, soundGame);
 
-            IDriver enemyDriver = new EnemyDriver();
-            enemyDriver.Tank = FactoryUnit.CreateTank(0, 0, TypeUnit.PainTank, Direction.Down, enemyDriver);
+            Star star = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
+            star.Start();
 
-            Star starPlaeyr = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
-            Star starEnemy = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
-
-            starPlaeyr.Start();
-            starEnemy.Start();
+            enemy.Start();
         }
 
         private void LoadEnemyTank(string data, Enemy enemy)
@@ -61,16 +57,16 @@ namespace SuperTank
                 switch (c)
                 {
                     case 'P':
-                        enemy.AddTank(TypeUnit.PainTankPlaeyr);
+                        enemy.AddTank(TypeUnit.PainTank);
                         break;
                     case 'A':
-                        enemy.AddTank(TypeUnit.ArmoredPersonnelCarrierTankPlaeyr);
+                        enemy.AddTank(TypeUnit.ArmoredPersonnelCarrierTank);
                         break;
                     case 'R':
-                        enemy.AddTank(TypeUnit.QuickFireTankPlaeyr);
+                        enemy.AddTank(TypeUnit.QuickFireTank);
                         break;
                     case 'B':
-                        enemy.AddTank(TypeUnit.ArmoredTankPlaeyr);
+                        enemy.AddTank(TypeUnit.ArmoredTank);
                         break;
                 }
             }

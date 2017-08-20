@@ -16,10 +16,18 @@ namespace SuperTank
             {
                 case TypeUnit.Star:
                     return CreateStar(id, x, y);
-                case TypeUnit.PainTankPlaeyr:
-                    return CreateViewPlainTank(id, x, y, properties);
-                case TypeUnit.PainTank:// todo
-                    return CreateViewPlainTank(id, x, y, properties);
+
+                case TypeUnit.SmallTankPlaeyr:
+                case TypeUnit.LightTankPlaeyr:
+                case TypeUnit.MediumTankPlaeyr:
+                case TypeUnit.HeavyTankPlaeyr:
+
+                case TypeUnit.PainTank:
+                case TypeUnit.ArmoredPersonnelCarrierTank:
+                case TypeUnit.QuickFireTank:
+                case TypeUnit.ArmoredTank:// todo
+                    return CreateTank(id, x, y, properties, Images.GetImgesForTank(typeUnit));
+
                 case TypeUnit.Shell:
                     return CreateViewShell(id, x, y, properties);
                 case TypeUnit.BrickWall:
@@ -116,23 +124,12 @@ namespace SuperTank
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
             return res;
         }
-        private BaseView CreateViewPlainTank(int id, float x, float y, Dictionary<PropertiesType, object> properties)
+
+        private static BaseView CreateTank(int id, float x, float y, Dictionary<PropertiesType, object> properties, Dictionary<Direction, Image[]> images)
         {
-            Dictionary<Direction, Image[]> images = new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Images.PlainTankUp, Images.PlainTankUp2 } },
-                        {Direction.Down, new []
-                        { Images.PlainTankDown, Images.PlainTankDown2 } },
-                        {Direction.Left, new [] 
-                        { Images.PlainTankLeft, Images.PlainTankLeft2 } },
-                        {Direction.Right,new []
-                        { Images.PlainTankRight, Images.PlainTankRight2 } }
-                    };
             BaseView res = new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
             res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
-            //res.Properties[PropertiesType.BigDetonation] = properties[PropertiesType.BigDetonation];
             return res;
         }
     }

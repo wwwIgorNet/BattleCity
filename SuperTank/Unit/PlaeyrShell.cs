@@ -24,7 +24,15 @@ namespace SuperTank
             {
                 switch (item.Type)
                 {//todo
+                    case TypeUnit.SmallTankPlaeyr:
+                    case TypeUnit.LightTankPlaeyr:
+                    case TypeUnit.MediumTankPlaeyr:
+                    case TypeUnit.HeavyTankPlaeyr:
+
                     case TypeUnit.PainTank:
+                    case TypeUnit.ArmoredPersonnelCarrierTank:
+                    case TypeUnit.QuickFireTank:
+                    case TypeUnit.ArmoredTank:
                         soundGame.BigDetonation();
                         break;
                     case TypeUnit.BrickWall:

@@ -38,10 +38,10 @@ namespace SuperTank
             Tank tank = null;
             switch (type)
             {
-                case TypeUnit.PainTankPlaeyr:
-                case TypeUnit.ArmoredPersonnelCarrierTankPlaeyr:
-                case TypeUnit.QuickFireTankPlaeyr:
-                case TypeUnit.ArmoredTankPlaeyr:
+                case TypeUnit.SmallTankPlaeyr:
+                case TypeUnit.LightTankPlaeyr:
+                case TypeUnit.MediumTankPlaeyr:
+                case TypeUnit.HeavyTankPlaeyr:
                     tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelostyPlainTank, direction, driver, TypeUnit.Shell, soundGame);
                     break;
             }

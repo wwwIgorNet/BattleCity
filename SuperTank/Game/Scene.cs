@@ -11,6 +11,7 @@ namespace SuperTank
     public static class Scene
     {
         private static readonly List<Unit> units = new List<Unit>();
+        private static readonly ObservableCollection<Unit> tanks = new ObservableCollection<Unit>();
         private static readonly int width = ConfigurationGame.WidthBoard;
         private static readonly int height = ConfigurationBase.HeightBoard;
 
@@ -24,8 +25,9 @@ namespace SuperTank
             units.Clear();
             Render.Clear();
         }
-        
+
         public static List<Unit> Units { get { return units; } }
+        public static ObservableCollection<Unit> Tanks { get { return tanks; } }
 
         public static bool ColisionBoard(Unit unit)
         {
@@ -74,8 +76,15 @@ namespace SuperTank
             switch (unit.Type)
             {
                 // todo
-                case TypeUnit.PainTankPlaeyr:
+                case TypeUnit.SmallTankPlaeyr:
+                case TypeUnit.LightTankPlaeyr:
+                case TypeUnit.MediumTankPlaeyr:
+                case TypeUnit.HeavyTankPlaeyr:
+
                 case TypeUnit.PainTank:
+                case TypeUnit.ArmoredPersonnelCarrierTank:
+                case TypeUnit.QuickFireTank:
+                case TypeUnit.ArmoredTank:
                     properties = new Dictionary<PropertiesType, object>();
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];

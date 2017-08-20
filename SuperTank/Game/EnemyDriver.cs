@@ -14,6 +14,11 @@ namespace SuperTank
         private int iterationUpdateFire = 0;
         Direction carentDirection;
 
+        public EnemyDriver()
+        {
+            iterationUpdateFire = random.Next(0, 100);
+        }
+
         public Tank Tank
         {
             get { return tank; }

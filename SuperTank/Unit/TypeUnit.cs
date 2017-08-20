@@ -12,10 +12,10 @@
         Star,
         BigDetonation,
 
-        PainTankPlaeyr,
-        ArmoredPersonnelCarrierTankPlaeyr,
-        QuickFireTankPlaeyr,
-        ArmoredTankPlaeyr,
+        SmallTankPlaeyr,
+        LightTankPlaeyr,
+        MediumTankPlaeyr,
+        HeavyTankPlaeyr,
 
         PainTank,
         ArmoredPersonnelCarrierTank,

@@ -14,12 +14,14 @@ namespace SuperTank
         public Star(int id, int x, int y, int width, int height, TypeUnit type, Tank tank) : base(id, x, y, width, height, type)
         {
             this.tank = tank;
+            this.Properties[PropertiesType.Owner] = tank.Properties[PropertiesType.Owner];
         }
 
         public void Start()
         {
             AddToScene();
             Game.Updatable.Add(this);
+            Scene.Tanks.Add(this);
         }
 
         public void Update()
@@ -33,6 +35,7 @@ namespace SuperTank
         {
             base.Dispose();
             Game.Updatable.Remove(this);
+            Scene.Tanks.Remove(this);
             tank.Start();
             tank.Properties[PropertiesType.IsParking] = !(bool)tank.Properties[PropertiesType.IsParking];
         }

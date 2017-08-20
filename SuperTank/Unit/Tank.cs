@@ -95,8 +95,16 @@ namespace SuperTank
             {
                 switch (colision[i].Type)
                 {//todo
-                    case TypeUnit.PainTankPlaeyr:
+                    case TypeUnit.SmallTankPlaeyr:
+                    case TypeUnit.LightTankPlaeyr:
+                    case TypeUnit.MediumTankPlaeyr:
+                    case TypeUnit.HeavyTankPlaeyr:
+
                     case TypeUnit.PainTank:
+                    case TypeUnit.ArmoredPersonnelCarrierTank:
+                    case TypeUnit.QuickFireTank:
+                    case TypeUnit.ArmoredTank:
+                        
                     case TypeUnit.BrickWall:
                     case TypeUnit.ConcreteWall:
                     case TypeUnit.Water:
@@ -201,7 +209,7 @@ namespace SuperTank
                     break;
             }
 
-            if (colision.Find(u => u.Type == TypeUnit.PainTankPlaeyr) != null)
+            if (colision.Find(u => u.Type == TypeUnit.SmallTankPlaeyr) != null)
                 return true;
 
             return false;
@@ -271,11 +279,13 @@ namespace SuperTank
         {
             Game.Updatable.Add(this);
             AddToScene();
+            Scene.Tanks.Add(this);
         }
 
         public override void Dispose()
         {
             base.Dispose();
+            Scene.Tanks.Remove(this);
             Game.Updatable.Remove(this);
         }
     }

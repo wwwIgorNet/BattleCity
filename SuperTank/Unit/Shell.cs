@@ -66,8 +66,15 @@ namespace SuperTank
                     switch (item.Type)
                     {
                         // todo
-                        case TypeUnit.PainTankPlaeyr:
+                        case TypeUnit.SmallTankPlaeyr:
+                        case TypeUnit.LightTankPlaeyr:
+                        case TypeUnit.MediumTankPlaeyr:
+                        case TypeUnit.HeavyTankPlaeyr:
+
                         case TypeUnit.PainTank:
+                        case TypeUnit.ArmoredPersonnelCarrierTank:
+                        case TypeUnit.QuickFireTank:
+                        case TypeUnit.ArmoredTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
