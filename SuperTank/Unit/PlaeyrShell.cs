@@ -32,8 +32,11 @@ namespace SuperTank
                     case TypeUnit.PainTank:
                     case TypeUnit.ArmoredPersonnelCarrierTank:
                     case TypeUnit.QuickFireTank:
-                    case TypeUnit.ArmoredTank:
                         soundGame.BigDetonation();
+                        break;
+                    case TypeUnit.ArmoredTank:
+                        if (removeItem) soundGame.BigDetonation();
+                        else soundGame.DetonationShell();
                         break;
                     case TypeUnit.BrickWall:
                         soundGame.DetonationBrickWall();

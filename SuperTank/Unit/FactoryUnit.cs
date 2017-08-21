@@ -27,8 +27,11 @@ namespace SuperTank
                 case TypeUnit.PainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
+                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelostyPlainTank, direction, driver, TypeUnit.Shell);
+                    break;
                 case TypeUnit.ArmoredTank:
                     tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelostyPlainTank, direction, driver, TypeUnit.Shell);
+                    tank.Properties[PropertiesType.NumberOfHits] = 0;
                     break;
             }
             return tank;

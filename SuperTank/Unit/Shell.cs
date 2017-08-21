@@ -74,7 +74,6 @@ namespace SuperTank
                         case TypeUnit.PainTank:
                         case TypeUnit.ArmoredPersonnelCarrierTank:
                         case TypeUnit.QuickFireTank:
-                        case TypeUnit.ArmoredTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
@@ -82,6 +81,26 @@ namespace SuperTank
                                 BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
                                 detonation.Start();
                                 return;
+                            }
+                            break;
+                        case TypeUnit.ArmoredTank:
+                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                            {
+                                int n = (int)item.Properties[PropertiesType.NumberOfHits];
+                                n++;
+                                if (n == 4)
+                                {
+                                    item.Properties[PropertiesType.Detonation] = true;
+                                    Detonation(item, true);
+                                    BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
+                                    detonation.Start();
+                                    return;
+                                }
+                                else
+                                {
+                                    item.Properties[PropertiesType.NumberOfHits] = n;
+                                    Detonation(item, false);
+                                }
                             }
                             break;
                         case TypeUnit.Shell:

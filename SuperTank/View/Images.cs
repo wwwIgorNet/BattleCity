@@ -11,7 +11,7 @@ namespace SuperTank.View
     {
         private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
         private static TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
-        private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGren\", @"Tank\Enemy\ArmoredTankYellow\");
+        private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
         private static readonly string pathForShell = @"Shell\";
@@ -247,7 +247,7 @@ namespace SuperTank.View
             return null;
         }
 
-        private static Dictionary<Direction, Image[]> GetImages(Tank tank)
+        public static Dictionary<Direction, Image[]> GetImages(Tank tank)
         {
             return new Dictionary<Direction, Image[]>
                     {
@@ -285,16 +285,16 @@ namespace SuperTank.View
 
         public class TankEnemyExtend : TankEnemy
         {
-            private readonly Tank armoredTankGren;
+            private readonly Tank armoredTankGreen;
             private readonly Tank armoredTankYellow;
 
-            public TankEnemyExtend(string pathForPlainTank, string pathForArmoredPersonnelCarrierTank, string pathForQuickFireTank, string pathForArmoredTank, string pathForArmoredTankGren, string pathForArmoredTankYellow) : base(pathForPlainTank, pathForArmoredPersonnelCarrierTank, pathForQuickFireTank, pathForArmoredTank)
+            public TankEnemyExtend(string pathForPlainTank, string pathForArmoredPersonnelCarrierTank, string pathForQuickFireTank, string pathForArmoredTank, string pathForArmoredTankGreen, string pathForArmoredTankYellow) : base(pathForPlainTank, pathForArmoredPersonnelCarrierTank, pathForQuickFireTank, pathForArmoredTank)
             {
-                armoredTankGren = new Tank(pathForArmoredTankGren);
+                armoredTankGreen = new Tank(pathForArmoredTankGreen);
                 armoredTankYellow = new Tank(pathForArmoredTankYellow);
             }
 
-            public Tank ArmoredTankGren { get { return armoredTankGren; } }
+            public Tank ArmoredTankGreen { get { return armoredTankGreen; } }
             public Tank ArmoredTankYellow { get { return armoredTankYellow; } }
         }
 

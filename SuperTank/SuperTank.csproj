@@ -83,7 +83,8 @@
     <Compile Include="Game\ConfigurationBase.cs" />
     <Compile Include="Game\Direction.cs" />
     <Compile Include="View\SortedView.cs" />
-    <Compile Include="View\ViewAnimationDirectionUnit.cs" />
+    <Compile Include="View\ViewAnimationArmoredTank.cs" />
+    <Compile Include="View\ViewAnimationTank.cs" />
     <Compile Include="View\ViewAnimationUnit.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
@@ -232,10 +233,10 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Down1.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Down2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Down1.png">
@@ -250,10 +251,10 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Left1.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Left2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Left1.png">
@@ -268,10 +269,10 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Right1.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Right2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Right1.png">
@@ -286,10 +287,10 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Up1.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Up2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGreen\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Up1.png">

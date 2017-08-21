@@ -25,9 +25,15 @@ namespace SuperTank
                 case TypeUnit.PainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
-                case TypeUnit.ArmoredTank:// todo
                     return CreateTank(id, x, y, properties, Images.GetImgesForTank(typeUnit));
-
+                case TypeUnit.ArmoredTank:// todo
+                    BaseView res = new ViewAnimationArmoredTank(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, 2, Images.GetImages(Images.Enemy.ArmoredTank),
+                        Images.GetImages(Images.Enemy.ArmoredTankGreen),
+                        Images.GetImages(Images.Enemy.ArmoredTankYellow));
+                    res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
+                    res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
+                    res.Properties[PropertiesType.NumberOfHits] = properties[PropertiesType.NumberOfHits];
+                    return res;
                 case TypeUnit.Shell:
                     return CreateViewShell(id, x, y, properties);
                 case TypeUnit.BrickWall:
@@ -127,7 +133,7 @@ namespace SuperTank
 
         private static BaseView CreateTank(int id, float x, float y, Dictionary<PropertiesType, object> properties, Dictionary<Direction, Image[]> images)
         {
-            BaseView res = new ViewAnimationTankUnit(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
+            BaseView res = new ViewAnimationTank(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, images, 2);
             res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
             res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
             return res;
