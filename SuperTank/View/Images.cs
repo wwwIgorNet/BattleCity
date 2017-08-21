@@ -9,14 +9,18 @@ namespace SuperTank.View
 {
     static class Images
     {
-        public static TankPlaeyr plaeyrTank = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", "", "", "");
+        private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
+        private static TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
+        private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGren\", @"Tank\Enemy\ArmoredTankYellow\");
+        private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
-
+        private static readonly string pathForShell = @"Shell\";
         private static Image shellUp;
         private static Image shellDown;
         private static Image shellRight;
         private static Image shellLeft;
 
+        private static readonly string pathForDetonation = @"Detonation\";
         private static Image shellDetonation1;
         private static Image shellDetonation2;
         private static Image shellDetonation3;
@@ -26,87 +30,94 @@ namespace SuperTank.View
 
         private static Image brickWall;
         private static Image concreteWall;
-        private static Image water_1;
-        private static Image water_2;
-        private static Image water_3;
         private static Image forest;
         private static Image ice;
         private static Image eagle;
-        private static Image star4;
+
+        private static readonly string pathForWater = @"Water\";
+        private static Image water_1;
+        private static Image water_2;
+        private static Image water_3;
+
+        private static readonly string pathForStar = @"Tank\";
+        private static Image star1;
         private static Image star2;
         private static Image star3;
+        private static Image star4;
 
-
-        public static TankPlaeyr Plaeyr { get { return plaeyrTank; } }
+        public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
+        public static TankEnemyExtend Enemy { get { return tankEnemy; } }
+        public static TankEnemy TankRed { get { return tankRed; } }
 
         public static Image ShellUp
         {
             get
             {
-                return Validate(shellUp, @"Shell\ShellUp.png");
+                return Validate(shellUp, pathForShell + @"ShellUp.png");
             }
         }
         public static Image ShellDown
         {
             get
             {
-                return Validate(shellDown, @"Shell\ShellDown.png");
+                return Validate(shellDown, pathForShell + @"ShellDown.png");
             }
         }
         public static Image ShellLeft
         {
             get
             {
-                return Validate(shellLeft, @"Shell\ShellLeft.png");
+                return Validate(shellLeft, pathForShell + @"ShellLeft.png");
             }
         }
         public static Image ShellRight
         {
             get
             {
-                return Validate(shellRight, @"Shell\ShellRight.png");
+                return Validate(shellRight , pathForShell + @"ShellRight.png");
             }
         }
+
         public static Image ShellDetonation1
         {
             get
             {
-                return Validate(shellDetonation1, @"Detonation\Detonation1.png");
+                return Validate(shellDetonation1, pathForDetonation + @"Detonation1.png");
             }
         }
         public static Image ShellDetonation2
         {
             get
             {
-                return Validate(shellDetonation2, @"Detonation\Detonation2.png");
+                return Validate(shellDetonation2, pathForDetonation + @"Detonation2.png");
             }
         }
         public static Image ShellDetonation3
         {
             get
             {
-                return Validate(shellDetonation3, @"Detonation\Detonation3.png");
+                return Validate(shellDetonation3, pathForDetonation + @"Detonation3.png");
             }
         }
         public static Image ShellDetonation4
         {
             get
             {
-                return Validate(shellDetonation4, @"Detonation\Detonation4.png");
+                return Validate(shellDetonation4, pathForDetonation + @"Detonation4.png");
             }
         }
         public static Image ShellDetonationBig
         {
             get
             {
-                return Validate(shellDetonationBig, @"Detonation\DetonationBig.png");
+                return Validate(shellDetonationBig, pathForDetonation + @"DetonationBig.png");
             }
         }
         public static Image ShellDetonationBig2
         {
             get
             {
-                return Validate(shellDetonationBig2, @"Detonation\DetonationBig2.png");
+                return Validate(shellDetonationBig2, pathForDetonation + @"DetonationBig2.png");
             }
         }
         
@@ -114,21 +125,21 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(water_1, @"Water\Water_1.png");
+                return Validate(water_1, pathForWater + @"Water_1.png");
             }
         }
         public static Image Water_2
         {
             get
             {
-                return Validate(water_2, @"Water\Water_2.png");
+                return Validate(water_2, pathForWater + @"Water_2.png");
             }
         }
         public static Image Water_3
         {
             get
             {
-                return Validate(water_3, @"Water\Water_3.png");
+                return Validate(water_3, pathForWater + @"Water_3.png");
             }
         }
 
@@ -173,28 +184,28 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(star4, @"Tank\Star1.png");
+                return Validate(star1, pathForStar + @"Star1.png");
             }
         }
         public static Image Star2
         {
             get
             {
-                return Validate(star2, @"Tank\Star2.png");
+                return Validate(star2, pathForStar + @"Star2.png");
             }
         }
         public static Image Star3
         {
             get
             {
-                return Validate(star3, @"Tank\Star2.png");
+                return Validate(star3, pathForStar + @"Star2.png");
             }
         }
         public static Image Star4
         {
             get
             {
-                return Validate(star4, @"Tank\Star4.png");
+                return Validate(star4, pathForStar + @"Star4.png");
             }
         }
 
@@ -216,427 +227,230 @@ namespace SuperTank.View
             switch (type)
             {
                 case TypeUnit.SmallTankPlaeyr:
-                    return new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Plaeyr.SmallTankUp1, Plaeyr.SmallTankUp2 } },
-                        {Direction.Down, new []
-                        { Plaeyr.SmallTankDown1, Plaeyr.SmallTankDown2 } },
-                        {Direction.Left, new []
-                        { Plaeyr.SmallTankLeft1, Plaeyr.SmallTankLeft2 } },
-                        {Direction.Right,new []
-                        { Plaeyr.SmallTankRight1, Plaeyr.SmallTankRight2 } }
-                    };
+                    return GetImages(Plaeyr.SmallTank);
                 case TypeUnit.LightTankPlaeyr:
-                    break;
+                    return GetImages(Plaeyr.LightTank);
                 case TypeUnit.MediumTankPlaeyr:
-                    break;
+                    return GetImages(Plaeyr.MmediumTank);
                 case TypeUnit.HeavyTankPlaeyr:
-                    break;
+                    return GetImages(Plaeyr.HeavyTank);
 
                 case TypeUnit.PainTank:
-                    return new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Enemy.PlainTankUp1, Enemy.PlainTankUp2 } },
-                        {Direction.Down, new []
-                        { Enemy.PlainTankDown1, Enemy.PlainTankDown2 } },
-                        {Direction.Left, new []
-                        { Enemy.PlainTankLeft1, Enemy.PlainTankLeft2 } },
-                        {Direction.Right,new []
-                        { Enemy.PlainTankRight1, Enemy.PlainTankRight2 } }
-                    };
+                    return GetImages(Enemy.PlainTank);
                 case TypeUnit.ArmoredPersonnelCarrierTank:
-                    return new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Enemy.ArmoredPersonnelCarrierUp1, Enemy.ArmoredPersonnelCarrierUp2 } },
-                        {Direction.Down, new []
-                        { Enemy.ArmoredPersonnelCarrierDown1, Enemy.ArmoredPersonnelCarrierDown2 } },
-                        {Direction.Left, new []
-                        { Enemy.ArmoredPersonnelCarrierLeft1, Enemy.ArmoredPersonnelCarrierLeft2 } },
-                        {Direction.Right,new []
-                        { Enemy.ArmoredPersonnelCarrierRight1, Enemy.ArmoredPersonnelCarrierRight2 } }
-                    };
+                    return GetImages(Enemy.ArmoredPersonnelCarrierTank);
                 case TypeUnit.QuickFireTank:
-                    return new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Enemy.QuickFireTankUp1, Enemy.QuickFireTankUp2 } },
-                        {Direction.Down, new []
-                        { Enemy.QuickFireTankDown1, Enemy.QuickFireTankDown2 } },
-                        {Direction.Left, new []
-                        { Enemy.QuickFireTankLeft1, Enemy.QuickFireTankLeft2 } },
-                        {Direction.Right,new []
-                        { Enemy.QuickFireTankight1, Enemy.QuickFireTankight2 } }
-                    };
+                    return GetImages(Enemy.QuickFireTank);
                 case TypeUnit.ArmoredTank:
-                    return new Dictionary<Direction, Image[]>
-                    {
-                        {Direction.Up, new []
-                        { Enemy.ArmoredTankUp1, Enemy.ArmoredTankUp2 } },
-                        {Direction.Down, new []
-                        { Enemy.ArmoredTankDown1, Enemy.ArmoredTankDown2 } },
-                        {Direction.Left, new []
-                        { Enemy.ArmoredTankLeft1, Enemy.ArmoredTankLeft2 } },
-                        {Direction.Right,new []
-                        { Enemy.ArmoredTankight1, Enemy.ArmoredTankight2 } }
-                    };
+                    return GetImages(Enemy.ArmoredTank);
             }
             return null;
         }
 
-        public static class Enemy
+        private static Dictionary<Direction, Image[]> GetImages(Tank tank)
         {
-            private static readonly string pathForPlainTank = @"Tank\Enemy\PlainTank\";
-            private static Image plainTankUp1;
-            private static Image plainTankDown1;
-            private static Image plainTankRight1;
-            private static Image plainTankLeft1;
-            private static Image plainTankUp2;
-            private static Image plainTankDown2;
-            private static Image plainTankRight2;
-            private static Image plainTankLeft2;
+            return new Dictionary<Direction, Image[]>
+                    {
+                        {Direction.Up, new []
+                        { tank.Up1, tank.Up2 } },
+                        {Direction.Down, new []
+                        { tank.Down1, tank.Down2 } },
+                        {Direction.Left, new []
+                        { tank.Left1, tank.Left2 } },
+                        {Direction.Right,new []
+                        { tank.Right1, tank.Right2 } }
+                    };
+        }
 
-            private static readonly string pathForArmoredPersonnelCarrierTank = @"Tank\Enemy\ArmoredPersonnelCarrier\";
-            private static Image armoredPersonnelCarrierUp1;
-            private static Image armoredPersonnelCarrierDown1;
-            private static Image armoredPersonnelCarrierRight1;
-            private static Image armoredPersonnelCarrierLeft1;
-            private static Image armoredPersonnelCarrierUp2;
-            private static Image armoredPersonnelCarrierDown2;
-            private static Image armoredPersonnelCarrierRight2;
-            private static Image armoredPersonnelCarrierLeft2;
+        public class TankEnemy
+        {
+            private readonly Tank plainTank;
+            private readonly Tank armoredPersonnelCarrierTank;
+            private readonly Tank quickFireTank;
+            private readonly Tank armoredTank;
 
-
-            private static readonly string pathForQuickFireTankTank = @"Tank\Enemy\QuickFireTank\";
-            private static Image quickFireTankUp1;
-            private static Image quickFireTankDown1;
-            private static Image quickFireTankight1;
-            private static Image quickFireTankLeft1;
-            private static Image quickFireTankUp2;
-            private static Image quickFireTankDown2;
-            private static Image quickFireTankight2;
-            private static Image quickFireTankLeft2;
-
-
-            private static readonly string pathForArmoredTankTank = @"Tank\Enemy\ArmoredTank\";
-            private static Image armoredTankUp1;
-            private static Image armoredTankDown1;
-            private static Image armoredTankight1;
-            private static Image armoredTankLeft1;
-            private static Image armoredTankUp2;
-            private static Image armoredTankDown2;
-            private static Image armoredTankight2;
-            private static Image armoredTankLeft2;
-
-            public static Image PlainTankUp1
+            public TankEnemy(string pathForPlainTank, string pathForArmoredPersonnelCarrierTank, string pathForQuickFireTank, string pathForArmoredTank)
             {
-                get
-                {
-                    return Validate(plainTankUp1, pathForPlainTank + "Up1.png");
-                }
-            }
-            public static Image PlainTankUp2
-            {
-                get
-                {
-                    return Validate(plainTankUp2, pathForPlainTank + "Up2.png");
-                }
-            }
-            public static Image PlainTankDown1
-            {
-                get
-                {
-                    return Validate(plainTankDown1, pathForPlainTank + "Down1.png");
-                }
-            }
-            public static Image PlainTankDown2
-            {
-                get
-                {
-                    return Validate(plainTankDown2, pathForPlainTank + "Down2.png");
-                }
-            }
-            public static Image PlainTankLeft1
-            {
-                get
-                {
-                    return Validate(plainTankLeft1, pathForPlainTank + "Left1.png");
-                }
-            }
-            public static Image PlainTankLeft2
-            {
-                get
-                {
-                    return Validate(plainTankLeft2, pathForPlainTank + "Left2.png");
-                }
-            }
-            public static Image PlainTankRight1
-            {
-                get
-                {
-                    return Validate(plainTankRight1, pathForPlainTank + "Right1.png");
-                }
-            }
-            public static Image PlainTankRight2
-            {
-                get
-                {
-                    return Validate(plainTankRight2, pathForPlainTank + "Right2.png");
-                }
+                plainTank = new Tank(pathForPlainTank);
+                armoredPersonnelCarrierTank = new Tank(pathForArmoredPersonnelCarrierTank);
+                quickFireTank = new Tank(pathForQuickFireTank);
+                armoredTank = new Tank(pathForArmoredTank);
             }
 
-            public static Image ArmoredPersonnelCarrierUp1
+            public Tank PlainTank { get { return plainTank; } }
+            public Tank ArmoredPersonnelCarrierTank { get { return armoredPersonnelCarrierTank; } }
+            public Tank QuickFireTank { get { return quickFireTank; } }
+            public Tank ArmoredTank { get { return armoredTank; } }
+        }
+
+        public class TankEnemyExtend : TankEnemy
+        {
+            private readonly Tank armoredTankGren;
+            private readonly Tank armoredTankYellow;
+
+            public TankEnemyExtend(string pathForPlainTank, string pathForArmoredPersonnelCarrierTank, string pathForQuickFireTank, string pathForArmoredTank, string pathForArmoredTankGren, string pathForArmoredTankYellow) : base(pathForPlainTank, pathForArmoredPersonnelCarrierTank, pathForQuickFireTank, pathForArmoredTank)
             {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierUp1, pathForArmoredPersonnelCarrierTank + "Up1.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierUp2
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierUp2, pathForArmoredPersonnelCarrierTank + "Up2.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierDown1
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierDown1, pathForArmoredPersonnelCarrierTank + "Down1.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierDown2
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierDown2, pathForArmoredPersonnelCarrierTank + "Down2.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierLeft1
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierLeft1, pathForArmoredPersonnelCarrierTank + "Left1.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierLeft2
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierLeft2, pathForArmoredPersonnelCarrierTank + "Left2.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierRight1
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierRight1, pathForArmoredPersonnelCarrierTank + "Right1.png");
-                }
-            }
-            public static Image ArmoredPersonnelCarrierRight2
-            {
-                get
-                {
-                    return Validate(armoredPersonnelCarrierRight2, pathForArmoredPersonnelCarrierTank + "Right2.png");
-                }
+                armoredTankGren = new Tank(pathForArmoredTankGren);
+                armoredTankYellow = new Tank(pathForArmoredTankYellow);
             }
 
-            public static Image QuickFireTankUp1
+            public Tank ArmoredTankGren { get { return armoredTankGren; } }
+            public Tank ArmoredTankYellow { get { return armoredTankYellow; } }
+        }
+
+        public class Tank
+        {
+            private readonly string pathForTank;
+            private Image up1;
+            private Image up2;
+            private Image down1;
+            private Image down2;
+            private Image right1;
+            private Image right2;
+            private Image left1;
+            private Image left2;
+
+            public Tank(string pathForTank)
             {
-                get
-                {
-                    return Validate(quickFireTankUp1, pathForQuickFireTankTank + "Up1.png");
-                }
-            }
-            public static Image QuickFireTankUp2
-            {
-                get
-                {
-                    return Validate(quickFireTankUp2, pathForQuickFireTankTank + "Up2.png");
-                }
-            }
-            public static Image QuickFireTankDown1
-            {
-                get
-                {
-                    return Validate(quickFireTankDown1, pathForQuickFireTankTank + "Down1.png");
-                }
-            }
-            public static Image QuickFireTankDown2
-            {
-                get
-                {
-                    return Validate(quickFireTankDown2, pathForQuickFireTankTank + "Down2.png");
-                }
-            }
-            public static Image QuickFireTankLeft1
-            {
-                get
-                {
-                    return Validate(quickFireTankLeft1, pathForQuickFireTankTank + "Left1.png");
-                }
-            }
-            public static Image QuickFireTankLeft2
-            {
-                get
-                {
-                    return Validate(quickFireTankLeft2, pathForQuickFireTankTank + "Left2.png");
-                }
-            }
-            public static Image QuickFireTankight1
-            {
-                get
-                {
-                    return Validate(quickFireTankight1, pathForQuickFireTankTank + "Right1.png");
-                }
-            }
-            public static Image QuickFireTankight2
-            {
-                get
-                {
-                    return Validate(quickFireTankight2, pathForQuickFireTankTank + "Right2.png");
-                }
+                this.pathForTank = pathForTank;
             }
 
-            public static Image ArmoredTankUp1
+            public Image Up1
             {
                 get
                 {
-                    return Validate(armoredTankUp1, pathForArmoredTankTank + "Up1.png");
+                    return Validate(up1, pathForTank + "Up1.png");
                 }
             }
-            public static Image ArmoredTankUp2
+            public Image Up2
             {
                 get
                 {
-                    return Validate(armoredTankUp2, pathForArmoredTankTank + "Up2.png");
+                    return Validate(up2, pathForTank + "Up2.png");
                 }
             }
-            public static Image ArmoredTankDown1
+            public Image Down1
             {
                 get
                 {
-                    return Validate(armoredTankDown1, pathForArmoredTankTank + "Down1.png");
+                    return Validate(down1, pathForTank + "Down1.png");
                 }
             }
-            public static Image ArmoredTankDown2
+            public Image Down2
             {
                 get
                 {
-                    return Validate(armoredTankDown2, pathForArmoredTankTank + "Down2.png");
+                    return Validate(down2, pathForTank + "Down2.png");
                 }
             }
-            public static Image ArmoredTankLeft1
+            public Image Left1
             {
                 get
                 {
-                    return Validate(armoredTankLeft1, pathForArmoredTankTank + "Left1.png");
+                    return Validate(left1, pathForTank + "Left1.png");
                 }
             }
-            public static Image ArmoredTankLeft2
+            public Image Left2
             {
                 get
                 {
-                    return Validate(armoredTankLeft2, pathForArmoredTankTank + "Left2.png");
+                    return Validate(left2, pathForTank + "Left2.png");
                 }
             }
-            public static Image ArmoredTankight1
+            public Image Right1
             {
                 get
                 {
-                    return Validate(armoredTankight1, pathForArmoredTankTank + "Right1.png");
+                    return Validate(right1, pathForTank + "Right1.png");
                 }
             }
-            public static Image ArmoredTankight2
+            public Image Right2
             {
                 get
                 {
-                    return Validate(armoredTankight2, pathForArmoredTankTank + "Right2.png");
+                    return Validate(right2, pathForTank + "Right2.png");
                 }
             }
         }
 
         public class TankPlaeyr
         {
-            private readonly string pathForSmallTank;
-            private readonly string pathForLightTank;
-            private readonly string pathForMediumTank;
-            private readonly string pathForHeavyTank;
-
-            private Image smallTankUp1;
-            private Image smallTankUp2;
-            private Image smallTankDown1;
-            private Image smallTankDown2;
-            private Image smallTankRight1;
-            private Image smallTankRight2;
-            private Image smallTankLeft1;
-            private Image smallTankLeft2;
+            private readonly Tank smallTank;
+            private readonly Tank lightTank;
+            private readonly Tank mediumTank;
+            private readonly Tank heavyTank;
 
             public TankPlaeyr(string pathForSmallTank, string pathForLightTank, string pathForMediumTank, string pathForheavyTank)
             {
-                this.pathForSmallTank = pathForSmallTank;
-                this.pathForLightTank = pathForLightTank;
-                this.pathForMediumTank = pathForMediumTank;
-                this.pathForHeavyTank = pathForheavyTank;
+                smallTank = new Tank(pathForSmallTank);
+                lightTank = new Tank(pathForLightTank);
+                mediumTank = new Tank(pathForMediumTank);
+                heavyTank = new Tank(pathForheavyTank);
             }
+            public Tank SmallTank { get { return smallTank; } }
+            public Tank LightTank { get { return lightTank; } }
+            public Tank MmediumTank { get { return mediumTank; } }
+            public Tank HeavyTank { get { return heavyTank; } }
+        }
 
-            public Image SmallTankUp1
+        public static class Bonus
+        {
+            private static readonly string pathForBonus = @"Bonus\";
+            private static Image clock;
+            private static Image grenade;
+            private static Image helmet;
+            private static Image pistol;
+            private static Image shovel;
+            private static Image starMedal;
+            private static Image tank;
+
+            private static Image Clock
             {
                 get
                 {
-                    return Validate(smallTankUp1, pathForSmallTank + "Up1.png");
+                    return Validate(clock, pathForBonus + @"Clock.png");
                 }
             }
-            public Image SmallTankUp2
+            private static Image Grenade
             {
                 get
                 {
-                    return Validate(smallTankUp2, pathForSmallTank + "Up2.png");
+                    return Validate(grenade, pathForBonus + @"Grenade.png");
                 }
             }
-            public Image SmallTankDown1
+            private static Image Helmet
             {
                 get
                 {
-                    return Validate(smallTankDown1, pathForSmallTank + "Down1.png");
+                    return Validate(helmet, pathForBonus + @"Helmet.png");
                 }
             }
-            public Image SmallTankDown2
+            private static Image Pistol
             {
                 get
                 {
-                    return Validate(smallTankDown2, pathForSmallTank + "Down2.png");
+                    return Validate(pistol, pathForBonus + @"Pistol.png");
                 }
             }
-            public Image SmallTankLeft1
+            private static Image Shovel
             {
                 get
                 {
-                    return Validate(smallTankLeft1, pathForSmallTank + "Left1.png");
+                    return Validate(shovel, pathForBonus + @"Shovel.png");
                 }
             }
-            public Image SmallTankLeft2
+            private static Image StarMedal
             {
                 get
                 {
-                    return Validate(smallTankLeft2, pathForSmallTank + "Left2.png");
+                    return Validate(starMedal, pathForBonus + @"StarMedal.png");
                 }
             }
-            public Image SmallTankRight1
+            private static Image Tank
             {
                 get
                 {
-                    return Validate(smallTankRight1, pathForSmallTank + "Right1.png");
-                }
-            }
-            public Image SmallTankRight2
-            {
-                get
-                {
-                    return Validate(smallTankRight2, pathForSmallTank + "Right2.png");
+                    return Validate(tank, pathForBonus + @"Tank.png");
                 }
             }
         }

@@ -20,6 +20,14 @@
         PainTank,
         ArmoredPersonnelCarrierTank,
         QuickFireTank,
-        ArmoredTank
+        ArmoredTank,
+
+        Clock,
+        Grenade,
+        Helmet,
+        Pistol,
+        Shovel,
+        StarMedal,
+        Tank
     }
 }

@@ -175,7 +175,7 @@
     <Content Include="Content\Textures\Bonus\Shovel.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Bonus\Star.png">
+    <Content Include="Content\Textures\Bonus\StarMedal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Bonus\Tank.png">
@@ -232,16 +232,16 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\DownG.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\DownG2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\DownY.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\DownY2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Left1.png">
@@ -250,16 +250,16 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\LeftG.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\LeftG2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\LeftY.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\LeftY2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Right1.png">
@@ -268,16 +268,16 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\RightG.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\RightG2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\RightY.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\RightY2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Up1.png">
@@ -286,16 +286,16 @@
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\UpG.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\UpG2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankGren\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\UpY.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\Enemy\ArmoredTank\UpY2.png">
+    <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Plaeyr2\HeavyTank\Down1.png">
@@ -577,100 +577,100 @@
     <Content Include="Content\Textures\Tank\Star4.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Down1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Down2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Left1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Left2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Right1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Right2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Up1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredPersonnelCarrier\Up2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredPersonnelCarrier\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Down1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Down2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Left1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Left2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Right1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Right2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Up1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\ArmoredTank\Up2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\ArmoredTank\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Down1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Down2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Left1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Left2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Right1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Right2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Up1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\PlainTank\Up2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\PlainTank\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Down1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Down1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Down2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Down2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Left1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Left1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Left2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Left2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Right1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Right1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Right2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Right2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Up1.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Up1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\Tank\BonusTank\QuickFireTank\Up2.png">
+    <Content Include="Content\Textures\Tank\Enemy\Red\QuickFireTank\Up2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Water\Water_1.png">
