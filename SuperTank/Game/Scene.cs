@@ -100,6 +100,10 @@ namespace SuperTank
                     properties = new Dictionary<PropertiesType, object>();
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     break;
+                case TypeUnit.Eagle:
+                    properties = new Dictionary<PropertiesType, object>();
+                    properties[PropertiesType.Detonation] = unit.Properties[PropertiesType.Detonation];
+                    break;
             }
 
             return properties;
@@ -119,6 +123,7 @@ namespace SuperTank
             {
                 Unit u = collection[i];
                 data.Add(new UnitDataForView(u.ID, u.Type, u.X, u.Y, GetPropertiesForView(u)));
+                u.PropertyChanged += Unit_PropertyChanged;
             }
 
             Render.AddRange(data);

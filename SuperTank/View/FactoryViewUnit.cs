@@ -14,6 +14,7 @@ namespace SuperTank
         {
             switch (typeUnit)
             {
+                // todo
                 case TypeUnit.Star:
                     return CreateStar(id, x, y);
 
@@ -26,7 +27,7 @@ namespace SuperTank
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                     return CreateTank(id, x, y, properties, Images.GetImgesForTank(typeUnit));
-                case TypeUnit.ArmoredTank:// todo
+                case TypeUnit.ArmoredTank:
                     BaseView res = new ViewAnimationArmoredTank(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 0, 2, Images.GetImages(Images.Enemy.ArmoredTank),
                         Images.GetImages(Images.Enemy.ArmoredTankGreen),
                         Images.GetImages(Images.Enemy.ArmoredTankYellow));
@@ -47,7 +48,9 @@ namespace SuperTank
                 case TypeUnit.Ice:
                     return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, -1, Images.Ice);
                 case TypeUnit.Eagle:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, -1, Images.Eagle);
+                    BaseView eagle = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, -1, Images.Eagle, Images.Eagle2);
+                    eagle.Properties[PropertiesType.Detonation] = properties[PropertiesType.Detonation];
+                    return eagle;
                 case TypeUnit.BigDetonation:
                     return CreateBigDetonation(id, x, y);
             }

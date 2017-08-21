@@ -117,6 +117,12 @@ namespace SuperTank
                         case TypeUnit.ConcreteWall:
                             Detonation(item, false);
                             break;
+                        case TypeUnit.Eagle:
+                            if (!(bool)item.Properties[PropertiesType.Detonation])
+                            {
+                                Detonation(item, true);
+                            }
+                            break;
                     }
                 }
             }

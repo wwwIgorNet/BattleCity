@@ -26,11 +26,8 @@ namespace SuperTank
             string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
 
             List<Unit> objGame = GetStaticObjGame(linesTileMap);
-            objGame.Add(FactoryUnit.CreateUnit(ConfigurationGame.PositionEagle.X,
-                ConfigurationGame.PositionEagle.Y,
-                ConfigurationGame.WidthTile * 2,
-                ConfigurationGame.HeightTile * 2,
-                TypeUnit.Eagle));
+            objGame.Add(FactoryUnit.CreateEagle(ConfigurationGame.PositionEagle.X,
+                ConfigurationGame.PositionEagle.Y, soundGame));
             Scene.AddRange(objGame);
 
             LoadEnemyTank(linesTileMap[26], enemy);

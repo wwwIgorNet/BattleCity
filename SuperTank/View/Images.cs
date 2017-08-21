@@ -32,7 +32,10 @@ namespace SuperTank.View
         private static Image concreteWall;
         private static Image forest;
         private static Image ice;
+
+        private static readonly string pathForEagle = @"Eagle\";
         private static Image eagle;
+        private static Image eagle2;
 
         private static readonly string pathForWater = @"Water\";
         private static Image water_1;
@@ -176,7 +179,14 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(eagle, @"Eagle\Eagle.png");
+                return Validate(eagle, pathForEagle + "Eagle.png");
+            }
+        }
+        public static Image Eagle2
+        {
+            get
+            {
+                return Validate(eagle2, pathForEagle + "Eagle2.png");
             }
         }
 

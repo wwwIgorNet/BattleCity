@@ -36,6 +36,13 @@ namespace SuperTank
             }
             return tank;
         }
+
+        internal static Unit CreateEagle(int x, int y, ISoundGame soundGame)
+        {
+            Unit eagle = new Eagle(NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Eagle, soundGame);
+            return eagle;
+        }
+
         public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame)
         {
             Tank tank = null;
