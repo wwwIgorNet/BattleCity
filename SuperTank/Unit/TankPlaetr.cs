@@ -11,7 +11,7 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell)
+        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
         {
             this.soundGame = soundGame;
         }
@@ -52,6 +52,44 @@ namespace SuperTank
             base.Dispose();
             soundGame.TankDispouse();
             soundGame.BigDetonation();
+        }
+
+        public override void Move()
+        {
+            base.Move();
+            for (int i = 0; i < Scene.Bonus.Count; i++)
+            {
+                if (BoundingBox.IntersectsWith(Scene.Bonus[i].BoundingBox))
+                {
+                    soundGame.Bonus();
+                    switch (Scene.Bonus[i].Type)
+                    {
+                        case TypeUnit.Clock:
+                            break;
+                        case TypeUnit.Grenade:
+                            for (int j = 0; j < Scene.Tanks.Count; j++)
+                            {
+                                if ((Owner)Scene.Tanks[j].Properties[PropertiesType.Owner] == Owner.Enemy)
+                                {
+                                    Scene.Tanks[j].Dispose();
+                                    soundGame.BigDetonation();
+                                }
+                            }
+                            break;
+                        case TypeUnit.Helmet:
+                            break;
+                        case TypeUnit.Pistol:
+                            break;
+                        case TypeUnit.Shovel:
+                            break;
+                        case TypeUnit.StarMedal:
+                            break;
+                        case TypeUnit.Tank:
+                            break;
+                    }
+                    Scene.Bonus[i].Dispose();
+                }
+            }
         }
     }
 }

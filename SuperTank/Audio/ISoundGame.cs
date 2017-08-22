@@ -27,5 +27,7 @@ namespace SuperTank.Audio
         void DetonationBrickWall();
         [OperationContract(IsOneWay = true)]
         void TankDispouse();
+        [OperationContract(IsOneWay = true)]
+        void Bonus();
     }
 }

@@ -16,6 +16,17 @@ namespace SuperTank
         private static Point startPositionTankEnemy2 = new Point(12 * ConfigurationGame.WidthTile, 0);
         private static Point startPositionTankEnemy3 = new Point(ConfigurationGame.WidthBoard - ConfigurationGame.WidthTank, 0);
 
+        private static int velosityHeavyTank = 3;
+        private static int velosityShellHeavyTank = 6;
+        private static int velosityPlainTank = 3;
+        private static int velosityShellPlainTank = 6;
+        private static int velosityArmoredPersonnelCarrierTank = 5;
+        private static int velosityShellArmoredPersonnelCarrierTank = 6;
+        private static int velosityQuickFireTank = 3;
+        private static int velosityShellQuickFireTank = 8;
+        private static int velosityArmoredTank = 3;
+        private static int velosityShellArmoredTank = 6;
+
         public static string Maps { get { return @"Content\Maps\"; } }
         public static int CountLevel { get { return countLevel; } }
         public static Point PositionEagle { get { return positionEagle; } }
@@ -23,5 +34,17 @@ namespace SuperTank
         public static Point StartPositionTankEnemy1 { get { return startPositionTankEnemy1; } }
         public static Point StartPositionTankEnemy2 { get { return startPositionTankEnemy2; } }
         public static Point StartPositionTankEnemy3 { get { return startPositionTankEnemy3; } }
+
+        public static int VelosityHeavyTank { get { return velosityHeavyTank; } }
+        public static int VelosityShellHeavyTank { get { return velosityShellHeavyTank; } }
+        public static int VelostyPlainTank { get { return velosityPlainTank; } }
+        public static int VelosityShellPlainTank { get { return velosityShellPlainTank; } }
+        public static int VelosityArmoredPersonnelCarrierTank { get { return velosityArmoredPersonnelCarrierTank; } }
+        public static int VelosityShellArmoredPersonnelCarrierTank { get { return velosityShellArmoredPersonnelCarrierTank; } }
+        public static int VelosityQuickFireTank { get { return velosityQuickFireTank; } }
+        public static int VelosityShellQuickFireTank { get { return velosityShellQuickFireTank; } }
+
+        public static int VelosityArmoredTank { get { return velosityArmoredTank; } }
+        public static int VelosityShellArmoredTank { get { return velosityShellArmoredTank; } }
     }
 }

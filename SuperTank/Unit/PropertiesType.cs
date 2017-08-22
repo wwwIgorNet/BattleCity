@@ -17,6 +17,7 @@ namespace SuperTank
         TypeUnit,
         Owner,
         Detonation,
-        NumberOfHits  // количество попаданий снаряда
+        NumberOfHits,  // количество попаданий снаряда
+        IsBonusTank
     }
 }

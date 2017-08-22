@@ -19,15 +19,11 @@ namespace SuperTank
         private static int heightBoard = 26 * 20;
         private static int widthBoard = 26 * 20;
         private static int timerInterval = 20;
-        private static int velostyPlainTank = 3;
-        private static int velostyShellPlainTank = 6;
         private static int timeDetonation = 6;
         private static int timeAppearanceOfTank = 48;
         private static int timeBigDetonation = 10;
 
         public static int TimeDetonation { get { return timeDetonation; } }
-        public static int VelostyPlainTank { get { return velostyPlainTank; } }
-        public static int VelostyShellPlainTank { get { return velostyShellPlainTank; } }
         public static int HeightTile { get { return heightTile; } }
         public static int WidthTile { get { return widthTile; } }
         public static int HeigthTank { get { return heightTank; } }

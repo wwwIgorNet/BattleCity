@@ -11,7 +11,8 @@ namespace SuperTank
     public static class Scene
     {
         private static readonly List<Unit> units = new List<Unit>();
-        private static readonly ObservableCollection<Unit> tanks = new ObservableCollection<Unit>();
+        private static readonly List<Unit> bonus = new List<Unit>();
+        private static readonly List<Unit> tanks = new List<Unit>();
         private static readonly int width = ConfigurationGame.WidthBoard;
         private static readonly int height = ConfigurationBase.HeightBoard;
 
@@ -27,7 +28,8 @@ namespace SuperTank
         }
 
         public static List<Unit> Units { get { return units; } }
-        public static ObservableCollection<Unit> Tanks { get { return tanks; } }
+        public static List<Unit> Tanks { get { return tanks; } }
+        public static List<Unit> Bonus { get { return bonus; } }
 
         public static bool ColisionBoard(Unit unit)
         {
@@ -88,6 +90,7 @@ namespace SuperTank
 
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
+                    properties[PropertiesType.IsBonusTank] = unit.Properties[PropertiesType.IsBonusTank];
                     break;
                 case TypeUnit.ArmoredTank:
                     properties = new Dictionary<PropertiesType, object>();
@@ -95,6 +98,7 @@ namespace SuperTank
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
                     properties[PropertiesType.NumberOfHits] = unit.Properties[PropertiesType.NumberOfHits];
+                    properties[PropertiesType.IsBonusTank] = unit.Properties[PropertiesType.IsBonusTank];
                     break;
                 case TypeUnit.Shell:
                     properties = new Dictionary<PropertiesType, object>();

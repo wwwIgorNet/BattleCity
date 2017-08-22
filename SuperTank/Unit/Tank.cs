@@ -9,15 +9,18 @@ namespace SuperTank
 {
     public class Tank : MovableUnit, IUpdatable
     {
+        private int velosityShell;
         private TypeUnit typeShell;
         private IDriver driver;
 
-        public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell) : base(id, x, y, width, height, type, velosity, direction)
+        public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
         {
             this.driver = driver;
             this.typeShell = typeShell;
+            this.velosityShell = velosityShell;
             Properties[PropertiesType.IsParking] = true;
             Properties[PropertiesType.Detonation] = false;
+            Properties[PropertiesType.IsBonusTank] = false;
         }
 
         #region Move
@@ -126,7 +129,7 @@ namespace SuperTank
             return res;
         }
 
-        public void Move()
+        public virtual void Move()
         {
             IsParking = false;
             MoveColision();
@@ -135,7 +138,7 @@ namespace SuperTank
 
         #region Stop
 
-        public void Stop()
+        public virtual void Stop()
         {
             // если танк двигается
             if (!IsParking)
@@ -218,7 +221,7 @@ namespace SuperTank
 
         #region Turn
 
-        public void Turn(Direction dir)
+        public virtual void Turn(Direction dir)
         {
             // если розвернулся на 180 градусов
             int tmp = (int)(Direction - dir);
@@ -266,7 +269,7 @@ namespace SuperTank
 
         protected virtual Shell GetShell(int x, int y)
         {
-            return FactoryUnit.CreateShell(x, y, typeShell, Direction, this);
+            return FactoryUnit.CreateShell(x, y, typeShell, Direction, velosityShell, this);
         }
         #endregion
 

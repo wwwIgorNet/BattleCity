@@ -19,7 +19,7 @@ namespace SuperTank
 
         public override void Dispose()
         {
-            if ((bool)Properties[PropertiesType.Detonation])
+            if (!(bool)Properties[PropertiesType.Detonation])
             {
                 Properties[PropertiesType.Detonation] = true;
                 soundGame.DetonationEagle();

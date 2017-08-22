@@ -62,7 +62,14 @@ namespace SuperTank
         {
             oldPosition = posIndex;
             IDriver enemyDriver = new EnemyDriver();
-            enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTank(), Direction.Down, enemyDriver);
+            //if (tankEnemy.Count == 17 || tankEnemy.Count == 10 || tankEnemy.Count == 3)
+            //{
+            enemyDriver.Tank = FactoryUnit.CreateBonusTank(positopn[posIndex].X, positopn[posIndex].Y, GetTank(), Direction.Down, enemyDriver);
+            //}
+            //else
+            //{
+            //enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTank(), Direction.Down, enemyDriver);
+            //}
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
             star.Start();

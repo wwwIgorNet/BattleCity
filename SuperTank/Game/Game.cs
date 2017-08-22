@@ -12,6 +12,7 @@ namespace SuperTank
 {
     public class Game : IDisposable
     {
+        private static Random random = new Random();
         private static readonly Timer timer = new Timer();
         private static readonly List<IUpdatable> updatable = new List<IUpdatable>();
 
@@ -36,6 +37,7 @@ namespace SuperTank
         public static IKeyboard Keyboard { get; set; }
         public static ISoundGame SoundGame { get { return soundGame; } }
         public static List<IUpdatable> Updatable { get { return updatable; } }
+        public static Random Random { get { return random; } }
 
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {

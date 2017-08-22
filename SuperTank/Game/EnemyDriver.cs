@@ -9,14 +9,13 @@ namespace SuperTank
     class EnemyDriver : IDriver
     {
         private Tank tank;
-        private static Random random = new Random();
         private int iterationUpdateMove = 0;
         private int iterationUpdateFire = 0;
         Direction carentDirection;
 
         public EnemyDriver()
         {
-            iterationUpdateFire = random.Next(0, 100);
+            iterationUpdateFire = Game.Random.Next(0, 100);
         }
 
         public Tank Tank
@@ -44,15 +43,15 @@ namespace SuperTank
 
             if (iterationUpdateFire == 0)
             {
-                iterationUpdateFire = random.Next(0, 100);
+                iterationUpdateFire = Game.Random.Next(0, 100);
                 tank.Fire();
             }
             else iterationUpdateFire--;
 
             if (iterationUpdateMove == 0)
             {
-                iterationUpdateMove = random.Next(6, 50);
-                carentDirection = (Direction)random.Next(0, 4);
+                iterationUpdateMove = Game.Random.Next(6, 50);
+                carentDirection = (Direction)Game.Random.Next(0, 4);
             }
             else iterationUpdateMove--;
 

@@ -414,49 +414,49 @@ namespace SuperTank.View
             private static Image starMedal;
             private static Image tank;
 
-            private static Image Clock
+            public static Image Clock
             {
                 get
                 {
                     return Validate(clock, pathForBonus + @"Clock.png");
                 }
             }
-            private static Image Grenade
+            public static Image Grenade
             {
                 get
                 {
                     return Validate(grenade, pathForBonus + @"Grenade.png");
                 }
             }
-            private static Image Helmet
+            public static Image Helmet
             {
                 get
                 {
                     return Validate(helmet, pathForBonus + @"Helmet.png");
                 }
             }
-            private static Image Pistol
+            public static Image Pistol
             {
                 get
                 {
                     return Validate(pistol, pathForBonus + @"Pistol.png");
                 }
             }
-            private static Image Shovel
+            public static Image Shovel
             {
                 get
                 {
                     return Validate(shovel, pathForBonus + @"Shovel.png");
                 }
             }
-            private static Image StarMedal
+            public static Image StarMedal
             {
                 get
                 {
                     return Validate(starMedal, pathForBonus + @"StarMedal.png");
                 }
             }
-            private static Image Tank
+            public static Image Tank
             {
                 get
                 {

@@ -58,6 +58,8 @@
     <Compile Include="Game\ConfigurationGame.cs" />
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\EnemyDriver.cs" />
+    <Compile Include="Unit\Bonus.cs" />
+    <Compile Include="Unit\BonusTank.cs" />
     <Compile Include="Unit\Eagle.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />
     <Compile Include="Game\Game.cs" />
@@ -67,6 +69,7 @@
     <Compile Include="Game\LevelManager.cs" />
     <Compile Include="Game\UnitDataForView.cs" />
     <Compile Include="Unit\BigDetonation.cs" />
+    <Compile Include="Unit\IShellHit.cs" />
     <Compile Include="Unit\MovableUnit.cs" />
     <Compile Include="Unit\Owner.cs" />
     <Compile Include="Unit\PlaeyrShell.cs" />
@@ -87,6 +90,7 @@
     <Compile Include="View\ViewAnimationArmoredTank.cs" />
     <Compile Include="View\ViewAnimationTank.cs" />
     <Compile Include="View\ViewAnimationUnit.cs" />
+    <Compile Include="View\ViewBonusTank.cs" />
     <Compile Include="View\ViewEagle.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
@@ -136,6 +140,9 @@
     <None Include="WindowsForms\App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Sound\Bonus.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Sound\DetonationEagle.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
