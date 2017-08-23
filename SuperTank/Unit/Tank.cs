@@ -23,6 +23,8 @@ namespace SuperTank
             Properties[PropertiesType.IsBonusTank] = false;
         }
 
+        public bool IsPause { get; set; }
+
         #region Move
 
         protected virtual bool IsParking
@@ -275,7 +277,7 @@ namespace SuperTank
 
         public void Update()
         {
-            driver.Update();
+            if(!IsPause) driver.Update();
         }
 
         public void Start()
@@ -283,6 +285,7 @@ namespace SuperTank
             Game.Updatable.Add(this);
             AddToScene();
             Scene.Tanks.Add(this);
+            IsPause = false;
         }
 
         public override void Dispose()

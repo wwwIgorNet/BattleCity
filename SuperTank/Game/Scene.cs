@@ -12,7 +12,8 @@ namespace SuperTank
     {
         private static readonly List<Unit> units = new List<Unit>();
         private static readonly List<Unit> bonus = new List<Unit>();
-        private static readonly List<Unit> tanks = new List<Unit>();
+        private static readonly List<Tank> tanks = new List<Tank>();
+        private static readonly List<Unit> stars = new List<Unit>();
         private static readonly int width = ConfigurationGame.WidthBoard;
         private static readonly int height = ConfigurationBase.HeightBoard;
 
@@ -28,8 +29,9 @@ namespace SuperTank
         }
 
         public static List<Unit> Units { get { return units; } }
-        public static List<Unit> Tanks { get { return tanks; } }
+        public static List<Tank> Tanks { get { return tanks; } }
         public static List<Unit> Bonus { get { return bonus; } }
+        public static List<Unit> Stars { get { return stars; } }
 
         public static bool ColisionBoard(Unit unit)
         {

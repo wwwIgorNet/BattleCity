@@ -27,6 +27,13 @@ namespace SuperTank
         private static int velosityArmoredTank = 3;
         private static int velosityShellArmoredTank = 6;
 
+        static ConfigurationGame()
+        {
+            DelayAddingTank = 50;
+            DelayPauseForClockBonus = 500;
+            DelayShovelBonus = 500;
+        }
+
         public static string Maps { get { return @"Content\Maps\"; } }
         public static int CountLevel { get { return countLevel; } }
         public static Point PositionEagle { get { return positionEagle; } }
@@ -46,5 +53,9 @@ namespace SuperTank
 
         public static int VelosityArmoredTank { get { return velosityArmoredTank; } }
         public static int VelosityShellArmoredTank { get { return velosityShellArmoredTank; } }
+
+        public static int DelayAddingTank { get; set; }
+        public static int DelayPauseForClockBonus { get; internal set; }
+        public static int DelayShovelBonus { get; internal set; }
     }
 }

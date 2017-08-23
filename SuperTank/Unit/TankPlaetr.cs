@@ -65,22 +65,17 @@ namespace SuperTank
                     switch (Scene.Bonus[i].Type)
                     {
                         case TypeUnit.Clock:
+                            new ClockBonus().Start();
                             break;
                         case TypeUnit.Grenade:
-                            for (int j = 0; j < Scene.Tanks.Count; j++)
-                            {
-                                if ((Owner)Scene.Tanks[j].Properties[PropertiesType.Owner] == Owner.Enemy)
-                                {
-                                    Scene.Tanks[j].Dispose();
-                                    soundGame.BigDetonation();
-                                }
-                            }
+                            GrenadeBonus.DetonationAllTankInScene(soundGame);
                             break;
                         case TypeUnit.Helmet:
                             break;
                         case TypeUnit.Pistol:
                             break;
                         case TypeUnit.Shovel:
+                            new ShovelBonus().Start();
                             break;
                         case TypeUnit.StarMedal:
                             break;

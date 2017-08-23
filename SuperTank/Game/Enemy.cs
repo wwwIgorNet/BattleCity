@@ -18,13 +18,14 @@ namespace SuperTank
                     ConfigurationGame.StartPositionTankEnemy3
                 };
         private int oldPosition;
+        private int iterationAddingTank = 0;
 
-        public void AddTank(TypeUnit tankType)
+        public void AddTypeTank(TypeUnit tankType)
         {
             tankEnemy.Enqueue(tankType);
         }
 
-        public TypeUnit GetTank()
+        public TypeUnit GetTypeTank()
         {
             return tankEnemy.Dequeue();
         }
@@ -49,27 +50,30 @@ namespace SuperTank
 
         public void Update()
         {
-            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Plaeyr)) < 3)
+            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Plaeyr)) + Scene.Stars.Count < 3)
             {
-                int posIndex = GetPosition();
-                if (posIndex == -1) return;
+                if (iterationAddingTank > ConfigurationGame.DelayAddingTank)
+                {
+                    int posIndex = GetPosition();
+                    if (posIndex == -1) return;
 
-                AddTank(posIndex);
+                    AddTank(posIndex);
+                }
+                else iterationAddingTank++;
             }
         }
 
         private void AddTank(int posIndex)
         {
+            iterationAddingTank = 0;
             oldPosition = posIndex;
+            bool isBonusTank = false;
+            isBonusTank = true; // todo delite it line
             IDriver enemyDriver = new EnemyDriver();
-            //if (tankEnemy.Count == 17 || tankEnemy.Count == 10 || tankEnemy.Count == 3)
-            //{
-            enemyDriver.Tank = FactoryUnit.CreateBonusTank(positopn[posIndex].X, positopn[posIndex].Y, GetTank(), Direction.Down, enemyDriver);
-            //}
-            //else
-            //{
-            //enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTank(), Direction.Down, enemyDriver);
-            //}
+            if (tankEnemy.Count == 17 || tankEnemy.Count == 10 || tankEnemy.Count == 3)
+                isBonusTank = true;
+
+            enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTypeTank(), Direction.Down, enemyDriver, isBonusTank);
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
             star.Start();
@@ -92,6 +96,10 @@ namespace SuperTank
         {
             for (int i = 0; i < Scene.Tanks.Count; i++)
                 if (Scene.Tanks[i].BoundingBox.IntersectsWith(recPos))
+                    return false;
+
+            for (int i = 0; i < Scene.Stars.Count; i++)
+                if (Scene.Stars[i].BoundingBox.IntersectsWith(recPos))
                     return false;
 
             return true;

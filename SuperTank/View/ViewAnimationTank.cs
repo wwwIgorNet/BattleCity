@@ -13,10 +13,10 @@ namespace SuperTank.View
         private int currentFrame = 0;
         private readonly int countFrame;
 
-        public ViewAnimationTank(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image[]> imges, int countFrame) : base(id, x, y, width, height, zIndex)
+        public ViewAnimationTank(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image[]> imges) : base(id, x, y, width, height, zIndex)
         {
             this.images = imges;
-            this.countFrame = countFrame;
+            this.countFrame = images[Direction.Up].Length;
         }
 
         protected virtual Dictionary<Direction, Image[]> Images

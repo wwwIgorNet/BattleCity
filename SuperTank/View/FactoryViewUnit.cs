@@ -12,12 +12,12 @@ namespace SuperTank
     {
         public BaseView Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
         {
+            BaseView resView = null;
             switch (typeUnit)
-            {
-                // todo
+            { // todo
                 case TypeUnit.Star:
-                    return CreateStar(id, x, y);
-
+                    resView = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, GetImgForStar(), 4);
+                    break;
                 case TypeUnit.SmallTankPlaeyr:
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
@@ -26,60 +26,120 @@ namespace SuperTank
                 case TypeUnit.PainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
-                    //if ((bool)properties[PropertiesType.IsBonusTank])
-                    //    ;
-                    //else
-                        return CreateTank(id, x, y, properties, Images.GetImgesForTank(typeUnit));
+                    if ((bool)properties[PropertiesType.IsBonusTank])
+                    {
+                        resView = new ViewBonusTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeigthTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImgesForTank(typeUnit),
+                            Images.GetImgesForRedTank(typeUnit));
+                    }
+                    else
+                    {
+                        resView = new ViewAnimationTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeigthTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImgesForTank(typeUnit));
+                    }
+                    break;
                 case TypeUnit.ArmoredTank:
-                    BaseView res = new ViewAnimationArmoredTank(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 5, 2, Images.GetImages(Images.Enemy.ArmoredTank),
-                        Images.GetImages(Images.Enemy.ArmoredTankGreen),
-                        Images.GetImages(Images.Enemy.ArmoredTankYellow));
-                    res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-                    res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
-                    res.Properties[PropertiesType.NumberOfHits] = properties[PropertiesType.NumberOfHits];
-                    res.Properties[PropertiesType.IsBonusTank] = properties[PropertiesType.IsBonusTank];
-                    return res;
-                case TypeUnit.Shell:
-                    return CreateViewShell(id, x, y, properties);
+                    if ((bool)properties[PropertiesType.IsBonusTank])
+                    {
+                        resView = new ViewBonusArmoredTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeigthTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImages(Images.Enemy.ArmoredTank),
+                            Images.GetImages(Images.Enemy.ArmoredTankGreen),
+                            Images.GetImages(Images.Enemy.ArmoredTankYellow),
+                            Images.GetImages(Images.TankRed.ArmoredTank));
+                    }
+                    else
+                    {
+                        resView = new ViewAnimationArmoredTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeigthTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImages(Images.Enemy.ArmoredTank),
+                            Images.GetImages(Images.Enemy.ArmoredTankGreen),
+                            Images.GetImages(Images.Enemy.ArmoredTankYellow));
+                    }
+                    break;
+
+
                 case TypeUnit.BrickWall:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
+                    break;
                 case TypeUnit.ConcreteWall:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.ConcreteWall);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.ConcreteWall);
+                    break;
                 case TypeUnit.Water:
-                    return CreateViewWater(id, x, y);
+                    resView = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, GetImgForWoter(), 10);
+                    break;
                 case TypeUnit.Forest:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 10, Images.Forest);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 10, Images.Forest);
+                    break;
                 case TypeUnit.Ice:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, -1, Images.Ice);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, -1, Images.Ice);
+                    break;
+
+
                 case TypeUnit.Eagle:
-                    BaseView eagle = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
-                    eagle.Properties[PropertiesType.Detonation] = properties[PropertiesType.Detonation];
-                    return eagle;
+                    resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
+                    break;
+
+
+                case TypeUnit.Shell:
+                    resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
+                    break;
                 case TypeUnit.BigDetonation:
-                    return CreateBigDetonation(id, x, y);
+                    resView = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, GetImgBigDetonation(), 2);
+                    break;
+
 
                 case TypeUnit.Clock:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Clock);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Clock);
+                    break;
                 case TypeUnit.Grenade:
                     return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Grenade);
                 case TypeUnit.Helmet:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Helmet);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Helmet);
+                    break;
                 case TypeUnit.Pistol:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Pistol);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Pistol);
+                    break;
                 case TypeUnit.Shovel:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Shovel);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Shovel);
+                    break;
                 case TypeUnit.StarMedal:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.StarMedal);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.StarMedal);
+                    break;
                 case TypeUnit.Tank:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Tank);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Tank);
+                    break;
             }
-            return null;
+            if (properties != null)
+                foreach (var item in properties)
+                    resView.Properties.Add(item.Key, item.Value);
+            return resView;
         }
 
-        private BaseView CreateBigDetonation(int id, float x, float y)
+        private static Image[] GetImgForStar()
         {
-            Image[] img = new Image[]
-               {
+            return new Image[] {
+                Images.Star1,
+                Images.Star2,
+                Images.Star3,
+                Images.Star4,
+                Images.Star3,
+                Images.Star2
+            };
+        }
+        private static Image[] GetImgBigDetonation()
+        {
+            return new Image[] {
                 Images.ShellDetonation1,
                 Images.ShellDetonation2,
                 Images.ShellDetonation3,
@@ -92,54 +152,19 @@ namespace SuperTank
                 Images.ShellDetonation3,
                 Images.ShellDetonation2,
                 Images.ShellDetonation1
-
                };
-            BigDetonationView detonation = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, img, 2);
-            return detonation;
         }
-
-        private static BaseView CreateStar(int id, float x, float y)
+        private static Image[] GetImgForWoter()
         {
-            Image[] images = new Image[]
-            {
-                        Images.Star1,
-                        Images.Star2,
-                        Images.Star3,
-                        Images.Star4,
-                        Images.Star3,
-                        Images.Star2,
+            return new Image[] {
+                Images.Water_1,
+                Images.Water_2,
+                Images.Water_3
             };
-            return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, images, 4);
         }
-
-        private BaseView CreateViewWater(int id, float x, float y)
+        private static Image[] GetImgForShellDetonation()
         {
-            Image[] images = { Images.Water_1, Images.Water_2, Images.Water_3 };
-
-            BaseView res = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, images, 10);
-            return res;
-        }
-
-        private BaseView CreateViewShell(int id, float x, float y, Dictionary<PropertiesType, object> properties)
-        {
-            Image image = null;
-            switch ((Direction)properties[PropertiesType.Direction])
-            {
-                case Direction.Up:
-                    image = Images.ShellUp;
-                    break;
-                case Direction.Right:
-                    image = Images.ShellRight;
-                    break;
-                case Direction.Down:
-                    image = Images.ShellDown;
-                    break;
-                case Direction.Left:
-                    image = Images.ShellLeft;
-                    break;
-            }
-
-            Image[] detonation = new Image[]
+            return new Image[]
             {
                 Images.ShellDetonation1,
                 Images.ShellDetonation1,
@@ -148,18 +173,22 @@ namespace SuperTank
                 Images.ShellDetonation2,
                 Images.ShellDetonation3
             };
-            BaseView res = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, image, detonation);
-            res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-            return res;
         }
-
-        private static BaseView CreateTank(int id, float x, float y, Dictionary<PropertiesType, object> properties, Dictionary<Direction, Image[]> images)
+        private static Image GetImgForShell(Direction dir)
         {
-            BaseView res = new ViewAnimationTank(id, x, y, ConfigurationView.WidthTank, ConfigurationView.HeigthTank, 5, images, 2);
-            res.Properties[PropertiesType.Direction] = properties[PropertiesType.Direction];
-            res.Properties[PropertiesType.IsParking] = properties[PropertiesType.IsParking];
-            res.Properties[PropertiesType.IsBonusTank] = properties[PropertiesType.IsBonusTank];
-            return res;
+            switch (dir)
+            {
+                case Direction.Up:
+                    return Images.ShellUp;
+                case Direction.Right:
+                    return Images.ShellRight;
+                case Direction.Down:
+                    return Images.ShellDown;
+                case Direction.Left:
+                    return Images.ShellLeft;
+            }
+
+            return null;
         }
     }
 }

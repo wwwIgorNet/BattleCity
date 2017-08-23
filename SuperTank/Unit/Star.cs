@@ -21,7 +21,7 @@ namespace SuperTank
         {
             AddToScene();
             Game.Updatable.Add(this);
-            Scene.Tanks.Add(this);
+            Scene.Stars.Add(this);
         }
 
         public void Update()
@@ -35,7 +35,7 @@ namespace SuperTank
         {
             base.Dispose();
             Game.Updatable.Remove(this);
-            Scene.Tanks.Remove(this);
+            Scene.Stars.Remove(this);
             tank.Start();
             tank.Properties[PropertiesType.IsParking] = !(bool)tank.Properties[PropertiesType.IsParking];
         }

@@ -19,26 +19,58 @@ namespace SuperTank
             return new Unit(NextID, x, y, width, height, type);
         }
 
-        public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver)
+        public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, bool isBonusTank)
         {
+            Dictionary<PropertiesType, object> prop = null;
+            int velosity = 0;
+            TypeUnit typeShell = 0;
+            int velosityShell = 0;
             Tank tank = null;
             switch (type)
             {
                 case TypeUnit.PainTank:
-                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelostyPlainTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellPlainTank);
+                    velosity = ConfigurationGame.VelostyPlainTank;
+                    typeShell = TypeUnit.Shell;
+                    velosityShell = ConfigurationGame.VelosityShellPlainTank;
                     break;
                 case TypeUnit.ArmoredPersonnelCarrierTank:
-                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityArmoredPersonnelCarrierTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellArmoredPersonnelCarrierTank);
+                    velosity = ConfigurationGame.VelosityArmoredPersonnelCarrierTank;
+                    typeShell = TypeUnit.Shell;
+                    velosityShell = ConfigurationGame.VelosityShellArmoredPersonnelCarrierTank;
                     break;
                 case TypeUnit.QuickFireTank:
-                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityQuickFireTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellQuickFireTank);
+                    velosity = ConfigurationGame.VelosityQuickFireTank;
+                    typeShell = TypeUnit.Shell;
+                    velosityShell = ConfigurationGame.VelosityShellQuickFireTank;
                     break;
                 case TypeUnit.ArmoredTank:
-                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityArmoredTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellArmoredTank);
-                    tank.Properties[PropertiesType.NumberOfHits] = 0;
+                    velosity = ConfigurationGame.VelosityArmoredTank;
+                    typeShell = TypeUnit.Shell;
+                    velosityShell = ConfigurationGame.VelosityShellArmoredTank;
+                    prop = new Dictionary<PropertiesType, object>() { [PropertiesType.NumberOfHits] = 0 };
                     break;
             }
-            return tank;
+            if (velosity > 0)
+            {
+                if (!isBonusTank)
+                {
+                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction, driver, typeShell, velosityShell);
+                }
+                else
+                {
+                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction, driver, typeShell, velosityShell);
+                }
+                if (prop != null)
+                {
+                    foreach (var item in prop)
+                    {
+                        tank.Properties[item.Key] = item.Value;
+                    }
+                }
+
+                return tank;
+            }
+            return null;
         }
 
         public static Bonus CreateBonus(int x, int y, int width, int height, TypeUnit type)
@@ -50,28 +82,6 @@ namespace SuperTank
         {
             Unit eagle = new Eagle(NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Eagle, soundGame);
             return eagle;
-        }
-
-        internal static Tank CreateBonusTank(int x, int y, TypeUnit type, Direction direction, IDriver driver)
-        {
-            Tank tank = null;
-            switch (type)
-            {
-                case TypeUnit.PainTank:
-                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelostyPlainTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellPlainTank);
-                    break;
-                case TypeUnit.ArmoredPersonnelCarrierTank:
-                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityArmoredPersonnelCarrierTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellArmoredPersonnelCarrierTank);
-                    break;
-                case TypeUnit.QuickFireTank:
-                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityQuickFireTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityQuickFireTank);
-                    break;
-                case TypeUnit.ArmoredTank:
-                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityArmoredTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellArmoredTank);
-                    tank.Properties[PropertiesType.NumberOfHits] = 0;
-                    break;
-            }
-            return tank;
         }
 
         public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame)

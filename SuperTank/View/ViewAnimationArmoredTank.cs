@@ -13,7 +13,7 @@ namespace SuperTank.View
         private readonly Dictionary<Direction, Image[]> tankGreen;
         private readonly Dictionary<Direction, Image[]> tankYellow;
 
-        public ViewAnimationArmoredTank(int id, float x, float y, float width, float height, int zIndex, int countFrame, Dictionary<Direction, Image[]> tankGray, Dictionary<Direction, Image[]> tankGreen, Dictionary<Direction, Image[]> tankYellow) : base(id, x, y, width, height, zIndex, tankGray, countFrame)
+        public ViewAnimationArmoredTank(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image[]> tankGray, Dictionary<Direction, Image[]> tankGreen, Dictionary<Direction, Image[]> tankYellow) : base(id, x, y, width, height, zIndex, tankGray)
         {
             this.tankGray = tankGray;
             this.tankGreen = tankGreen;

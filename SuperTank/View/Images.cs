@@ -257,6 +257,22 @@ namespace SuperTank.View
             return null;
         }
 
+        public static Dictionary<Direction, Image[]> GetImgesForRedTank(TypeUnit type)
+        {
+            switch (type)
+            {
+                case TypeUnit.PainTank:
+                    return GetImages(TankRed.PlainTank);
+                case TypeUnit.ArmoredPersonnelCarrierTank:
+                    return GetImages(TankRed.ArmoredPersonnelCarrierTank);
+                case TypeUnit.QuickFireTank:
+                    return GetImages(TankRed.QuickFireTank);
+                case TypeUnit.ArmoredTank:
+                    return GetImages(TankRed.ArmoredTank);
+            }
+            return null;
+        }
+
         public static Dictionary<Direction, Image[]> GetImages(Tank tank)
         {
             return new Dictionary<Direction, Image[]>
