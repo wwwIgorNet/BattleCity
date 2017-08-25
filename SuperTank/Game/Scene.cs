@@ -137,5 +137,18 @@ namespace SuperTank
 
             Render.AddRange(data);
         }
+
+        public static bool IsFreePosition(Rectangle recPos)
+        {
+            for (int i = 0; i < Scene.Tanks.Count; i++)
+                if (Scene.Tanks[i].BoundingBox.IntersectsWith(recPos))
+                    return false;
+
+            for (int i = 0; i < Scene.Stars.Count; i++)
+                if (Scene.Stars[i].BoundingBox.IntersectsWith(recPos))
+                    return false;
+
+            return true;
+        }
     }
 }

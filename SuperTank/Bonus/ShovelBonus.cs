@@ -9,7 +9,7 @@ namespace SuperTank
 {
     class ShovelBonus : IUpdatable, IDisposable
     {
-        private DateTime startTime;
+        private static DateTime startTime;
         private Size size = new Size(ConfigurationGame.WidthTile, ConfigurationGame.HeightTile);
         private Point[] position = new Point[]
         {

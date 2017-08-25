@@ -17,6 +17,8 @@ namespace SuperTank
             this.soundGame = soundGame;
         }
 
+        public Plaeyr OwnerPlaeyr { get; set; }
+
         protected override bool IsParking
         {
             set
@@ -53,6 +55,7 @@ namespace SuperTank
             base.Dispose();
             soundGame.TankDispouse();
             soundGame.BigDetonation();
+            OwnerPlaeyr.AddToScene();
         }
 
         public override void Move()
@@ -82,6 +85,7 @@ namespace SuperTank
                         case TypeUnit.StarMedal:
                             break;
                         case TypeUnit.Tank:
+                            OwnerPlaeyr.CountTank++;
                             break;
                     }
                     Scene.Bonus[i].Dispose();

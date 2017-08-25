@@ -55,14 +55,15 @@
   <ItemGroup>
     <Compile Include="Audio\ISoundGame.cs" />
     <Compile Include="Audio\SoundGame.cs" />
-    <Compile Include="Game\ClockBonus.cs" />
+    <Compile Include="Game\BaseOwner.cs" />
+    <Compile Include="Bonus\ClockBonus.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\EnemyDriver.cs" />
-    <Compile Include="Game\GrenadeBonus.cs" />
-    <Compile Include="Game\HelmetBonus.cs" />
-    <Compile Include="Game\Player.cs" />
-    <Compile Include="Game\ShovelBonus.cs" />
+    <Compile Include="Bonus\GrenadeBonus.cs" />
+    <Compile Include="Bonus\HelmetBonus.cs" />
+    <Compile Include="Game\Plaeyr.cs" />
+    <Compile Include="Bonus\ShovelBonus.cs" />
     <Compile Include="Unit\Bonus.cs" />
     <Compile Include="Unit\BonusTank.cs" />
     <Compile Include="Unit\Eagle.cs" />

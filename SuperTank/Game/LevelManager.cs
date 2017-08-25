@@ -11,7 +11,6 @@ namespace SuperTank
 {
     public class LevelManager
     {
-        private Enemy enemy = new Enemy();
         private ISoundGame soundGame;
 
         public LevelManager(ISoundGame soundGame)
@@ -21,7 +20,7 @@ namespace SuperTank
 
         public void CreateLevel(int level)
         {
-            enemy.Clear();
+            Game.Enemy.Clear();
             Scene.Clear();
             string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
 
@@ -30,22 +29,15 @@ namespace SuperTank
                 ConfigurationGame.PositionEagle.Y, soundGame));
             Scene.AddRange(objGame);
 
-            LoadEnemyTank(linesTileMap[26], enemy);
+            LoadEnemyTank(linesTileMap[26], Game.Enemy);
 
             StartLevel();
         }
 
         private void StartLevel()
         {
-            IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
-            plaeyrDriver.Tank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
-                    , TypeUnit.SmallTankPlaeyr, Direction.Up, plaeyrDriver, soundGame);
-
-            Star star = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
-            star.Start();
-            new HelmetBonus(plaeyrDriver.Tank, 6).Start();
-
-            enemy.Start();
+            Game.Plaeyr.Start();
+            Game.Enemy.Start();
         }
 
         private void LoadEnemyTank(string data, Enemy enemy)

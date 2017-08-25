@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class Enemy : IUpdatable, IDisposable
+    public class Enemy : BaseOwner
     {
         private Queue<TypeUnit> tankEnemy = new Queue<TypeUnit>(20);
         private Point[] positopn = new Point[]
@@ -40,15 +40,14 @@ namespace SuperTank
             tankEnemy.Clear();
         }
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             for (int i = 0; i < positopn.Length; i++)
                 AddTank(i);
-
-            Game.Updatable.Add(this);
         }
 
-        public void Update()
+        public override void Update()
         {
             if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Plaeyr)) + Scene.Stars.Count < 3)
             {
@@ -86,28 +85,10 @@ namespace SuperTank
             for (int i = 0, index = oldPosition; i < positopn.Length; i++)
             {
                 index = (index >= positopn.Length - 1) ? 0 : index + 1;
-                if (IsFreePosition(new Rectangle(positopn[index], size)))
+                if (Scene.IsFreePosition(new Rectangle(positopn[index], size)))
                     return index;
             }
             return -1;
-        }
-
-        public bool IsFreePosition(Rectangle recPos)
-        {
-            for (int i = 0; i < Scene.Tanks.Count; i++)
-                if (Scene.Tanks[i].BoundingBox.IntersectsWith(recPos))
-                    return false;
-
-            for (int i = 0; i < Scene.Stars.Count; i++)
-                if (Scene.Stars[i].BoundingBox.IntersectsWith(recPos))
-                    return false;
-
-            return true;
-        }
-
-        public void Dispose()
-        {
-            Game.Updatable.Remove(this);
         }
     }
 }
