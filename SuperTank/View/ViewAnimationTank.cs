@@ -12,6 +12,7 @@ namespace SuperTank.View
         private Dictionary<Direction, Image[]> images;
         private int currentFrame = 0;
         private readonly int countFrame;
+        private int invulnerableFrame = 0;
 
         public ViewAnimationTank(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image[]> imges) : base(id, x, y, width, height, zIndex)
         {
@@ -48,7 +49,28 @@ namespace SuperTank.View
                     currentFrame++;
                     if (currentFrame == countFrame) currentFrame = 0;
                 }
-                return Images[Direction][currentFrame];
+                Image res = Images[Direction][currentFrame];
+
+                if ((bool)Properties[PropertiesType.IsInvulnerable])
+                {
+                    Bitmap b = new Bitmap(res);
+                    Graphics g = Graphics.FromImage(b);
+                    Image add;
+                    if (invulnerableFrame % 2 == 0)
+                    {
+                        add = SuperTank.View.Images.Invulnerable1;
+                    }
+                    else
+                    {
+                        add = SuperTank.View.Images.Invulnerable2;
+                    }
+
+                    g.DrawImage(add, 0, 0);
+                    res = b;
+                    invulnerableFrame++;
+                }
+
+                return res;
             }
         }
     }

@@ -18,6 +18,7 @@ namespace SuperTank
         Owner,
         Detonation,
         NumberOfHits,  // количество попаданий снаряда
-        IsBonusTank
+        IsBonusTank,
+        IsInvulnerable // неуязвимый
     }
 }

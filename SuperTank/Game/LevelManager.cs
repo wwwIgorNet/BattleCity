@@ -43,6 +43,7 @@ namespace SuperTank
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
             star.Start();
+            new HelmetBonus(plaeyrDriver.Tank, 6).Start();
 
             enemy.Start();
         }

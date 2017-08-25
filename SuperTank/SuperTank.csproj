@@ -60,6 +60,8 @@
     <Compile Include="Game\Enemy.cs" />
     <Compile Include="Game\EnemyDriver.cs" />
     <Compile Include="Game\GrenadeBonus.cs" />
+    <Compile Include="Game\HelmetBonus.cs" />
+    <Compile Include="Game\Player.cs" />
     <Compile Include="Game\ShovelBonus.cs" />
     <Compile Include="Unit\Bonus.cs" />
     <Compile Include="Unit\BonusTank.cs" />
@@ -313,6 +315,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Enemy\ArmoredTankYellow\Up2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Tank\Invulnerable1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Tank\Invulnerable2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Tank\Plaeyr2\HeavyTank\Down1.png">

@@ -8,14 +8,13 @@ namespace SuperTank
 {
     class ClockBonus : IUpdatable, IDisposable
     {
-        private int iteration;
+        private static DateTime startTime;
 
         public void Update()
         {
-            if (iteration < ConfigurationGame.DelayPauseForClockBonus)
+            if (DateTime.Now - startTime < TimeSpan.FromSeconds(10))
             {
                 SetIsPause(true);
-                iteration++;
             }
             else Dispose();
         }
@@ -35,7 +34,7 @@ namespace SuperTank
         {
             Game.Updatable.Add(this);
             SetIsPause(true);
-            iteration = 0;
+            startTime = DateTime.Now;
         }
 
         public void Dispose()

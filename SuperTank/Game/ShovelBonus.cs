@@ -9,6 +9,7 @@ namespace SuperTank
 {
     class ShovelBonus : IUpdatable, IDisposable
     {
+        private DateTime startTime;
         private Size size = new Size(ConfigurationGame.WidthTile, ConfigurationGame.HeightTile);
         private Point[] position = new Point[]
         {
@@ -23,7 +24,6 @@ namespace SuperTank
 
         };
         private List<Unit> unitsAroundEagle = new List<Unit>();
-        private readonly int DELAY_SHOVEL_BONUS = ConfigurationGame.DelayShovelBonus;
         private int iteration = 0;
 
         public void Start()
@@ -31,6 +31,7 @@ namespace SuperTank
             Game.Updatable.Add(this);
             GetUnitsAroundEagle();
 
+            startTime = DateTime.Now;
             RemoveUnitAroundEagle();
             AddUnitAroundEagle(TypeUnit.ConcreteWall);
         }
@@ -42,13 +43,30 @@ namespace SuperTank
             AddUnitAroundEagle(TypeUnit.BrickWall);
         }
 
+        bool k = false, b = true;
         public void Update()
         {
-            if (iteration > DELAY_SHOVEL_BONUS)
+            TimeSpan period = DateTime.Now - startTime;
+            if(period > TimeSpan.FromSeconds(ConfigurationGame.DelayShovelBonus))
             {
                 Dispose();
             }
-            else iteration++;
+            else if(period > TimeSpan.FromSeconds(16))
+            {
+                if (iteration == 15)
+                {
+                    RemoveUnitAroundEagle();
+                    AddUnitAroundEagle(TypeUnit.ConcreteWall);
+                    iteration++;
+                }
+                else if (iteration == 25)
+                {
+                    RemoveUnitAroundEagle();
+                    AddUnitAroundEagle(TypeUnit.BrickWall);
+                    iteration = 0;
+                }
+                else iteration++;
+            }
         }
 
         private void AddUnitAroundEagle(TypeUnit type)
@@ -58,8 +76,8 @@ namespace SuperTank
             {
                 Unit u = FactoryUnit.CreateUnit(pos.X, pos.Y, type);
                 unitsAroundEagle.Add(u);
-                u.AddToScene();
             }
+            Scene.AddRange(unitsAroundEagle);
         }
 
         private void RemoveUnitAroundEagle()
@@ -76,7 +94,7 @@ namespace SuperTank
                 foreach (Point pos in position)
                 {
                     rec.Location = pos;
-                    if (rec.IntersectsWith(Scene.Units[i].BoundingBox))
+                    if (rec == Scene.Units[i].BoundingBox)
                         unitsAroundEagle.Add(Scene.Units[i]);
                 }
             }

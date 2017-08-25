@@ -31,7 +31,7 @@ namespace SuperTank
         {
             DelayAddingTank = 50;
             DelayPauseForClockBonus = 500;
-            DelayShovelBonus = 500;
+            DelayShovelBonus = 20;
         }
 
         public static string Maps { get { return @"Content\Maps\"; } }

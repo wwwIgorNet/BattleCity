@@ -74,7 +74,7 @@ namespace SuperTank
                         case TypeUnit.PainTank:
                         case TypeUnit.ArmoredPersonnelCarrierTank:
                         case TypeUnit.QuickFireTank:
-                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]) && !(bool)item.Properties[PropertiesType.IsInvulnerable])
                             {
                                 item.Properties[PropertiesType.Detonation] = true;
                                 Detonation(item, true);

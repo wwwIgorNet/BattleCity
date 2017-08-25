@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace SuperTank
 {
@@ -71,6 +72,7 @@ namespace SuperTank
                             GrenadeBonus.DetonationAllTankInScene(soundGame);
                             break;
                         case TypeUnit.Helmet:
+                            new HelmetBonus(this, 10).Start();
                             break;
                         case TypeUnit.Pistol:
                             break;

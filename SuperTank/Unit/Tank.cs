@@ -21,6 +21,7 @@ namespace SuperTank
             Properties[PropertiesType.IsParking] = true;
             Properties[PropertiesType.Detonation] = false;
             Properties[PropertiesType.IsBonusTank] = false;
+            Properties[PropertiesType.IsInvulnerable] = false;
         }
 
         public bool IsPause { get; set; }

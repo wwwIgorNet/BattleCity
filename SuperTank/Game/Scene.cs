@@ -69,6 +69,7 @@ namespace SuperTank
                 case PropertiesType.Y:
                 case PropertiesType.Detonation:
                 case PropertiesType.NumberOfHits:
+                case PropertiesType.IsInvulnerable:
                     Render.Update(id, propType, val);
                     break;
             }
@@ -93,6 +94,7 @@ namespace SuperTank
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
                     properties[PropertiesType.IsBonusTank] = unit.Properties[PropertiesType.IsBonusTank];
+                    properties[PropertiesType.IsInvulnerable] = unit.Properties[PropertiesType.IsInvulnerable];
                     break;
                 case TypeUnit.ArmoredTank:
                     properties = new Dictionary<PropertiesType, object>();
@@ -101,6 +103,7 @@ namespace SuperTank
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
                     properties[PropertiesType.NumberOfHits] = unit.Properties[PropertiesType.NumberOfHits];
                     properties[PropertiesType.IsBonusTank] = unit.Properties[PropertiesType.IsBonusTank];
+                    properties[PropertiesType.IsInvulnerable] = unit.Properties[PropertiesType.IsInvulnerable];
                     break;
                 case TypeUnit.Shell:
                     properties = new Dictionary<PropertiesType, object>();

@@ -48,6 +48,10 @@ namespace SuperTank.View
         private static Image star3;
         private static Image star4;
 
+        private static string pathForInvulnerable = @"Tank\";
+        private static Image invulnerable1;
+        private static Image invulnerable2;
+
         public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
@@ -218,6 +222,23 @@ namespace SuperTank.View
                 return Validate(star4, pathForStar + @"Star4.png");
             }
         }
+
+
+        public static Image Invulnerable1
+        {
+            get
+            {
+                return Validate(invulnerable1, pathForInvulnerable + @"Invulnerable1.png");
+            }
+        }
+        public static Image Invulnerable2
+        {
+            get
+            {
+                return Validate(invulnerable2, pathForInvulnerable+ @"Invulnerable2.png");
+            }
+        }
+
 
         private static Image Validate(Image img, String imgName)
         {

@@ -8,7 +8,7 @@ namespace SuperTank
 {
     class Bonus : Unit, IUpdatable
     {
-        private int interval = 500;
+        private DateTime starTime;
         public Bonus(int id, int x, int y, int width, int height, TypeUnit type) : base(id, x, y, width, height, type)
         {
         }
@@ -18,6 +18,7 @@ namespace SuperTank
             AddToScene();
             Game.Updatable.Add(this);
             Scene.Bonus.Add(this);
+            starTime = DateTime.Now;
         }
 
         public override void Dispose()
@@ -29,8 +30,7 @@ namespace SuperTank
 
         public void Update()
         {
-            interval--;
-            if (interval == 0)
+            if (DateTime.Now - starTime > TimeSpan.FromSeconds(10))
                 Dispose();
         }
     }
