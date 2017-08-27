@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="Audio\ISoundGame.cs" />
     <Compile Include="Audio\SoundGame.cs" />
+    <Compile Include="Bonus\PistolBonus.cs" />
+    <Compile Include="Bonus\StarMedalBonus.cs" />
     <Compile Include="Game\BaseOwner.cs" />
     <Compile Include="Bonus\ClockBonus.cs" />
     <Compile Include="Game\ConfigurationGame.cs" />
@@ -62,10 +64,12 @@
     <Compile Include="Game\EnemyDriver.cs" />
     <Compile Include="Bonus\GrenadeBonus.cs" />
     <Compile Include="Bonus\HelmetBonus.cs" />
+    <Compile Include="Game\IGameInfo.cs" />
     <Compile Include="Game\Plaeyr.cs" />
     <Compile Include="Bonus\ShovelBonus.cs" />
     <Compile Include="Unit\Bonus.cs" />
     <Compile Include="Unit\BonusTank.cs" />
+    <Compile Include="Unit\ConcreteWallShell.cs" />
     <Compile Include="Unit\Eagle.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />
     <Compile Include="Game\Game.cs" />
@@ -79,10 +83,13 @@
     <Compile Include="Unit\MovableUnit.cs" />
     <Compile Include="Unit\Owner.cs" />
     <Compile Include="Unit\PlaeyrShell.cs" />
+    <Compile Include="Unit\Points.cs" />
     <Compile Include="Unit\Shell.cs" />
+    <Compile Include="Unit\SimpleShell.cs" />
     <Compile Include="Unit\Star.cs" />
     <Compile Include="Unit\Tank.cs" />
     <Compile Include="Unit\TankPlaetr.cs" />
+    <Compile Include="Unit\TwoShellTank.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\ConfigurationView.cs" />
@@ -99,6 +106,7 @@
     <Compile Include="View\ViewBonusArmoredTank.cs" />
     <Compile Include="View\ViewBonusTank.cs" />
     <Compile Include="View\ViewEagle.cs" />
+    <Compile Include="View\ViewPonts.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="View\Images.cs" />

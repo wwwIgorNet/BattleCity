@@ -3,6 +3,9 @@
     public enum TypeUnit
     {
         Shell,
+        SimpleShell,
+        ConcreteWallShell,
+
         BrickWall,
         ConcreteWall,
         Water,
@@ -17,7 +20,7 @@
         MediumTankPlaeyr,
         HeavyTankPlaeyr,
 
-        PainTank,
+        PlainTank,
         ArmoredPersonnelCarrierTank,
         QuickFireTank,
         ArmoredTank,
@@ -28,6 +31,8 @@
         Pistol,
         Shovel,
         StarMedal,
-        Tank
+        Tank,
+
+        Points
     }
 }

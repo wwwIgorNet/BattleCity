@@ -44,6 +44,8 @@ namespace SuperTank
                 ColisionWichUnit();
         }
 
+        protected Tank Tank { get { return ownerTank; } }
+
         protected Owner Owner
         {
             set { Properties[PropertiesType.Owner] = value; }
@@ -71,7 +73,7 @@ namespace SuperTank
                         case TypeUnit.MediumTankPlaeyr:
                         case TypeUnit.HeavyTankPlaeyr:
 
-                        case TypeUnit.PainTank:
+                        case TypeUnit.PlainTank:
                         case TypeUnit.ArmoredPersonnelCarrierTank:
                         case TypeUnit.QuickFireTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]) && !(bool)item.Properties[PropertiesType.IsInvulnerable])
@@ -104,6 +106,8 @@ namespace SuperTank
                             }
                             break;
                         case TypeUnit.Shell:
+                        case TypeUnit.SimpleShell:
+                        case TypeUnit.ConcreteWallShell:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 ((Shell)item).Dispose();

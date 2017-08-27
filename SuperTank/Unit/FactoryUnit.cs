@@ -28,7 +28,7 @@ namespace SuperTank
             Tank tank = null;
             switch (type)
             {
-                case TypeUnit.PainTank:
+                case TypeUnit.PlainTank:
                     velosity = ConfigurationGame.VelostyPlainTank;
                     typeShell = TypeUnit.Shell;
                     velosityShell = ConfigurationGame.VelosityShellPlainTank;
@@ -84,16 +84,22 @@ namespace SuperTank
             return eagle;
         }
 
-        public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame)
+        public static TankPlaetr CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame, Plaeyr plaeyr)
         {
-            Tank tank = null;
+            TankPlaetr tank = null;
             switch (type)
             {
                 case TypeUnit.SmallTankPlaeyr:
+                    tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelositySmallTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellSmallTank, soundGame, plaeyr);
+                    break;
                 case TypeUnit.LightTankPlaeyr:
+                    tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityLightTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellLightTank, soundGame, plaeyr);
+                    break;
                 case TypeUnit.MediumTankPlaeyr:
+                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityMediumTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellMediumTank, soundGame, plaeyr);
+                    break;
                 case TypeUnit.HeavyTankPlaeyr:
-                    tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityHeavyTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellHeavyTank, soundGame);
+                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityHeavyTank, direction, driver, TypeUnit.ConcreteWallShell, ConfigurationGame.VelosityShellHeavyTank, soundGame, plaeyr);
                     break;
             }
             return tank;
@@ -109,14 +115,26 @@ namespace SuperTank
             return new Shell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank);
         }
 
-        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, Tank ownerTank, ISoundGame soundGame)
+        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, Tank ownerTank, ISoundGame soundGame)
         {
-            return new PlaeyrShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, ConfigurationGame.VelosityShellPlainTank, direction, ownerTank, soundGame);
+            if(type == TypeUnit.Shell)
+                return new PlaeyrShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
+            if(type == TypeUnit.SimpleShell)
+                return new SimpleShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
+            if(type == TypeUnit.ConcreteWallShell)
+                return new ConcreteWallShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
+
+            return null;
         }
 
         public static BigDetonation CreateBigDetonation(Unit unit, TypeUnit type)
         {
             return new BigDetonation(NextID, unit.X, unit.Y, unit.Width, unit.Height, type);
+        }
+
+        public static Points CreatePoints(int x, int y, TypeUnit type, int points)
+        {
+            return new Points(NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, type, points);
         }
 
         private static int NextID { get { return Unit.NextID; } }

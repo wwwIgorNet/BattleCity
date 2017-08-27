@@ -22,20 +22,38 @@ namespace SuperTank
             if (item == null) soundGame.DetonationShell();
             else
             {
+                int points = 0;
                 switch (item.Type)
                 {//todo
                     case TypeUnit.SmallTankPlaeyr:
                     case TypeUnit.LightTankPlaeyr:
                     case TypeUnit.MediumTankPlaeyr:
                     case TypeUnit.HeavyTankPlaeyr:
+                        break;
 
-                    case TypeUnit.PainTank:
+                    case TypeUnit.PlainTank:
+                        points = -200;
+                        goto case TypeUnit.QuickFireTank;
+                        break;
                     case TypeUnit.ArmoredPersonnelCarrierTank:
+                        points = -100;
+                        goto case TypeUnit.QuickFireTank;
+                        break;
                     case TypeUnit.QuickFireTank:
+                        points += 300;
+                        FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
+                        ((TankPlaetr)this.Tank).OwnerPlaeyr.Points += points;
+                        ((TankPlaetr)this.Tank).OwnerPlaeyr.DestroyedTanks[item.Type]++;
                         soundGame.BigDetonation();
                         break;
                     case TypeUnit.ArmoredTank:
-                        if (removeItem) soundGame.BigDetonation();
+                        if (removeItem)
+                        {
+                            FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, 400).Start();
+                            ((TankPlaetr)this.Tank).OwnerPlaeyr.Points += 400;
+                            ((TankPlaetr)this.Tank).OwnerPlaeyr.DestroyedTanks[item.Type]++;
+                            soundGame.BigDetonation();
+                        }
                         else soundGame.DetonationShell();
                         break;
                     case TypeUnit.BrickWall:

@@ -12,12 +12,14 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
+        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame, Plaeyr plaeyr) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
         {
             this.soundGame = soundGame;
+            this.OwnerPlaeyr = plaeyr;
         }
 
-        public Plaeyr OwnerPlaeyr { get; set; }
+        public Plaeyr OwnerPlaeyr { get; }
+        public ISoundGame SoundGame { get { return soundGame; } }
 
         protected override bool IsParking
         {
@@ -44,10 +46,11 @@ namespace SuperTank
             }
         }
 
-        protected override Shell GetShell(int x, int y)
+        protected override void StartNewShell(int x, int y, TypeUnit type, int velosityShell)
         {
+            Shell = FactoryUnit.CreateShell(x, y, type, Direction, velosityShell, this, soundGame);
+            Shell.Start();
             soundGame.Fire();
-            return FactoryUnit.CreateShell(x, y, TypeUnit.Shell, Direction, this, soundGame);
         }
 
         public override void Dispose()
@@ -65,7 +68,6 @@ namespace SuperTank
             {
                 if (BoundingBox.IntersectsWith(Scene.Bonus[i].BoundingBox))
                 {
-                    soundGame.Bonus();
                     switch (Scene.Bonus[i].Type)
                     {
                         case TypeUnit.Clock:
@@ -78,16 +80,21 @@ namespace SuperTank
                             new HelmetBonus(this, 10).Start();
                             break;
                         case TypeUnit.Pistol:
+                            PistolBonus.UpdatableTank(this);
                             break;
                         case TypeUnit.Shovel:
                             new ShovelBonus().Start();
                             break;
                         case TypeUnit.StarMedal:
+                            StarMedalBonus.UpdatableTank(this);
                             break;
                         case TypeUnit.Tank:
                             OwnerPlaeyr.CountTank++;
                             break;
                     }
+                    soundGame.Bonus();
+                    OwnerPlaeyr.Points += 500;
+                    FactoryUnit.CreatePoints(Scene.Bonus[i].X, Scene.Bonus[i].Y, TypeUnit.Points, 500).Start();
                     Scene.Bonus[i].Dispose();
                 }
             }

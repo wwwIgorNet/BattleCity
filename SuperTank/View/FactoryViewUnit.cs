@@ -23,7 +23,7 @@ namespace SuperTank
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
 
-                case TypeUnit.PainTank:
+                case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                     if ((bool)properties[PropertiesType.IsBonusTank])
@@ -92,6 +92,8 @@ namespace SuperTank
 
 
                 case TypeUnit.Shell:
+                case TypeUnit.SimpleShell:
+                case TypeUnit.ConcreteWallShell:
                     resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
                     break;
                 case TypeUnit.BigDetonation:
@@ -118,6 +120,11 @@ namespace SuperTank
                     break;
                 case TypeUnit.Tank:
                     resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Tank);
+                    break;
+
+                case TypeUnit.Points:
+                    Image img = null;
+                    resView = new ViewPonts(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
                     break;
             }
             if (properties != null)

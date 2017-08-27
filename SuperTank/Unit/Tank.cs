@@ -24,6 +24,7 @@ namespace SuperTank
             Properties[PropertiesType.IsInvulnerable] = false;
         }
 
+        public IDriver Driver { get { return driver; } }
         public bool IsPause { get; set; }
 
         #region Move
@@ -106,7 +107,7 @@ namespace SuperTank
                     case TypeUnit.MediumTankPlaeyr:
                     case TypeUnit.HeavyTankPlaeyr:
 
-                    case TypeUnit.PainTank:
+                    case TypeUnit.PlainTank:
                     case TypeUnit.ArmoredPersonnelCarrierTank:
                     case TypeUnit.QuickFireTank:
                     case TypeUnit.ArmoredTank:
@@ -264,15 +265,14 @@ namespace SuperTank
                     y = Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            Shell shell = GetShell(x, y);
-            Shell = shell;
-            shell.Start();
+            StartNewShell(x, y, typeShell, velosityShell);
             return true;
         }
 
-        protected virtual Shell GetShell(int x, int y)
+        protected virtual void StartNewShell(int x, int y, TypeUnit type, int velosityShell)
         {
-            return FactoryUnit.CreateShell(x, y, typeShell, Direction, velosityShell, this);
+            Shell = FactoryUnit.CreateShell(x, y, typeShell, Direction, velosityShell, this);
+            Shell.Start();
         }
         #endregion
 

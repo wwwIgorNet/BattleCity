@@ -47,7 +47,7 @@ namespace SuperTank
                 switch (c)
                 {
                     case 'P':
-                        enemy.AddTypeTank(TypeUnit.PainTank);
+                        enemy.AddTypeTank(TypeUnit.PlainTank);
                         break;
                     case 'A':
                         enemy.AddTypeTank(TypeUnit.ArmoredPersonnelCarrierTank);

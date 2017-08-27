@@ -86,7 +86,7 @@ namespace SuperTank
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
 
-                case TypeUnit.PainTank:
+                case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                     properties = new Dictionary<PropertiesType, object>();
@@ -106,12 +106,18 @@ namespace SuperTank
                     properties[PropertiesType.IsInvulnerable] = unit.Properties[PropertiesType.IsInvulnerable];
                     break;
                 case TypeUnit.Shell:
+                case TypeUnit.SimpleShell:
+                case TypeUnit.ConcreteWallShell:
                     properties = new Dictionary<PropertiesType, object>();
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     break;
                 case TypeUnit.Eagle:
                     properties = new Dictionary<PropertiesType, object>();
                     properties[PropertiesType.Detonation] = unit.Properties[PropertiesType.Detonation];
+                    break;
+                case TypeUnit.Points:
+                    properties = new Dictionary<PropertiesType, object>();
+                    properties[PropertiesType.Points] = unit.Properties[PropertiesType.Points];
                     break;
             }
 

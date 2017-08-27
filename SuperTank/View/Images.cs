@@ -266,7 +266,7 @@ namespace SuperTank.View
                 case TypeUnit.HeavyTankPlaeyr:
                     return GetImages(Plaeyr.HeavyTank);
 
-                case TypeUnit.PainTank:
+                case TypeUnit.PlainTank:
                     return GetImages(Enemy.PlainTank);
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                     return GetImages(Enemy.ArmoredPersonnelCarrierTank);
@@ -282,7 +282,7 @@ namespace SuperTank.View
         {
             switch (type)
             {
-                case TypeUnit.PainTank:
+                case TypeUnit.PlainTank:
                     return GetImages(TankRed.PlainTank);
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                     return GetImages(TankRed.ArmoredPersonnelCarrierTank);

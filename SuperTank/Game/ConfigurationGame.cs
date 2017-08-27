@@ -16,16 +16,23 @@ namespace SuperTank
         private static Point startPositionTankEnemy2 = new Point(12 * ConfigurationGame.WidthTile, 0);
         private static Point startPositionTankEnemy3 = new Point(ConfigurationGame.WidthBoard - ConfigurationGame.WidthTank, 0);
 
-        private static int velosityHeavyTank = 3;
-        private static int velosityShellHeavyTank = 6;
         private static int velosityPlainTank = 3;
         private static int velosityShellPlainTank = 6;
         private static int velosityArmoredPersonnelCarrierTank = 5;
         private static int velosityShellArmoredPersonnelCarrierTank = 6;
         private static int velosityQuickFireTank = 3;
-        private static int velosityShellQuickFireTank = 8;
+        private static int velosityShellQuickFireTank = 10;
         private static int velosityArmoredTank = 3;
         private static int velosityShellArmoredTank = 6;
+        
+        private static int velositySmallTank = 3;
+        private static int velosityShellSmallTank = 6;
+        private static int velosityHeavyTank = 3;
+        private static int velosityShellHeavyTank = 10;
+        private static int velosityLightTank = 3;
+        private static int velosityShellLightTank = 10;
+        private static int velosityMediumTank = 3;
+        private static int velosityShellMediumTank = 10;
 
         static ConfigurationGame()
         {
@@ -53,9 +60,19 @@ namespace SuperTank
 
         public static int VelosityArmoredTank { get { return velosityArmoredTank; } }
         public static int VelosityShellArmoredTank { get { return velosityShellArmoredTank; } }
+        public static int VelosityShellLightTank { get { return velosityShellLightTank; } }
 
         public static int DelayAddingTank { get; set; }
         public static int DelayPauseForClockBonus { get; internal set; }
         public static int DelayShovelBonus { get; internal set; }
+        public static int VelosityShellMediumTank { get { return velosityShellMediumTank; } }
+
+        public static int VelosityShellSmallTank { get { return velosityShellSmallTank; } }
+
+        public static int VelositySmallTank { get { return velositySmallTank; } }
+
+        public static int VelosityLightTank { get { return velosityLightTank; } }
+
+        public static int VelosityMediumTank { get { return velosityMediumTank; } }
     }
 }

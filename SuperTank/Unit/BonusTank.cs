@@ -37,6 +37,7 @@ namespace SuperTank
 
         protected TypeUnit GetBonusType()
         {
+            return TypeUnit.StarMedal;//todo
             return bonuses[Game.Random.Next(0, bonuses.Length - 1)];
         }
 

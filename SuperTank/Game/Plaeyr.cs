@@ -18,13 +18,28 @@ namespace SuperTank
             this.soundGame = soundGame;
             this.owner = owner;
             this.CountTank = 1;
+            Points = 0;
+            DestroyedTanks = new Dictionary<TypeUnit, int>()
+            {
+                { TypeUnit.PlainTank, 0 },
+                { TypeUnit.ArmoredPersonnelCarrierTank, 0 },
+                { TypeUnit.QuickFireTank, 0 },
+                { TypeUnit.ArmoredTank, 0}
+            };
         }
 
         public int CountTank { get; set; }
+        public int Points { get; set; }
+        public Dictionary<TypeUnit, int> DestroyedTanks { get; protected set; }
+        public TankPlaetr CurrentTank { get; set; }
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             AddToScene();
+            
+            //foreach (var item in DestroyedTanks)
+            //    DestroyedTanks[item.Key] = 0;
         }
 
         public void AddToScene()
@@ -34,9 +49,10 @@ namespace SuperTank
                 if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank))))
                 {
                     IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
-                    plaeyrDriver.Tank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
-                            , TypeUnit.SmallTankPlaeyr, Direction.Up, plaeyrDriver, soundGame);
-                    ((TankPlaetr)plaeyrDriver.Tank).OwnerPlaeyr = this;
+                    CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
+                            , TypeUnit.SmallTankPlaeyr, Direction.Up, plaeyrDriver, soundGame, this);
+                    plaeyrDriver.Tank = CurrentTank;
+
 
                     Star star = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
                     star.Start();
