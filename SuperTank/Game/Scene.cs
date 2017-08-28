@@ -106,7 +106,6 @@ namespace SuperTank
                     properties[PropertiesType.IsInvulnerable] = unit.Properties[PropertiesType.IsInvulnerable];
                     break;
                 case TypeUnit.Shell:
-                case TypeUnit.SimpleShell:
                 case TypeUnit.ConcreteWallShell:
                     properties = new Dictionary<PropertiesType, object>();
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];

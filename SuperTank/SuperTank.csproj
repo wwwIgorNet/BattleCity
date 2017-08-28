@@ -85,7 +85,6 @@
     <Compile Include="Unit\PlaeyrShell.cs" />
     <Compile Include="Unit\Points.cs" />
     <Compile Include="Unit\Shell.cs" />
-    <Compile Include="Unit\SimpleShell.cs" />
     <Compile Include="Unit\Star.cs" />
     <Compile Include="Unit\Tank.cs" />
     <Compile Include="Unit\TankPlaetr.cs" />

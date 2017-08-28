@@ -3,7 +3,6 @@
     public enum TypeUnit
     {
         Shell,
-        SimpleShell,
         ConcreteWallShell,
 
         BrickWall,

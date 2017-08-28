@@ -92,7 +92,6 @@ namespace SuperTank
 
 
                 case TypeUnit.Shell:
-                case TypeUnit.SimpleShell:
                 case TypeUnit.ConcreteWallShell:
                     resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
                     break;

@@ -97,7 +97,7 @@ namespace SuperTank
             return ID.GetHashCode();
         }
 
-        public void OnUnitDisposable()
+        protected void OnUnitDisposable()
         {
             if (UnitDisposable != null)
                 UnitDisposable.Invoke(this);

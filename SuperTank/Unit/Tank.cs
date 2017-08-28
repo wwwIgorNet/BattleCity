@@ -239,13 +239,36 @@ namespace SuperTank
 
         #region Fire
 
+        public int VelosityShell { get { return velosityShell; } }
+        public TypeUnit TypeShell { get { return typeShell; } }
         public virtual Shell Shell { get; set; }
 
-        public bool Fire()
+        public virtual bool TryFire()
         {
             if (Shell != null) return false;
 
-            int x = 0, y = 0;
+            Fire();
+            return true;
+        }
+
+
+        protected virtual void Fire()
+        {
+            Shell = GetShell(velosityShell);
+            Shell.UnitDisposable += u => Shell = null;
+            Shell.Start();
+        }
+
+        protected virtual Shell GetShell(int velosityShell)
+        {
+            Point pos = GetCoordNewShell();
+            return FactoryUnit.CreateShell(pos.X, pos.Y, typeShell, Direction, velosityShell, this);
+        }
+
+        protected Point GetCoordNewShell()
+        {
+            int x = 0;
+            int y = 0;
             switch (Direction)
             {
                 case Direction.Up:
@@ -265,15 +288,9 @@ namespace SuperTank
                     y = Y + ConfigurationGame.HeightTile - ConfigurationGame.HeightShell / 2;
                     break;
             }
-            StartNewShell(x, y, typeShell, velosityShell);
-            return true;
+            return new Point(x, y);
         }
 
-        protected virtual void StartNewShell(int x, int y, TypeUnit type, int velosityShell)
-        {
-            Shell = FactoryUnit.CreateShell(x, y, typeShell, Direction, velosityShell, this);
-            Shell.Start();
-        }
         #endregion
 
         public void Update()

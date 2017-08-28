@@ -40,7 +40,7 @@ namespace SuperTank
             }
 
             if (keyboard.Space)
-                tank.Fire();
+                tank.TryFire();
 
             Direction carentDirection;
             if (keyboard.Right)

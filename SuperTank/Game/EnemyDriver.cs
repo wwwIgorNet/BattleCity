@@ -44,7 +44,7 @@ namespace SuperTank
             if (iterationUpdateFire == 0)
             {
                 iterationUpdateFire = Game.Random.Next(0, 100);
-                tank.Fire();
+                tank.TryFire();
             }
             else iterationUpdateFire--;
 

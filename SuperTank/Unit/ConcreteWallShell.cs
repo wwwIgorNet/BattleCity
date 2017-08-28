@@ -9,7 +9,7 @@ namespace SuperTank
 {
     class ConcreteWallShell : PlaeyrShell
     {
-        public ConcreteWallShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank, soundGame)
+        public ConcreteWallShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, TankPlaetr ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank, soundGame)
         {
         }
 

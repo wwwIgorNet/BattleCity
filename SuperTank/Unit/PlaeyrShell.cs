@@ -11,10 +11,13 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
 
-        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank)
+        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, TankPlaetr ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank)
         {
             this.soundGame = soundGame;
+            OwnerTank = ownerTank;
         }
+
+        protected TankPlaetr OwnerTank { get; private set; }
 
         protected override void Detonation(Unit item, bool removeItem)
         {
@@ -42,16 +45,16 @@ namespace SuperTank
                     case TypeUnit.QuickFireTank:
                         points += 300;
                         FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
-                        ((TankPlaetr)this.Tank).OwnerPlaeyr.Points += points;
-                        ((TankPlaetr)this.Tank).OwnerPlaeyr.DestroyedTanks[item.Type]++;
+                        OwnerTank.OwnerPlaeyr.Points += points;
+                        OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
                         soundGame.BigDetonation();
                         break;
                     case TypeUnit.ArmoredTank:
                         if (removeItem)
                         {
                             FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, 400).Start();
-                            ((TankPlaetr)this.Tank).OwnerPlaeyr.Points += 400;
-                            ((TankPlaetr)this.Tank).OwnerPlaeyr.DestroyedTanks[item.Type]++;
+                            OwnerTank.OwnerPlaeyr.Points += 400;
+                            OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
                             soundGame.BigDetonation();
                         }
                         else soundGame.DetonationShell();

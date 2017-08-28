@@ -1,6 +1,7 @@
 ﻿using SuperTank.Audio;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,12 +47,21 @@ namespace SuperTank
             }
         }
 
-        protected override void StartNewShell(int x, int y, TypeUnit type, int velosityShell)
+        #region Fire
+
+        protected override void Fire()
         {
-            Shell = FactoryUnit.CreateShell(x, y, type, Direction, velosityShell, this, soundGame);
-            Shell.Start();
+            base.Fire();
             soundGame.Fire();
         }
+
+        protected override Shell GetShell(int velosityShell)
+        {
+            Point pos = GetCoordNewShell();
+            return FactoryUnit.CreateShell(pos.X, pos.Y, TypeShell, Direction, velosityShell, this, soundGame);
+        }
+
+        #endregion
 
         public override void Dispose()
         {

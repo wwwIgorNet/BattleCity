@@ -9,11 +9,9 @@ namespace SuperTank
     public class Shell : MovableUnit, IUpdatable
     {
         private int delayDetonation = 0;
-        private Tank ownerTank;
 
         public Shell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, Tank ownerTank) : base(id, x, y, width, height, type, velosity, direction)
         {
-            this.ownerTank = ownerTank;
             Owner = (Owner)ownerTank.Properties[PropertiesType.Owner];
             ownerTank.Shell = null;
             IsDetonation = false;
@@ -43,8 +41,6 @@ namespace SuperTank
             else
                 ColisionWichUnit();
         }
-
-        protected Tank Tank { get { return ownerTank; } }
 
         protected Owner Owner
         {
@@ -106,7 +102,6 @@ namespace SuperTank
                             }
                             break;
                         case TypeUnit.Shell:
-                        case TypeUnit.SimpleShell:
                         case TypeUnit.ConcreteWallShell:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
@@ -143,7 +138,6 @@ namespace SuperTank
         {
             base.Dispose();
             Game.Updatable.Remove(this);
-            ownerTank.Shell = null;
         }
     }
 }

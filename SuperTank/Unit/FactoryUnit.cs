@@ -112,15 +112,14 @@ namespace SuperTank
 
         public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, Tank ownerTank)
         {
-            return new Shell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank);
+            Shell shell = new Shell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank);
+            return shell;
         }
 
-        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, Tank ownerTank, ISoundGame soundGame)
+        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, TankPlaetr ownerTank, ISoundGame soundGame)
         {
             if(type == TypeUnit.Shell)
                 return new PlaeyrShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
-            if(type == TypeUnit.SimpleShell)
-                return new SimpleShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
             if(type == TypeUnit.ConcreteWallShell)
                 return new ConcreteWallShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
 
