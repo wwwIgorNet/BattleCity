@@ -35,16 +35,12 @@ namespace SuperTank
             }
         }
 
-        protected override bool IsGlide
+        public override void Turn(Direction dir)
         {
-            set
-            {
-                if (base.IsGlide != value)
-                {
-                    base.IsGlide = value;
-                    if (value) soundGame.Glide();
-                }
-            }
+            base.Turn(dir);
+            // если направление изменилось и танк на льду
+            if(OnIce && Direction == dir)
+                soundGame.Glide();
         }
 
         #region Fire

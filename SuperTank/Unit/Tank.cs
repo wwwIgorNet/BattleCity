@@ -9,6 +9,7 @@ namespace SuperTank
 {
     public class Tank : MovableUnit, IUpdatable
     {
+        private int glidIteration = 0;
         private int velosityShell;
         private TypeUnit typeShell;
         private IDriver driver;
@@ -34,7 +35,8 @@ namespace SuperTank
             get { return (bool)Properties[PropertiesType.IsParking]; }
             set { Properties[PropertiesType.IsParking] = value; }
         }
-        protected virtual bool IsGlide { get; set; }
+
+        protected virtual bool OnIce { get; set; }
 
 
         private void Move(ref Rectangle rect, int spead)
@@ -64,10 +66,22 @@ namespace SuperTank
             List<Unit> colision = ColisionWithUnit(rect);
             Ofset(ref rect, colision);
 
-            Glide(ref rect, colision);
-
             while (Scene.ColisionBoard(rect)) Move(ref rect, -1);
 
+            MoveToRect(rect);
+
+            TestOnIce(colision);
+        }
+
+        private void TestOnIce(List<Unit> colision)
+        {
+            if (colision.Find(u => u.Type == TypeUnit.Ice && u.BoundingBox.IntersectsWith(BoundingBox)) != null)
+                OnIce = true;
+            else OnIce = false;
+        }
+
+        private void MoveToRect(Rectangle rect)
+        {
             switch (Direction)
             {
                 case Direction.Up:
@@ -79,21 +93,6 @@ namespace SuperTank
                     X = rect.X;
                     break;
             }
-        }
-
-        private void Glide(ref Rectangle rect, List<Unit> colision)
-        {
-            for (int i = 0; i < colision.Count; i++)
-            {
-                if (colision[i].Type == TypeUnit.Ice && rect.IntersectsWith(colision[i].BoundingBox))
-                {
-                    IsGlide = true;
-                    Move(ref rect, 2);
-                    Ofset(ref rect, colision);
-                    return;
-                }
-            }
-            IsGlide = false;
         }
 
         private void Ofset(ref Rectangle rect, List<Unit> colision)
@@ -137,6 +136,7 @@ namespace SuperTank
         {
             IsParking = false;
             MoveColision();
+            glidIteration = 0;
         }
         #endregion
 
@@ -144,9 +144,38 @@ namespace SuperTank
 
         public virtual void Stop()
         {
-            // если танк двигается
-            if (!IsParking)
-                IsParking = OffsetToBorderTile();
+            if (Glide()) return;
+
+            IsParking = OffsetToBorderTile();
+        }
+
+        private bool Glide()
+        {
+            if (OnIce && glidIteration < ConfigurationGame.GlidDelay)
+            {
+                glidIteration++;
+                IsParking = true;
+
+                Rectangle rect = BoundingBox;
+                Move(ref rect, Velosity);
+
+                List<Unit> colision = ColisionWithUnit(rect);
+                Ofset(ref rect, colision);
+
+                while (Scene.ColisionBoard(rect)) Move(ref rect, -1);
+
+                if (colision.Find(u => u.Type == TypeUnit.Ice && u.BoundingBox.IntersectsWith(rect)) != null)
+                {
+                    MoveToRect(rect);
+                    return OnIce = true;
+                }
+                else
+                {
+                    return OnIce = false;
+                }
+            }
+
+            return false;
         }
 
         protected bool OffsetToBorderTile()
@@ -204,17 +233,8 @@ namespace SuperTank
             List<Unit> colision = ColisionWithUnit(rect);
             Ofset(ref rect, colision);
 
-            switch (Direction)
-            {
-                case Direction.Up:
-                case Direction.Down:
-                    Y = rect.Y;
-                    break;
-                case Direction.Right:
-                case Direction.Left:
-                    X = rect.X;
-                    break;
-            }
+            MoveToRect(rect);
+            TestOnIce(colision);
 
             if (colision.Find(u => u.Type == TypeUnit.SmallTankPlaeyr) != null)
                 return true;

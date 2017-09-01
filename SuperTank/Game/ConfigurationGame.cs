@@ -39,6 +39,7 @@ namespace SuperTank
             DelayAddingTank = 50;
             DelayPauseForClockBonus = 500;
             DelayShovelBonus = 20;
+            GlidDelay = 20;
         }
 
         public static string Maps { get { return @"Content\Maps\"; } }
@@ -74,5 +75,7 @@ namespace SuperTank
         public static int VelosityLightTank { get { return velosityLightTank; } }
 
         public static int VelosityMediumTank { get { return velosityMediumTank; } }
+
+        public static int GlidDelay { get; internal set; }
     }
 }

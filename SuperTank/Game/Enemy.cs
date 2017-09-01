@@ -67,7 +67,6 @@ namespace SuperTank
             iterationAddingTank = 0;
             oldPosition = posIndex;
             bool isBonusTank = false;
-            isBonusTank = true; // todo delite it line
             IDriver enemyDriver = new EnemyDriver();
             if (tankEnemy.Count == 17 || tankEnemy.Count == 10 || tankEnemy.Count == 3)
                 isBonusTank = true;
