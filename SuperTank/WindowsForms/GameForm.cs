@@ -14,22 +14,22 @@ using System.ServiceModel;
 
 namespace SuperTank.WindowsForms
 {
-    public partial class GameForm : Form
+    public partial class GameForm : Form, IGameInfo
     {
         private IKeyboard keyboard;
-        private SceneView sceneView;
+        private ScrenGame screnGame;
 
         public GameForm(SceneView sceneView)
         {
             InitializeComponent();
 
-            GraphicsOption();
-            this.BackColor = ConfigurationView.BackColor;
+            //GraphicsOption();
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
 
             this.SuspendLayout();
-            this.sceneView = sceneView;
-            Controls.Add(sceneView);
+            screnGame = new ScrenGame(sceneView);
+            Controls.Add(screnGame);
+
             this.ResumeLayout(false);
 
             this.Focus();
@@ -41,12 +41,37 @@ namespace SuperTank.WindowsForms
             set { keyboard = value; }
         }
 
-
-        protected override void OnPaint(PaintEventArgs e)
+        public void EndLevel(int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
+            throw new NotImplementedException();
         }
+
+        public void GameOver()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCountTankEnemy(int count)
+        {
+            screnGame.SetCountTankEnemy(count);
+        }
+
+        public void SetCountTankPlaeyr(int count)
+        {
+            screnGame.SetCountTankPlaeyr(count);
+        }
+
+        public void StartLevel(int level)
+        {
+            screnGame.StartLevel(level);
+        }
+
+
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    Graphics g = e.Graphics;
+        //}
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -82,9 +107,9 @@ namespace SuperTank.WindowsForms
             }
         }
 
-        private void GraphicsOption()
-        {
-            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
+        //private void GraphicsOption()
+        //{
+        //    base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+        //}
     }
 }

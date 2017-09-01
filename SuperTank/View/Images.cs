@@ -14,6 +14,9 @@ namespace SuperTank.View
         private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
+        private static Image dashboardInfo;
+        private static Image informationTank;
+
         private static readonly string pathForShell = @"Shell\";
         private static Image shellUp;
         private static Image shellDown;
@@ -55,6 +58,23 @@ namespace SuperTank.View
         public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
+
+
+        public static Image DashboardInfo
+        {
+            get
+            {
+                return Validate(dashboardInfo, @"Info\DashboardInfo.png");
+            }
+        }
+
+        public static Image InformationTank
+        {
+            get
+            {
+                return Validate(informationTank, @"Info\InformationTank.png");
+            }
+        }
 
         public static Image ShellUp
         {

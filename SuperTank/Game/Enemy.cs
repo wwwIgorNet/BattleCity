@@ -75,6 +75,8 @@ namespace SuperTank
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
             star.Start();
+
+            Game.GameInfo.SetCountTankEnemy(tankEnemy.Count);
         }
 
         public int GetPosition()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    interface IGameInfo
+    public interface IGameInfo
     {
         void EndLevel(int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr);
         void StartLevel(int level);

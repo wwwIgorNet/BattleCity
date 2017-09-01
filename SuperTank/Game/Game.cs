@@ -18,6 +18,7 @@ namespace SuperTank
 
         private readonly LevelManager levelManager;
         private static ISoundGame soundGame;
+        private static IGameInfo gameInfo;
 
         static Game()
         {
@@ -25,9 +26,11 @@ namespace SuperTank
             timer.Elapsed += Timer_Elapsed;
         }
 
-        public Game(IRender render, ISoundGame soundGame, IKeyboard keyboard)
+        public Game(IRender render, ISoundGame soundGame, IKeyboard keyboard, IGameInfo gameInfo)
         {
+            Game.gameInfo = gameInfo;
             Game.Plaeyr = new Plaeyr(soundGame, Owner.Plaeyr);
+            Game.Plaeyr.CountTank = 3;
             Game.Enemy = new Enemy();
             Game.Keyboard = keyboard;
             Game.soundGame = soundGame;
@@ -40,6 +43,7 @@ namespace SuperTank
         public static IKeyboard Keyboard { get; set; }
         public static List<IUpdatable> Updatable { get { return updatable; } }
         public static Random Random { get { return random; } }
+        public static IGameInfo GameInfo { get { return gameInfo; } }
 
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {

@@ -12,6 +12,7 @@ namespace SuperTank
     public class LevelManager
     {
         private ISoundGame soundGame;
+        private int curentLevel;
 
         public LevelManager(ISoundGame soundGame)
         {
@@ -20,6 +21,7 @@ namespace SuperTank
 
         public void CreateLevel(int level)
         {
+            curentLevel = level;
             Game.Enemy.Clear();
             Scene.Clear();
             string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
@@ -36,6 +38,7 @@ namespace SuperTank
 
         private void StartLevel()
         {
+            Game.GameInfo.StartLevel(curentLevel);
             Game.Plaeyr.Start();
             Game.Enemy.Start();
         }

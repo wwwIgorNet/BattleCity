@@ -61,7 +61,7 @@ namespace SuperTank.WindowsForms
 
 
                 render.Init();
-                game = new Game(render, sound, keyboard);
+                game = new Game(render, sound, keyboard, formRender);
                 game.Start();
             });
 

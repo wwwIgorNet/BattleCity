@@ -12,6 +12,7 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
         public Owner owner;
+        private int countTank;
 
         public Plaeyr(ISoundGame soundGame, Owner owner)
         {
@@ -28,7 +29,18 @@ namespace SuperTank
             };
         }
 
-        public int CountTank { get; set; }
+        public int CountTank
+        {
+            get
+            {
+                return countTank;
+            }
+            set
+            {
+                Game.GameInfo.SetCountTankPlaeyr(value);
+                countTank = value;
+            }
+        }
         public int Points { get; set; }
         public Dictionary<TypeUnit, int> DestroyedTanks { get; protected set; }
         public TankPlaetr CurrentTank { get; set; }
