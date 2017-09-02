@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class ClockBonus : IUpdatable, IDisposable
+    class ClockBonus : UpdatableBase
     {
         private static DateTime startTime;
 
-        public void Update()
+        public override void Update()
         {
             if (DateTime.Now - startTime < TimeSpan.FromSeconds(10))
             {
@@ -30,17 +30,16 @@ namespace SuperTank
             }
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             SetIsPause(true);
             startTime = DateTime.Now;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            Game.Updatable.Remove(this);
-
+            base.Dispose();
             SetIsPause(false);
         }
     }

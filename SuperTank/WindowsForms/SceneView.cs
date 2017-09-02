@@ -20,7 +20,7 @@ namespace SuperTank
 
         public SceneView()
         {
-            this.BackColor = ConfigurationView.BackColor;
+            //this.BackColor = ConfigurationView.BackColor;
             GraphicsOption();
             this.ClientSize = new Size(ConfigurationView.HeightBoard + ConfigurationView.HeightTile * 2, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2);
             timer.Interval = ConfigurationView.TimerInterval;
@@ -57,23 +57,28 @@ namespace SuperTank
 
         public void Update(int id, PropertiesType prop, object value)
         {
-
-            BaseView viewUpdate = listDrowable.FindByID(id);
-            switch (prop)
+            try
             {
-                case PropertiesType.X:
-                    viewUpdate.X = (int)value;
-                    break;
-                case PropertiesType.Y:
-                    viewUpdate.Y = (int)value;
-                    break;
-                //case PropertiesType.Direction:
-                //case PropertiesType.IsStop:
-                //case PropertiesType.Detonation:
-                //case PropertiesType.Glide:
-                default:
-                    viewUpdate.Properties[prop] = value;
-                    break;
+                BaseView viewUpdate = listDrowable.FindByID(id);
+                switch (prop)
+                {
+                    case PropertiesType.X:
+                        viewUpdate.X = (int)value;
+                        break;
+                    case PropertiesType.Y:
+                        viewUpdate.Y = (int)value;
+                        break;
+                    //case PropertiesType.Direction:
+                    //case PropertiesType.IsStop:
+                    //case PropertiesType.Detonation:
+                    //case PropertiesType.Glide:
+                    default:
+                        viewUpdate.Properties[prop] = value;
+                        break;
+                }
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
             }
         }
 

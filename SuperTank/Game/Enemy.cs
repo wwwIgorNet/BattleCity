@@ -10,6 +10,7 @@ namespace SuperTank
 {
     public class Enemy : BaseOwner
     {
+        private int countRemoveTank;
         private Queue<TypeUnit> tankEnemy = new Queue<TypeUnit>(20);
         private Point[] positopn = new Point[]
                 {
@@ -19,6 +20,7 @@ namespace SuperTank
                 };
         private int oldPosition;
         private int iterationAddingTank = 0;
+        public event Action RemoveAllTank;
 
         public void AddTypeTank(TypeUnit tankType)
         {
@@ -33,11 +35,6 @@ namespace SuperTank
         public int CountTank()
         {
             return tankEnemy.Count;
-        }
-
-        public void Clear()
-        {
-            tankEnemy.Clear();
         }
 
         public override void Start()
@@ -62,6 +59,12 @@ namespace SuperTank
             }
         }
 
+        internal void Clear()
+        {
+            tankEnemy.Clear();
+            countRemoveTank = 0;
+        }
+
         private void AddTank(int posIndex)
         {
             iterationAddingTank = 0;
@@ -72,6 +75,12 @@ namespace SuperTank
                 isBonusTank = true;
 
             enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTypeTank(), Direction.Down, enemyDriver, isBonusTank);
+            enemyDriver.Tank.UnitDisposable += u => 
+            {
+                countRemoveTank++;
+                if (countRemoveTank == 3)
+                    RemoveAllTank.Invoke();
+            };
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
             star.Start();

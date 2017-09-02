@@ -37,13 +37,13 @@ namespace SuperTank
 
         protected TypeUnit GetBonusType()
         {
-            return bonuses[Game.Random.Next(0, bonuses.Length - 1)];
+            return bonuses[LevelManager.Random.Next(0, bonuses.Length - 1)];
         }
 
         public Point GenerePositionForBonus()
         {
-            int x = Game.Random.Next(0, ConfigurationGame.WidthBoard / (ConfigurationGame.WidthTile * 2)) * ConfigurationGame.WidthTile * 2;
-            int y = Game.Random.Next(0, ConfigurationGame.HeightBoard / (ConfigurationGame.HeightTile * 2)) * ConfigurationGame.HeightTile * 2;
+            int x = LevelManager.Random.Next(0, ConfigurationGame.WidthBoard / (ConfigurationGame.WidthTile * 2)) * ConfigurationGame.WidthTile * 2;
+            int y = LevelManager.Random.Next(0, ConfigurationGame.HeightBoard / (ConfigurationGame.HeightTile * 2)) * ConfigurationGame.HeightTile * 2;
 
             return new Point(x, y);
         }

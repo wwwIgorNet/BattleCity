@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class Points : Unit, IUpdatable
+    class Points : UpdatableUnit
     {
         private DateTime starTime;
 
@@ -15,23 +15,17 @@ namespace SuperTank
             Properties[PropertiesType.Points] = points;
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             AddToScene();
             starTime = DateTime.Now;
         }
 
-        public void Update()
+        public override void Update()
         {
             if (DateTime.Now - starTime > TimeSpan.FromSeconds(1))
                 Dispose();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Game.Updatable.Remove(this);
         }
     }
 }

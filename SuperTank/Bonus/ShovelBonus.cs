@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class ShovelBonus : IUpdatable, IDisposable
+    class ShovelBonus : UpdatableBase
     {
         private static DateTime startTime;
         private Size size = new Size(ConfigurationGame.WidthTile, ConfigurationGame.HeightTile);
@@ -26,9 +26,9 @@ namespace SuperTank
         private List<Unit> unitsAroundEagle = new List<Unit>();
         private int iteration = 0;
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             GetUnitsAroundEagle();
 
             startTime = DateTime.Now;
@@ -36,15 +36,14 @@ namespace SuperTank
             AddUnitAroundEagle(TypeUnit.ConcreteWall);
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            Game.Updatable.Remove(this);
+            base.Dispose();
             RemoveUnitAroundEagle();
             AddUnitAroundEagle(TypeUnit.BrickWall);
         }
 
-        bool k = false, b = true;
-        public void Update()
+        public override void Update()
         {
             TimeSpan period = DateTime.Now - startTime;
             if(period > TimeSpan.FromSeconds(ConfigurationGame.DelayShovelBonus))

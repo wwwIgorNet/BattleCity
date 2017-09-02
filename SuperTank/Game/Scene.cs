@@ -25,6 +25,9 @@ namespace SuperTank
         public static void Clear()
         {
             units.Clear();
+            tanks.Clear();
+            bonus.Clear();
+            stars.Clear();
             Render.Clear();
         }
 

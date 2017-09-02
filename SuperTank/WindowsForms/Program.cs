@@ -15,9 +15,11 @@ namespace SuperTank.WindowsForms
         private static ChannelFactory<IRender> factoryRender;
         private static ChannelFactory<ISoundGame> factorySound;
         private static ChannelFactory<IKeyboard> factoryKeyboard;
+        private static ChannelFactory<IGameInfo> factoryGameInfo;
         private static ServiceHost hostKeyboard;
         private static ServiceHost hostSound;
         private static ServiceHost hostSceneView;
+        private static ServiceHost hostGameInfo;
         private static Game game;
         private static SoundGame soundGame;
 
@@ -45,6 +47,11 @@ namespace SuperTank.WindowsForms
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
             hostSceneView.Open();
 
+            hostGameInfo = new ServiceHost(formRender);
+            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
+            hostGameInfo.Open();
+
             ThreadPool.QueueUserWorkItem((s) =>
             {
                 Keyboard keyboard = new Keyboard();
@@ -60,8 +67,12 @@ namespace SuperTank.WindowsForms
                 ISoundGame sound= factorySound.CreateChannel();
 
 
+                factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
+                IGameInfo gameInfo = factoryGameInfo.CreateChannel();
+
+
                 render.Init();
-                game = new Game(render, sound, keyboard, formRender);
+                game = new Game(render, sound, keyboard, gameInfo);
                 game.Start();
             });
 
@@ -84,9 +95,11 @@ namespace SuperTank.WindowsForms
                     factoryKeyboard.Close();
                     factorySound.Close();
                     factoryRender.Close();
+                    factoryGameInfo.Close();
                     hostKeyboard.Close();
                     hostSound.Close();
                     hostSceneView.Close();
+                    hostGameInfo.Close();
                     wcfClose = true;
 
                     ((Form)sender).Invoke((MethodInvoker)delegate ()

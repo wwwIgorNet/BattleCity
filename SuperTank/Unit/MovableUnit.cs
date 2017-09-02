@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public abstract class MovableUnit : Unit
+    public abstract class MovableUnit : UpdatableUnit
     {
         public MovableUnit(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction) : base(id, x, y, width, height, type)
         {

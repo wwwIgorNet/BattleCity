@@ -22,6 +22,7 @@ namespace SuperTank
         private static int timeDetonation = 6;
         private static int timeAppearanceOfTank = 48;
         private static int timeBigDetonation = 10;
+        private static int countLevel = 35;
 
         public static int TimeDetonation { get { return timeDetonation; } }
         public static int HeightTile { get { return heightTile; } }
@@ -35,5 +36,6 @@ namespace SuperTank
         public static int TimerInterval { get { return timerInterval; } }
         public static int TimeAppearanceOfTank { get { return timeAppearanceOfTank; } }
         public static int TimeBigDetonation { get { return timeBigDetonation; } }
+        public static int CountLevel { get { return countLevel; } }
     }
 }

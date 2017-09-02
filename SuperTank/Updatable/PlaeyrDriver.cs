@@ -35,7 +35,7 @@ namespace SuperTank
         {
             if ((bool)Tank.Properties[PropertiesType.Detonation])
             {
-                Game.Updatable.Remove(this);
+                LevelManager.Updatable.Remove(this);
                 return;
             }
 

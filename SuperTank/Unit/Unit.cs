@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace SuperTank
 {
-    public class Unit : IDisposable, IShellHit
+    public class Unit : IDisposable
     {
         private static int nextId = 0;
         private Rectangle boundingBox;

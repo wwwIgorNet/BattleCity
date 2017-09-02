@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class Shell : MovableUnit, IUpdatable
+    public class Shell : MovableUnit
     {
         private int delayDetonation = 0;
 
@@ -17,13 +17,13 @@ namespace SuperTank
             IsDetonation = false;
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             AddToScene();
         }
 
-        public void Update()
+        public override void Update()
         {
             if (IsDetonation)
             {
@@ -131,13 +131,6 @@ namespace SuperTank
         {
             if (item != null && dispouse) item.Dispose();
             IsDetonation = true;
-        }
-
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Game.Updatable.Remove(this);
         }
     }
 }

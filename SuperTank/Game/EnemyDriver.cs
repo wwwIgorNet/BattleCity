@@ -15,7 +15,7 @@ namespace SuperTank
 
         public EnemyDriver()
         {
-            iterationUpdateFire = Game.Random.Next(0, 100);
+            iterationUpdateFire = LevelManager.Random.Next(0, 100);
         }
 
         public Tank Tank
@@ -37,21 +37,21 @@ namespace SuperTank
         {
             if ((bool)Tank.Properties[PropertiesType.Detonation])
             {
-                Game.Updatable.Remove(this);
+                LevelManager.Updatable.Remove(this);
                 return;
             }
 
             if (iterationUpdateFire == 0)
             {
-                iterationUpdateFire = Game.Random.Next(0, 100);
+                iterationUpdateFire = LevelManager.Random.Next(0, 100);
                 tank.TryFire();
             }
             else iterationUpdateFire--;
 
             if (iterationUpdateMove == 0)
             {
-                iterationUpdateMove = Game.Random.Next(6, 50);
-                carentDirection = (Direction)Game.Random.Next(0, 4);
+                iterationUpdateMove = LevelManager.Random.Next(6, 50);
+                carentDirection = (Direction)LevelManager.Random.Next(0, 4);
             }
             else iterationUpdateMove--;
 

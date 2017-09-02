@@ -6,30 +6,24 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class BigDetonation : Unit, IUpdatable
+    class BigDetonation : UpdatableUnit
     {
         private int iterationUpdate;
 
         public BigDetonation(int id, int x, int y, int width, int height, TypeUnit type) : base(id, x, y, width, height, type)
         { }
 
-        public void Update()
+        public override void Update()
         {
             iterationUpdate++;
             if (iterationUpdate == ConfigurationGame.TimeBigDetonation)
                 Dispose();
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             AddToScene();
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Game.Updatable.Remove(this);
         }
     }
 }

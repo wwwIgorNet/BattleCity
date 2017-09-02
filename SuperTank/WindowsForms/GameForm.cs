@@ -14,13 +14,18 @@ using System.ServiceModel;
 
 namespace SuperTank.WindowsForms
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class GameForm : Form, IGameInfo
     {
+        private readonly Form form;
+
         private IKeyboard keyboard;
         private ScrenGame screnGame;
+        private ViewLoadLevel viewLoadLevel;
 
         public GameForm(SceneView sceneView)
         {
+            form = this;
             InitializeComponent();
 
             //GraphicsOption();
@@ -29,6 +34,12 @@ namespace SuperTank.WindowsForms
             this.SuspendLayout();
             screnGame = new ScrenGame(sceneView);
             Controls.Add(screnGame);
+            viewLoadLevel = new ViewLoadLevel();
+            Controls.Add(viewLoadLevel);
+            viewLoadLevel.Location = new Point(0, 0);
+            viewLoadLevel.Size = this.Size;
+            viewLoadLevel.BringToFront();
+            viewLoadLevel.Visible = false;
 
             this.ResumeLayout(false);
 
@@ -43,7 +54,19 @@ namespace SuperTank.WindowsForms
 
         public void EndLevel(int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {
-            throw new NotImplementedException();
+            viewLoadLevel.CloseScrean();
+            viewLoadLevel.Visible = true;
+            System.Threading.ThreadPool.QueueUserWorkItem((s) =>
+            {
+                System.Threading.Thread.Sleep(2000);
+                form.Invoke(new Action(() => { viewLoadLevel.OpenScrean(); }));
+            });
+        }
+
+        public void StartLevel(int level)
+        {
+            screnGame.StartLevel(level);
+            viewLoadLevel.Visible = false;
         }
 
         public void GameOver()
@@ -59,11 +82,6 @@ namespace SuperTank.WindowsForms
         public void SetCountTankPlaeyr(int count)
         {
             screnGame.SetCountTankPlaeyr(count);
-        }
-
-        public void StartLevel(int level)
-        {
-            screnGame.StartLevel(level);
         }
 
 

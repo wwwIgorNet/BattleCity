@@ -14,7 +14,7 @@ namespace SuperTank
 
             Scene.Remove(tank.OwnerPlaeyr.CurrentTank);
             Scene.Tanks.Remove(tank.OwnerPlaeyr.CurrentTank);
-            Game.Updatable.Remove(tank);
+            LevelManager.Updatable.Remove(tank);
 
             IDriver driver = tank.Driver;
             tank.OwnerPlaeyr.CurrentTank = FactoryUnit.CreateTank(tank.X, tank.Y, newType, tank.Direction, tank.Driver, tank.SoundGame, tank.OwnerPlaeyr);

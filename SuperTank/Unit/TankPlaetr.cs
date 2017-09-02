@@ -22,7 +22,7 @@ namespace SuperTank
         public Plaeyr OwnerPlaeyr { get; }
         public ISoundGame SoundGame { get { return soundGame; } }
 
-        protected override bool IsParking
+        public override bool IsParking
         {
             set
             {
@@ -64,7 +64,7 @@ namespace SuperTank
             base.Dispose();
             soundGame.TankDispouse();
             soundGame.BigDetonation();
-            OwnerPlaeyr.AddToScene();
+            OwnerPlaeyr.TryAddToScene();
         }
 
         public override void Move()

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class HelmetBonus : IUpdatable, IDisposable
+    class HelmetBonus : UpdatableBase
     {
         private Tank tank;
         private static DateTime startTime;
@@ -18,20 +18,20 @@ namespace SuperTank
             this.timeOfAction = TimeSpan.FromSeconds(timeOfAction);
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             tank.Properties[PropertiesType.IsInvulnerable] = true;
             startTime = DateTime.Now;
         }
 
-        public void Dispose()
+        public override void Dispose()
         {
-            Game.Updatable.Remove(this);
+            base.Dispose();
             tank.Properties[PropertiesType.IsInvulnerable] = false;
         }
 
-        public void Update()
+        public override void Update()
         {
             if (DateTime.Now - startTime > timeOfAction)
                 Dispose();

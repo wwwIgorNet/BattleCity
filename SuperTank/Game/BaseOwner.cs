@@ -7,24 +7,11 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public abstract class BaseOwner : IUpdatable, IDisposable
+    public abstract class BaseOwner : UpdatableBase
     {
-
-        public virtual void Start()
-        {
-            Game.Updatable.Add(this);
-        }
-
         public void Stop()
         {
-            Game.Updatable.Remove(this);
+            LevelManager.Updatable.Remove(this);
         }
-
-        public void Dispose()
-        {
-            Game.Updatable.Remove(this);
-        }
-
-        public abstract void Update();
     }
 }

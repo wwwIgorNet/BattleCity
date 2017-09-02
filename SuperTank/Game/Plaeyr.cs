@@ -18,7 +18,6 @@ namespace SuperTank
         {
             this.soundGame = soundGame;
             this.owner = owner;
-            this.CountTank = 1;
             Points = 0;
             DestroyedTanks = new Dictionary<TypeUnit, int>()
             {
@@ -48,37 +47,39 @@ namespace SuperTank
         public override void Start()
         {
             base.Start();
-            AddToScene();
-            
-            //foreach (var item in DestroyedTanks)
-            //    DestroyedTanks[item.Key] = 0;
+            AddToScene(CurrentTank == null ? TypeUnit.SmallTankPlaeyr : CurrentTank.Type);
         }
 
-        public void AddToScene()
+        public void TryAddToScene()
         {
-            if(CountTank > 0)
+            if (CountTank > 0)
             {
                 if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank))))
                 {
-                    IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
-                    CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
-                            , TypeUnit.SmallTankPlaeyr, Direction.Up, plaeyrDriver, soundGame, this);
-                    plaeyrDriver.Tank = CurrentTank;
-
-
-                    Star star = FactoryUnit.CreateStar(TypeUnit.Star, plaeyrDriver.Tank);
-                    star.Start();
-                    new HelmetBonus(plaeyrDriver.Tank, 6).Start();
+                    AddToScene(TypeUnit.SmallTankPlaeyr);
                     CountTank--;
-                    Stop();
                 }
                 else Start();
             }
         }
 
+        private void AddToScene(TypeUnit typeTank)
+        {
+            IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
+            CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
+                    , typeTank, Direction.Up, plaeyrDriver, soundGame, this);
+            plaeyrDriver.Tank = CurrentTank;
+
+
+            Star star = FactoryUnit.CreateStar(TypeUnit.Star, CurrentTank);
+            star.Start();
+            new HelmetBonus(CurrentTank, 6).Start();
+            Stop();
+        }
+
         public override void Update()
         {
-            AddToScene();
+            TryAddToScene();
         }
     }
 }

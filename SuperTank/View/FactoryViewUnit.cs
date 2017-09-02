@@ -101,28 +101,27 @@ namespace SuperTank
 
 
                 case TypeUnit.Clock:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Clock);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Clock);
                     break;
                 case TypeUnit.Grenade:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Grenade);
+                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Grenade);
                 case TypeUnit.Helmet:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Helmet);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Helmet);
                     break;
                 case TypeUnit.Pistol:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Pistol);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Pistol);
                     break;
                 case TypeUnit.Shovel:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Shovel);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Shovel);
                     break;
                 case TypeUnit.StarMedal:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.StarMedal);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.StarMedal);
                     break;
                 case TypeUnit.Tank:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 2, Images.Bonus.Tank);
+                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Tank);
                     break;
 
                 case TypeUnit.Points:
-                    Image img = null;
                     resView = new ViewPonts(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
                     break;
             }

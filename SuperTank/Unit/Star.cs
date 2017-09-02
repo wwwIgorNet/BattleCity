@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class Star : Unit, IUpdatable
+    public class Star : UpdatableUnit
     {
         private Tank tank;
         private int delay;
@@ -17,14 +17,14 @@ namespace SuperTank
             this.Properties[PropertiesType.Owner] = tank.Properties[PropertiesType.Owner];
         }
 
-        public void Start()
+        public override void Start()
         {
+            base.Start();
             AddToScene();
-            Game.Updatable.Add(this);
             Scene.Stars.Add(this);
         }
 
-        public void Update()
+        public override void Update()
         {
             if (delay == ConfigurationGame.TimeAppearanceOfTank)
                 Dispose();
@@ -34,10 +34,9 @@ namespace SuperTank
         public override void Dispose()
         {
             base.Dispose();
-            Game.Updatable.Remove(this);
             Scene.Stars.Remove(this);
             tank.Start();
-            tank.Properties[PropertiesType.IsParking] = !(bool)tank.Properties[PropertiesType.IsParking];
+            tank.IsParking = !tank.IsParking;
         }
     }
 }

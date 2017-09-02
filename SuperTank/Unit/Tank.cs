@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class Tank : MovableUnit, IUpdatable
+    public class Tank : MovableUnit
     {
         private int glidIteration = 0;
         private int velosityShell;
         private TypeUnit typeShell;
         private IDriver driver;
+        private bool isPause;
 
         public Tank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell) : base(id, x, y, width, height, type, velosity, direction)
         {
@@ -26,11 +27,22 @@ namespace SuperTank
         }
 
         public IDriver Driver { get { return driver; } }
-        public bool IsPause { get; set; }
+        public bool IsPause
+        {
+            get
+            {
+                return isPause;
+            }
+            set
+            {
+                isPause = value;
+                IsParking = value;
+            }
+        }
 
         #region Move
 
-        protected virtual bool IsParking
+        public virtual bool IsParking
         {
             get { return (bool)Properties[PropertiesType.IsParking]; }
             set { Properties[PropertiesType.IsParking] = value; }
@@ -313,14 +325,14 @@ namespace SuperTank
 
         #endregion
 
-        public void Update()
+        public override void Update()
         {
             if(!IsPause) driver.Update();
         }
 
-        public void Start()
+        public override void Start()
         {
-            Game.Updatable.Add(this);
+            base.Start();
             AddToScene();
             Scene.Tanks.Add(this);
             IsPause = false;
@@ -330,7 +342,6 @@ namespace SuperTank
         {
             base.Dispose();
             Scene.Tanks.Remove(this);
-            Game.Updatable.Remove(this);
         }
     }
 }
