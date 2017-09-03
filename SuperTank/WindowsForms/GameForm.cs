@@ -21,7 +21,6 @@ namespace SuperTank.WindowsForms
 
         private IKeyboard keyboard;
         private ScrenGame screnGame;
-        private ViewLoadLevel viewLoadLevel;
 
         public GameForm(SceneView sceneView)
         {
@@ -34,13 +33,6 @@ namespace SuperTank.WindowsForms
             this.SuspendLayout();
             screnGame = new ScrenGame(sceneView);
             Controls.Add(screnGame);
-            viewLoadLevel = new ViewLoadLevel();
-            Controls.Add(viewLoadLevel);
-            viewLoadLevel.Location = new Point(0, 0);
-            viewLoadLevel.Size = this.Size;
-            viewLoadLevel.BringToFront();
-            viewLoadLevel.Visible = false;
-
             this.ResumeLayout(false);
 
             this.Focus();
@@ -59,18 +51,7 @@ namespace SuperTank.WindowsForms
 
         public void StartLevel(int level)
         {
-            //viewLoadLevel.Visible = true;
-            //viewLoadLevel.CloseScrean();
-            //System.Threading.ThreadPool.QueueUserWorkItem((s) =>
-            //{
-            //    System.Threading.Thread.Sleep(500);
-            //    form.Invoke(new Action(() =>
-            //    {
-            //        viewLoadLevel.OpenScrean();
-            //        screnGame.StartLevel(level);
-            //        viewLoadLevel.Visible = false;
-            //    }));
-            //});
+            screnGame.StartLevel(level);
         }
 
         public void GameOver()

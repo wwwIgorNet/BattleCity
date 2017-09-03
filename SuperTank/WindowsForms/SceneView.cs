@@ -12,26 +12,18 @@ using System.Windows.Forms;
 namespace SuperTank
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class SceneView : Label, IRender
+    public class SceneView : IRender
     {
-        private readonly Timer timer = new Timer();
         private readonly SortedView listDrowable = new SortedView();
         private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
 
-        public SceneView()
-        {
-            //this.BackColor = ConfigurationView.BackColor;
-            GraphicsOption();
-            this.ClientSize = new Size(ConfigurationView.HeightBoard + ConfigurationView.HeightTile * 2, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2);
-            timer.Interval = ConfigurationView.TimerInterval;
-            timer.Tick += Timer_Tick;
-            timer.Start();
-        }
+        //public SceneView()
+        //{
+        //    this.ClientSize = new Size(ConfigurationView.HeightBoard + ConfigurationView.HeightTile * 2, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2);
+        //}
 
-        protected override void OnPaint(PaintEventArgs e)
+        public void Draw(Graphics g)
         {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
             g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
             foreach (var item in listDrowable)
             {
@@ -80,15 +72,6 @@ namespace SuperTank
             {
                 Console.WriteLine(ex.Message);
             }
-        }
-
-        private void GraphicsOption()
-        {
-            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            this.Invalidate();
         }
 
         public void AddRange(List<UnitDataForView> collection)

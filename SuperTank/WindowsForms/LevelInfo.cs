@@ -9,23 +9,22 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
-    class LevelInfo : Label
+    class LevelInfo
     {
         private Font font = new Font(ConfigurationView.FontNumbers, 15, FontStyle.Bold);
-        private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 16 + 1);
-        private Point pointLevel = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 23 + 1);
+        private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 17 + 1);
+        private Point pointLevel = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 24 + 1);
         private int countTankEnemy;
         private int level;
         private int countTankPlaeyr;
+        private Image imgInfo;
 
         public LevelInfo()
         {
-            this.ClientSize = new System.Drawing.Size(ConfigurationView.WidthTile * 2, ConfigurationGame.HeightBoard);
-            this.Image = Images.DashboardInfo;
-
-            GraphicsOption();
+            UpdateImage();
         }
 
+        public Image ImgInfo { get { return imgInfo; } }
         public int Level
         {
             set
@@ -35,7 +34,7 @@ namespace SuperTank.WindowsForms
                 if (level > 9) pointLevel.X = -2;
                 else pointLevel.X = ConfigurationView.WidthTile - 2;
 
-                this.Invalidate();
+                UpdateImage();
             }
         }
         public int CountTankEnemy
@@ -43,7 +42,7 @@ namespace SuperTank.WindowsForms
             set
             {
                 countTankEnemy = value;
-                Invalidate();
+                UpdateImage();
             }
         }
         public int CountTankPlaeyr
@@ -51,18 +50,18 @@ namespace SuperTank.WindowsForms
             set
             {
                 countTankPlaeyr = value;
-                Invalidate();
+                UpdateImage();
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
+        protected void UpdateImage()
         {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
+            Bitmap bitmap = new Bitmap(Images.DashboardInfo);
+            Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawString(countTankPlaeyr.ToString(), font, Brushes.Black, pointCountTankPlaeyr);
+            g.DrawString(countTankPlaeyr.ToString(), font, Brushes.Black, new Point(pointCountTankPlaeyr.X, pointCountTankPlaeyr.Y));
 ;
-            g.DrawString(level.ToString(), font, Brushes.Black, pointLevel);
+            g.DrawString(level.ToString(), font, Brushes.Black, new Point(pointLevel.X, pointLevel.Y));
 
             for (int i = 0; i < countTankEnemy; i++)
             {
@@ -72,11 +71,8 @@ namespace SuperTank.WindowsForms
 
                 g.DrawImage(Images.InformationTank, x, y);
             }
-        }
 
-        private void GraphicsOption()
-        {
-            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+            imgInfo = bitmap;
         }
     }
 }

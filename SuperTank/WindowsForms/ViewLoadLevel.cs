@@ -9,20 +9,36 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
-    class ViewLoadLevel : Label
+    class ViewLoadLevel
     {
+        private Bitmap imgLoadLevel = new Bitmap(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
         private bool isOpening;
         private Timer timer = new Timer();
         private float centrScrean = ConfigurationView.WindowClientHeight / 2;
         private float height;
+        private DateTime startDelay;
 
+        public Image ImgLoadLevel { get { return imgLoadLevel; } }
 
         public ViewLoadLevel()
         {
             timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
-            this.BackColor = System.Drawing.Color.Transparent;
-            this.GraphicsOption();
+        }
+
+        public void Start()
+        {
+            isOpening = false;
+            height = 0;
+            timer.Start();
+        }
+
+        public void UpdateImage()
+        {
+            Graphics g = Graphics.FromImage(imgLoadLevel);
+            g.Clear(Color.Transparent);
+            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, imgLoadLevel.Width, height);
+            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, imgLoadLevel.Height - height, imgLoadLevel.Width, height);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -31,53 +47,31 @@ namespace SuperTank.WindowsForms
             {
                 if (height < centrScrean)
                 {
-                    height += 10;
-                    Invalidate();
+                    height += 7;
+                    UpdateImage();
                 }
                 else
                 {
-                    timer.Stop();
+                    isOpening = true;
+                    startDelay = DateTime.Now;
                 }
             }
-            else
+            else if (DateTime.Now - startDelay < TimeSpan.FromSeconds(1))
+            {
+                return;
+            }
+            else if(isOpening)
             {
                 if (height > 0)
                 {
-                    height -= 10;
-                    Invalidate();
+                    height -= 7;
+                    UpdateImage();
                 }
                 else
                 {
                     timer.Stop();
                 }
             }
-        }
-
-        public void CloseScrean()
-        {
-            isOpening = false;
-            height = 0;
-            timer.Start();
-        }
-
-        public void OpenScrean()
-        {
-            isOpening = true;
-            height = centrScrean;
-            timer.Start();
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, ConfigurationView.WindowClientWidth, height);
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, ConfigurationView.WindowClientHeight - height, ConfigurationView.WindowClientWidth, height);
-        }
-
-        private void GraphicsOption()
-        {
-            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
     }
 }

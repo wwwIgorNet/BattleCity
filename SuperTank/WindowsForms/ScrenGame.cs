@@ -11,23 +11,27 @@ namespace SuperTank.WindowsForms
 {
     class ScrenGame : Label
     {
+        private Timer timerInvalidate = new Timer();
+        private ViewLoadLevel viewLoadLevel;
         private SceneView sceneView;
         private LevelInfo levelInfo;
 
         public ScrenGame(SceneView sceneView)
         {
+            timerInvalidate.Interval = ConfigurationView.TimerInterval;
+            timerInvalidate.Tick += (s, e) => { Invalidate(); };
+            timerInvalidate.Start();
             this.BackColor = ConfigurationView.BackColor;
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
 
             this.SuspendLayout();
             this.sceneView = sceneView;
-            Controls.Add(sceneView);
 
             levelInfo = new LevelInfo();
-            levelInfo.Location = new Point(ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
-            Controls.Add(levelInfo);
-
             this.ResumeLayout(false);
+
+            viewLoadLevel = new ViewLoadLevel();
+            GraphicsOption();
         }
 
         public void SetCountTankEnemy(int count)
@@ -43,6 +47,20 @@ namespace SuperTank.WindowsForms
         public void StartLevel(int level)
         {
             levelInfo.Level = level;
+            viewLoadLevel.Start();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            sceneView.Draw(e.Graphics);
+            e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
+            e.Graphics.DrawImage(viewLoadLevel.ImgLoadLevel, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+        }
+
+        private void GraphicsOption()
+        {
+            base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
         }
     }
 }
