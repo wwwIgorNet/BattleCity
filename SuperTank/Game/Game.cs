@@ -35,7 +35,6 @@ namespace SuperTank
 
         public void Start()
         {
-            levelManager.CreateLevel(1);
             levelManager.StartLevel();
         }
 

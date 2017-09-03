@@ -31,6 +31,7 @@ namespace SuperTank
 
         public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Plaeyr plaeyr, Enemy enemy)
         {
+            curentLevel = 0;
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
             this.plaeyr = plaeyr;
@@ -49,9 +50,6 @@ namespace SuperTank
 
                 EndLevel();
 
-                CreateLevel(curentLevel + 1);
-                gameInfo.StartLevel(curentLevel);
-                System.Threading.Thread.Sleep(1000);
                 StartLevel();
             });
         }
@@ -59,16 +57,28 @@ namespace SuperTank
         public void EndLevel()
         {
             soundGame.TankDispouse();
+            gameInfo.EndLevel(plaeyr.Points, plaeyr.DestroyedTanks);
             timer.Stop();
             abortUpdate = true;
-            System.Threading.Thread.Sleep(200);
-            Scene.Tanks.Clear();
             updatable.Clear();
-            gameInfo.EndLevel(plaeyr.Points, plaeyr.DestroyedTanks);
-
-            System.Threading.Thread.Sleep(3000);
             enemy.Clear();
-            Scene.Clear();
+            System.Threading.Thread.Sleep(200);
+            for (int i = Scene.Units.Count - 1; i >= 0; i--)
+            {
+                switch (Scene.Units[i].Type)
+                {
+                    case TypeUnit.BrickWall:
+                    case TypeUnit.ConcreteWall:
+                    case TypeUnit.Water:
+                    case TypeUnit.Forest:
+                    case TypeUnit.Ice:
+                    case TypeUnit.Eagle:
+                        break;
+                    default:
+                        Scene.Remove(Scene.Units[i]);
+                        break;
+                }
+            }
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }
@@ -90,7 +100,12 @@ namespace SuperTank
 
         public void StartLevel()
         {
-            Game.GameInfo.StartLevel(curentLevel);
+            gameInfo.StartLevel(curentLevel);
+            //System.Threading.Thread.Sleep(1000);
+            Scene.Clear();
+            CreateLevel(curentLevel + 1);
+            //System.Threading.Thread.Sleep(2000);
+
             plaeyr.Start();
             enemy.Start();
             abortUpdate = false;

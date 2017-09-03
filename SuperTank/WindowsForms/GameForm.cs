@@ -54,19 +54,23 @@ namespace SuperTank.WindowsForms
 
         public void EndLevel(int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {
-            viewLoadLevel.CloseScrean();
-            viewLoadLevel.Visible = true;
-            System.Threading.ThreadPool.QueueUserWorkItem((s) =>
-            {
-                System.Threading.Thread.Sleep(2000);
-                form.Invoke(new Action(() => { viewLoadLevel.OpenScrean(); }));
-            });
+            
         }
 
         public void StartLevel(int level)
         {
-            screnGame.StartLevel(level);
-            viewLoadLevel.Visible = false;
+            //viewLoadLevel.Visible = true;
+            //viewLoadLevel.CloseScrean();
+            //System.Threading.ThreadPool.QueueUserWorkItem((s) =>
+            //{
+            //    System.Threading.Thread.Sleep(500);
+            //    form.Invoke(new Action(() =>
+            //    {
+            //        viewLoadLevel.OpenScrean();
+            //        screnGame.StartLevel(level);
+            //        viewLoadLevel.Visible = false;
+            //    }));
+            //});
         }
 
         public void GameOver()
