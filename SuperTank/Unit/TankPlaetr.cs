@@ -64,6 +64,7 @@ namespace SuperTank
             base.Dispose();
             soundGame.TankDispouse();
             soundGame.BigDetonation();
+            OwnerPlaeyr.CurrentTank = null;
             OwnerPlaeyr.TryAddToScene();
         }
 

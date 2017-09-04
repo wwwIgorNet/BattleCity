@@ -128,21 +128,15 @@
     <Compile Include="Game\Keyboard.cs" />
     <Compile Include="Unit\Unit.cs" />
     <Compile Include="Updatable\PlaeyrDriver.cs" />
-    <Compile Include="WindowsForms\LevelInfo.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WindowsForms\LevelInfo.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\TypeUnit.cs" />
-    <Compile Include="WindowsForms\SceneView.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WindowsForms\SceneView.cs" />
     <Compile Include="WindowsForms\ScrenGame.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="WindowsForms\ViewLoadLevel.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="WindowsForms\ViewLoadLevel.cs" />
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -158,7 +152,7 @@
     <None Include="Content\Font\BattleCities.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Content\Font\Numbers.ttf">
+    <None Include="Content\Font\Info.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Maps\1">

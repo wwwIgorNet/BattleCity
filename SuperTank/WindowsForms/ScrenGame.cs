@@ -46,8 +46,8 @@ namespace SuperTank.WindowsForms
 
         public void StartLevel(int level)
         {
-            levelInfo.Level = level;
-            viewLoadLevel.Start();
+            viewLoadLevel.EndClose += () => levelInfo.Level = level;
+            viewLoadLevel.Start(level);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -55,6 +55,7 @@ namespace SuperTank.WindowsForms
             base.OnPaint(e);
             sceneView.Draw(e.Graphics);
             e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
+
             e.Graphics.DrawImage(viewLoadLevel.ImgLoadLevel, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
         }
 

@@ -16,9 +16,13 @@ namespace SuperTank.WindowsForms
         private Timer timer = new Timer();
         private float centrScrean = ConfigurationView.WindowClientHeight / 2;
         private float height;
-        private DateTime startDelay;
-
+        private TimeSpan timeCloseOrOpen;
+        private DateTime startTime;
+        private int curentLevel;
+        private string infoText;
+        
         public Image ImgLoadLevel { get { return imgLoadLevel; } }
+        public event Action EndClose;
 
         public ViewLoadLevel()
         {
@@ -26,11 +30,14 @@ namespace SuperTank.WindowsForms
             timer.Tick += Timer_Tick;
         }
 
-        public void Start()
+        public void Start(int level)
         {
+            curentLevel = level;
             isOpening = false;
             height = 0;
             timer.Start();
+            infoText = null;
+            startTime = DateTime.Now;
         }
 
         public void UpdateImage()
@@ -39,6 +46,13 @@ namespace SuperTank.WindowsForms
             g.Clear(Color.Transparent);
             g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, imgLoadLevel.Width, height);
             g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, imgLoadLevel.Height - height, imgLoadLevel.Width, height);
+
+            if (infoText != null)
+            {
+                SizeF sizeText = g.MeasureString(infoText, ConfigurationView.InfoFont);
+                float x = imgLoadLevel.Width / 2 - sizeText.Width / 2, y = imgLoadLevel.Height / 2 - sizeText.Height / 2;
+                g.DrawString(infoText, ConfigurationView.InfoFont, Brushes.Black, x, y);
+            }
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -47,24 +61,27 @@ namespace SuperTank.WindowsForms
             {
                 if (height < centrScrean)
                 {
-                    height += 7;
+                    height += 10;
                     UpdateImage();
                 }
                 else
                 {
                     isOpening = true;
-                    startDelay = DateTime.Now;
+                    timeCloseOrOpen = DateTime.Now - startTime;
+                    infoText = "STAGE " + curentLevel;
+                    if (EndClose != null) EndClose.Invoke();
+                    UpdateImage();
                 }
             }
-            else if (DateTime.Now - startDelay < TimeSpan.FromSeconds(1))
-            {
+            else if (DateTime.Now - startTime + timeCloseOrOpen < TimeSpan.FromSeconds(3))
                 return;
-            }
+
             else if(isOpening)
             {
                 if (height > 0)
                 {
-                    height -= 7;
+                    infoText = null;
+                    height -= 10;
                     UpdateImage();
                 }
                 else

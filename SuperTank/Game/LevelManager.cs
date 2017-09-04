@@ -57,7 +57,6 @@ namespace SuperTank
         public void EndLevel()
         {
             soundGame.TankDispouse();
-            //gameInfo.EndLevel(plaeyr.Points, plaeyr.DestroyedTanks);
             timer.Stop();
             abortUpdate = true;
             updatable.Clear();
@@ -100,12 +99,12 @@ namespace SuperTank
 
         public void StartLevel()
         {
-            //System.Threading.Thread.Sleep(100);
+            DateTime start = DateTime.Now;
             gameInfo.StartLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(1000);
             Scene.Clear();
             CreateLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(2000);
+            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3) - (DateTime.Now - start));
 
             plaeyr.Start();
             enemy.Start();

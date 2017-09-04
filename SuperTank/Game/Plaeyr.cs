@@ -46,8 +46,11 @@ namespace SuperTank
 
         public override void Start()
         {
-            base.Start();
-            AddToScene(CurrentTank == null ? TypeUnit.SmallTankPlaeyr : CurrentTank.Type);
+            if (CountTank > 0 || CurrentTank != null)
+            {
+                base.Start();
+                AddToScene(CurrentTank == null ? TypeUnit.SmallTankPlaeyr : CurrentTank.Type);
+            }
         }
 
         public void TryAddToScene()
@@ -59,7 +62,8 @@ namespace SuperTank
                     AddToScene(TypeUnit.SmallTankPlaeyr);
                     CountTank--;
                 }
-                else Start();
+                else if (!LevelManager.Updatable.Contains(this))
+                    base.Start();
             }
         }
 
