@@ -31,5 +31,7 @@ namespace SuperTank.Audio
         void TankDispouse();
         [OperationContract(IsOneWay = true)]
         void Bonus();
+        [OperationContract(IsOneWay = true)]
+        void NewBonus();
     }
 }

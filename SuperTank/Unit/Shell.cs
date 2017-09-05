@@ -84,9 +84,9 @@ namespace SuperTank
                         case TypeUnit.ArmoredTank:
                              if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
-                                int n = (int)item.Properties[PropertiesType.NumberOfHits];
-                                n++;
-                                if (n == 4)
+                                int numberOfHits = (int)item.Properties[PropertiesType.NumberOfHits];
+                                numberOfHits++;
+                                if (numberOfHits == 4)
                                 {
                                     item.Properties[PropertiesType.Detonation] = true;
                                     Detonation(item, true);
@@ -96,7 +96,7 @@ namespace SuperTank
                                 }
                                 else
                                 {
-                                    item.Properties[PropertiesType.NumberOfHits] = n;
+                                    item.Properties[PropertiesType.NumberOfHits] = numberOfHits;
                                     Detonation(item, false);
                                 }
                             }

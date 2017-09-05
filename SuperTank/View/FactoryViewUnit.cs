@@ -101,24 +101,25 @@ namespace SuperTank
 
 
                 case TypeUnit.Clock:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Clock);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Clock);
                     break;
                 case TypeUnit.Grenade:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Grenade);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Grenade);
+                    break;
                 case TypeUnit.Helmet:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Helmet);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Helmet);
                     break;
                 case TypeUnit.Pistol:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Pistol);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Pistol);
                     break;
                 case TypeUnit.Shovel:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Shovel);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Shovel);
                     break;
                 case TypeUnit.StarMedal:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.StarMedal);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.StarMedal);
                     break;
                 case TypeUnit.Tank:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Tank);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Tank);
                     break;
 
                 case TypeUnit.Points:
@@ -129,6 +130,11 @@ namespace SuperTank
                 foreach (var item in properties)
                     resView.Properties.Add(item.Key, item.Value);
             return resView;
+        }
+
+        private static BaseView CreateBonusView(int id, float x, float y, Image img)
+        {
+            return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, new Image[] { img, Images.BlankImage }, 6);
         }
 
         private static Image[] GetImgForStar()

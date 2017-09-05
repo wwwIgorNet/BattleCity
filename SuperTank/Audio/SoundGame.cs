@@ -26,6 +26,7 @@ namespace SuperTank.Audio
         private readonly MediaPlayer detonationBrickWall = new MediaPlayer();
         private readonly MediaPlayer detonationEagle = new MediaPlayer();
         private readonly MediaPlayer bonus = new MediaPlayer();
+        private readonly MediaPlayer newBonus = new MediaPlayer();
 
         public SoundGame()
         {
@@ -50,6 +51,8 @@ namespace SuperTank.Audio
             detonationEagle.Open(new Uri(ConfigurationView.SoundPath + "DetonationEagle.wav", UriKind.Relative));
 
             bonus.Open(new Uri(ConfigurationView.SoundPath + "Bonus.wav", UriKind.Relative));
+
+            newBonus.Open(new Uri(ConfigurationView.SoundPath + "NewBonus.wav", UriKind.Relative));
         }
 
         public void GameOver()
@@ -142,6 +145,12 @@ namespace SuperTank.Audio
         {
             bonus.Stop();
             bonus.Play();
+        }
+
+        public void NewBonus()
+        {
+            newBonus.Stop();
+            newBonus.Play();
         }
     }
 }

@@ -25,7 +25,6 @@ namespace SuperTank
             if (item == null) soundGame.DetonationShell();
             else
             {
-                int points = 0;
                 switch (item.Type)
                 {//todo
                     case TypeUnit.SmallTankPlaeyr:
@@ -35,28 +34,16 @@ namespace SuperTank
                         break;
 
                     case TypeUnit.PlainTank:
-                        points = -200;
-                        goto case TypeUnit.QuickFireTank;
+                        DestroyTank(item, 100);
                         break;
                     case TypeUnit.ArmoredPersonnelCarrierTank:
-                        points = -100;
-                        goto case TypeUnit.QuickFireTank;
+                        DestroyTank(item, 200);
                         break;
                     case TypeUnit.QuickFireTank:
-                        points += 300;
-                        FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
-                        OwnerTank.OwnerPlaeyr.Points += points;
-                        OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
-                        soundGame.DetonationTank();
+                        DestroyTank(item, 300);
                         break;
                     case TypeUnit.ArmoredTank:
-                        if (removeItem)
-                        {
-                            FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, 400).Start();
-                            OwnerTank.OwnerPlaeyr.Points += 400;
-                            OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
-                            soundGame.DetonationTank();
-                        }
+                        if (removeItem) DestroyTank(item, 400);
                         else soundGame.DetonationShell();
                         break;
                     case TypeUnit.BrickWall:
@@ -67,6 +54,16 @@ namespace SuperTank
                         break;
                 }
             }
+        }
+
+        private void DestroyTank(Unit item, int points)
+        {
+            FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
+            OwnerTank.OwnerPlaeyr.Points += points;
+            OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
+            soundGame.DetonationTank();
+            if ((bool)item.Properties[PropertiesType.IsBonusTank])
+                soundGame.NewBonus();
         }
     }
 }

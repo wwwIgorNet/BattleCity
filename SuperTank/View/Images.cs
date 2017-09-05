@@ -55,6 +55,10 @@ namespace SuperTank.View
         private static Image invulnerable1;
         private static Image invulnerable2;
 
+        private static Image blankImage = new Bitmap(1, 1);
+
+        public static Image BlankImage { get { return blankImage; } }
+
         public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
