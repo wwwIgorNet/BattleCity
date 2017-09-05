@@ -2,7 +2,7 @@
 {
     public enum Owner
     {
-        Plaeyr,
+        Player,
         Enemy
     }
 }

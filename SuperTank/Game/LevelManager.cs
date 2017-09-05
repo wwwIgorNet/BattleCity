@@ -20,7 +20,7 @@ namespace SuperTank
         private IGameInfo gameInfo;
         private ISoundGame soundGame;
         private int curentLevel;
-        private Plaeyr plaeyr;
+        private Player plaeyr;
         private Enemy enemy;
 
         static LevelManager()
@@ -29,7 +29,7 @@ namespace SuperTank
             timer.Elapsed += Timer_Elapsed;
         }
 
-        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Plaeyr plaeyr, Enemy enemy)
+        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player plaeyr, Enemy enemy)
         {
             curentLevel = 0;
             this.soundGame = soundGame;
@@ -56,11 +56,13 @@ namespace SuperTank
 
         public void EndLevel()
         {
-            soundGame.TankDispouse();
+            soundGame.TankSoundStop();
+            gameInfo.EndLevel(curentLevel, plaeyr.Points, plaeyr.DestroyedTanks);
             timer.Stop();
             abortUpdate = true;
             updatable.Clear();
             enemy.Clear();
+            plaeyr.Clear();
             System.Threading.Thread.Sleep(200);
             for (int i = Scene.Units.Count - 1; i >= 0; i--)
             {
@@ -78,6 +80,7 @@ namespace SuperTank
                         break;
                 }
             }
+            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenScore);// todo
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }
@@ -100,11 +103,12 @@ namespace SuperTank
         public void StartLevel()
         {
             DateTime start = DateTime.Now;
+            if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
             gameInfo.StartLevel(curentLevel + 1);
             System.Threading.Thread.Sleep(1000);
             Scene.Clear();
             CreateLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(TimeSpan.FromSeconds(3) - (DateTime.Now - start));
+            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
 
             plaeyr.Start();
             enemy.Start();

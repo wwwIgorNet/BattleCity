@@ -44,9 +44,9 @@ namespace SuperTank.WindowsForms
             set { keyboard = value; }
         }
 
-        public void EndLevel(int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
+        public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {
-            
+            screnGame.EndLevel(level, countPoints, destrouTanksPlaeyr);
         }
 
         public void StartLevel(int level)

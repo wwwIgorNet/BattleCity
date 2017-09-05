@@ -8,17 +8,22 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    public class Plaeyr : BaseOwner
+    public class Player : BaseOwner
     {
         private ISoundGame soundGame;
         public Owner owner;
         private int countTank;
 
-        public Plaeyr(ISoundGame soundGame, Owner owner)
+        public Player(ISoundGame soundGame, Owner owner)
         {
             this.soundGame = soundGame;
             this.owner = owner;
             Points = 0;
+            InitDestroyedTanks();
+        }
+
+        private void InitDestroyedTanks()
+        {
             DestroyedTanks = new Dictionary<TypeUnit, int>()
             {
                 { TypeUnit.PlainTank, 0 },
@@ -40,9 +45,15 @@ namespace SuperTank
                 countTank = value;
             }
         }
+
         public int Points { get; set; }
         public Dictionary<TypeUnit, int> DestroyedTanks { get; protected set; }
-        public TankPlaetr CurrentTank { get; set; }
+        public TankPlayer CurrentTank { get; set; }
+
+        public void Clear()
+        {
+            InitDestroyedTanks();
+        }
 
         public override void Start()
         {
@@ -69,7 +80,7 @@ namespace SuperTank
 
         private void AddToScene(TypeUnit typeTank)
         {
-            IDriver plaeyrDriver = new PlaeyrDriver(Game.Keyboard);
+            IDriver plaeyrDriver = new PlayerDriver(Game.Keyboard);
             CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
                     , typeTank, Direction.Up, plaeyrDriver, soundGame, this);
             plaeyrDriver.Tank = CurrentTank;

@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class PlaeyrDriver : IDriver
+    class PlayerDriver : IDriver
     {
         private IKeyboard keyboard;
         private Tank tank;
 
-        public PlaeyrDriver(IKeyboard keyboard)
+        public PlayerDriver(IKeyboard keyboard)
         {
             this.keyboard = keyboard;
         }
@@ -22,7 +22,7 @@ namespace SuperTank
             set
             {
                 tank = value;
-                tank.Properties[PropertiesType.Owner] = Owner.Plaeyr;
+                tank.Properties[PropertiesType.Owner] = Owner.Player;
             }
         }
 

@@ -74,7 +74,7 @@
     <Compile Include="Bonus\GrenadeBonus.cs" />
     <Compile Include="Bonus\HelmetBonus.cs" />
     <Compile Include="Game\IGameInfo.cs" />
-    <Compile Include="Game\Plaeyr.cs" />
+    <Compile Include="Game\Player.cs" />
     <Compile Include="Bonus\ShovelBonus.cs" />
     <Compile Include="Unit\Bonus.cs" />
     <Compile Include="Unit\BonusTank.cs" />
@@ -90,12 +90,12 @@
     <Compile Include="Unit\BigDetonation.cs" />
     <Compile Include="Unit\MovableUnit.cs" />
     <Compile Include="Unit\Owner.cs" />
-    <Compile Include="Unit\PlaeyrShell.cs" />
+    <Compile Include="Unit\PlayerShell.cs" />
     <Compile Include="Unit\Points.cs" />
     <Compile Include="Unit\Shell.cs" />
     <Compile Include="Unit\Star.cs" />
     <Compile Include="Unit\Tank.cs" />
-    <Compile Include="Unit\TankPlaetr.cs" />
+    <Compile Include="Unit\TankPlayer.cs" />
     <Compile Include="Unit\TwoShellTank.cs" />
     <Compile Include="Unit\UpdatableUnit.cs" />
     <Compile Include="View\BaseView.cs" />
@@ -118,6 +118,7 @@
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="View\Images.cs" />
+    <Compile Include="WindowsForms\BaseScren.cs" />
     <Compile Include="WindowsForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,7 +128,7 @@
     <Compile Include="View\IRender.cs" />
     <Compile Include="Game\Keyboard.cs" />
     <Compile Include="Unit\Unit.cs" />
-    <Compile Include="Updatable\PlaeyrDriver.cs" />
+    <Compile Include="Updatable\PlayerDriver.cs" />
     <Compile Include="WindowsForms\LevelInfo.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -137,7 +138,8 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WindowsForms\ScrenScore.cs" />
-    <Compile Include="WindowsForms\ViewLoadLevel.cs" />
+    <Compile Include="WindowsForms\ScrenLoadLevel.cs" />
+    <Compile Include="WindowsForms\Text.cs" />
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>

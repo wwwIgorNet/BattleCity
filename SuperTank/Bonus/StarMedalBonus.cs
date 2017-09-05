@@ -8,7 +8,7 @@ namespace SuperTank
 {
     class StarMedalBonus
     {
-        public static void UpdatableTank(TankPlaetr tank)
+        public static void UpdatableTank(TankPlayer tank)
         {
             TypeUnit newType = tank.Type;
 

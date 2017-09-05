@@ -16,13 +16,13 @@ namespace SuperTank
         private static ISoundGame soundGame;
         private static IGameInfo gameInfo;
 
-        private Plaeyr plaeyr;
+        private Player plaeyr;
         private Enemy enemy;
 
         public Game(IRender render, ISoundGame soundGame, IKeyboard keyboard, IGameInfo gameInfo)
         {
             Game.gameInfo = gameInfo;
-            plaeyr = new Plaeyr(soundGame, Owner.Plaeyr);
+            plaeyr = new Player(soundGame, Owner.Player);
             enemy = new Enemy();
             Game.Keyboard = keyboard;
             Game.soundGame = soundGame;

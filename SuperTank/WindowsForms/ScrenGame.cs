@@ -12,9 +12,10 @@ namespace SuperTank.WindowsForms
     class ScrenGame : Label
     {
         private Timer timerInvalidate = new Timer();
-        private ViewLoadLevel viewLoadLevel;
-        private SceneView sceneView;
         private LevelInfo levelInfo;
+        private SceneView sceneView;
+        private ScrenLoadLevel viewLoadLevel = new ScrenLoadLevel();
+        private ScrenScore screnScore = new ScrenScore();
 
         public ScrenGame(SceneView sceneView)
         {
@@ -29,8 +30,7 @@ namespace SuperTank.WindowsForms
 
             levelInfo = new LevelInfo();
             this.ResumeLayout(false);
-
-            viewLoadLevel = new ViewLoadLevel();
+            
             GraphicsOption();
         }
 
@@ -49,14 +49,27 @@ namespace SuperTank.WindowsForms
             viewLoadLevel.EndClose += () => levelInfo.Level = level;
             viewLoadLevel.Start(level);
         }
+        public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
+        {
+            screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
-            sceneView.Draw(e.Graphics);
-            e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
-
-            e.Graphics.DrawImage(viewLoadLevel.ImgLoadLevel, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+            if (screnScore.IsAcive)
+            {
+                e.Graphics.DrawImage(screnScore.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+            }
+            else
+            {
+                sceneView.Draw(e.Graphics);
+                e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
+                if (viewLoadLevel.IsAcive)
+                {
+                    e.Graphics.DrawImage(viewLoadLevel.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+                }
+            }
         }
 
         private void GraphicsOption()

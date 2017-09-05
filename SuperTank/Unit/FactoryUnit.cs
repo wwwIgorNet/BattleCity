@@ -84,16 +84,16 @@ namespace SuperTank
             return eagle;
         }
 
-        public static TankPlaetr CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame, Plaeyr plaeyr)
+        public static TankPlayer CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame, Player plaeyr)
         {
-            TankPlaetr tank = null;
+            TankPlayer tank = null;
             switch (type)
             {
                 case TypeUnit.SmallTankPlaeyr:
-                    tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelositySmallTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellSmallTank, soundGame, plaeyr);
+                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelositySmallTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellSmallTank, soundGame, plaeyr);
                     break;
                 case TypeUnit.LightTankPlaeyr:
-                    tank = new TankPlaetr(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityLightTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellLightTank, soundGame, plaeyr);
+                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityLightTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellLightTank, soundGame, plaeyr);
                     break;
                 case TypeUnit.MediumTankPlaeyr:
                     tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityMediumTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellMediumTank, soundGame, plaeyr);
@@ -116,10 +116,10 @@ namespace SuperTank
             return shell;
         }
 
-        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, TankPlaetr ownerTank, ISoundGame soundGame)
+        public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, TankPlayer ownerTank, ISoundGame soundGame)
         {
             if(type == TypeUnit.Shell)
-                return new PlaeyrShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
+                return new PlayerShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
             if(type == TypeUnit.ConcreteWallShell)
                 return new ConcreteWallShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
 

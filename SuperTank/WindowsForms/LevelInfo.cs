@@ -11,6 +11,7 @@ namespace SuperTank.WindowsForms
 {
     class LevelInfo
     {
+        private Font font = new Font(ConfigurationView.InfoFontFamily, 15);
         private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 17 + 1);
         private Point pointLevel = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 24 + 1);
         private int countTankEnemy;
@@ -58,9 +59,9 @@ namespace SuperTank.WindowsForms
             Bitmap bitmap = new Bitmap(Images.DashboardInfo);
             Graphics g = Graphics.FromImage(bitmap);
 
-            g.DrawString(countTankPlaeyr.ToString(), ConfigurationView.InfoFont, Brushes.Black, new Point(pointCountTankPlaeyr.X, pointCountTankPlaeyr.Y));
+            g.DrawString(countTankPlaeyr.ToString(), font, Brushes.Black, new Point(pointCountTankPlaeyr.X, pointCountTankPlaeyr.Y));
 ;
-            g.DrawString(level.ToString(), ConfigurationView.InfoFont, Brushes.Black, new Point(pointLevel.X, pointLevel.Y));
+            g.DrawString(level.ToString(), font, Brushes.Black, new Point(pointLevel.X, pointLevel.Y));
 
             for (int i = 0; i < countTankEnemy; i++)
             {

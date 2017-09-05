@@ -46,7 +46,7 @@ namespace SuperTank
 
         public override void Update()
         {
-            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Plaeyr)) + Scene.Stars.Count < 3)
+            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Player)) + Scene.Stars.Count < 3)
             {
                 if (iterationAddingTank > ConfigurationGame.DelayAddingTank)
                 {
@@ -78,7 +78,7 @@ namespace SuperTank
             enemyDriver.Tank.UnitDisposable += u => 
             {
                 countRemoveTank++;
-                if (countRemoveTank == 3)
+                if (countRemoveTank == ConfigurationGame.CountTankEnemy)
                     RemoveAllTank.Invoke();
             };
 

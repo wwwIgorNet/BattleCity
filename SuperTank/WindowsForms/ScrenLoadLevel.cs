@@ -9,53 +9,43 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
-    class ViewLoadLevel
+    class ScrenLoadLevel : BaseScren
     {
-        private Bitmap imgLoadLevel = new Bitmap(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+        private Font font = new Font(ConfigurationView.InfoFontFamily, 15);
         private bool isOpening;
-        private Timer timer = new Timer();
         private float centrScrean = ConfigurationView.WindowClientHeight / 2;
         private float height;
         private TimeSpan timeCloseOrOpen;
-        private DateTime startTime;
         private int curentLevel;
         private string infoText;
         
-        public Image ImgLoadLevel { get { return imgLoadLevel; } }
         public event Action EndClose;
-
-        public ViewLoadLevel()
-        {
-            timer.Interval = ConfigurationView.TimerInterval;
-            timer.Tick += Timer_Tick;
-        }
 
         public void Start(int level)
         {
+            Start();
             curentLevel = level;
             isOpening = false;
             height = 0;
-            timer.Start();
             infoText = null;
-            startTime = DateTime.Now;
         }
 
-        public void UpdateImage()
+        public override void UpdateImage()
         {
-            Graphics g = Graphics.FromImage(imgLoadLevel);
+            Graphics g = Graphics.FromImage(ImgScren);
             g.Clear(Color.Transparent);
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, imgLoadLevel.Width, height);
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, imgLoadLevel.Height - height, imgLoadLevel.Width, height);
+            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, Width, height);
+            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, Height - height, Width, height);
 
             if (infoText != null)
             {
-                SizeF sizeText = g.MeasureString(infoText, ConfigurationView.InfoFont);
-                float x = imgLoadLevel.Width / 2 - sizeText.Width / 2, y = imgLoadLevel.Height / 2 - sizeText.Height / 2;
-                g.DrawString(infoText, ConfigurationView.InfoFont, Brushes.Black, x, y);
+                SizeF sizeText = g.MeasureString(infoText, font);
+                float x = Width / 2 - sizeText.Width / 2, y = Height / 2 - sizeText.Height / 2;
+                g.DrawString(infoText, font, Brushes.Black, x, y);
             }
         }
 
-        private void Timer_Tick(object sender, EventArgs e)
+        protected override void Timer_Tick(object sender, EventArgs e)
         {
             if (!isOpening)
             {
@@ -67,13 +57,13 @@ namespace SuperTank.WindowsForms
                 else
                 {
                     isOpening = true;
-                    timeCloseOrOpen = DateTime.Now - startTime;
+                    timeCloseOrOpen = DateTime.Now - StartTime;
                     infoText = "STAGE " + curentLevel;
                     if (EndClose != null) EndClose.Invoke();
                     UpdateImage();
                 }
             }
-            else if (DateTime.Now - startTime + timeCloseOrOpen < TimeSpan.FromSeconds(3))
+            else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationGame.DelayScrenLoadLevel)
                 return;
 
             else if(isOpening)
@@ -86,7 +76,8 @@ namespace SuperTank.WindowsForms
                 }
                 else
                 {
-                    timer.Stop();
+                    TimerStop();
+                    IsAcive = false;
                 }
             }
         }

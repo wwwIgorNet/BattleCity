@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace SuperTank
 {
-    class PlaeyrShell : Shell
+    class PlayerShell : Shell
     {
         private ISoundGame soundGame;
 
-        public PlaeyrShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, TankPlaetr ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank)
+        public PlayerShell(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, TankPlayer ownerTank, ISoundGame soundGame) : base(id, x, y, width, height, type, velosity, direction, ownerTank)
         {
             this.soundGame = soundGame;
             OwnerTank = ownerTank;
         }
 
-        protected TankPlaetr OwnerTank { get; private set; }
+        protected TankPlayer OwnerTank { get; private set; }
 
         protected override void Detonation(Unit item, bool removeItem)
         {

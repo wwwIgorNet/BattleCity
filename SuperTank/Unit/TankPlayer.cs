@@ -9,17 +9,17 @@ using System.Timers;
 
 namespace SuperTank
 {
-    public class TankPlaetr : Tank
+    public class TankPlayer : Tank
     {
         private ISoundGame soundGame;
 
-        public TankPlaetr(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame, Plaeyr plaeyr) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
+        public TankPlayer(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame, Player plaeyr) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell)
         {
             this.soundGame = soundGame;
             this.OwnerPlaeyr = plaeyr;
         }
 
-        public Plaeyr OwnerPlaeyr { get; }
+        public Player OwnerPlaeyr { get; }
         public ISoundGame SoundGame { get { return soundGame; } }
 
         public override bool IsParking
@@ -62,7 +62,7 @@ namespace SuperTank
         public override void Dispose()
         {
             base.Dispose();
-            soundGame.TankDispouse();
+            soundGame.TankSoundStop();
             soundGame.DetonationEagle();
             OwnerPlaeyr.CurrentTank = null;
             OwnerPlaeyr.TryAddToScene();

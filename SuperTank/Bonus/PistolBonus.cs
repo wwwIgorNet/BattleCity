@@ -8,7 +8,7 @@ namespace SuperTank
 {
     class PistolBonus
     {
-        public static void UpdatableTank(TankPlaetr tank)
+        public static void UpdatableTank(TankPlayer tank)
         {
             TypeUnit newType = TypeUnit.HeavyTankPlaeyr;
 

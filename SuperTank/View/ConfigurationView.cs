@@ -15,13 +15,11 @@ namespace SuperTank.View
         private static int delayChangColorBonusTank = 6;
         private static int zIndexTank = 5;
         private static PrivateFontCollection fonts = new PrivateFontCollection();
-        private static Font infoFont;
 
         static ConfigurationView()
         {
             fonts.AddFontFile(@"Content\Font\Info.ttf");
             fonts.AddFontFile(@"Content\Font\BattleCities.ttf");
-            infoFont = new Font(InfoFontFamily, 15, FontStyle.Bold);
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
@@ -35,7 +33,6 @@ namespace SuperTank.View
         public static int ZIndexTank { get { return zIndexTank; } }
 
         public static FontFamily InfoFontFamily { get { return fonts.Families[1]; } }
-        public static FontFamily FontBattleCities { get { return fonts.Families[0]; } }
-        public static Font InfoFont { get { return infoFont; } }
+        public static FontFamily FontFamilyBattleCities { get { return fonts.Families[0]; } }
     }
 }
