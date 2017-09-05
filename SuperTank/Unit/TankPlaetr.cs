@@ -63,7 +63,7 @@ namespace SuperTank
         {
             base.Dispose();
             soundGame.TankDispouse();
-            soundGame.BigDetonation();
+            soundGame.DetonationEagle();
             OwnerPlaeyr.CurrentTank = null;
             OwnerPlaeyr.TryAddToScene();
         }

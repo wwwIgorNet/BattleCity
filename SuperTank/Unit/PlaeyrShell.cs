@@ -47,7 +47,7 @@ namespace SuperTank
                         FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
                         OwnerTank.OwnerPlaeyr.Points += points;
                         OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
-                        soundGame.BigDetonation();
+                        soundGame.DetonationTank();
                         break;
                     case TypeUnit.ArmoredTank:
                         if (removeItem)
@@ -55,7 +55,7 @@ namespace SuperTank
                             FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, 400).Start();
                             OwnerTank.OwnerPlaeyr.Points += 400;
                             OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
-                            soundGame.BigDetonation();
+                            soundGame.DetonationTank();
                         }
                         else soundGame.DetonationShell();
                         break;

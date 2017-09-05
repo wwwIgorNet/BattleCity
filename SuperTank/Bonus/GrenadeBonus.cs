@@ -22,7 +22,7 @@ namespace SuperTank
                 u.Dispose();
                 FactoryUnit.CreateBigDetonation(u, TypeUnit.BigDetonation).Start();
             });
-            soundGame.BigDetonation();
+            soundGame.DetonationTank();
         }
     }
 }

@@ -20,6 +20,7 @@ namespace SuperTank.Audio
         private readonly MediaPlayer detonationShell = new MediaPlayer();
         private readonly MediaPlayer bigDetonation = new MediaPlayer();
         private readonly MediaPlayer fire = new MediaPlayer();
+        private readonly MediaPlayer fire2 = new MediaPlayer();
         private readonly MediaPlayer gameStart = new MediaPlayer();
         private readonly MediaPlayer gameOver = new MediaPlayer();
         private readonly MediaPlayer detonationBrickWall = new MediaPlayer();
@@ -69,7 +70,13 @@ namespace SuperTank.Audio
             fire.Play();
         }
 
-        public void BigDetonation()
+        public void Fire2()
+        {
+            fire2.Stop();
+            fire2.Play();
+        }
+
+        public void DetonationTank()
         {
             bigDetonation.Stop();
             bigDetonation.Play();
@@ -98,7 +105,6 @@ namespace SuperTank.Audio
         {
             move.Stop();
             stop.Play();
-
         }
 
         public void Dispose()
@@ -128,6 +134,7 @@ namespace SuperTank.Audio
 
         public void DetonationEagle()
         {
+            detonationEagle.Stop();
             detonationEagle.Play();
         }
 

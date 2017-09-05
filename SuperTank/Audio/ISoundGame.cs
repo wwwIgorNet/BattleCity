@@ -10,13 +10,15 @@ namespace SuperTank.Audio
         [OperationContract(IsOneWay = true)]
         void GameStart();
         [OperationContract(IsOneWay = true)]
-        void BigDetonation();
+        void DetonationTank();
         [OperationContract(IsOneWay = true)]
         void DetonationEagle();
         [OperationContract(IsOneWay = true)]
         void DetonationShell();
         [OperationContract(IsOneWay = true)]
         void Fire();
+        [OperationContract(IsOneWay = true)]
+        void Fire2();
         [OperationContract(IsOneWay = true)]
         void Glide();
         [OperationContract(IsOneWay = true)]

@@ -22,7 +22,7 @@ namespace SuperTank
             Shell2 = GetShell(VelosityShell - 2);
             Shell2.UnitDisposable += u => { Shell2 = null; };
             Shell2.Start();
-            SoundGame.Fire();
+            SoundGame.Fire2();
         }
 
         public override bool TryFire()

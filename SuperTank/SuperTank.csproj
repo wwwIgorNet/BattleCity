@@ -136,6 +136,7 @@
     <Compile Include="WindowsForms\ScrenGame.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WindowsForms\ScrenScore.cs" />
     <Compile Include="WindowsForms\ViewLoadLevel.cs" />
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
@@ -149,6 +150,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="WindowsForms\ScrenScore.resx">
+      <DependentUpon>ScrenScore.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Content\Font\BattleCities.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
