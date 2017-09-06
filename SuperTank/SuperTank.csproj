@@ -114,7 +114,7 @@
     <Compile Include="View\ViewBonusArmoredTank.cs" />
     <Compile Include="View\ViewBonusTank.cs" />
     <Compile Include="View\ViewEagle.cs" />
-    <Compile Include="View\ViewPonts.cs" />
+    <Compile Include="View\ViewPoints.cs" />
     <Compile Include="View\ViewShell.cs" />
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="View\Images.cs" />

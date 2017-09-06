@@ -37,5 +37,30 @@ namespace SuperTank
         public static int TimeAppearanceOfTank { get { return timeAppearanceOfTank; } }
         public static int TimeBigDetonation { get { return timeBigDetonation; } }
         public static int CountLevel { get { return countLevel; } }
+
+        public static int GetCountPoints(TypeUnit type)
+        {
+            switch (type)
+            {
+                case TypeUnit.PlainTank:
+                    return 100;
+                case TypeUnit.ArmoredPersonnelCarrierTank:
+                    return 200;
+                case TypeUnit.QuickFireTank:
+                    return 300;
+                case TypeUnit.ArmoredTank:
+                    return 400;
+                case TypeUnit.Clock:
+                case TypeUnit.Grenade:
+                case TypeUnit.Helmet:
+                case TypeUnit.Pistol:
+                case TypeUnit.Shovel:
+                case TypeUnit.StarMedal:
+                case TypeUnit.Tank:
+                case TypeUnit.Points:
+                    return 500;
+            }
+            return 0;
+        }
     }
 }

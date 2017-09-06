@@ -100,8 +100,9 @@ namespace SuperTank
                             break;
                     }
                     soundGame.Bonus();
-                    OwnerPlaeyr.Points += 500;
-                    FactoryUnit.CreatePoints(Scene.Bonus[i].X, Scene.Bonus[i].Y, TypeUnit.Points, 500).Start();
+                    int points = ConfigurationGame.GetCountPoints(Scene.Bonus[i].Type);
+                    OwnerPlaeyr.Points += points;
+                    FactoryUnit.CreatePoints(Scene.Bonus[i].X, Scene.Bonus[i].Y, TypeUnit.Points, points).Start();
                     Scene.Bonus[i].Dispose();
                 }
             }

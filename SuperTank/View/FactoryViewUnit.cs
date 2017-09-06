@@ -123,7 +123,7 @@ namespace SuperTank
                     break;
 
                 case TypeUnit.Points:
-                    resView = new ViewPonts(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
+                    resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
                     break;
             }
             if (properties != null)

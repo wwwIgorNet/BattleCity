@@ -56,11 +56,11 @@ namespace SuperTank.WindowsForms
                 }
                 else
                 {
-                    isOpening = true;
                     timeCloseOrOpen = DateTime.Now - StartTime;
+                    isOpening = true;
                     infoText = "STAGE " + curentLevel;
-                    if (EndClose != null) EndClose.Invoke();
                     UpdateImage();
+                    if (EndClose != null) EndClose.Invoke();
                 }
             }
             else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationGame.DelayScrenLoadLevel)

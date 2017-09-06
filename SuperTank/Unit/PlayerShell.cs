@@ -34,16 +34,16 @@ namespace SuperTank
                         break;
 
                     case TypeUnit.PlainTank:
-                        DestroyTank(item, 100);
+                        DestroyTank(item, ConfigurationGame.GetCountPoints(item.Type));
                         break;
                     case TypeUnit.ArmoredPersonnelCarrierTank:
-                        DestroyTank(item, 200);
+                        DestroyTank(item, ConfigurationGame.GetCountPoints(item.Type));
                         break;
                     case TypeUnit.QuickFireTank:
-                        DestroyTank(item, 300);
+                        DestroyTank(item, ConfigurationGame.GetCountPoints(item.Type));
                         break;
                     case TypeUnit.ArmoredTank:
-                        if (removeItem) DestroyTank(item, 400);
+                        if (removeItem) DestroyTank(item, ConfigurationGame.GetCountPoints(item.Type));
                         else soundGame.DetonationShell();
                         break;
                     case TypeUnit.BrickWall:

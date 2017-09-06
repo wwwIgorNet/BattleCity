@@ -73,7 +73,7 @@ namespace SuperTank.WindowsForms
             text.X = thirdOfWidth - text.Width;
             text.Draw();
 
-            text = new Text((destrouTanksPlaeyr[TypeUnit.PlainTank] * 100).ToString() + " PTS", g)
+            text = new Text((destrouTanksPlaeyr[TypeUnit.PlainTank] * ConfigurationGame.GetCountPoints(TypeUnit.PlainTank)).ToString() + " PTS", g)
             {
                 Brush = Brushes.White,
                 Y = text.Y + lineInterval
@@ -81,7 +81,11 @@ namespace SuperTank.WindowsForms
             text.X = thirdOfWidth - text.Width;
             text.Draw();
 
-            text = new Text((destrouTanksPlaeyr[TypeUnit.ArmoredPersonnelCarrierTank] * 200).ToString() + " PTS", g)
+            Image tank = Images.Enemy.PlainTank.Up1;
+            g.DrawImage(tank, horisontalCentr - tank.Width / 2, text.Y - 10);
+
+
+            text = new Text((destrouTanksPlaeyr[TypeUnit.ArmoredPersonnelCarrierTank] * ConfigurationGame.GetCountPoints(TypeUnit.ArmoredPersonnelCarrierTank)).ToString() + " PTS", g)
             {
                 Brush = Brushes.White,
                 Y = text.Y + lineInterval
@@ -89,7 +93,11 @@ namespace SuperTank.WindowsForms
             text.X = thirdOfWidth - text.Width;
             text.Draw();
 
-            text = new Text((destrouTanksPlaeyr[TypeUnit.QuickFireTank] * 300).ToString() + " PTS", g)
+            tank = Images.Enemy.ArmoredPersonnelCarrierTank.Up1;
+            g.DrawImage(tank, horisontalCentr - tank.Width / 2, text.Y - 10);
+
+
+            text = new Text((destrouTanksPlaeyr[TypeUnit.QuickFireTank] * ConfigurationGame.GetCountPoints(TypeUnit.QuickFireTank)).ToString() + " PTS", g)
             {
                 Brush = Brushes.White,
                 Y = text.Y + lineInterval
@@ -97,7 +105,7 @@ namespace SuperTank.WindowsForms
             text.X = thirdOfWidth - text.Width;
             text.Draw();
 
-            text = new Text((destrouTanksPlaeyr[TypeUnit.ArmoredTank] * 400).ToString() + " PTS", g)
+            text = new Text((destrouTanksPlaeyr[TypeUnit.ArmoredTank] * ConfigurationGame.GetCountPoints(TypeUnit.ArmoredTank)).ToString() + " PTS", g)
             {
                 Brush = Brushes.White,
                 Y = text.Y + lineInterval

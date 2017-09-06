@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
-    class ViewPonts : BaseView
+    class ViewPoints : BaseView
     {
         private static SizeF sizeText;
         private static Font font;
 
-        static ViewPonts()
+        static ViewPoints()
         {
             Bitmap img = new Bitmap(100, 100);
             Graphics g = Graphics.FromImage(img);
@@ -22,7 +22,7 @@ namespace SuperTank.View
         }
 
 
-        public ViewPonts(int id, float x, float y, float width, float height, int zIndex) : base(id, x, y, width, height, zIndex)
+        public ViewPoints(int id, float x, float y, float width, float height, int zIndex) : base(id, x, y, width, height, zIndex)
         {
         }
 
