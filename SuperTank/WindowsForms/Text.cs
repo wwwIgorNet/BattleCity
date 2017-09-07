@@ -10,28 +10,36 @@ namespace SuperTank.WindowsForms
 {
     class Text
     {
-        private Graphics graphics;
-        private string str;
-        private SizeF size;
-        private Font font;
+        private PointF point = new PointF();
 
-        public Text(string str, Graphics g)
+        public Text(string str, Brush brush)
         {
-            graphics = g;
-            this.str = str;
-            font = new Font(ConfigurationView.InfoFontFamily, 13);
-            size = g.MeasureString(str, font);
+            Str = str;
+            Brush = brush;
         }
 
-        public float X { get; set; }
-        public float Y { get; set; }
-        public float Width { get { return size.Width; } }
-        public float Height { get { return size.Height; } }
         public Brush Brush { get; set; }
-
-        public void Draw()
+        public float X
         {
-            graphics.DrawString(str, font, Brush, X, Y);
+            get { return point.X; }
+            set { point.X = value; }
         }
+        public float Y
+        {
+            get { return point.Y; }
+            set { point.Y = value; }
+        }
+
+        public PointF Point
+        {
+            get { return point; }
+            set { point = value; }
+        }
+
+        public float Width { get { return Size.Width; } }
+        public float Height { get { return Size.Height; } }
+
+        public SizeF Size { get; set; }
+        public string Str { get; set; }
     }
 }

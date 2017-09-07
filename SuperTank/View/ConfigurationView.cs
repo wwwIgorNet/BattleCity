@@ -18,8 +18,8 @@ namespace SuperTank.View
 
         static ConfigurationView()
         {
-            fonts.AddFontFile(@"Content\Font\Info.ttf");
-            fonts.AddFontFile(@"Content\Font\BattleCities.ttf");
+            fonts.AddFontFile(@"Content\Font\BattleCityInfo.ttf");
+            fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }

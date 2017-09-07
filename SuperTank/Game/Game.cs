@@ -38,10 +38,9 @@ namespace SuperTank
             levelManager.StartLevel();
         }
 
-
         public void Dispose()
         {
-            levelManager.EndLevel();
+            levelManager.Stop();
         }
     }
 }

@@ -116,6 +116,11 @@ namespace SuperTank
             timer.Start();
         }
 
+        public void Stop()
+        {
+            timer.Stop();
+        }
+
         private void LoadEnemyTank(string data, Enemy enemy)
         {
             foreach (char c in data)

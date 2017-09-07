@@ -155,7 +155,10 @@
     <EmbeddedResource Include="WindowsForms\ScrenScore.resx">
       <DependentUpon>ScrenScore.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="Content\Font\BattleCities.ttf">
+    <None Include="Content\Font\BattleCity.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Font\BattleCityInfo.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Content\Font\Info.ttf">
