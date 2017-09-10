@@ -33,7 +33,7 @@ namespace SuperTank.WindowsForms
             Application.SetCompatibleTextRenderingDefault(false);
             SceneView sceneView = new SceneView();
             soundGame = new SoundGame();
-            GameForm formRender = new GameForm(sceneView);
+            GameForm formRender = new GameForm(sceneView, soundGame);
             formRender.FormClosing += FormRender_FormClosing;
 
             hostSound = new ServiceHost(soundGame);

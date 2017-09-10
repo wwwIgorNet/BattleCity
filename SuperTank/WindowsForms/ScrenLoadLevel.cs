@@ -63,7 +63,7 @@ namespace SuperTank.WindowsForms
                     if (EndClose != null) EndClose.Invoke();
                 }
             }
-            else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationGame.DelayScrenLoadLevel)
+            else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationView.DelayScrenLoadLevel)
                 return;
 
             else if(isOpening)

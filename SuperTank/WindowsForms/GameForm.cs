@@ -11,23 +11,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.ServiceModel;
+using SuperTank.Audio;
 
 namespace SuperTank.WindowsForms
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class GameForm : Form, IGameInfo
     {
-        private readonly Form form;
-
         private IKeyboard keyboard;
         private ScrenGame screnGame;
+        private static IViewSound viewSound;
 
-        public GameForm(SceneView sceneView)
+        public GameForm(SceneView sceneView, IViewSound sound)
         {
-            form = this;
             InitializeComponent();
 
-            //GraphicsOption();
+            GameForm.viewSound = sound;
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
 
             this.SuspendLayout();
@@ -37,6 +36,8 @@ namespace SuperTank.WindowsForms
 
             this.Focus();
         }
+
+        public static IViewSound Sound { get { return viewSound; } }
 
         public IKeyboard Keyboard
         {

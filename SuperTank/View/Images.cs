@@ -14,6 +14,7 @@ namespace SuperTank.View
         private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
+#pragma warning disable CS0649
         private static Image dashboardInfo;
         private static Image informationTank;
 
@@ -54,6 +55,7 @@ namespace SuperTank.View
         private static string pathForInvulnerable = @"Tank\";
         private static Image invulnerable1;
         private static Image invulnerable2;
+#pragma warning restore CS0649
 
         private static Image blankImage = new Bitmap(1, 1);
 
@@ -372,6 +374,7 @@ namespace SuperTank.View
         public class Tank
         {
             private readonly string pathForTank;
+#pragma warning disable CS0649
             private Image up1;
             private Image up2;
             private Image down1;
@@ -380,6 +383,7 @@ namespace SuperTank.View
             private Image right2;
             private Image left1;
             private Image left2;
+#pragma warning restore CS0649
 
             public Tank(string pathForTank)
             {
@@ -467,6 +471,7 @@ namespace SuperTank.View
         public static class Bonus
         {
             private static readonly string pathForBonus = @"Bonus\";
+#pragma warning disable CS0649
             private static Image clock;
             private static Image grenade;
             private static Image helmet;
@@ -474,6 +479,7 @@ namespace SuperTank.View
             private static Image shovel;
             private static Image starMedal;
             private static Image tank;
+#pragma warning restore CS0649
 
             public static Image Clock
             {

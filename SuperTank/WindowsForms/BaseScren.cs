@@ -28,6 +28,11 @@ namespace SuperTank.WindowsForms
             TimerStart();
         }
 
+        protected void SetInterval(int interval)
+        {
+            timer.Interval = interval;
+        }
+
         public abstract void UpdateImage();
 
         public bool IsAcive { get; set; }

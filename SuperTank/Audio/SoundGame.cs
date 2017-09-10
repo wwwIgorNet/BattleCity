@@ -12,7 +12,7 @@ using System.ServiceModel;
 namespace SuperTank.Audio
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class SoundGame : ISoundGame, IDisposable
+    class SoundGame : ISoundGame, IViewSound, IDisposable
     {
         private readonly MediaPlayer stop = new MediaPlayer();
         private readonly MediaPlayer move = new MediaPlayer();
@@ -27,6 +27,7 @@ namespace SuperTank.Audio
         private readonly MediaPlayer detonationEagle = new MediaPlayer();
         private readonly MediaPlayer bonus = new MediaPlayer();
         private readonly MediaPlayer newBonus = new MediaPlayer();
+        private readonly MediaPlayer countTankIncrement = new MediaPlayer();
 
         public SoundGame()
         {
@@ -53,6 +54,8 @@ namespace SuperTank.Audio
             bonus.Open(new Uri(ConfigurationView.SoundPath + "Bonus.wav", UriKind.Relative));
 
             newBonus.Open(new Uri(ConfigurationView.SoundPath + "NewBonus.wav", UriKind.Relative));
+
+            countTankIncrement.Open(new Uri(ConfigurationView.SoundPath + "CountTankIncrement.wav", UriKind.Relative));
         }
 
         public void GameOver()
@@ -151,6 +154,12 @@ namespace SuperTank.Audio
         {
             newBonus.Stop();
             newBonus.Play();
+        }
+
+        public void CountTankIncrement()
+        {
+            countTankIncrement.Stop();
+            countTankIncrement.Play();
         }
     }
 }

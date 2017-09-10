@@ -9,7 +9,6 @@ namespace SuperTank
 {
     public class ConfigurationGame : ConfigurationBase
     {
-        private static int countLevel = 35;
         private static Point positionEagle = new Point(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2);
         private static Point startPositionTankPlaeyr = new Point(9 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank);
         private static Point startPositionTankEnemy1 = new Point(0, 0);
@@ -40,13 +39,10 @@ namespace SuperTank
             DelayPauseForClockBonus = 500;
             DelayShovelBonus = 20;
             GlidDelay = 20;
-            DelayScrenScore = TimeSpan.FromSeconds(5);
-            DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
-            CountTankEnemy = 1;
+            CountTankEnemy = 20;
         }
 
         public static string Maps { get { return @"Content\Maps\"; } }
-        public static int CountLevel { get { return countLevel; } }
         public static Point PositionEagle { get { return positionEagle; } }
         public static Point StartPositionTankPlaeyr { get { return startPositionTankPlaeyr; } }
         public static Point StartPositionTankEnemy1 { get { return startPositionTankEnemy1; } }
@@ -80,8 +76,6 @@ namespace SuperTank
         public static int VelosityMediumTank { get { return velosityMediumTank; } }
 
         public static int GlidDelay { get; internal set; }
-        public static TimeSpan  DelayScrenScore { get; internal set; }
-        public static TimeSpan DelayScrenLoadLevel { get; internal set; }
         public static int CountTankEnemy { get; internal set; }
     }
 }

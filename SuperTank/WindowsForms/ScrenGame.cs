@@ -48,6 +48,7 @@ namespace SuperTank.WindowsForms
         {
             viewLoadLevel.EndClose += () => levelInfo.Level = level;
             viewLoadLevel.Start(level);
+            GameForm.Sound.GameStart();
         }
         public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {

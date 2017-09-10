@@ -6,10 +6,6 @@ namespace SuperTank.Audio
     public interface ISoundGame
     {
         [OperationContract(IsOneWay = true)]
-        void GameOver();
-        [OperationContract(IsOneWay = true)]
-        void GameStart();
-        [OperationContract(IsOneWay = true)]
         void DetonationTank();
         [OperationContract(IsOneWay = true)]
         void DetonationEagle();
