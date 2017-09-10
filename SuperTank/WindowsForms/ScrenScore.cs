@@ -42,7 +42,7 @@ namespace SuperTank.WindowsForms
             quickFireTankY = lineInterval * 7;
             armoredTankY = lineInterval * 8;
             totalY = lineInterval * 9 - 10;
-            SetInterval(200);
+            SetInterval(150);
         }
 
         public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
