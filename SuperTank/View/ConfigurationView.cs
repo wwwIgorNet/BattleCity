@@ -20,6 +20,7 @@ namespace SuperTank.View
         {
             fonts.AddFontFile(@"Content\Font\BattleCityInfo.ttf");
             fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
+            FontGameOver = new Font(InfoFontFamily, 16);
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
@@ -34,5 +35,7 @@ namespace SuperTank.View
 
         public static FontFamily InfoFontFamily { get { return fonts.Families[1]; } }
         public static FontFamily FontFamilyBattleCities { get { return fonts.Families[0]; } }
+
+        public static Font FontGameOver { get; internal set; }
     }
 }

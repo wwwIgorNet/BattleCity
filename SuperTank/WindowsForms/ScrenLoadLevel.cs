@@ -51,7 +51,7 @@ namespace SuperTank.WindowsForms
             {
                 if (height < centrScrean)
                 {
-                    height += 10;
+                    height += 15;
                     UpdateImage();
                 }
                 else
@@ -71,7 +71,7 @@ namespace SuperTank.WindowsForms
                 if (height > 0)
                 {
                     infoText = null;
-                    height -= 10;
+                    height -= 15;
                     UpdateImage();
                 }
                 else

@@ -76,6 +76,10 @@ namespace SuperTank
                 else if (!LevelManager.Updatable.Contains(this))
                     base.Start();
             }
+            else
+            {
+                LevelManager.GameOver();
+            }
         }
 
         private void AddToScene(TypeUnit typeTank)
@@ -95,6 +99,12 @@ namespace SuperTank
         public override void Update()
         {
             TryAddToScene();
+        }
+
+        internal void GameOver()
+        {
+            LevelManager.Updatable.Remove(CurrentTank);
+            soundGame.TankSoundStop();
         }
     }
 }

@@ -16,6 +16,7 @@ namespace SuperTank.WindowsForms
         private SceneView sceneView;
         private ScrenLoadLevel viewLoadLevel = new ScrenLoadLevel();
         private ScrenScore screnScore = new ScrenScore();
+        private ScrenGameOver screnGameOver = new ScrenGameOver();
 
         public ScrenGame(SceneView sceneView)
         {
@@ -55,6 +56,12 @@ namespace SuperTank.WindowsForms
             screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
         }
 
+        internal void GamoOver()
+        {
+            GameForm.Sound.GameOver();
+            screnGameOver.Start();
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -69,6 +76,10 @@ namespace SuperTank.WindowsForms
                 if (viewLoadLevel.IsAcive)
                 {
                     e.Graphics.DrawImage(viewLoadLevel.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+                }
+                else if (screnGameOver.IsAcive)
+                {
+                    e.Graphics.DrawImage(screnGameOver.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
                 }
             }
         }

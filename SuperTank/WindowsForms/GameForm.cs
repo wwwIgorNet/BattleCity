@@ -57,7 +57,7 @@ namespace SuperTank.WindowsForms
 
         public void GameOver()
         {
-            throw new NotImplementedException();
+            screnGame.GamoOver();
         }
 
         public void SetCountTankEnemy(int count)

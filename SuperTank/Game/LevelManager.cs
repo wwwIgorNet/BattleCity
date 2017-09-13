@@ -40,6 +40,17 @@ namespace SuperTank
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
         }
 
+        public void EagleDelited()
+        {
+            plaeyr.GameOver();
+            GameOver();
+        }
+
+        public static void GameOver()
+        {
+            Game.GameInfo.GameOver();
+        }
+
         private void Enemy_RemoveAllTank()
         {
             if (curentLevel == ConfigurationBase.CountLevel)
@@ -80,7 +91,7 @@ namespace SuperTank
                         break;
                 }
             }
-            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenScore);// todo
+            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenGameOver);// todo
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }
@@ -93,8 +104,10 @@ namespace SuperTank
             string[] linesTileMap = File.ReadAllLines(ConfigurationGame.Maps + level);
 
             List<Unit> objGame = GetStaticObjGame(linesTileMap);
-            objGame.Add(FactoryUnit.CreateEagle(ConfigurationGame.PositionEagle.X,
-                ConfigurationGame.PositionEagle.Y, soundGame));
+            Unit eagle = FactoryUnit.CreateEagle(ConfigurationGame.PositionEagle.X,
+                ConfigurationGame.PositionEagle.Y, soundGame);
+            eagle.UnitDisposable += u => { EagleDelited(); };
+            objGame.Add(eagle);
             Scene.AddRange(objGame);
 
             LoadEnemyTank(linesTileMap[26], enemy);

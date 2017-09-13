@@ -28,6 +28,7 @@ namespace SuperTank
             Game.soundGame = soundGame;
             Scene.Render = render;
             levelManager = new LevelManager(soundGame, gameInfo, plaeyr, enemy);
+
         }
 
         public static IKeyboard Keyboard { get; set; }

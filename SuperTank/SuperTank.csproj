@@ -129,7 +129,7 @@
     <Compile Include="View\IRender.cs" />
     <Compile Include="Game\Keyboard.cs" />
     <Compile Include="Unit\Unit.cs" />
-    <Compile Include="Updatable\PlayerDriver.cs" />
+    <Compile Include="Game\PlayerDriver.cs" />
     <Compile Include="WindowsForms\LevelInfo.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -138,6 +138,7 @@
     <Compile Include="WindowsForms\ScrenGame.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="WindowsForms\ScrenGameOver.cs" />
     <Compile Include="WindowsForms\ScrenScore.cs" />
     <Compile Include="WindowsForms\ScrenLoadLevel.cs" />
     <Compile Include="WindowsForms\Text.cs" />
