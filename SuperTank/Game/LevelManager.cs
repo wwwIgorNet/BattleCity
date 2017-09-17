@@ -12,6 +12,7 @@ namespace SuperTank
 {
     public class LevelManager
     {
+        private DateTime startGameOver;
         private static bool abortUpdate;
         private static Random random = new Random();
         private static readonly Timer timer = new Timer();
@@ -34,6 +35,7 @@ namespace SuperTank
             curentLevel = 0;
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
+            plaeyr.PlayerGameOver += GameOver;
             this.plaeyr = plaeyr;
             plaeyr.CountTank = 2;
             this.enemy = enemy;
@@ -42,13 +44,21 @@ namespace SuperTank
 
         public void EagleDelited()
         {
-            plaeyr.GameOver();
+            plaeyr.EagleDestoed();
             GameOver();
         }
 
-        public static void GameOver()
+        public void GameOver()
         {
-            Game.GameInfo.GameOver();
+            startGameOver = DateTime.Now;
+            gameInfo.GameOver();
+            Timer t = new Timer(ConfigurationBase.TimeGameOver);
+            t.Elapsed += (s, a) => {
+                Stop();
+                Scene.Clear();
+                t.Stop();
+            };
+            t.Start();
         }
 
         private void Enemy_RemoveAllTank()
@@ -91,7 +101,7 @@ namespace SuperTank
                         break;
                 }
             }
-            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenGameOver);// todo
+            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenPoints);// todo
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }

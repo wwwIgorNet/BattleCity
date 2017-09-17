@@ -206,7 +206,7 @@ namespace SuperTank.WindowsForms
 
         protected override void Timer_Tick(object sender, EventArgs e)
         {
-            if (DateTime.Now - StartTime < ConfigurationView.DelayScrenGameOver)
+            if (DateTime.Now - StartTime < ConfigurationView.DelayScrenPoints)
             {
                 UpdateImage();
             }

@@ -12,9 +12,9 @@ namespace SuperTank
 
         static ConfigurationBase()
         {
-            DelayScrenGameOver = TimeSpan.FromSeconds(7);
+            DelayScrenPoints = TimeSpan.FromSeconds(7);
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
-            DelayScrenGameOver = TimeSpan.FromSeconds(3);
+            TimeGameOver = 3000;
         }
 
         private static int heightTile = 20;
@@ -44,8 +44,9 @@ namespace SuperTank
         public static int TimeAppearanceOfTank { get { return timeAppearanceOfTank; } }
         public static int TimeBigDetonation { get { return timeBigDetonation; } }
         public static int CountLevel { get { return countLevel; } }
-        public static TimeSpan DelayScrenGameOver { get; internal set; }
+        public static TimeSpan DelayScrenPoints { get; internal set; }
         public static TimeSpan DelayScrenLoadLevel { get; internal set; }
+        public static double TimeGameOver { get; internal set; }
 
         public static int GetCountPoints(TypeUnit type)
         {

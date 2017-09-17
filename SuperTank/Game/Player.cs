@@ -12,15 +12,22 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
         public Owner owner;
+        private IKeyboard keyboard;
+        private IGameInfo gameInfo;
         private int countTank;
+        private bool isEagleDestroed;
 
-        public Player(ISoundGame soundGame, Owner owner)
+        public Player(ISoundGame soundGame, Owner owner, IKeyboard keyboard, IGameInfo gameInfo)
         {
             this.soundGame = soundGame;
             this.owner = owner;
+            this.keyboard = keyboard;
+            this.gameInfo = gameInfo;
             Points = 0;
             InitDestroyedTanks();
         }
+
+        public event Action PlayerGameOver;
 
         private void InitDestroyedTanks()
         {
@@ -41,7 +48,7 @@ namespace SuperTank
             }
             set
             {
-                Game.GameInfo.SetCountTankPlaeyr(value);
+                gameInfo.SetCountTankPlaeyr(value);
                 countTank = value;
             }
         }
@@ -66,6 +73,8 @@ namespace SuperTank
 
         public void TryAddToScene()
         {
+            if (isEagleDestroed) return;
+
             if (CountTank > 0)
             {
                 if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank))))
@@ -78,13 +87,13 @@ namespace SuperTank
             }
             else
             {
-                LevelManager.GameOver();
+                PlayerGameOver.Invoke();
             }
         }
 
         private void AddToScene(TypeUnit typeTank)
         {
-            IDriver plaeyrDriver = new PlayerDriver(Game.Keyboard);
+            IDriver plaeyrDriver = new PlayerDriver(keyboard);
             CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
                     , typeTank, Direction.Up, plaeyrDriver, soundGame, this);
             plaeyrDriver.Tank = CurrentTank;
@@ -101,10 +110,11 @@ namespace SuperTank
             TryAddToScene();
         }
 
-        internal void GameOver()
+        public void EagleDestoed()
         {
             LevelManager.Updatable.Remove(CurrentTank);
             soundGame.TankSoundStop();
+            isEagleDestroed = true;
         }
     }
 }

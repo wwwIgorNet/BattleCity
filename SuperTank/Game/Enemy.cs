@@ -10,6 +10,7 @@ namespace SuperTank
 {
     public class Enemy : BaseOwner
     {
+        private IGameInfo gameInfo;
         private int countRemoveTank;
         private Queue<TypeUnit> tankEnemy = new Queue<TypeUnit>(20);
         private Point[] positopn = new Point[]
@@ -21,6 +22,11 @@ namespace SuperTank
         private int oldPosition;
         private int iterationAddingTank = 0;
         public event Action RemoveAllTank;
+
+        public Enemy(IGameInfo gameInfo)
+        {
+            this.gameInfo = gameInfo;
+        }
 
         public void AddTypeTank(TypeUnit tankType)
         {
@@ -85,7 +91,7 @@ namespace SuperTank
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, enemyDriver.Tank);
             star.Start();
 
-            Game.GameInfo.SetCountTankEnemy(tankEnemy.Count);
+            gameInfo.SetCountTankEnemy(tankEnemy.Count);
         }
 
         public int GetPosition()
