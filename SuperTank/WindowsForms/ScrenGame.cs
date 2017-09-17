@@ -3,13 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
-    class ScrenGame : Label
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    class ScrenGame : Label, IGameInfo
     {
         private Timer timerInvalidate = new Timer();
         private LevelInfo levelInfo;
@@ -56,7 +58,7 @@ namespace SuperTank.WindowsForms
             screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
         }
 
-        internal void GamoOver()
+        public void GameOver()
         {
             GameForm.Sound.GameOver();
             screnGameOver.Start();

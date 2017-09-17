@@ -54,7 +54,14 @@ namespace SuperTank
             gameInfo.GameOver();
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) => {
+                abortUpdate = true;
                 Stop();
+                Updatable.Clear();
+                System.Threading.Thread.Sleep(100);
+                enemy.Clear();
+                plaeyr.Clear();
+                plaeyr.CountTank = 0;
+                gameInfo.SetCountTankEnemy(0);
                 Scene.Clear();
                 t.Stop();
             };

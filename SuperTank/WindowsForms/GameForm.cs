@@ -15,8 +15,7 @@ using SuperTank.Audio;
 
 namespace SuperTank.WindowsForms
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public partial class GameForm : Form, IGameInfo
+    public partial class GameForm : Form
     {
         private IKeyboard keyboard;
         private ScrenGame screnGame;
@@ -45,37 +44,6 @@ namespace SuperTank.WindowsForms
             set { keyboard = value; }
         }
 
-        public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
-        {
-            screnGame.EndLevel(level, countPoints, destrouTanksPlaeyr);
-        }
-
-        public void StartLevel(int level)
-        {
-            screnGame.StartLevel(level);
-        }
-
-        public void GameOver()
-        {
-            screnGame.GamoOver();
-        }
-
-        public void SetCountTankEnemy(int count)
-        {
-            screnGame.SetCountTankEnemy(count);
-        }
-
-        public void SetCountTankPlaeyr(int count)
-        {
-            screnGame.SetCountTankPlaeyr(count);
-        }
-
-
-        //protected override void OnPaint(PaintEventArgs e)
-        //{
-        //    base.OnPaint(e);
-        //    Graphics g = e.Graphics;
-        //}
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -110,10 +78,5 @@ namespace SuperTank.WindowsForms
                     break;
             }
         }
-
-        //private void GraphicsOption()
-        //{
-        //    base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        //}
     }
 }

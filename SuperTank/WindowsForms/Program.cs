@@ -12,11 +12,7 @@ namespace SuperTank.WindowsForms
 {
     static class Program
     {
-        private static ChannelFactory<IRender> factoryRender;
-        private static ChannelFactory<ISoundGame> factorySound;
         private static ChannelFactory<IKeyboard> factoryKeyboard;
-        private static ChannelFactory<IGameInfo> factoryGameInfo;
-        private static ServiceHost hostKeyboard;
         private static ServiceHost hostSound;
         private static ServiceHost hostSceneView;
         private static ServiceHost hostGameInfo;
@@ -31,6 +27,8 @@ namespace SuperTank.WindowsForms
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+
             SceneView sceneView = new SceneView();
             soundGame = new SoundGame();
             GameForm formRender = new GameForm(sceneView, soundGame);
@@ -53,26 +51,8 @@ namespace SuperTank.WindowsForms
             hostGameInfo.Open();
 
             ThreadPool.QueueUserWorkItem((s) =>
-            {
-                Keyboard keyboard = new Keyboard();
-                hostKeyboard = new ServiceHost(keyboard);
-                hostKeyboard.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                hostKeyboard.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
-                hostKeyboard.Open();
-
-                factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-                IRender render = factoryRender.CreateChannel();
-
-                factorySound  = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
-                ISoundGame sound= factorySound.CreateChannel();
-
-
-                factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
-                IGameInfo gameInfo = factoryGameInfo.CreateChannel();
-
-
-                render.Init();
-                game = new Game(render, sound, keyboard, gameInfo);
+            {  
+                game = new Game();
                 game.Start();
             });
 
@@ -89,17 +69,19 @@ namespace SuperTank.WindowsForms
             {
                 e.Cancel = true;
                 soundGame.Dispose();
-                game.Dispose();
+
                 ThreadPool.QueueUserWorkItem(s =>
                 {
+                    game.Stop();
+                    game.CloseFactory();
+
                     factoryKeyboard.Close();
-                    factorySound.Close();
-                    factoryRender.Close();
-                    factoryGameInfo.Close();
-                    hostKeyboard.Close();
                     hostSound.Close();
                     hostSceneView.Close();
                     hostGameInfo.Close();
+
+                    game.CloseHost();
+
                     wcfClose = true;
 
                     ((Form)sender).Invoke((MethodInvoker)delegate ()
