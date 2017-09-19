@@ -21,6 +21,7 @@ namespace SuperTank.View
             fonts.AddFontFile(@"Content\Font\BattleCityInfo.ttf");
             fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
             FontGameOver = new Font(InfoFontFamily, 16);
+            TimeScrenGameOver = 4000;
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
@@ -37,5 +38,6 @@ namespace SuperTank.View
         public static FontFamily FontFamilyBattleCities { get { return fonts.Families[0]; } }
 
         public static Font FontGameOver { get; internal set; }
+        public static int TimeScrenGameOver { get; internal set; }
     }
 }

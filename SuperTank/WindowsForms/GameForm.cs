@@ -23,7 +23,8 @@ namespace SuperTank.WindowsForms
         private ServiceHost hostSound;
         private ServiceHost hostSceneView;
         private ServiceHost hostGameInfo;
-        private GameOver gameOver;
+        private GameOver gameOver = new GameOver();
+        private StartScren startScren = new StartScren();
 
         private static ChannelFactory<IKeyboard> factoryKeyboard;
 
@@ -34,6 +35,7 @@ namespace SuperTank.WindowsForms
 
         private bool wcfClose;
         private bool isGameStop = true;
+        private bool isStartScrin = true;
 
         public GameForm()
         {
@@ -45,14 +47,15 @@ namespace SuperTank.WindowsForms
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
             this.FormClosing += GameForm_FormClosing;
 
-            gameOver = new GameOver();
             gameOver.Size = this.ClientSize;
+            startScren.Size = this.ClientSize;
 
-            StartNewGame();
+            Controls.Add(startScren);
         }
 
         private void StartNewGame()
         {
+            isStartScrin = false;
             sceneView = new SceneView();
             screnGame = new ScrenGame(sceneView, () =>
             {
@@ -62,15 +65,19 @@ namespace SuperTank.WindowsForms
                 ThreadPool.QueueUserWorkItem((s) =>
                 {
                     StopGame();
-                    Thread.Sleep(5000);
-                    Invoke(new Action(() => { StartNewGame(); }));
+                    Thread.Sleep(ConfigurationView.TimeScrenGameOver);
+                    Invoke(new Action(() => {
+                        Controls.Remove(gameOver);
+                        Controls.Add(startScren);
+                        isStartScrin = true;
+                    }));
                 });
             });
 
-            Controls.Remove(gameOver);
+            this.OpenHost();
+            Controls.Remove(startScren);
             Controls.Add(screnGame);
 
-            this.OpenHost();
             ThreadPool.QueueUserWorkItem((o) =>
             {
                 ThreadPool.QueueUserWorkItem((s) =>
@@ -125,7 +132,6 @@ namespace SuperTank.WindowsForms
             hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
             hostSound.Open();
 
-
             hostSceneView = new ServiceHost(sceneView);
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
@@ -161,34 +167,47 @@ namespace SuperTank.WindowsForms
         {
             base.OnKeyDown(e);
 
-            switch (e.KeyCode)
+            if (!isGameStop)
             {
-                case Keys.Left:
-                case Keys.Right:
-                case Keys.Up:
-                case Keys.Down:
-                case Keys.Space:
-                case Keys.Enter:
-                case Keys.Escape:
-                    Keyboard.KeyDown(e.KeyCode);
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                    case Keys.Right:
+                    case Keys.Up:
+                    case Keys.Down:
+                    case Keys.Space:
+                    case Keys.Enter:
+                    case Keys.Escape:
+                        Keyboard.KeyDown(e.KeyCode);
+                        break;
+                }
+            }
+            else if (isStartScrin)
+            {
+                if(e.KeyCode == Keys.Enter)
+                {
+                    StartNewGame();
+                }
             }
         }
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
 
-            switch (e.KeyCode)
+            if (!isGameStop)
             {
-                case Keys.Left:
-                case Keys.Right:
-                case Keys.Up:
-                case Keys.Down:
-                case Keys.Space:
-                case Keys.Enter:
-                case Keys.Escape:
-                    Keyboard.KeyUp(e.KeyCode);
-                    break;
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                    case Keys.Right:
+                    case Keys.Up:
+                    case Keys.Down:
+                    case Keys.Space:
+                    case Keys.Enter:
+                    case Keys.Escape:
+                        Keyboard.KeyUp(e.KeyCode);
+                        break;
+                }
             }
         }
     }

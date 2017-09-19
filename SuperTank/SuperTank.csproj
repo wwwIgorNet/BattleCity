@@ -99,6 +99,9 @@
     <Compile Include="WindowsForms\ScrenGameOver.cs" />
     <Compile Include="WindowsForms\ScrenScore.cs" />
     <Compile Include="WindowsForms\ScrenLoadLevel.cs" />
+    <Compile Include="WindowsForms\StartScren.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WindowsForms\Text.cs" />
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
