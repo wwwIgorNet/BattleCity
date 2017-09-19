@@ -30,6 +30,12 @@ namespace SuperTank.WindowsForms
             overX = base.ImgScren.Width / 2 - sizeTextGame.Width / 2;
         }
 
+        public override void Start()
+        {
+            base.Start();
+            Y = base.ImgScren.Height;
+        }
+
         public override void UpdateImage()
         {
             Graphics g = Graphics.FromImage(base.ImgScren);

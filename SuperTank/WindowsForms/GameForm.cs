@@ -23,6 +23,7 @@ namespace SuperTank.WindowsForms
         private ServiceHost hostSound;
         private ServiceHost hostSceneView;
         private ServiceHost hostGameInfo;
+        private GameOver gameOver;
 
         private static ChannelFactory<IKeyboard> factoryKeyboard;
 
@@ -31,32 +32,56 @@ namespace SuperTank.WindowsForms
         private ScrenGame screnGame;
         private static IViewSound viewSound;
 
-        private static bool wcfClose;
+        private bool wcfClose;
+        private bool isGameStop = true;
 
         public GameForm()
         {
             InitializeComponent();
 
-            sceneView = new SceneView();
             soundGame = new SoundGame();
 
             GameForm.viewSound = soundGame;
             this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
-
-            this.SuspendLayout();
-            screnGame = new ScrenGame(sceneView);
-            Controls.Add(screnGame);
-            this.ResumeLayout(false);
-
             this.FormClosing += GameForm_FormClosing;
-            this.OpenHost();
 
-            ThreadPool.QueueUserWorkItem((s) =>
+            gameOver = new GameOver();
+            gameOver.Size = this.ClientSize;
+
+            StartNewGame();
+        }
+
+        private void StartNewGame()
+        {
+            sceneView = new SceneView();
+            screnGame = new ScrenGame(sceneView, () =>
             {
-                game = new Game();
-                game.Start();
+                Controls.Remove(screnGame);
+                Controls.Add(gameOver);
+                gameOver.Invalidate();
+                ThreadPool.QueueUserWorkItem((s) =>
+                {
+                    StopGame();
+                    Thread.Sleep(5000);
+                    Invoke(new Action(() => { StartNewGame(); }));
+                });
             });
-            this.OpenChenalFactory();
+
+            Controls.Remove(gameOver);
+            Controls.Add(screnGame);
+
+            this.OpenHost();
+            ThreadPool.QueueUserWorkItem((o) =>
+            {
+                ThreadPool.QueueUserWorkItem((s) =>
+                {
+                    game = new Game();
+                    game.Start();
+                    isGameStop = false;
+                });
+
+                this.OpenChenalFactory();
+            });
         }
 
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -68,11 +93,7 @@ namespace SuperTank.WindowsForms
 
                 ThreadPool.QueueUserWorkItem(s =>
                 {
-                    game.Stop();
-                    game.CloseFactory();
-                    this.CloseChenalFactory();
-                    game.CloseHost();
-                    this.CloseHost();
+                    StopGame();
 
                     wcfClose = true;
 
@@ -82,6 +103,19 @@ namespace SuperTank.WindowsForms
                     });
                 });
             }
+        }
+
+        private void StopGame()
+        {
+            if (isGameStop) return;
+
+            isGameStop = true;
+            game.Stop();
+            Thread.Sleep(300);
+            game.CloseFactory();
+            this.CloseChenalFactory();
+            game.CloseHost();
+            this.CloseHost();
         }
 
         public void OpenHost()
@@ -102,18 +136,15 @@ namespace SuperTank.WindowsForms
             hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
             hostGameInfo.Open();
         }
-
         public void OpenChenalFactory()
         {
             factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
             Keyboard = factoryKeyboard.CreateChannel();
         }
-
         public void CloseChenalFactory()
         {
             factoryKeyboard.Close();
         }
-
         public void CloseHost()
         {
             hostSound.Close();

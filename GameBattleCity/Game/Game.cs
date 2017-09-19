@@ -57,9 +57,9 @@ namespace SuperTank
 
         public void CloseFactory()
         {
-            factorySound.Close();
-            factoryRender.Close();
-            factoryGameInfo.Close();
+            factorySound.Abort();
+            factoryRender.Abort();
+            factoryGameInfo.Abort();
         }
 
         public void CloseHost()

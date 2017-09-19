@@ -86,6 +86,9 @@
     <Compile Include="WindowsForms\GameForm.Designer.cs">
       <DependentUpon>GameForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="WindowsForms\GameOver.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WindowsForms\LevelInfo.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

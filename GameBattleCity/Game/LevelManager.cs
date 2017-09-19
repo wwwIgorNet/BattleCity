@@ -32,6 +32,7 @@ namespace SuperTank
 
         public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player plaeyr, Enemy enemy)
         {
+            abortUpdate = false;
             curentLevel = 0;
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
@@ -63,6 +64,7 @@ namespace SuperTank
                 plaeyr.CountTank = 0;
                 gameInfo.SetCountTankEnemy(0);
                 Scene.Clear();
+                curentLevel = 0;
                 t.Stop();
             };
             t.Start();

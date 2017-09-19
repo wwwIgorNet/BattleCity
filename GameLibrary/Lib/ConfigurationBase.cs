@@ -46,7 +46,7 @@ namespace SuperTank
         public static int CountLevel { get { return countLevel; } }
         public static TimeSpan DelayScrenPoints { get; internal set; }
         public static TimeSpan DelayScrenLoadLevel { get; internal set; }
-        public static double TimeGameOver { get; internal set; }
+        public static int TimeGameOver { get; internal set; }
 
         public static int GetCountPoints(TypeUnit type)
         {

@@ -11,7 +11,7 @@ namespace SuperTank
     public class ConfigurationGame : ConfigurationBase
     {
         private static Point positionEagle = new Point(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2);
-        private static Point startPositionTankPlaeyr = new Point(9 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank);
+        private static Point startPositionTankPlaeyr = new Point(8 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank);
         private static Point startPositionTankEnemy1 = new Point(0, 0);
         private static Point startPositionTankEnemy2 = new Point(12 * ConfigurationGame.WidthTile, 0);
         private static Point startPositionTankEnemy3 = new Point(ConfigurationGame.WidthBoard - ConfigurationGame.WidthTank, 0);

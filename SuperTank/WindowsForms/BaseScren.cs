@@ -21,7 +21,7 @@ namespace SuperTank.WindowsForms
             timer.Tick += Timer_Tick;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             startTime = DateTime.Now;
             IsAcive = true;
