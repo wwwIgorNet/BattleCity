@@ -26,8 +26,8 @@ namespace SuperTank.WindowsForms
             SizeF sizeTextGame = g.MeasureString(strGame, font);
             heightGame = sizeTextGame.Height;
             SizeF sizeTextOver = g.MeasureString(strOver, font);
-            gameX = base.ImgScren.Width / 2 - sizeTextGame.Width / 2;
-            overX = base.ImgScren.Width / 2 - sizeTextGame.Width / 2;
+            gameX = ConfigurationView.WidthBoard / 2 - sizeTextGame.Width / 2 + ConfigurationView.WidthTile;
+            overX = ConfigurationView.HeightBoard / 2 - sizeTextGame.Width / 2 + ConfigurationView.HeightTile;
         }
 
         public override void Start()
@@ -49,20 +49,17 @@ namespace SuperTank.WindowsForms
 
             g.DrawString(strGame, font, Brushes.DarkRed, gameX, Y);
             g.DrawString(strOver, font, Brushes.DarkRed, overX, Y + heightGame);
-            Y -= 7;
+            Y -= 5;
         }
 
         protected override void Timer_Tick(object sender, EventArgs e)
         {
             if (Y > base.ImgScren.Height / 2)
-
-                //if (DateTime.Now - StartTime < ConfigurationView.DelayScrenGameOver)
             {
                 UpdateImage();
             }
             else
             {
-                //IsAcive = false;
                 TimerStop();
             }
         }

@@ -20,6 +20,7 @@ namespace SuperTank.WindowsForms
         private ScrenLoadLevel viewLoadLevel = new ScrenLoadLevel();
         private ScrenScore screnScore = new ScrenScore();
         private ScrenGameOver screnGameOver = new ScrenGameOver();
+        private int countPoints = 0;
 
         public ScrenGame(SceneView sceneView, Action gameOver)
         {
@@ -38,6 +39,8 @@ namespace SuperTank.WindowsForms
             
             GraphicsOption();
         }
+
+        public int CountPoints { get { return countPoints; } }
 
         public void SetCountTankEnemy(int count)
         {
@@ -58,6 +61,7 @@ namespace SuperTank.WindowsForms
         public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
         {
             screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
+            this.countPoints = countPoints;
         }
 
         public void GameOver()

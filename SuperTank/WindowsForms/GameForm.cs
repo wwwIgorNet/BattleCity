@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using System.ServiceModel;
 using SuperTank.Audio;
 using System.Threading;
+using System.IO;
 
 namespace SuperTank.WindowsForms
 {
@@ -25,6 +26,7 @@ namespace SuperTank.WindowsForms
         private ServiceHost hostGameInfo;
         private GameOver gameOver = new GameOver();
         private StartScren startScren = new StartScren();
+        private ScrenRecord screnRecord = null;
 
         private static ChannelFactory<IKeyboard> factoryKeyboard;
 
@@ -58,23 +60,7 @@ namespace SuperTank.WindowsForms
         {
             isStartScrin = false;
             sceneView = new SceneView();
-            screnGame = new ScrenGame(sceneView, () =>
-            {
-                Controls.Remove(screnGame);
-                Controls.Add(gameOver);
-                gameOver.Invalidate();
-                ThreadPool.QueueUserWorkItem((s) =>
-                {
-                    StopGame();
-                    Thread.Sleep(ConfigurationView.TimeScrenGameOver);
-                    Invoke(new Action(() => {
-                        Controls.Remove(gameOver);
-                        startScren.Start();
-                        Controls.Add(startScren);
-                        isStartScrin = true;
-                    }));
-                });
-            });
+            screnGame = new ScrenGame(sceneView,  this.GameOver);
 
             this.OpenHost();
             Controls.Remove(startScren);
@@ -90,6 +76,58 @@ namespace SuperTank.WindowsForms
                 });
 
                 this.OpenChenalFactory();
+            });
+        }
+
+        private void GameOver()
+        {
+            ThreadPool.QueueUserWorkItem((s) =>
+            {
+                int maxPoints = 0;
+                Thread.Sleep(ConfigurationView.DelayScrenPoints);
+                Invoke(new Action(() =>
+                {
+                    Controls.Remove(screnGame);
+                    Controls.Add(gameOver);
+                    gameOver.Invalidate();
+                }));
+                ThreadPool.QueueUserWorkItem((o) =>
+                {
+                    maxPoints = int.Parse(File.ReadAllText(ConfigurationView.MaxPointsPath));
+                    if (screnGame.CountPoints > maxPoints)
+                    {
+                        File.WriteAllText(ConfigurationView.MaxPointsPath, screnGame.CountPoints.ToString());
+                    }
+                });
+
+                Thread.Sleep(ConfigurationView.TimeScrenGameOver);
+
+                if (screnGame.CountPoints > maxPoints)
+                {
+                    Invoke(new Action(() =>
+                    {
+                        Controls.Remove(gameOver);
+                        screnRecord = new ScrenRecord(screnGame.CountPoints);
+                        screnRecord.Size = ClientSize;
+                        Controls.Add(screnRecord);
+                        screnRecord.Start();
+                        screnRecord.Invalidate();
+                    }));
+                    Thread.Sleep(ConfigurationView.DelayScrenRecord);
+                    Invoke(new Action(() =>
+                    {
+                        Controls.Remove(screnRecord);
+                    }));
+                }
+
+                StopGame();
+                Invoke(new Action(() =>
+                {
+                    Controls.Remove(gameOver);
+                    startScren.Start();
+                    Controls.Add(startScren);
+                    isStartScrin = true;
+                }));
             });
         }
 

@@ -14,7 +14,7 @@ namespace SuperTank
         {
             DelayScrenPoints = TimeSpan.FromSeconds(7);
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
-            TimeGameOver = 3000;
+            TimeGameOver = 4000;
         }
 
         private static int heightTile = 20;

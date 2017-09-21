@@ -63,6 +63,9 @@
   <ItemGroup>
     <Compile Include="Audio\IViewSound.cs" />
     <Compile Include="Audio\SoundGame.cs" />
+    <None Include="Content\MaxPoints">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\ConfigurationView.cs" />
@@ -97,6 +100,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WindowsForms\ScrenGameOver.cs" />
+    <Compile Include="WindowsForms\ScrenRecord.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WindowsForms\ScrenScore.cs" />
     <Compile Include="WindowsForms\ScrenLoadLevel.cs" />
     <Compile Include="WindowsForms\StartScren.cs">

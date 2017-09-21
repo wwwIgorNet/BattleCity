@@ -55,6 +55,7 @@ namespace SuperTank
             gameInfo.GameOver();
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) => {
+                gameInfo.EndLevel(curentLevel, plaeyr.Points, plaeyr.DestroyedTanks);
                 abortUpdate = true;
                 Stop();
                 Updatable.Clear();

@@ -21,7 +21,8 @@ namespace SuperTank.View
             fonts.AddFontFile(@"Content\Font\BattleCityInfo.ttf");
             fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
             FontGameOver = new Font(InfoFontFamily, 16);
-            TimeScrenGameOver = 4000;
+            TimeScrenGameOver = 2000;
+            DelayScrenRecord = TimeSpan.FromSeconds(10);
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
@@ -29,6 +30,7 @@ namespace SuperTank.View
         public static string TexturePath { get { return @"Content\Textures\"; } }
         public static Color BackColor { get { return Color.DimGray; } }
         public static string SoundPath { get { return @"Content\Sound\"; } }
+        public static string MaxPointsPath { get { return @"Content\MaxPoints"; } }
 
         public static int DelayChangColorBonusTank { get { return delayChangColorBonusTank; } }
 
@@ -39,5 +41,6 @@ namespace SuperTank.View
 
         public static Font FontGameOver { get; internal set; }
         public static int TimeScrenGameOver { get; internal set; }
+        public static TimeSpan DelayScrenRecord { get; internal set; }
     }
 }
