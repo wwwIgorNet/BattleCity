@@ -50,6 +50,7 @@ namespace SuperTank.WindowsForms
             gameOver.Size = this.ClientSize;
             startScren.Size = this.ClientSize;
 
+            startScren.Start();
             Controls.Add(startScren);
         }
 
@@ -68,6 +69,7 @@ namespace SuperTank.WindowsForms
                     Thread.Sleep(ConfigurationView.TimeScrenGameOver);
                     Invoke(new Action(() => {
                         Controls.Remove(gameOver);
+                        startScren.Start();
                         Controls.Add(startScren);
                         isStartScrin = true;
                     }));
@@ -186,7 +188,18 @@ namespace SuperTank.WindowsForms
             {
                 if(e.KeyCode == Keys.Enter)
                 {
-                    StartNewGame();
+                    if (startScren.IndexMenu == 0)
+                    {
+                        StartNewGame();
+                    }
+                }
+                else if(e.KeyCode == Keys.Up)
+                {
+                    startScren.MenuUp();
+                }
+                else if(e.KeyCode == Keys.Down)
+                {
+                    startScren.MenuDown();
                 }
             }
         }
