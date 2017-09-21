@@ -11,5 +11,6 @@ namespace SuperTank.Audio
         void GameOver();
         void GameStart();
         void CountTankIncrement();
+        void HighScore();
     }
 }

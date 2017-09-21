@@ -109,6 +109,7 @@ namespace SuperTank.WindowsForms
                         Controls.Remove(gameOver);
                         screnRecord = new ScrenRecord(screnGame.CountPoints);
                         screnRecord.Size = ClientSize;
+                        viewSound.HighScore();
                         Controls.Add(screnRecord);
                         screnRecord.Start();
                         screnRecord.Invalidate();

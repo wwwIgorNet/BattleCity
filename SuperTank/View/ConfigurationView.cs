@@ -22,7 +22,7 @@ namespace SuperTank.View
             fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
             FontGameOver = new Font(InfoFontFamily, 16);
             TimeScrenGameOver = 2000;
-            DelayScrenRecord = TimeSpan.FromSeconds(10);
+            DelayScrenRecord = TimeSpan.FromSeconds(8);
         }
 
         public static int WindowClientHeight { get { return windowClientHeight; } }
