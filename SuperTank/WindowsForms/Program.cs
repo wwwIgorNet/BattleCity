@@ -21,14 +21,14 @@ namespace SuperTank.WindowsForms
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.ThreadException += Application_ThreadException;
+            AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             
             Application.Run(new GameForm());
         }
 
-        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Console.WriteLine(e.Exception.Message);
+            Console.WriteLine(e.ExceptionObject.ToString());
         }
     }
 }
