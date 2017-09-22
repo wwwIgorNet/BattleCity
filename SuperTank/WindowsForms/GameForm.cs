@@ -25,7 +25,7 @@ namespace SuperTank.WindowsForms
         private ServiceHost hostSceneView;
         private ServiceHost hostGameInfo;
         private GameOver gameOver = new GameOver();
-        private StartScren startScren = new StartScren();
+        private StartScren startScren;
         private ScrenRecord screnRecord = null;
 
         private static ChannelFactory<IKeyboard> factoryKeyboard;
@@ -50,7 +50,7 @@ namespace SuperTank.WindowsForms
             this.FormClosing += GameForm_FormClosing;
 
             gameOver.Size = this.ClientSize;
-            startScren.Size = this.ClientSize;
+            startScren = new StartScren(this.ClientSize);
 
             startScren.Start();
             Controls.Add(startScren);
@@ -234,11 +234,11 @@ namespace SuperTank.WindowsForms
                 }
                 else if(e.KeyCode == Keys.Up)
                 {
-                    startScren.MenuUp();
+                    startScren.MenuCursorUp();
                 }
                 else if(e.KeyCode == Keys.Down)
                 {
-                    startScren.MenuDown();
+                    startScren.MenuCursorDown();
                 }
             }
         }

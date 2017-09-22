@@ -12,7 +12,7 @@ namespace SuperTank
 
         static ConfigurationBase()
         {
-            DelayScrenPoints = TimeSpan.FromSeconds(7);
+            DelayScrenPoints = TimeSpan.FromSeconds(6);
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
             TimeGameOver = 4000;
         }

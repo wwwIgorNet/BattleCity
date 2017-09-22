@@ -11,67 +11,29 @@ namespace SuperTank.WindowsForms
 {
     class StartScren : Label
     {
+        private Image img;
         private Timer timer = new Timer();
-        private Font font = new Font(ConfigurationView.FontFamilyBattleCities, 50);
-        private Font fontInfo = new Font(ConfigurationView.InfoFontFamily, 16);
         private Image imgTank;
-        private string strBattle = "BATTLE";
-        private string strCity = "CITY";
-        private string strIPlayer = "I PLAYER";
-        private string strIIPlayer = "II PLAYERS";
-        private string strConstructor = "CONSTRUCTION";
+        private float leftPosText;
+        private float topPosText;
+        private float heightText;
+        private float lineHeight = 40;
         private int indexMenu = 0;
         private int countMenu = 3;
+        private PointF pointDrawImg;
 
-        public StartScren()
+        public StartScren(Size size)
         {
+            this.Size = size;
+            img = new Bitmap(Width, Height);
             imgTank = Images.Plaeyr.SmallTank.Right1;
             timer.Interval = ConfigurationView.TimerInterval;
             timer.Tick += Timer_Tick;
-        }
-
-        private void Timer_Tick(object sender, EventArgs e)
-        {
-            int y = this.Location.Y;
-            y -= 5;
-            if(y <= 0)
-            {
-                y = 0;
-                timer.Stop();
-                IsActiv = true;
-            }
-            this.Location = new Point(this.Location.X, y);
+            CreateImg();
+            pointDrawImg = new PointF(0, Height);
         }
 
         public bool  IsActiv { get; set; }
-
-        public void Start()
-        {
-            timer.Start();
-            IsActiv = false;
-            this.Location = new Point(this.Location.X, this.Height);
-        }
-
-        public void MenuUp()
-        {
-            if (IsActiv)
-            {
-                indexMenu--;
-                if (indexMenu < 0) indexMenu = 0;
-                Invalidate();
-            }
-        }
-
-        public void MenuDown()
-        {
-            if (IsActiv)
-            {
-                indexMenu++;
-                if (indexMenu == countMenu) indexMenu--;
-                Invalidate();
-            }
-        }
-
         public int IndexMenu
         {
             get
@@ -81,32 +43,93 @@ namespace SuperTank.WindowsForms
             }
         }
 
+        public void Start()
+        {
+            pointDrawImg.Y = Height;
+            timer.Start();
+            IsActiv = false;
+        }
+        public void MenuCursorUp()
+        {
+            if (IsActiv)
+            {
+                indexMenu--;
+                if (indexMenu < 0) indexMenu = 0;
+                Invalidate();
+            }
+        }
+        public void MenuCursorDown()
+        {
+            if (IsActiv)
+            {
+                indexMenu++;
+                if (indexMenu == countMenu) indexMenu--;
+                Invalidate();
+            }
+        }
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            float height = 100;
             base.OnPaint(e);
             Graphics g = e.Graphics;
             g.Clear(Color.Black);
+            g.DrawImage(img, pointDrawImg);
+            if (IsActiv)
+            {
+                g.DrawImage(imgTank, leftPosText - imgTank.Width - 10, (topPosText + indexMenu * lineHeight) - (imgTank.Height / 2 - heightText / 2));
+            }
+        }
+
+        private void CreateImg()
+        {
+            Font font = new Font(ConfigurationView.FontFamilyBattleCities, 55);
+            Font fontInfo = new Font(ConfigurationView.InfoFontFamily, 12, FontStyle.Regular);
+            string strBattle = "BATTLE";
+            string strCity = "CITY";
+            string str1Player = "1 PLAYER";
+            string str2Player = "2 PLAYERS";
+            string strConstructor = "CONSTRUCTION";
+            string strCompany= "company";
+            string strYear = "© 2015-2017 COMPANY LTD.";
+            string strRights = "ALL RIGHTS RESERVED";
+
+            float height = 100;
+            Graphics g = Graphics.FromImage(img);
+            g.Clear(Color.Transparent);
 
             SizeF sizeBattle = g.MeasureString(strBattle, font);
             SizeF sizeCity = g.MeasureString(strCity, font);
 
+            g.DrawString("I-      00 HI- 20000", fontInfo, Brushes.White, 65, height - lineHeight);
             g.DrawString(strBattle, font, Brushes.Red, Width / 2 - sizeBattle.Width / 2, height);
             g.DrawString(strCity, font, Brushes.Red, Width / 2 - sizeCity.Width / 2, height + sizeBattle.Height);
 
-            SizeF sizeIPlaeyr = g.MeasureString(strIPlayer, fontInfo);
-            SizeF sizeIIPlaeyr = g.MeasureString(strIIPlayer, fontInfo);
-            SizeF sizeConstructor = g.MeasureString(strConstructor, fontInfo);
+            SizeF size1Plaeyr = g.MeasureString(str1Player, fontInfo);
+            SizeF sizeYear = g.MeasureString(strYear, fontInfo);
+            SizeF sizeRights = g.MeasureString(strRights, fontInfo);
 
-            float posY = 300;
-            float lineHeight = 40;
-            float leftPos = Width / 2 - sizeIPlaeyr.Width / 2;
+            leftPosText = Width / 2 - size1Plaeyr.Width / 2;
+            heightText = size1Plaeyr.Height;
+            topPosText = height + sizeBattle.Height + sizeCity.Height + lineHeight - heightText;
 
-            g.DrawString(strIPlayer, fontInfo, Brushes.White, leftPos, posY);
-            g.DrawString(strIIPlayer, fontInfo, Brushes.Gray, leftPos, posY + lineHeight);
-            g.DrawString(strConstructor, fontInfo, Brushes.Gray, leftPos, posY + lineHeight * 2);
-
-            g.DrawImage(imgTank, leftPos - imgTank.Width - 10, (posY + indexMenu * lineHeight) - (imgTank.Height / 2 - sizeIPlaeyr.Height / 2));
+            g.DrawString(str1Player, fontInfo, Brushes.White, leftPosText, topPosText);
+            g.DrawString(str2Player, fontInfo, Brushes.Gray, leftPosText, topPosText + lineHeight);
+            g.DrawString(strConstructor, fontInfo, Brushes.Gray, leftPosText, topPosText + lineHeight * 2);
+            g.DrawString(strCompany, new Font(new FontFamily("Arial"), 25, FontStyle.Bold), Brushes.Red, leftPosText, topPosText + lineHeight * 3 - 15);
+            float posX = Width / 2 - sizeYear.Width / 2;
+            g.DrawString(strYear, fontInfo, Brushes.White, posX, topPosText + lineHeight * 4);
+            g.DrawString(strRights, fontInfo, Brushes.Gray, Width / 2 - sizeRights.Width / 2, topPosText + lineHeight * 5);
+        }
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            pointDrawImg.Y -= 5;
+            if(pointDrawImg.Y <= 0)
+            {
+                pointDrawImg.Y = 0;
+                timer.Stop();
+                IsActiv = true;
+            }
+            Invalidate();
         }
     }
 }
