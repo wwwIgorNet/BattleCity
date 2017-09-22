@@ -29,6 +29,7 @@ namespace SuperTank.Audio
         private readonly MediaPlayer newBonus = new MediaPlayer();
         private readonly MediaPlayer countTankIncrement = new MediaPlayer();
         private readonly MediaPlayer highScore = new MediaPlayer();
+        private readonly MediaPlayer twoFire = new MediaPlayer();
 
         public SoundGame()
         {
@@ -59,6 +60,8 @@ namespace SuperTank.Audio
             countTankIncrement.Open(new Uri(ConfigurationView.SoundPath + "CountTankIncrement.wav", UriKind.Relative));
 
             highScore.Open(new Uri(ConfigurationView.SoundPath + "HighScore.wav", UriKind.Relative));
+
+            twoFire.Open(new Uri(ConfigurationView.SoundPath + "TwoFire.wav", UriKind.Relative));
         }
 
         public void GameOver()
@@ -79,10 +82,10 @@ namespace SuperTank.Audio
             fire.Play();
         }
 
-        public void Fire2()
+        public void TwoFire()
         {
-            fire2.Stop();
-            fire2.Play();
+            twoFire.Stop();
+            twoFire.Play();
         }
 
         public void DetonationTank()
@@ -128,6 +131,7 @@ namespace SuperTank.Audio
             gameOver.Close();
             detonationBrickWall.Close();
             highScore.Close();
+            twoFire.Close();
         }
 
         public void DetonationBrickWall()

@@ -17,12 +17,12 @@ namespace SuperTank
 
         protected override void Fire()
         {
-            base.Fire();
+            base.FireWithoutSound();
 
             Shell2 = GetShell(VelosityShell - 2);
             Shell2.UnitDisposable += u => { Shell2 = null; };
             Shell2.Start();
-            SoundGame.Fire2();
+            SoundGame.TwoFire();
         }
 
         public override bool TryFire()

@@ -45,6 +45,11 @@ namespace SuperTank
 
         #region Fire
 
+        protected void FireWithoutSound()
+        {
+            base.Fire();
+        }
+
         protected override void Fire()
         {
             base.Fire();

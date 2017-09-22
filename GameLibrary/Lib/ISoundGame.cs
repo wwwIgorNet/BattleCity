@@ -14,7 +14,7 @@ namespace SuperTank.Audio
         [OperationContract(IsOneWay = true)]
         void Fire();
         [OperationContract(IsOneWay = true)]
-        void Fire2();
+        void TwoFire();
         [OperationContract(IsOneWay = true)]
         void Glide();
         [OperationContract(IsOneWay = true)]
