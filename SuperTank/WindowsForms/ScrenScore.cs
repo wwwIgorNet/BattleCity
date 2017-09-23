@@ -3,9 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
@@ -56,7 +53,6 @@ namespace SuperTank.WindowsForms
             curentTank = TypeUnit.PlainTank;
             CreateImg();
         }
-
         public override void UpdateImage()
         {
             if (iteration < destrouTanksPlaeyr.Count)
@@ -86,6 +82,19 @@ namespace SuperTank.WindowsForms
             }
         }
 
+        protected override void Timer_Tick(object sender, EventArgs e)
+        {
+            if (DateTime.Now - StartTime < ConfigurationView.DelayScrenPoints)
+            {
+                UpdateImage();
+            }
+            else
+            {
+                IsAcive = false;
+                TimerStop();
+            }
+        }
+
         private void UpdateTank(float y, TypeUnit tank, int countTank)
         {
             if (countTank > 0)
@@ -107,7 +116,6 @@ namespace SuperTank.WindowsForms
             g.FillRectangle(Brushes.Black, new RectangleF(textCountTank.Point, textCountTank.Size));
             DrawString(g, textCountTank);
         }
-
         private void CreateImg()
         {
             Graphics g = Graphics.FromImage(ImgScren);
@@ -159,14 +167,13 @@ namespace SuperTank.WindowsForms
 
             DrawString(g, total);
         }
-
         private void DrawLine(Graphics g, float y, TypeUnit tankType)
         {
             Text pts = new Text(" PTS", Brushes.White);
             pts.Size = g.MeasureString(pts.Str, font);
             pts.X = thirdOfWidth - pts.Width;
             pts.Y = y;
-            
+
             pointsRightX = pts.X;
 
             Image tank = null;
@@ -198,23 +205,9 @@ namespace SuperTank.WindowsForms
             DrawString(g, arrow);
             g.DrawImage(tank, posTank);
         }
-
         private void DrawString(Graphics g, Text text)
         {
             g.DrawString(text.Str, font, text.Brush, text.Point);
-        }
-
-        protected override void Timer_Tick(object sender, EventArgs e)
-        {
-            if (DateTime.Now - StartTime < ConfigurationView.DelayScrenPoints)
-            {
-                UpdateImage();
-            }
-            else
-            {
-                IsAcive = false;
-                TimerStop();
-            }
         }
     }
 }

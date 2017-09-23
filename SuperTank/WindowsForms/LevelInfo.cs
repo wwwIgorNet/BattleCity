@@ -1,11 +1,5 @@
 ﻿using SuperTank.View;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
@@ -60,7 +54,7 @@ namespace SuperTank.WindowsForms
             Graphics g = Graphics.FromImage(bitmap);
 
             g.DrawString(countTankPlaeyr.ToString(), font, Brushes.Black, new Point(pointCountTankPlaeyr.X, pointCountTankPlaeyr.Y));
-;
+            ;
             g.DrawString(level.ToString(), font, Brushes.Black, new Point(pointLevel.X, pointLevel.Y));
 
             for (int i = 0; i < countTankEnemy; i++)

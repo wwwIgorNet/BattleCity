@@ -2,10 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
@@ -36,7 +33,7 @@ namespace SuperTank.WindowsForms
 
             levelInfo = new LevelInfo();
             this.ResumeLayout(false);
-            
+
             GraphicsOption();
         }
 
@@ -46,12 +43,10 @@ namespace SuperTank.WindowsForms
         {
             levelInfo.CountTankEnemy = count;
         }
-
         public void SetCountTankPlaeyr(int count)
         {
             levelInfo.CountTankPlaeyr = count;
         }
-
         public void StartLevel(int level)
         {
             viewLoadLevel.EndClose += () => levelInfo.Level = level;
@@ -63,12 +58,12 @@ namespace SuperTank.WindowsForms
             screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
             this.countPoints = countPoints;
         }
-
         public void GameOver()
         {
             Timer t = new Timer();
             t.Interval = ConfigurationView.TimeGameOver;
-            t.Tick += (o, s) => {
+            t.Tick += (o, s) =>
+            {
                 t.Stop();
                 gameOver.Invoke();
                 screnGameOver.IsAcive = false;

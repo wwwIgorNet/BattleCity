@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
@@ -17,7 +13,6 @@ namespace SuperTank.WindowsForms
         private Brush brush = Brushes.White;
         private Timer timer = new Timer();
         private DateTime start;
-
 
         public ScrenRecord(int points)
         {
@@ -32,13 +27,27 @@ namespace SuperTank.WindowsForms
             timer.Start();
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+
+            SizeF sizeScore = g.MeasureString(strScore, font);
+            SizeF sizePoints = g.MeasureString(strPoints, font);
+
+            float y = 150;
+            float x = Width / 2 - sizeScore.Width / 2;
+            g.DrawString(strScore, font, brush, x, y);
+            g.DrawString(strPoints, font, brush, x + sizeScore.Width - sizePoints.Width, y + sizeScore.Height);
+        }
+
         private void Timer_Tick(object sender, EventArgs e)
         {
-            if(brush == Brushes.White)
+            if (brush == Brushes.White)
             {
                 brush = Brushes.Yellow;
             }
-            else if(brush == Brushes.Yellow)
+            else if (brush == Brushes.Yellow)
             {
                 brush = Brushes.Blue;
             }
@@ -52,20 +61,6 @@ namespace SuperTank.WindowsForms
             {
                 timer.Stop();
             }
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
-
-            SizeF sizeScore = g.MeasureString(strScore, font);
-            SizeF sizePoints = g.MeasureString(strPoints, font);
-
-            float y = 150;
-            float x = Width / 2 - sizeScore.Width / 2;
-            g.DrawString(strScore, font, brush, x, y);
-            g.DrawString(strPoints, font, brush, x + sizeScore.Width - sizePoints.Width, y + sizeScore.Height);
         }
     }
 }

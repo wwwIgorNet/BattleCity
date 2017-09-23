@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SuperTank.View;
 using System.Drawing;
 
@@ -136,7 +132,6 @@ namespace SuperTank
         {
             return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, new Image[] { img, Images.BlankImage }, 6);
         }
-
         private static Image[] GetImgForStar()
         {
             return new Image[] {

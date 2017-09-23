@@ -11,11 +11,6 @@ namespace SuperTank
         {
             this.eagle2 = eagle2;
         }
-        
-        protected bool IsDetonation
-        {
-            get { return (bool)Properties[PropertiesType.Detonation]; }
-        }
 
         public override Image Img
         {
@@ -26,6 +21,11 @@ namespace SuperTank
 
                 return base.Img;
             }
+        }
+
+        protected bool IsDetonation
+        {
+            get { return (bool)Properties[PropertiesType.Detonation]; }
         }
     }
 }

@@ -1,11 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
@@ -18,7 +13,7 @@ namespace SuperTank.WindowsForms
         private TimeSpan timeCloseOrOpen;
         private int curentLevel;
         private string infoText;
-        
+
         public event Action EndClose;
 
         public void Start(int level)
@@ -29,7 +24,6 @@ namespace SuperTank.WindowsForms
             height = 0;
             infoText = null;
         }
-
         public override void UpdateImage()
         {
             Graphics g = Graphics.FromImage(ImgScren);
@@ -66,7 +60,7 @@ namespace SuperTank.WindowsForms
             else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationView.DelayScrenLoadLevel)
                 return;
 
-            else if(isOpening)
+            else if (isOpening)
             {
                 if (height > 0)
                 {

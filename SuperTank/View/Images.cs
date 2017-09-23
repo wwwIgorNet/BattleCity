@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
@@ -107,7 +104,7 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(shellRight , pathForShell + @"ShellRight.png");
+                return Validate(shellRight, pathForShell + @"ShellRight.png");
             }
         }
 
@@ -153,7 +150,7 @@ namespace SuperTank.View
                 return Validate(shellDetonationBig2, pathForDetonation + @"DetonationBig2.png");
             }
         }
-        
+
         public static Image Water_1
         {
             get
@@ -261,7 +258,7 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(invulnerable2, pathForInvulnerable+ @"Invulnerable2.png");
+                return Validate(invulnerable2, pathForInvulnerable + @"Invulnerable2.png");
             }
         }
 
@@ -271,7 +268,8 @@ namespace SuperTank.View
             try
             {
                 return img == null ? img = Image.FromFile(ConfigurationView.TexturePath + imgName) : img;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(imgName);
                 Console.WriteLine(ex.Message);

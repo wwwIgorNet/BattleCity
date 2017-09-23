@@ -21,7 +21,6 @@ namespace SuperTank.View
             sizeText = g.MeasureString(text, font);
         }
 
-
         public ViewPoints(int id, float x, float y, float width, float height, int zIndex) : base(id, x, y, width, height, zIndex)
         {
         }

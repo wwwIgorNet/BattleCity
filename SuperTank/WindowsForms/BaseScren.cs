@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
@@ -21,20 +17,6 @@ namespace SuperTank.WindowsForms
             timer.Tick += Timer_Tick;
         }
 
-        public virtual void Start()
-        {
-            startTime = DateTime.Now;
-            IsAcive = true;
-            TimerStart();
-        }
-
-        protected void SetInterval(int interval)
-        {
-            timer.Interval = interval;
-        }
-
-        public abstract void UpdateImage();
-
         public bool IsAcive { get; set; }
         public Image ImgScren { get { return imgScren; } }
         public float Width { get { return imgScren.Width; } }
@@ -42,6 +24,18 @@ namespace SuperTank.WindowsForms
 
         protected DateTime StartTime { get { return startTime; } }
 
+        public virtual void Start()
+        {
+            startTime = DateTime.Now;
+            IsAcive = true;
+            TimerStart();
+        }
+        public abstract void UpdateImage();
+
+        protected void SetInterval(int interval)
+        {
+            timer.Interval = interval;
+        }
         protected void TimerStart()
         {
             timer.Start();
@@ -50,7 +44,6 @@ namespace SuperTank.WindowsForms
         {
             timer.Stop();
         }
-
         protected abstract void Timer_Tick(object sender, EventArgs e);
     }
 }

@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
@@ -33,7 +29,7 @@ namespace SuperTank.WindowsForms
             pointDrawImg = new PointF(0, Height);
         }
 
-        public bool  IsActiv { get; set; }
+        public bool IsActiv { get; set; }
         public int IndexMenu
         {
             get
@@ -89,7 +85,7 @@ namespace SuperTank.WindowsForms
             string str1Player = "1 PLAYER";
             string str2Player = "2 PLAYERS";
             string strConstructor = "CONSTRUCTION";
-            string strCompany= "company";
+            string strCompany = "company";
             string strYear = "© 2015-2017 COMPANY LTD.";
             string strRights = "ALL RIGHTS RESERVED";
 
@@ -123,7 +119,7 @@ namespace SuperTank.WindowsForms
         private void Timer_Tick(object sender, EventArgs e)
         {
             pointDrawImg.Y -= 5;
-            if(pointDrawImg.Y <= 0)
+            if (pointDrawImg.Y <= 0)
             {
                 pointDrawImg.Y = 0;
                 timer.Stop();

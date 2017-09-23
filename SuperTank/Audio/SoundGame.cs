@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
 using SuperTank.View;
-using System.Drawing;
 using System.Windows.Media;
 using System.ServiceModel;
 
@@ -69,56 +63,46 @@ namespace SuperTank.Audio
             gameOver.Stop();
             gameOver.Play();
         }
-
         public void GameStart()
         {
             gameStart.Stop();
             gameStart.Play();
         }
-
         public void Fire()
         {
             fire.Stop();
             fire.Play();
         }
-
         public void TwoFire()
         {
             twoFire.Stop();
             twoFire.Play();
         }
-
         public void DetonationTank()
         {
             bigDetonation.Stop();
             bigDetonation.Play();
         }
-
-
         public void DetonationShell()
         {
             detonationShell.Stop();
             detonationShell.Play();
         }
-
         public void Glide()
         {
             glide.Stop();
             glide.Play();
         }
-
         public void Move()
         {
             stop.Stop();
             move.Play();
         }
-
         public void Stop()
         {
             move.Stop();
             stop.Play();
         }
-
         public void Dispose()
         {
             stop.Close();
@@ -133,43 +117,36 @@ namespace SuperTank.Audio
             highScore.Close();
             twoFire.Close();
         }
-
         public void DetonationBrickWall()
         {
             detonationBrickWall.Stop();
             detonationBrickWall.Play();
         }
-
         public void TankSoundStop()
         {
             stop.Stop();
             move.Stop();
         }
-
         public void DetonationEagle()
         {
             detonationEagle.Stop();
             detonationEagle.Play();
         }
-
         public void Bonus()
         {
             bonus.Stop();
             bonus.Play();
         }
-
         public void NewBonus()
         {
             newBonus.Stop();
             newBonus.Play();
         }
-
         public void CountTankIncrement()
         {
             countTankIncrement.Stop();
             countTankIncrement.Play();
         }
-
         public void HighScore()
         {
             highScore.Play();

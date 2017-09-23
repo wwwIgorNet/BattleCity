@@ -1,10 +1,4 @@
-﻿using SuperTank.View;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SuperTank.WindowsForms
 {
@@ -29,16 +23,13 @@ namespace SuperTank.WindowsForms
             get { return point.Y; }
             set { point.Y = value; }
         }
-
         public PointF Point
         {
             get { return point; }
             set { point = value; }
         }
-
         public float Width { get { return Size.Width; } }
         public float Height { get { return Size.Height; } }
-
         public SizeF Size { get; set; }
         public string Str { get; set; }
     }

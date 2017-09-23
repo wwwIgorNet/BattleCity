@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.WindowsForms
 {
@@ -35,7 +31,6 @@ namespace SuperTank.WindowsForms
             base.Start();
             Y = base.ImgScren.Height;
         }
-
         public override void UpdateImage()
         {
             Graphics g = Graphics.FromImage(base.ImgScren);

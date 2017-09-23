@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
@@ -18,26 +14,6 @@ namespace SuperTank.View
         {
             this.images = imges;
             this.countFrame = images[Direction.Up].Length;
-        }
-
-        protected virtual Dictionary<Direction, Image[]> Images
-        {
-            set { images = value; }
-            get { return images; }
-        }
-        protected Direction Direction
-        {
-            get
-            {
-                return (Direction)Properties[PropertiesType.Direction];
-            }
-        }
-        protected bool IsStop
-        {
-            get
-            {
-                return (bool)Properties[PropertiesType.IsParking];
-            }
         }
 
         public override Image Img
@@ -71,6 +47,26 @@ namespace SuperTank.View
                 }
 
                 return res;
+            }
+        }
+
+        protected virtual Dictionary<Direction, Image[]> Images
+        {
+            set { images = value; }
+            get { return images; }
+        }
+        protected Direction Direction
+        {
+            get
+            {
+                return (Direction)Properties[PropertiesType.Direction];
+            }
+        }
+        protected bool IsStop
+        {
+            get
+            {
+                return (bool)Properties[PropertiesType.IsParking];
             }
         }
     }

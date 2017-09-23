@@ -60,7 +60,7 @@ namespace SuperTank.WindowsForms
         {
             isStartScrin = false;
             sceneView = new SceneView();
-            screnGame = new ScrenGame(sceneView,  this.GameOver);
+            screnGame = new ScrenGame(sceneView, this.GameOver);
 
             this.OpenHost();
             Controls.Remove(startScren);
@@ -225,18 +225,18 @@ namespace SuperTank.WindowsForms
             }
             else if (isStartScrin)
             {
-                if(e.KeyCode == Keys.Enter)
+                if (e.KeyCode == Keys.Enter)
                 {
                     if (startScren.IndexMenu == 0)
                     {
                         StartNewGame();
                     }
                 }
-                else if(e.KeyCode == Keys.Up)
+                else if (e.KeyCode == Keys.Up)
                 {
                     startScren.MenuCursorUp();
                 }
-                else if(e.KeyCode == Keys.Down)
+                else if (e.KeyCode == Keys.Down)
                 {
                     startScren.MenuCursorDown();
                 }
