@@ -23,6 +23,7 @@ namespace SuperTank
         private int curentLevel;
         private Player plaeyr;
         private Enemy enemy;
+        private bool gameOver;
 
         static LevelManager()
         {
@@ -51,6 +52,9 @@ namespace SuperTank
 
         public void GameOver()
         {
+            if (gameOver) return;
+
+            gameOver = true;
             startGameOver = DateTime.Now;
             gameInfo.GameOver();
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
@@ -78,6 +82,7 @@ namespace SuperTank
 
             System.Threading.ThreadPool.QueueUserWorkItem(s => {
                 System.Threading.Thread.Sleep(3000);
+                if (gameOver) return;
 
                 EndLevel();
 
