@@ -170,22 +170,22 @@ namespace SuperTank.WindowsForms
         {
             hostSound = new ServiceHost(soundGame);
             hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
             hostSound.Open();
 
             hostSceneView = new ServiceHost(sceneView);
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             hostSceneView.Open();
 
             hostGameInfo = new ServiceHost(screnGame);
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             hostGameInfo.Open();
         }
         public void OpenChenalFactory()
         {
-            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
+            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
             Keyboard = factoryKeyboard.CreateChannel();
         }
         public void CloseChenalFactory()

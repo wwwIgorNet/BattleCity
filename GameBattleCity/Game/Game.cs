@@ -18,27 +18,7 @@ namespace SuperTank
 
         public void Start()
         {
-            Keyboard keyboard = new Keyboard();
-            hostKeyboard = new ServiceHost(keyboard);
-            hostKeyboard.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostKeyboard.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://localhost:9090/IKeyboard");
-            hostKeyboard.Open();
-
-            factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://localhost:9090/IRender");
-            IRender render = factoryRender.CreateChannel();
-
-            factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://localhost:9090/ISoundGame");
-            ISoundGame sound = factorySound.CreateChannel();
-
-            factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://localhost:9090/IGameInfo");
-            IGameInfo gameInfo = factoryGameInfo.CreateChannel();
-
-            plaeyr = new Player(sound, Owner.Player, keyboard, gameInfo);
-            enemy = new Enemy(gameInfo);
-            Scene.Render = render;
-            levelManager = new LevelManager(sound, gameInfo, plaeyr, enemy);
-
-            render.Init();
+            InitGame();
 
             levelManager.StartLevel();
         }
@@ -55,6 +35,31 @@ namespace SuperTank
         public void CloseHost()
         {
             hostKeyboard.Close();
+        }
+
+        private void InitGame()
+        {
+            Keyboard keyboard = new Keyboard();
+            hostKeyboard = new ServiceHost(keyboard);
+            hostKeyboard.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostKeyboard.AddServiceEndpoint(typeof(IKeyboard), new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
+            hostKeyboard.Open();
+
+            factoryRender = new ChannelFactory<IRender>(new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
+            IRender render = factoryRender.CreateChannel();
+
+            factorySound = new ChannelFactory<ISoundGame>(new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
+            ISoundGame sound = factorySound.CreateChannel();
+
+            factoryGameInfo = new ChannelFactory<IGameInfo>(new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
+            IGameInfo gameInfo = factoryGameInfo.CreateChannel();
+
+            plaeyr = new Player(sound, Owner.Player, keyboard, gameInfo);
+            enemy = new Enemy(gameInfo);
+            Scene.Render = render;
+            levelManager = new LevelManager(sound, gameInfo, plaeyr, enemy);
+
+            render.Init();
         }
     }
 }
