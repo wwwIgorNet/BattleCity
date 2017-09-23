@@ -1,9 +1,5 @@
 ﻿using SuperTank.Audio;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -13,12 +9,10 @@ namespace SuperTank
         {
             return FactoryUnit.CreateUnit(x, y, ConfigurationGame.WidthTile, ConfigurationGame.HeightTile, type);
         }
-
         public static Unit CreateUnit(int x, int y, int width, int height, TypeUnit type)
         {
             return new Unit(NextID, x, y, width, height, type);
         }
-
         public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, bool isBonusTank)
         {
             Dictionary<PropertiesType, object> prop = null;
@@ -72,18 +66,15 @@ namespace SuperTank
             }
             return null;
         }
-
         public static Bonus CreateBonus(int x, int y, int width, int height, TypeUnit type)
         {
             return new Bonus(NextID, x, y, width, height, type);
         }
-
-        internal static Unit CreateEagle(int x, int y, ISoundGame soundGame)
+        public static Unit CreateEagle(int x, int y, ISoundGame soundGame)
         {
             Unit eagle = new Eagle(NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, TypeUnit.Eagle, soundGame);
             return eagle;
         }
-
         public static TankPlayer CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, ISoundGame soundGame, Player plaeyr)
         {
             TankPlayer tank = null;
@@ -104,38 +95,32 @@ namespace SuperTank
             }
             return tank;
         }
-
         public static Star CreateStar(TypeUnit type, Tank tank)
         {
             return new Star(NextID, tank.X, tank.Y, tank.Width, tank.Height, type, tank);
         }
-
         public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, Tank ownerTank)
         {
             Shell shell = new Shell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank);
             return shell;
         }
-
         public static Shell CreateShell(int x, int y, TypeUnit type, Direction direction, int velosityShell, TankPlayer ownerTank, ISoundGame soundGame)
         {
-            if(type == TypeUnit.Shell)
+            if (type == TypeUnit.Shell)
                 return new PlayerShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
-            if(type == TypeUnit.ConcreteWallShell)
+            if (type == TypeUnit.ConcreteWallShell)
                 return new ConcreteWallShell(NextID, x, y, ConfigurationGame.WidthShell, ConfigurationGame.HeightShell, type, velosityShell, direction, ownerTank, soundGame);
 
             return null;
         }
-
         public static BigDetonation CreateBigDetonation(Unit unit, TypeUnit type)
         {
             return new BigDetonation(NextID, unit.X, unit.Y, unit.Width, unit.Height, type);
         }
-
         public static Points CreatePoints(int x, int y, TypeUnit type, int points)
         {
             return new Points(NextID, x, y, ConfigurationGame.WidthTile * 2, ConfigurationGame.HeightTile * 2, type, points);
         }
-
         private static int NextID { get { return Unit.NextID; } }
     }
 }

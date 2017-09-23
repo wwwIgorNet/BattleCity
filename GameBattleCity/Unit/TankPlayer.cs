@@ -1,11 +1,5 @@
 ﻿using SuperTank.Audio;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace SuperTank
 {
@@ -21,7 +15,6 @@ namespace SuperTank
 
         public Player OwnerPlaeyr { get; }
         public ISoundGame SoundGame { get { return soundGame; } }
-
         public override bool IsParking
         {
             set
@@ -39,31 +32,9 @@ namespace SuperTank
         {
             base.Turn(dir);
             // если направление изменилось и танк на льду
-            if(OnIce && Direction == dir)
+            if (OnIce && Direction == dir)
                 soundGame.Glide();
         }
-
-        #region Fire
-
-        protected void FireWithoutSound()
-        {
-            base.Fire();
-        }
-
-        protected override void Fire()
-        {
-            base.Fire();
-            soundGame.Fire();
-        }
-
-        protected override Shell GetShell(int velosityShell)
-        {
-            Point pos = GetCoordNewShell();
-            return FactoryUnit.CreateShell(pos.X, pos.Y, TypeShell, Direction, velosityShell, this, soundGame);
-        }
-
-        #endregion
-
         public override void Dispose()
         {
             base.Dispose();
@@ -72,7 +43,6 @@ namespace SuperTank
             OwnerPlaeyr.CurrentTank = null;
             OwnerPlaeyr.TryAddToScene();
         }
-
         public override void Move()
         {
             base.Move();
@@ -112,5 +82,22 @@ namespace SuperTank
                 }
             }
         }
+
+        #region Fire
+        protected void FireWithoutSound()
+        {
+            base.Fire();
+        }
+        protected override void Fire()
+        {
+            base.Fire();
+            soundGame.Fire();
+        }
+        protected override Shell GetShell(int velosityShell)
+        {
+            Point pos = GetCoordNewShell();
+            return FactoryUnit.CreateShell(pos.X, pos.Y, TypeShell, Direction, velosityShell, this, soundGame);
+        }
+        #endregion
     }
 }

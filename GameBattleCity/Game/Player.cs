@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -29,17 +26,8 @@ namespace SuperTank
 
         public event Action PlayerGameOver;
 
-        private void InitDestroyedTanks()
-        {
-            DestroyedTanks = new Dictionary<TypeUnit, int>()
-            {
-                { TypeUnit.PlainTank, 0 },
-                { TypeUnit.ArmoredPersonnelCarrierTank, 0 },
-                { TypeUnit.QuickFireTank, 0 },
-                { TypeUnit.ArmoredTank, 0}
-            };
-        }
-
+        public int Points { get; set; }
+        public TankPlayer CurrentTank { get; set; }
         public int CountTank
         {
             get
@@ -52,16 +40,12 @@ namespace SuperTank
                 countTank = value;
             }
         }
-
-        public int Points { get; set; }
         public Dictionary<TypeUnit, int> DestroyedTanks { get; protected set; }
-        public TankPlayer CurrentTank { get; set; }
 
         public void Clear()
         {
             InitDestroyedTanks();
         }
-
         public override void Start()
         {
             if (CountTank > 0 || CurrentTank != null)
@@ -70,7 +54,6 @@ namespace SuperTank
                 AddToScene(CurrentTank == null ? TypeUnit.SmallTankPlaeyr : CurrentTank.Type);
             }
         }
-
         public void TryAddToScene()
         {
             if (isEagleDestroed) return;
@@ -90,6 +73,16 @@ namespace SuperTank
                 PlayerGameOver.Invoke();
             }
         }
+        public override void Update()
+        {
+            TryAddToScene();
+        }
+        public void EagleDestoed()
+        {
+            LevelManager.Updatable.Remove(CurrentTank);
+            soundGame.TankSoundStop();
+            isEagleDestroed = true;
+        }
 
         private void AddToScene(TypeUnit typeTank)
         {
@@ -104,17 +97,15 @@ namespace SuperTank
             new HelmetBonus(CurrentTank, 6).Start();
             Stop();
         }
-
-        public override void Update()
+        private void InitDestroyedTanks()
         {
-            TryAddToScene();
-        }
-
-        public void EagleDestoed()
-        {
-            LevelManager.Updatable.Remove(CurrentTank);
-            soundGame.TankSoundStop();
-            isEagleDestroed = true;
+            DestroyedTanks = new Dictionary<TypeUnit, int>()
+            {
+                { TypeUnit.PlainTank, 0 },
+                { TypeUnit.ArmoredPersonnelCarrierTank, 0 },
+                { TypeUnit.QuickFireTank, 0 },
+                { TypeUnit.ArmoredTank, 0}
+            };
         }
     }
 }

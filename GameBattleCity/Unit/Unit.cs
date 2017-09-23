@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.ComponentModel;
 using System.Drawing;
 
 namespace SuperTank
@@ -24,9 +21,10 @@ namespace SuperTank
             nextId++;
         }
 
-        public static int NextID { get { return nextId; } }
         public event Action<int, PropertiesType, object> PropertyChanged;
         public event Action<Unit> UnitDisposable;
+
+        public static int NextID { get { return nextId; } }
 
         public int ID { get { return id; } }
         public int X
@@ -76,11 +74,15 @@ namespace SuperTank
         public Rectangle BoundingBox { get { return boundingBox; } }
         public TypeUnit Type { get { return type; } }
         public IDictionary<PropertiesType, object> Properties { get { return properties; } }
-        
-        protected void OnPropertyChenges(PropertiesType type, Object value)
+
+        public void AddToScene()
         {
-            if (PropertyChanged != null)
-                PropertyChanged.Invoke(ID, type, value);
+            Scene.Add(this);
+        }
+        public virtual void Dispose()
+        {
+            Scene.Remove(this);
+            OnUnitDisposable();
         }
         public override bool Equals(object obj)
         {
@@ -91,7 +93,6 @@ namespace SuperTank
                 return false;
             return unit.ID.Equals(ID);
         }
-
         public override int GetHashCode()
         {
             return ID.GetHashCode();
@@ -102,26 +103,15 @@ namespace SuperTank
             if (UnitDisposable != null)
                 UnitDisposable.Invoke(this);
         }
-
-        public virtual void Dispose()
+        protected void OnPropertyChenges(PropertiesType type, Object value)
         {
-            Scene.Remove(this);
-            OnUnitDisposable();
-        }
-
-        public void AddToScene()
-        {
-            Scene.Add(this);
+            if (PropertyChanged != null)
+                PropertyChanged.Invoke(ID, type, value);
         }
 
         private class PropertiesUnit : Dictionary<PropertiesType, object>, IDictionary<PropertiesType, object>
         {
             private Unit unit;
-
-            public PropertiesUnit(Unit unit)
-            {
-                this.unit = unit;
-            }
 
             public new object this[PropertiesType key]
             {
@@ -139,6 +129,11 @@ namespace SuperTank
                         unit.OnPropertyChenges(key, value);
                     }
                 }
+            }
+
+            public PropertiesUnit(Unit unit)
+            {
+                this.unit = unit;
             }
         }
     }

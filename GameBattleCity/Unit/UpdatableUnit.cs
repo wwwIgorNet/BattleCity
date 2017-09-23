@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     public abstract class UpdatableUnit : Unit, IUpdatable
     {
@@ -16,7 +10,6 @@ namespace SuperTank
         {
             LevelManager.Updatable.Add(this);
         }
-
         public override void Dispose()
         {
             base.Dispose();

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SuperTank
 {
@@ -36,14 +32,12 @@ namespace SuperTank
             RemoveUnitAroundEagle();
             AddUnitAroundEagle(TypeUnit.ConcreteWall);
         }
-
         public override void Dispose()
         {
             base.Dispose();
             RemoveUnitAroundEagle();
             AddUnitAroundEagle(TypeUnit.BrickWall);
         }
-
         public override void Update()
         {
             TimeSpan period = DateTime.Now - startTime;
@@ -79,13 +73,11 @@ namespace SuperTank
             }
             Scene.AddRange(unitsAroundEagle);
         }
-
         private void RemoveUnitAroundEagle()
         {
             foreach (Unit unit in unitsAroundEagle)
                 unit.Dispose();
         }
-
         private void GetUnitsAroundEagle()
         {
             Rectangle rec = new Rectangle(0, 0, size.Width, size.Height);

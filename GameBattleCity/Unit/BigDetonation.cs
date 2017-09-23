@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     class BigDetonation : UpdatableUnit
     {
@@ -19,7 +13,6 @@ namespace SuperTank
             if (iterationUpdate == ConfigurationGame.TimeBigDetonation)
                 Dispose();
         }
-
         public override void Start()
         {
             base.Start();

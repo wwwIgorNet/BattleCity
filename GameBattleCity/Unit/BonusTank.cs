@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SuperTank
 {
@@ -27,6 +22,13 @@ namespace SuperTank
             Properties[PropertiesType.IsBonusTank] = true;
         }
 
+        public Point GenerePositionForBonus()
+        {
+            int x = LevelManager.Random.Next(0, ConfigurationGame.WidthBoard / (ConfigurationGame.WidthTile * 2)) * ConfigurationGame.WidthTile * 2;
+            int y = LevelManager.Random.Next(0, ConfigurationGame.HeightBoard / (ConfigurationGame.HeightTile * 2)) * ConfigurationGame.HeightTile * 2;
+
+            return new Point(x, y);
+        }
         public override void Dispose()
         {
             base.Dispose();
@@ -38,14 +40,6 @@ namespace SuperTank
         protected TypeUnit GetBonusType()
         {
             return bonuses[LevelManager.Random.Next(0, bonuses.Length - 1)];
-        }
-
-        public Point GenerePositionForBonus()
-        {
-            int x = LevelManager.Random.Next(0, ConfigurationGame.WidthBoard / (ConfigurationGame.WidthTile * 2)) * ConfigurationGame.WidthTile * 2;
-            int y = LevelManager.Random.Next(0, ConfigurationGame.HeightBoard / (ConfigurationGame.HeightTile * 2)) * ConfigurationGame.HeightTile * 2;
-
-            return new Point(x, y);
         }
     }
 }

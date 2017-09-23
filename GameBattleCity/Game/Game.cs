@@ -1,13 +1,7 @@
-﻿using SuperTank;
-using SuperTank.Audio;
+﻿using SuperTank.Audio;
 using SuperTank.View;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Timers;
 
 namespace SuperTank
 {
@@ -21,7 +15,6 @@ namespace SuperTank
         private ChannelFactory<IRender> factoryRender;
         private ChannelFactory<ISoundGame> factorySound;
         private ChannelFactory<IGameInfo> factoryGameInfo;
-
 
         public void Start()
         {
@@ -49,19 +42,16 @@ namespace SuperTank
 
             levelManager.StartLevel();
         }
-
         public void Stop()
         {
             levelManager.Stop();
         }
-
         public void CloseFactory()
         {
             factorySound.Abort();
             factoryRender.Abort();
             factoryGameInfo.Abort();
         }
-
         public void CloseHost()
         {
             hostKeyboard.Close();

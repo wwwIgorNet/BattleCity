@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -24,13 +20,11 @@ namespace SuperTank
             tank.Properties[PropertiesType.IsInvulnerable] = true;
             startTime = DateTime.Now;
         }
-
         public override void Dispose()
         {
             base.Dispose();
             tank.Properties[PropertiesType.IsInvulnerable] = false;
         }
-
         public override void Update()
         {
             if (DateTime.Now - startTime > timeOfAction)

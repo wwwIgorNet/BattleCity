@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -40,8 +36,24 @@ namespace SuperTank
             }
         }
 
-        #region Move
+        public override void Update()
+        {
+            if (!IsPause) driver.Update();
+        }
+        public override void Start()
+        {
+            base.Start();
+            AddToScene();
+            Scene.Tanks.Add(this);
+            IsPause = false;
+        }
+        public override void Dispose()
+        {
+            base.Dispose();
+            Scene.Tanks.Remove(this);
+        }
 
+        #region Move
         public virtual bool IsParking
         {
             get { return (bool)Properties[PropertiesType.IsParking]; }
@@ -50,6 +62,12 @@ namespace SuperTank
 
         protected virtual bool OnIce { get; set; }
 
+        public virtual void Move()
+        {
+            IsParking = false;
+            MoveColision();
+            glidIteration = 0;
+        }
 
         private void Move(ref Rectangle rect, int spead)
         {
@@ -69,7 +87,6 @@ namespace SuperTank
                     break;
             }
         }
-
         private void MoveColision()
         {
             Rectangle rect = BoundingBox;
@@ -84,14 +101,12 @@ namespace SuperTank
 
             TestOnIce(colision);
         }
-
         private void TestOnIce(List<Unit> colision)
         {
             if (colision.Find(u => u.Type == TypeUnit.Ice && u.BoundingBox.IntersectsWith(BoundingBox)) != null)
                 OnIce = true;
             else OnIce = false;
         }
-
         private void MoveToRect(Rectangle rect)
         {
             switch (Direction)
@@ -106,7 +121,6 @@ namespace SuperTank
                     break;
             }
         }
-
         private void Ofset(ref Rectangle rect, List<Unit> colision)
         {
             for (int i = 0; i < colision.Count; i++)
@@ -122,7 +136,7 @@ namespace SuperTank
                     case TypeUnit.ArmoredPersonnelCarrierTank:
                     case TypeUnit.QuickFireTank:
                     case TypeUnit.ArmoredTank:
-                        
+
                     case TypeUnit.BrickWall:
                     case TypeUnit.ConcreteWall:
                     case TypeUnit.Water:
@@ -130,10 +144,9 @@ namespace SuperTank
                         while (rect.IntersectsWith(colision[i].BoundingBox))
                             Move(ref rect, -1);
                         break;
-                }       
+                }
             }
         }
-
         private List<Unit> ColisionWithUnit(Rectangle rect)
         {
             List<Unit> res = new List<Unit>(2);
@@ -143,22 +156,35 @@ namespace SuperTank
 
             return res;
         }
-
-        public virtual void Move()
-        {
-            IsParking = false;
-            MoveColision();
-            glidIteration = 0;
-        }
         #endregion
 
         #region Stop
-
         public virtual void Stop()
         {
             if (Glide()) return;
 
             IsParking = OffsetToBorderTile();
+        }
+
+        protected bool OffsetToBorderTile()
+        {
+            bool res = false;
+            switch (Direction)
+            {
+                case Direction.Left:
+                    res = Offset(false, X, ConfigurationGame.WidthTile);
+                    break;
+                case Direction.Up:
+                    res = Offset(false, Y, ConfigurationGame.HeightTile);
+                    break;
+                case Direction.Right:
+                    res = Offset(true, X, ConfigurationGame.WidthTile);
+                    break;
+                case Direction.Down:
+                    res = Offset(true, Y, ConfigurationGame.HeightTile);
+                    break;
+            }
+            return res;
         }
 
         private bool Glide()
@@ -189,28 +215,6 @@ namespace SuperTank
 
             return false;
         }
-
-        protected bool OffsetToBorderTile()
-        {
-            bool res = false;
-            switch (Direction)
-            {
-                case Direction.Left:
-                    res = Offset(false, X, ConfigurationGame.WidthTile);
-                    break;
-                case Direction.Up:
-                    res = Offset(false, Y, ConfigurationGame.HeightTile);
-                    break;
-                case Direction.Right:
-                    res = Offset(true, X, ConfigurationGame.WidthTile);
-                    break;
-                case Direction.Down:
-                    res = Offset(true, Y, ConfigurationGame.HeightTile);
-                    break;
-            }
-            return res;
-        }
-
         /// <summary>
         /// Смешение к границе тайла для управляемости танка на поворотах (зазор всего в 1 пиксель не даст проехать)
         /// </summary>
@@ -256,7 +260,6 @@ namespace SuperTank
         #endregion
 
         #region Turn
-
         public virtual void Turn(Direction dir)
         {
             // если розвернулся на 180 градусов
@@ -270,7 +273,6 @@ namespace SuperTank
         #endregion
 
         #region Fire
-
         public int VelosityShell { get { return velosityShell; } }
         public TypeUnit TypeShell { get { return typeShell; } }
         public virtual Shell Shell { get; set; }
@@ -283,20 +285,17 @@ namespace SuperTank
             return true;
         }
 
-
         protected virtual void Fire()
         {
             Shell = GetShell(velosityShell);
             Shell.UnitDisposable += u => Shell = null;
             Shell.Start();
         }
-
         protected virtual Shell GetShell(int velosityShell)
         {
             Point pos = GetCoordNewShell();
             return FactoryUnit.CreateShell(pos.X, pos.Y, typeShell, Direction, velosityShell, this);
         }
-
         protected Point GetCoordNewShell()
         {
             int x = 0;
@@ -322,26 +321,6 @@ namespace SuperTank
             }
             return new Point(x, y);
         }
-
         #endregion
-
-        public override void Update()
-        {
-            if(!IsPause) driver.Update();
-        }
-
-        public override void Start()
-        {
-            base.Start();
-            AddToScene();
-            Scene.Tanks.Add(this);
-            IsPause = false;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            Scene.Tanks.Remove(this);
-        }
     }
 }

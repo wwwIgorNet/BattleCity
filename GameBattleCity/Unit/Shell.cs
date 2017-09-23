@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     public class Shell : MovableUnit
     {
@@ -22,7 +16,6 @@ namespace SuperTank
             base.Start();
             AddToScene();
         }
-
         public override void Update()
         {
             if (IsDetonation)
@@ -47,11 +40,16 @@ namespace SuperTank
             set { Properties[PropertiesType.Owner] = value; }
             get { return (Owner)Properties[PropertiesType.Owner]; }
         }
-
         protected bool IsDetonation
         {
             set { Properties[PropertiesType.Detonation] = value; }
             get { return (bool)Properties[PropertiesType.Detonation]; }
+        }
+
+        protected virtual void Detonation(Unit item, bool dispouse)
+        {
+            if (item != null && dispouse) item.Dispose();
+            IsDetonation = true;
         }
 
         private void ColisionWichUnit()
@@ -82,7 +80,7 @@ namespace SuperTank
                             }
                             break;
                         case TypeUnit.ArmoredTank:
-                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
+                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
                             {
                                 int numberOfHits = (int)item.Properties[PropertiesType.NumberOfHits];
                                 numberOfHits++;
@@ -125,12 +123,6 @@ namespace SuperTank
                     }
                 }
             }
-        }
-
-        protected virtual void Detonation(Unit item, bool dispouse)
-        {
-            if (item != null && dispouse) item.Dispose();
-            IsDetonation = true;
         }
     }
 }

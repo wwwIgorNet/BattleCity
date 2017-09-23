@@ -1,8 +1,6 @@
-﻿using SuperTank.Audio;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
-    public interface IDriver: IUpdatable
+    public interface IDriver : IUpdatable
     {
         Tank Tank { get; set; }
     }

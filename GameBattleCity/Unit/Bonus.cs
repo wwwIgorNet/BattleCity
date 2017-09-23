@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -20,13 +16,11 @@ namespace SuperTank
             Scene.Bonus.Add(this);
             starTime = DateTime.Now;
         }
-
         public override void Dispose()
         {
             base.Dispose();
             Scene.Bonus.Remove(this);
         }
-
         public override void Update()
         {
             if (DateTime.Now - starTime > TimeSpan.FromSeconds(10))

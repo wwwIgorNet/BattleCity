@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace SuperTank
 {
@@ -33,24 +29,20 @@ namespace SuperTank
         {
             tankEnemy.Enqueue(tankType);
         }
-
         public TypeUnit GetTypeTank()
         {
             return tankEnemy.Dequeue();
         }
-
         public int CountTank()
         {
             return tankEnemy.Count;
         }
-
         public override void Start()
         {
             base.Start();
             for (int i = 0; i < positopn.Length; i++)
                 AddTank(i);
         }
-
         public override void Update()
         {
             if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Player)) + Scene.Stars.Count < 3)
@@ -65,8 +57,7 @@ namespace SuperTank
                 else iterationAddingTank++;
             }
         }
-
-        internal void Clear()
+        public void Clear()
         {
             tankEnemy.Clear();
             countRemoveTank = 0;
@@ -82,7 +73,7 @@ namespace SuperTank
                 isBonusTank = true;
 
             enemyDriver.Tank = FactoryUnit.CreateTank(positopn[posIndex].X, positopn[posIndex].Y, GetTypeTank(), Direction.Down, enemyDriver, isBonusTank);
-            enemyDriver.Tank.UnitDisposable += u => 
+            enemyDriver.Tank.UnitDisposable += u =>
             {
                 countRemoveTank++;
                 if (countRemoveTank == ConfigurationGame.CountTankEnemy)
@@ -94,11 +85,10 @@ namespace SuperTank
 
             gameInfo.SetCountTankEnemy(tankEnemy.Count);
         }
-
-        public int GetPosition()
+        private int GetPosition()
         {
             Size size = new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank);
-            
+
             for (int i = 0, index = oldPosition; i < positopn.Length; i++)
             {
                 index = (index >= positopn.Length - 1) ? 0 : index + 1;

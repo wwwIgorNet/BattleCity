@@ -1,11 +1,7 @@
 ﻿using SuperTank.Audio;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Timers;
 
 namespace SuperTank
@@ -30,7 +26,6 @@ namespace SuperTank
             timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
         }
-
         public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player plaeyr, Enemy enemy)
         {
             abortUpdate = false;
@@ -44,12 +39,14 @@ namespace SuperTank
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
         }
 
+        public static List<IUpdatable> Updatable { get { return updatable; } }
+        public static Random Random { get { return random; } }
+
         public void EagleDelited()
         {
             plaeyr.EagleDestoed();
             GameOver();
         }
-
         public void GameOver()
         {
             if (gameOver) return;
@@ -58,7 +55,8 @@ namespace SuperTank
             startGameOver = DateTime.Now;
             gameInfo.GameOver();
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
-            t.Elapsed += (s, a) => {
+            t.Elapsed += (s, a) =>
+            {
                 gameInfo.EndLevel(curentLevel, plaeyr.Points, plaeyr.DestroyedTanks);
                 abortUpdate = true;
                 Stop();
@@ -74,22 +72,6 @@ namespace SuperTank
             };
             t.Start();
         }
-
-        private void Enemy_RemoveAllTank()
-        {
-            if (curentLevel == ConfigurationBase.CountLevel)
-                curentLevel = 0;
-
-            System.Threading.ThreadPool.QueueUserWorkItem(s => {
-                System.Threading.Thread.Sleep(3000);
-                if (gameOver) return;
-
-                EndLevel();
-
-                StartLevel();
-            });
-        }
-
         public void EndLevel()
         {
             soundGame.TankSoundStop();
@@ -118,11 +100,6 @@ namespace SuperTank
             }
             System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenPoints);// todo
         }
-
-        public static List<IUpdatable> Updatable { get { return updatable; } }
-        public static Random Random { get { return random; } }
-
-
         public void CreateLevel(int level)
         {
             curentLevel = level;
@@ -137,7 +114,6 @@ namespace SuperTank
 
             LoadEnemyTank(linesTileMap[26], enemy);
         }
-
         public void StartLevel()
         {
             DateTime start = DateTime.Now;
@@ -153,7 +129,6 @@ namespace SuperTank
             abortUpdate = false;
             timer.Start();
         }
-
         public void Stop()
         {
             timer.Stop();
@@ -180,7 +155,6 @@ namespace SuperTank
                 }
             }
         }
-
         private List<Unit> GetStaticObjGame(string[] linesTileMap)
         {
             List<Unit> objGame = new List<Unit>();
@@ -215,7 +189,6 @@ namespace SuperTank
 
             return objGame;
         }
-
         private static void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             lock (timer)
@@ -226,6 +199,21 @@ namespace SuperTank
                     Updatable[i].Update();
                 }
             }
+        }
+        private void Enemy_RemoveAllTank()
+        {
+            if (curentLevel == ConfigurationBase.CountLevel)
+                curentLevel = 0;
+
+            System.Threading.ThreadPool.QueueUserWorkItem(s =>
+            {
+                System.Threading.Thread.Sleep(3000);
+                if (gameOver) return;
+
+                EndLevel();
+
+                StartLevel();
+            });
         }
     }
 }

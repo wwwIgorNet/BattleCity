@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -21,7 +17,6 @@ namespace SuperTank
             AddToScene();
             starTime = DateTime.Now;
         }
-
         public override void Update()
         {
             if (DateTime.Now - starTime > TimeSpan.FromSeconds(1))

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     class PistolBonus
     {
@@ -20,7 +14,6 @@ namespace SuperTank
             tank.OwnerPlaeyr.CurrentTank = FactoryUnit.CreateTank(tank.X, tank.Y, newType, tank.Direction, tank.Driver, tank.SoundGame, tank.OwnerPlaeyr);
             tank.OwnerPlaeyr.CurrentTank.Start();
             driver.Tank = tank.OwnerPlaeyr.CurrentTank;
-
         }
     }
 }

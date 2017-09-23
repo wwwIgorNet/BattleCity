@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
 using System.Windows.Forms;
 
 namespace SuperTank
@@ -14,6 +9,14 @@ namespace SuperTank
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Keyboard : IKeyboard
     {
+        public bool Enter { get; protected set; }
+        public bool Escape { get; protected set; }
+        public bool Left { get; protected set; }
+        public bool Right { get; protected set; }
+        public bool Down { get; protected set; }
+        public bool Up { get; protected set; }
+        public bool Space { get; protected set; }
+
         public void KeyDown(Keys key)
         {
             if (key == Keys.Left)
@@ -31,7 +34,6 @@ namespace SuperTank
             else if (key == Keys.Escape)
                 Escape = true;
         }
-
         public void KeyUp(Keys key)
         {
             if (key == Keys.Left)
@@ -49,14 +51,5 @@ namespace SuperTank
             else if (key == Keys.Escape)
                 Escape = false;
         }
-
-
-        public bool Enter { get; protected set; }
-        public bool Escape { get; protected set; }
-        public bool Left { get; protected set; }
-        public bool Right { get; protected set; }
-        public bool Down { get; protected set; }
-        public bool Up { get; protected set; }
-        public bool Space { get; protected set; }
     }
 }

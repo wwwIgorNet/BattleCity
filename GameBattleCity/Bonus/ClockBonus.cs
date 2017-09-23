@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -18,6 +14,17 @@ namespace SuperTank
             }
             else Dispose();
         }
+        public override void Start()
+        {
+            base.Start();
+            SetIsPause(true);
+            startTime = DateTime.Now;
+        }
+        public override void Dispose()
+        {
+            base.Dispose();
+            SetIsPause(false);
+        }
 
         private static void SetIsPause(bool isPause)
         {
@@ -28,19 +35,6 @@ namespace SuperTank
                     Scene.Tanks[i].IsPause = isPause;
                 }
             }
-        }
-
-        public override void Start()
-        {
-            base.Start();
-            SetIsPause(true);
-            startTime = DateTime.Now;
-        }
-
-        public override void Dispose()
-        {
-            base.Dispose();
-            SetIsPause(false);
         }
     }
 }

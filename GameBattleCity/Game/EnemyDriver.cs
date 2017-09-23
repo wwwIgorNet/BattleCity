@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     class EnemyDriver : IDriver
     {
@@ -27,7 +21,6 @@ namespace SuperTank
                 tank.Properties[PropertiesType.Owner] = Owner.Enemy;
             }
         }
-
         private Direction TankDirection
         {
             get { return (Direction)Tank.Properties[PropertiesType.Direction]; }

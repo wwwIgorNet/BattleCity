@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SuperTank
+﻿namespace SuperTank
 {
     public class Star : UpdatableUnit
     {
@@ -23,14 +17,12 @@ namespace SuperTank
             AddToScene();
             Scene.Stars.Add(this);
         }
-
         public override void Update()
         {
             if (delay == ConfigurationGame.TimeAppearanceOfTank)
                 Dispose();
             else delay++;
         }
-
         public override void Dispose()
         {
             base.Dispose();

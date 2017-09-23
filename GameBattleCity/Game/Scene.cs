@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Drawing;
-using System.Threading;
 
 namespace SuperTank
 {
@@ -21,6 +17,10 @@ namespace SuperTank
 
         public static int Height { get { return height; } }
         public static int Widtch { get { return width; } }
+        public static List<Unit> Units { get { return units; } }
+        public static List<Tank> Tanks { get { return tanks; } }
+        public static List<Unit> Bonus { get { return bonus; } }
+        public static List<Unit> Stars { get { return stars; } }
 
         public static void Clear()
         {
@@ -30,12 +30,6 @@ namespace SuperTank
             stars.Clear();
             Render.Clear();
         }
-
-        public static List<Unit> Units { get { return units; } }
-        public static List<Tank> Tanks { get { return tanks; } }
-        public static List<Unit> Bonus { get { return bonus; } }
-        public static List<Unit> Stars { get { return stars; } }
-
         public static bool ColisionBoard(Unit unit)
         {
             return ColisionBoard(unit.BoundingBox);
@@ -61,6 +55,36 @@ namespace SuperTank
 
             unit.PropertyChanged += Unit_PropertyChanged;
         }
+        public static void Remove(Unit unit)
+        {
+            units.Remove(unit);
+            Render.Remove(unit.ID);
+        }
+        public static void AddRange(List<Unit> collection)
+        {
+            units.AddRange(collection);
+            List<UnitDataForView> data = new List<UnitDataForView>();
+            for (int i = 0; i < collection.Count; i++)
+            {
+                Unit u = collection[i];
+                data.Add(new UnitDataForView(u.ID, u.Type, u.X, u.Y, GetPropertiesForView(u)));
+                u.PropertyChanged += Unit_PropertyChanged;
+            }
+
+            Render.AddRange(data);
+        }
+        public static bool IsFreePosition(Rectangle recPos)
+        {
+            for (int i = 0; i < Scene.Tanks.Count; i++)
+                if (Scene.Tanks[i].BoundingBox.IntersectsWith(recPos))
+                    return false;
+
+            for (int i = 0; i < Scene.Stars.Count; i++)
+                if (Scene.Stars[i].BoundingBox.IntersectsWith(recPos))
+                    return false;
+
+            return true;
+        }
 
         private static void Unit_PropertyChanged(int id, PropertiesType propType, object val)
         {
@@ -77,7 +101,6 @@ namespace SuperTank
                     break;
             }
         }
-
         private static Dictionary<PropertiesType, object> GetPropertiesForView(Unit unit)
         {
             Dictionary<PropertiesType, object> properties = null;
@@ -124,39 +147,6 @@ namespace SuperTank
             }
 
             return properties;
-        }
-
-        public static void Remove(Unit unit)
-        {
-            units.Remove(unit);
-            Render.Remove(unit.ID);
-        }
-
-        public static void AddRange(List<Unit> collection)
-        {
-            units.AddRange(collection);
-            List<UnitDataForView> data = new List<UnitDataForView>();
-            for (int i = 0; i < collection.Count; i++)
-            {
-                Unit u = collection[i];
-                data.Add(new UnitDataForView(u.ID, u.Type, u.X, u.Y, GetPropertiesForView(u)));
-                u.PropertyChanged += Unit_PropertyChanged;
-            }
-
-            Render.AddRange(data);
-        }
-
-        public static bool IsFreePosition(Rectangle recPos)
-        {
-            for (int i = 0; i < Scene.Tanks.Count; i++)
-                if (Scene.Tanks[i].BoundingBox.IntersectsWith(recPos))
-                    return false;
-
-            for (int i = 0; i < Scene.Stars.Count; i++)
-                if (Scene.Stars[i].BoundingBox.IntersectsWith(recPos))
-                    return false;
-
-            return true;
         }
     }
 }
