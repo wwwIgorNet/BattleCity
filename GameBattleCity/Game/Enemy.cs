@@ -7,6 +7,7 @@ namespace SuperTank
 {
     public class Enemy : BaseOwner
     {
+        private float delayAddingTank = ConfigurationGame.DelayAddingTank;
         private IGameInfo gameInfo;
         private int countRemoveTank;
         private Queue<TypeUnit> tankEnemy = new Queue<TypeUnit>(20);
@@ -18,11 +19,31 @@ namespace SuperTank
                 };
         private int oldPosition;
         private int iterationAddingTank = 0;
-        public event Action RemoveAllTank;
+        private int countTankInScene = 3;
 
         public Enemy(IGameInfo gameInfo)
         {
             this.gameInfo = gameInfo;
+            RemoveAllTank += () => 
+            {
+                DelayAddingTank -= (float)ConfigurationGame.DelayAddingTank / ConfigurationGame.CountLevel;
+            };
+        }
+
+        public event Action RemoveAllTank;
+        
+        private float DelayAddingTank
+        {
+            get { return delayAddingTank; }
+            set
+            {
+                delayAddingTank = value;
+                if(delayAddingTank <= 0)
+                {
+                    delayAddingTank = ConfigurationGame.DelayAddingTank;
+                    countTankInScene++;
+                }
+            }
         }
 
         public void AddTypeTank(TypeUnit tankType)
@@ -45,9 +66,9 @@ namespace SuperTank
         }
         public override void Update()
         {
-            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Player)) + Scene.Stars.Count < 3)
+            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Player)) + Scene.Stars.Count < countTankInScene)
             {
-                if (iterationAddingTank > ConfigurationGame.DelayAddingTank)
+                if (iterationAddingTank > DelayAddingTank)
                 {
                     int posIndex = GetPosition();
                     if (posIndex == -1) return;

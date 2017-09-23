@@ -123,7 +123,6 @@ namespace SuperTank
             Scene.Clear();
             CreateLevel(curentLevel + 1);
             System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
-
             plaeyr.Start();
             enemy.Start();
             abortUpdate = false;

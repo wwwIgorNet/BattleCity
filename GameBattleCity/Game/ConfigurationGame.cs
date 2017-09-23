@@ -64,7 +64,7 @@ namespace SuperTank
         public static int VelosityHeavyTank { get; private set; }
         public static int VelosityShellHeavyTank { get; private set; }
 
-        public static int DelayAddingTank { get; set; }
+        public static int DelayAddingTank { get; private set; }
         public static int DelayPauseForClockBonus { get; private set; }
         public static int DelayShovelBonus { get; private set; }
         public static int GlidDelay { get; internal set; }
