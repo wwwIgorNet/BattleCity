@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -16,7 +12,6 @@ namespace SuperTank
         void StartLevel(int level);
         [OperationContract(IsOneWay = true)]
         void GameOver();
-
         [OperationContract(IsOneWay = true)]
         void SetCountTankEnemy(int count);
         [OperationContract(IsOneWay = true)]

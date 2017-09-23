@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -12,41 +8,43 @@ namespace SuperTank
 
         static ConfigurationBase()
         {
+            HeightTile = 20;
+            WidthTile = 20;
+            HeigthTank = 40;
+            WidthTank = 40;
+            HeightShell = 7;
+            WidthShell = 5;
+
+            HeightBoard = 26 * HeightTile;
+            WidthBoard = 26 * WidthTile;
+
+            TimerInterval = 20;
+            TimeAppearanceOfTank = 48;
+            TimeDetonation = 6;
+            TimeBigDetonation = 10;
+            TimeGameOver = 4000;
             DelayScrenPoints = TimeSpan.FromSeconds(6);
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
-            TimeGameOver = 4000;
+
+            CountLevel = 35;
         }
 
-        private static int heightTile = 20;
-        private static int widthTile = 20;
-        private static int heightTank = 40;
-        private static int widthTank = 40;
-        private static int heightShell = 7;
-        private static int widthShell = 5;
-        private static int heightBoard = 26 * 20;
-        private static int widthBoard = 26 * 20;
-        private static int timerInterval = 20;
-        private static int timeDetonation = 6;
-        private static int timeAppearanceOfTank = 48;
-        private static int timeBigDetonation = 10;
-        private static int countLevel = 35;
-
-        public static int TimeDetonation { get { return timeDetonation; } }
-        public static int HeightTile { get { return heightTile; } }
-        public static int WidthTile { get { return widthTile; } }
-        public static int HeigthTank { get { return heightTank; } }
-        public static int WidthTank { get { return widthTank; } }
-        public static int HeightShell { get { return heightShell; } }
-        public static int WidthShell { get { return widthShell; } }
-        public static int HeightBoard { get { return heightBoard; } }
-        public static int WidthBoard { get { return widthBoard; } }
-        public static int TimerInterval { get { return timerInterval; } }
-        public static int TimeAppearanceOfTank { get { return timeAppearanceOfTank; } }
-        public static int TimeBigDetonation { get { return timeBigDetonation; } }
-        public static int CountLevel { get { return countLevel; } }
-        public static TimeSpan DelayScrenPoints { get; internal set; }
-        public static TimeSpan DelayScrenLoadLevel { get; internal set; }
-        public static int TimeGameOver { get; internal set; }
+        public static int TimeDetonation { get; private  set; }
+        public static int HeightTile { get; private set; }
+        public static int WidthTile { get; private set; }
+        public static int HeigthTank { get; private set; }
+        public static int WidthTank { get; private set; }
+        public static int HeightShell { get; private set; }
+        public static int WidthShell { get; private set; }
+        public static int HeightBoard { get; private set; }
+        public static int WidthBoard { get; private set; }
+        public static int TimerInterval { get; private set; }
+        public static int TimeAppearanceOfTank { get; private set; }
+        public static int TimeBigDetonation { get; private set; }
+        public static int CountLevel { get; private set; }
+        public static TimeSpan DelayScrenPoints { get; private set; }
+        public static TimeSpan DelayScrenLoadLevel { get; private set; }
+        public static int TimeGameOver { get; private set; }
 
         public static int GetCountPoints(TypeUnit type)
         {
