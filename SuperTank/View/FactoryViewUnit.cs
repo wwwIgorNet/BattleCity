@@ -26,7 +26,7 @@ namespace SuperTank
                     {
                         resView = new ViewBonusTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImgesForTank(typeUnit),
                             Images.GetImgesForRedTank(typeUnit));
@@ -35,7 +35,7 @@ namespace SuperTank
                     {
                         resView = new ViewAnimationTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImgesForTank(typeUnit));
                     }
@@ -45,7 +45,7 @@ namespace SuperTank
                     {
                         resView = new ViewBonusArmoredTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImages(Images.Enemy.ArmoredTank),
                             Images.GetImages(Images.Enemy.ArmoredTankGreen),
@@ -56,7 +56,7 @@ namespace SuperTank
                     {
                         resView = new ViewAnimationArmoredTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImages(Images.Enemy.ArmoredTank),
                             Images.GetImages(Images.Enemy.ArmoredTankGreen),

@@ -312,7 +312,7 @@ namespace SuperTank
                     break;
                 case Direction.Down:
                     x = X + ConfigurationGame.WidthTile - ConfigurationGame.WidthShell / 2;
-                    y = Y + ConfigurationGame.HeigthTank - ConfigurationGame.HeightShell;
+                    y = Y + ConfigurationGame.HeightTank - ConfigurationGame.HeightShell;
                     break;
                 case Direction.Left:
                     x = X + ConfigurationGame.WidthShell;

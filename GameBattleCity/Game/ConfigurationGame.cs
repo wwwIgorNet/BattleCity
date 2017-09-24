@@ -15,7 +15,7 @@ namespace SuperTank
             CountTankEnemy = 20;
 
             PositionEagle = new Point(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2);
-            StartPositionTankPlaeyr = new Point(8 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeigthTank);
+            StartPositionTankPlaeyr = new Point(8 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTank);
             StartPositionTankEnemy1 = new Point(0, 0);
             StartPositionTankEnemy2 = new Point(12 * ConfigurationGame.WidthTile, 0);
             StartPositionTankEnemy3 = new Point(ConfigurationGame.WidthBoard - ConfigurationGame.WidthTank, 0);

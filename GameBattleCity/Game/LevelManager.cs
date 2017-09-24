@@ -162,23 +162,25 @@ namespace SuperTank
             {
                 foreach (char c in line)
                 {
-                    switch (c)
+                    if (c == ConfigurationGame.CharBrickWall)
                     {
-                        case '#':
-                            objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.BrickWall));
-                            break;
-                        case '@':
-                            objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.ConcreteWall));
-                            break;
-                        case '~':
-                            objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Water));
-                            break;
-                        case '%':
-                            objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Forest));
-                            break;
-                        case '-':
-                            objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Ice));
-                            break;
+                        objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.BrickWall));
+                    }
+                    else if (c == ConfigurationGame.CharConcreteWall)
+                    {
+                        objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.ConcreteWall));
+                    }
+                    else if (c == ConfigurationGame.CharWater)
+                    {
+                        objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Water));
+                    }
+                    else if (c == ConfigurationGame.CharForest)
+                    {
+                        objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Forest));
+                    }
+                    else if (c == ConfigurationGame.CharIce)
+                    {
+                        objGame.Add(FactoryUnit.CreateUnit(x, y, TypeUnit.Ice));
                     }
                     x += ConfigurationGame.WidthTile;
                 }

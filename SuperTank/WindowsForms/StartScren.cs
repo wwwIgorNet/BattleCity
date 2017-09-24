@@ -110,7 +110,7 @@ namespace SuperTank.WindowsForms
 
             g.DrawString(str1Player, fontInfo, Brushes.White, leftPosText, topPosText);
             g.DrawString(str2Player, fontInfo, Brushes.Gray, leftPosText, topPosText + lineHeight);
-            g.DrawString(strConstructor, fontInfo, Brushes.Gray, leftPosText, topPosText + lineHeight * 2);
+            g.DrawString(strConstructor, fontInfo, Brushes.White, leftPosText, topPosText + lineHeight * 2);
             g.DrawString(strCompany, new Font(new FontFamily("Arial"), 25, FontStyle.Bold), Brushes.Red, leftPosText, topPosText + lineHeight * 3 - 15);
             float posX = Width / 2 - sizeYear.Width / 2;
             g.DrawString(strYear, fontInfo, Brushes.White, posX, topPosText + lineHeight * 4);

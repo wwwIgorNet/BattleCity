@@ -48,11 +48,11 @@ namespace SuperTank
             {
                 if (!isBonusTank)
                 {
-                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction, driver, typeShell, velosityShell);
+                    tank = new Tank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, velosity, direction, driver, typeShell, velosityShell);
                 }
                 else
                 {
-                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, velosity, direction, driver, typeShell, velosityShell);
+                    tank = new BonusTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, velosity, direction, driver, typeShell, velosityShell);
                 }
                 if (prop != null)
                 {
@@ -81,16 +81,16 @@ namespace SuperTank
             switch (type)
             {
                 case TypeUnit.SmallTankPlaeyr:
-                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelositySmallTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellSmallTank, soundGame, plaeyr);
+                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, ConfigurationGame.VelositySmallTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellSmallTank, soundGame, plaeyr);
                     break;
                 case TypeUnit.LightTankPlaeyr:
-                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityLightTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellLightTank, soundGame, plaeyr);
+                    tank = new TankPlayer(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, ConfigurationGame.VelosityLightTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellLightTank, soundGame, plaeyr);
                     break;
                 case TypeUnit.MediumTankPlaeyr:
-                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityMediumTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellMediumTank, soundGame, plaeyr);
+                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, ConfigurationGame.VelosityMediumTank, direction, driver, TypeUnit.Shell, ConfigurationGame.VelosityShellMediumTank, soundGame, plaeyr);
                     break;
                 case TypeUnit.HeavyTankPlaeyr:
-                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank, type, ConfigurationGame.VelosityHeavyTank, direction, driver, TypeUnit.ConcreteWallShell, ConfigurationGame.VelosityShellHeavyTank, soundGame, plaeyr);
+                    tank = new TwoShellTank(NextID, x, y, ConfigurationGame.WidthTank, ConfigurationGame.HeightTank, type, ConfigurationGame.VelosityHeavyTank, direction, driver, TypeUnit.ConcreteWallShell, ConfigurationGame.VelosityShellHeavyTank, soundGame, plaeyr);
                     break;
             }
             return tank;

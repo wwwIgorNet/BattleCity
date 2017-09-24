@@ -27,6 +27,7 @@ namespace SuperTank.WindowsForms
         private GameOver gameOver = new GameOver();
         private StartScren startScren;
         private ScrenRecord screnRecord = null;
+        private ScrenConstructor screnConstructor;
 
         private static ChannelFactory<IKeyboard> factoryKeyboard;
 
@@ -37,7 +38,7 @@ namespace SuperTank.WindowsForms
 
         private bool wcfClose;
         private bool isGameStop = true;
-        private bool isStartScrin = true;
+        private bool isStartScren = true;
 
         public GameForm()
         {
@@ -52,13 +53,16 @@ namespace SuperTank.WindowsForms
             gameOver.Size = this.ClientSize;
             startScren = new StartScren(this.ClientSize);
 
+            screnConstructor = new ScrenConstructor();
+            screnConstructor.Size = this.ClientSize;
+
             startScren.Start();
             Controls.Add(startScren);
         }
 
         private void StartNewGame()
         {
-            isStartScrin = false;
+            isStartScren = false;
             sceneView = new SceneView();
             screnGame = new ScrenGame(sceneView, this.GameOver);
 
@@ -127,7 +131,7 @@ namespace SuperTank.WindowsForms
                     Controls.Remove(gameOver);
                     startScren.Start();
                     Controls.Add(startScren);
-                    isStartScrin = true;
+                    isStartScren = true;
                 }));
             });
         }
@@ -223,13 +227,17 @@ namespace SuperTank.WindowsForms
                         break;
                 }
             }
-            else if (isStartScrin)
+            else if (isStartScren)
             {
                 if (e.KeyCode == Keys.Enter)
                 {
                     if (startScren.IndexMenu == 0)
                     {
                         StartNewGame();
+                    }
+                    else if (startScren.IndexMenu == 2)
+                    {
+                        StartConstructor();
                     }
                 }
                 else if (e.KeyCode == Keys.Up)
@@ -241,7 +249,31 @@ namespace SuperTank.WindowsForms
                     startScren.MenuCursorDown();
                 }
             }
+            else if (screnConstructor.IsActiv)
+            {
+                if(e.KeyCode == Keys.Escape)
+                {
+                    StopConstructor();
+                }
+                screnConstructor.KeyDown(e.KeyCode);
+            }
         }
+
+        private void StopConstructor()
+        {
+            isStartScren = true;
+            screnConstructor.Stop();
+            Controls.Remove(screnConstructor);
+            Controls.Add(startScren);
+        }
+        private void StartConstructor()
+        {
+            isStartScren = false;
+            screnConstructor.Start();
+            Controls.Remove(startScren);
+            Controls.Add(screnConstructor);
+        }
+
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
@@ -260,6 +292,10 @@ namespace SuperTank.WindowsForms
                         Keyboard.KeyUp(e.KeyCode);
                         break;
                 }
+            }
+            else if (screnConstructor.IsActiv)
+            {
+                screnConstructor.KeyUp(e.KeyCode);
             }
         }
     }

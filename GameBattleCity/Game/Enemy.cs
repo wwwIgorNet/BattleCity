@@ -108,7 +108,7 @@ namespace SuperTank
         }
         private int GetPosition()
         {
-            Size size = new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank);
+            Size size = new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank);
 
             for (int i = 0, index = oldPosition; i < positopn.Length; i++)
             {

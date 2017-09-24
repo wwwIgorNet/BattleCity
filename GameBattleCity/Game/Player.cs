@@ -60,7 +60,7 @@ namespace SuperTank
 
             if (CountTank > 0)
             {
-                if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeigthTank))))
+                if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank))))
                 {
                     AddToScene(TypeUnit.SmallTankPlaeyr);
                     CountTank--;

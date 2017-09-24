@@ -10,7 +10,7 @@ namespace SuperTank
         {
             HeightTile = 20;
             WidthTile = 20;
-            HeigthTank = 40;
+            HeightTank = 40;
             WidthTank = 40;
             HeightShell = 7;
             WidthShell = 5;
@@ -32,7 +32,7 @@ namespace SuperTank
         public static int TimeDetonation { get; private  set; }
         public static int HeightTile { get; private set; }
         public static int WidthTile { get; private set; }
-        public static int HeigthTank { get; private set; }
+        public static int HeightTank { get; private set; }
         public static int WidthTank { get; private set; }
         public static int HeightShell { get; private set; }
         public static int WidthShell { get; private set; }
@@ -45,6 +45,11 @@ namespace SuperTank
         public static TimeSpan DelayScrenPoints { get; private set; }
         public static TimeSpan DelayScrenLoadLevel { get; private set; }
         public static int TimeGameOver { get; private set; }
+        public static char CharBrickWall { get { return '#'; } }
+        public static char CharConcreteWall { get { return '@'; } }
+        public static char CharWater { get { return '~'; } }
+        public static char CharForest { get { return '%'; } }
+        public static char CharIce { get { return '-'; } }
 
         public static int GetCountPoints(TypeUnit type)
         {

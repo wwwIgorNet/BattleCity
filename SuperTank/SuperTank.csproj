@@ -111,6 +111,9 @@
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsForms\SceneView.cs" />
+    <Compile Include="WindowsForms\ScrenConstructor.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WindowsForms\ScrenGame.cs">
       <SubType>Component</SubType>
     </Compile>
