@@ -25,10 +25,10 @@
         }
         public override void Dispose()
         {
-            base.Dispose();
             Scene.Stars.Remove(this);
             tank.Start();
             tank.IsParking = !tank.IsParking;
+            base.Dispose();
         }
     }
 }

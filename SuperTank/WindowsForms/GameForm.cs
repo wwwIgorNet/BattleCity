@@ -39,6 +39,7 @@ namespace SuperTank.WindowsForms
         private bool wcfClose;
         private bool isGameStop = true;
         private bool isStartScren = true;
+        private bool constructorHasMap;
 
         public GameForm()
         {
@@ -75,7 +76,8 @@ namespace SuperTank.WindowsForms
                 ThreadPool.QueueUserWorkItem((s) =>
                 {
                     game = new Game();
-                    game.Start();
+                    if (constructorHasMap) game.Start(screnConstructor.GetMap());
+                    else game.Start();
                     isGameStop = false;
                 });
 
@@ -87,6 +89,7 @@ namespace SuperTank.WindowsForms
         {
             ThreadPool.QueueUserWorkItem((s) =>
             {
+                constructorHasMap = false;
                 int maxPoints = 0;
                 Thread.Sleep(ConfigurationView.DelayScrenPoints);
                 Invoke(new Action(() =>
@@ -227,34 +230,8 @@ namespace SuperTank.WindowsForms
                         break;
                 }
             }
-            else if (isStartScren)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if (startScren.IndexMenu == 0)
-                    {
-                        StartNewGame();
-                    }
-                    else if (startScren.IndexMenu == 2)
-                    {
-                        StartConstructor();
-                    }
-                }
-                else if (e.KeyCode == Keys.Up)
-                {
-                    startScren.MenuCursorUp();
-                }
-                else if (e.KeyCode == Keys.Down)
-                {
-                    startScren.MenuCursorDown();
-                }
-            }
             else if (screnConstructor.IsActiv)
             {
-                if(e.KeyCode == Keys.Escape)
-                {
-                    StopConstructor();
-                }
                 screnConstructor.KeyDown(e.KeyCode);
             }
         }
@@ -265,6 +242,7 @@ namespace SuperTank.WindowsForms
             screnConstructor.Stop();
             Controls.Remove(screnConstructor);
             Controls.Add(startScren);
+            constructorHasMap = true;
         }
         private void StartConstructor()
         {
@@ -293,8 +271,34 @@ namespace SuperTank.WindowsForms
                         break;
                 }
             }
+            else if (isStartScren)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (startScren.IndexMenu == 0)
+                    {
+                        StartNewGame();
+                    }
+                    else if (startScren.IndexMenu == 2)
+                    {
+                        StartConstructor();
+                    }
+                }
+                else if (e.KeyCode == Keys.Up)
+                {
+                    startScren.MenuCursorUp();
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    startScren.MenuCursorDown();
+                }
+            }
             else if (screnConstructor.IsActiv)
             {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    StopConstructor();
+                }
                 screnConstructor.KeyUp(e.KeyCode);
             }
         }

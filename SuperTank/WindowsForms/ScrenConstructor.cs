@@ -1,10 +1,6 @@
 ﻿using SuperTank.View;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
@@ -20,7 +16,8 @@ namespace SuperTank.WindowsForms
         private Timer timer = new Timer();
         private Image imgTank = Images.Plaeyr.SmallTank.Up1;
         private Point posTank;
-        private char currentChar = '\0';
+        private char spaceChar = ' ';
+        private char currentChar;
         private char[,] map;
         private int col;
         private int row;
@@ -51,6 +48,10 @@ namespace SuperTank.WindowsForms
 
         public bool IsActiv { get; set; }
 
+        public char[,] GetMap()
+        {
+            return map;
+        }
         public new void KeyDown(Keys key)
         {
             switch (key)
@@ -72,8 +73,6 @@ namespace SuperTank.WindowsForms
                     break;
                 case Keys.Enter:
                     enter = true;
-                    break;
-                case Keys.Escape:
                     break;
             }
         }
@@ -100,8 +99,6 @@ namespace SuperTank.WindowsForms
                     enter = false;
                     NextChar();
                     break;
-                case Keys.Escape:
-                    break;
             }
         }
         public void Stop()
@@ -111,12 +108,12 @@ namespace SuperTank.WindowsForms
         }
         public void Start()
         {
-            currentChar = '\0';
+            currentChar = ConfigurationView.CharBrickWall;
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
                 {
-                    map[i, j] = '\0';
+                    map[i, j] = spaceChar;
                 }
             }
             posTank = new Point();
@@ -124,25 +121,45 @@ namespace SuperTank.WindowsForms
             timer.Start();
         }
 
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            Graphics g = e.Graphics;
+            g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
+
+            Image img = null;
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    img = GetImg(map[i, j]);
+                    if (img == null) continue;
+                    g.DrawImage(img, j * ConfigurationView.WidthTile + ConfigurationView.WidthTile, i * ConfigurationView.HeightTile + ConfigurationView.HeightTile, ConfigurationView.WidthTile, ConfigurationView.HeightTile);
+                }
+            }
+
+            g.DrawImage(imgTank, posTank.X * ConfigurationView.WidthTank + ConfigurationView.WidthTile, posTank.Y * ConfigurationView.HeightTank + ConfigurationView.HeightTile);
+        }
+
         private Image GetImg(char c)
         {
-            if (c == ConfigurationGame.CharBrickWall)
+            if (c == ConfigurationView.CharBrickWall)
             {
                 return brickWall;
             }
-            else if (c == ConfigurationGame.CharConcreteWall)
+            else if (c == ConfigurationView.CharConcreteWall)
             {
                 return concreteWall;
             }
-            else if (c == ConfigurationGame.CharWater)
+            else if (c == ConfigurationView.CharWater)
             {
                 return water_1;
             }
-            else if (c == ConfigurationGame.CharForest)
+            else if (c == ConfigurationView.CharForest)
             {
                 return forest;
             }
-            else if (c == ConfigurationGame.CharIce)
+            else if (c == ConfigurationView.CharIce)
             {
                 return ice;
             }
@@ -178,8 +195,8 @@ namespace SuperTank.WindowsForms
 
             if (space)
             {
-                int i = posTank.X * 2;
-                int j = posTank.Y * 2;
+                int i = posTank.Y * 2;
+                int j = posTank.X * 2;
                 map[i, j] = map[i, j + 1] = map[i + 1, j] = map[i + 1, j + 1] = currentChar;
             }
 
@@ -187,7 +204,7 @@ namespace SuperTank.WindowsForms
         }
         private void NextChar()
         {
-            if (currentChar == '\0')
+            if (currentChar == spaceChar)
             {
                 currentChar = ConfigurationView.CharBrickWall;
             }
@@ -209,32 +226,12 @@ namespace SuperTank.WindowsForms
             }
             else if (currentChar == ConfigurationView.CharWater)
             {
-                currentChar = '\0';
+                currentChar = spaceChar;
             }
         }
         private void GraphicsOption()
         {
             base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-        }
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics g = e.Graphics;
-            g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
-
-            Image img = null;
-            for (int i = 0; i < row; i++)
-            {
-                for (int j = 0; j < col; j++)
-                {
-                    img = GetImg(map[i, j]);
-                    if (img == null) continue;
-                    g.DrawImage(img, i * ConfigurationView.WidthTile + ConfigurationView.WidthTile, j * ConfigurationView.HeightTile + ConfigurationView.HeightTile, ConfigurationView.WidthTile, ConfigurationView.HeightTile);
-                }
-            }
-
-            g.DrawImage(imgTank, posTank.X * ConfigurationView.WidthTank + ConfigurationView.WidthTile, posTank.Y * ConfigurationView.HeightTank + ConfigurationView.HeightTile);
         }
     }
 }

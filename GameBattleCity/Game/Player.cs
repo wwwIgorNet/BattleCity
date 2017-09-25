@@ -93,6 +93,7 @@ namespace SuperTank
 
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, CurrentTank);
+            star.UnitDisposable += u => { if (isEagleDestroed) EagleDestoed(); };
             star.Start();
             new HelmetBonus(CurrentTank, 6).Start();
             Stop();

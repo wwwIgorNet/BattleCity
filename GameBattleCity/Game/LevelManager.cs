@@ -1,7 +1,9 @@
 ﻿using SuperTank.Audio;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Text;
 using System.Timers;
 
 namespace SuperTank
@@ -37,10 +39,12 @@ namespace SuperTank
             plaeyr.CountTank = 2;
             this.enemy = enemy;
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
+            CountLevel = ConfigurationGame.CountLevel;
         }
 
         public static List<IUpdatable> Updatable { get { return updatable; } }
         public static Random Random { get { return random; } }
+        public static int CountLevel { get; set; }
 
         public void EagleDelited()
         {
@@ -69,9 +73,47 @@ namespace SuperTank
                 Scene.Clear();
                 curentLevel = 0;
                 t.Stop();
+                CountLevel = ConfigurationGame.CountLevel;
             };
             t.Start();
         }
+
+        public void StartLevel(char[,] map)
+        {
+            ClerPos(map, ConfigurationGame.PositionEagle);
+            ClerPos(map, ConfigurationGame.StartPositionTankPlaeyr);
+            ClerPos(map, ConfigurationGame.StartPositionTankEnemy1);
+            ClerPos(map, ConfigurationGame.StartPositionTankEnemy2);
+            ClerPos(map, ConfigurationGame.StartPositionTankEnemy3);
+
+            StringBuilder res = new StringBuilder();
+            for (int i = 0; i < map.GetLength(0); i++)
+            {
+                for (int j = 0; j < map.GetLength(1); j++)
+                {
+                    res.Append(map[i, j].ToString());
+                }
+                res.Append('\n');
+            }
+
+            for (int i = 0; i < ConfigurationGame.CountTankEnemy; i++)
+            {
+                res.Append(ConfigurationGame.CharPlainTank);
+            }
+            File.WriteAllText(ConfigurationGame.Maps + "0", res.ToString());
+            curentLevel = -1;
+            StartLevel();
+
+            CountLevel++;
+        }
+
+        private void ClerPos(char[,] map, Point point)
+        {
+            int x = point.X / ConfigurationGame.WidthTile;
+            int y = point.Y / ConfigurationGame.HeightTile;
+            map[y, x] = map[y, x + 1] = map[y + 1, x] = map[y + 1, x + 1] = ' ';
+        }
+
         public void EndLevel()
         {
             soundGame.TankSoundStop();
@@ -137,20 +179,22 @@ namespace SuperTank
         {
             foreach (char c in data)
             {
-                switch (c)
+
+                if(c == ConfigurationGame.CharPlainTank)
                 {
-                    case 'P':
-                        enemy.AddTypeTank(TypeUnit.PlainTank);
-                        break;
-                    case 'A':
-                        enemy.AddTypeTank(TypeUnit.ArmoredPersonnelCarrierTank);
-                        break;
-                    case 'R':
-                        enemy.AddTypeTank(TypeUnit.QuickFireTank);
-                        break;
-                    case 'B':
-                        enemy.AddTypeTank(TypeUnit.ArmoredTank);
-                        break;
+                    enemy.AddTypeTank(TypeUnit.PlainTank);
+                }
+                else if (c == ConfigurationGame.CharArmoredPersonnelCarrierTank)
+                {
+                    enemy.AddTypeTank(TypeUnit.ArmoredPersonnelCarrierTank);
+                }
+                else if ( c == ConfigurationGame.CharQuickFireTank)
+                {
+                    enemy.AddTypeTank(TypeUnit.QuickFireTank);
+                }
+                else if (c == ConfigurationGame.CharArmoredTank)
+                {
+                    enemy.AddTypeTank(TypeUnit.ArmoredTank);
                 }
             }
         }

@@ -26,12 +26,12 @@ namespace SuperTank
             this.gameInfo = gameInfo;
             RemoveAllTank += () => 
             {
-                DelayAddingTank -= (float)ConfigurationGame.DelayAddingTank / ConfigurationGame.CountLevel;
+                DelayAddingTank -= (float)ConfigurationGame.DelayAddingTank / LevelManager.CountLevel;
             };
         }
 
         public event Action RemoveAllTank;
-        
+
         private float DelayAddingTank
         {
             get { return delayAddingTank; }

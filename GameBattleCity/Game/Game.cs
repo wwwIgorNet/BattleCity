@@ -61,5 +61,12 @@ namespace SuperTank
 
             render.Init();
         }
+
+        public void Start(char[,] map)
+        {
+            InitGame();
+
+            levelManager.StartLevel(map);
+        }
     }
 }

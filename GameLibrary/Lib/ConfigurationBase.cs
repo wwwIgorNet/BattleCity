@@ -50,6 +50,10 @@ namespace SuperTank
         public static char CharWater { get { return '~'; } }
         public static char CharForest { get { return '%'; } }
         public static char CharIce { get { return '-'; } }
+        public static char CharPlainTank { get { return 'P'; } }
+        public static char CharArmoredPersonnelCarrierTank { get { return 'A'; } }
+        public static char CharQuickFireTank { get { return 'R'; } }
+        public static char CharArmoredTank { get { return 'B'; } }
 
         public static int GetCountPoints(TypeUnit type)
         {
