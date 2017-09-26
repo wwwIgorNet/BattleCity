@@ -1,0 +1,59 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SuperTank.WindowsForms
+{
+    public partial class DialogIP : Form
+    {
+        public DialogIP()
+        {
+            InitializeComponent();
+
+            // Получение имени компьютера.
+            String host = System.Net.Dns.GetHostName();
+            // Получение ip-адреса.
+            System.Net.IPAddress ip = Dns.GetHostByName(host).AddressList[0];
+            // Показ адреса в label'е.
+            textBoxYourIP.Text = ip.ToString();
+
+            this.ActiveControl = textBoxIPGame;
+        }
+
+        public IPAddress GameIP { get; private set; }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            IPAddress ip = null;
+            if(IPAddress.TryParse(textBoxIPGame.Text, out ip))
+            {
+                GameIP = ip;
+                this.DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                textBoxIPGame.ForeColor = Color.Red;
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void textBoxIPGame_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(textBoxIPGame.ForeColor == Color.Red)
+            {
+                textBoxIPGame.ForeColor = Color.Black;
+            }
+        }
+    }
+}

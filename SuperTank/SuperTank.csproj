@@ -98,6 +98,18 @@
     <Compile Include="View\ViewUnit.cs" />
     <Compile Include="View\Images.cs" />
     <Compile Include="WindowsForms\BaseScren.cs" />
+    <Compile Include="WindowsForms\DialogIP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WindowsForms\DialogIP.Designer.cs">
+      <DependentUpon>DialogIP.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WindowsForms\FormGameMode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WindowsForms\FormGameMode.Designer.cs">
+      <DependentUpon>FormGameMode.cs</DependentUpon>
+    </Compile>
     <Compile Include="WindowsForms\GameForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +139,12 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WindowsForms\Text.cs" />
+    <EmbeddedResource Include="WindowsForms\DialogIP.resx">
+      <DependentUpon>DialogIP.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WindowsForms\FormGameMode.resx">
+      <DependentUpon>FormGameMode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>
     </EmbeddedResource>

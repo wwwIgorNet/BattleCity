@@ -211,6 +211,23 @@ namespace SuperTank.WindowsForms
 
         public IKeyboard Keyboard { get; set; }
 
+
+        private void StopConstructor()
+        {
+            isStartScren = true;
+            screnConstructor.Stop();
+            Controls.Remove(screnConstructor);
+            Controls.Add(startScren);
+            constructorHasMap = true;
+        }
+        private void StartConstructor()
+        {
+            isStartScren = false;
+            screnConstructor.Start();
+            Controls.Remove(startScren);
+            Controls.Add(screnConstructor);
+        }
+
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
@@ -235,23 +252,6 @@ namespace SuperTank.WindowsForms
                 screnConstructor.KeyDown(e.KeyCode);
             }
         }
-
-        private void StopConstructor()
-        {
-            isStartScren = true;
-            screnConstructor.Stop();
-            Controls.Remove(screnConstructor);
-            Controls.Add(startScren);
-            constructorHasMap = true;
-        }
-        private void StartConstructor()
-        {
-            isStartScren = false;
-            screnConstructor.Start();
-            Controls.Remove(startScren);
-            Controls.Add(screnConstructor);
-        }
-
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
@@ -279,6 +279,10 @@ namespace SuperTank.WindowsForms
                     {
                         StartNewGame();
                     }
+                    else if (startScren.IndexMenu == 1)
+                    {
+                        ConfigureGameTwoPlayer();
+                    }
                     else if (startScren.IndexMenu == 2)
                     {
                         StartConstructor();
@@ -300,6 +304,26 @@ namespace SuperTank.WindowsForms
                     StopConstructor();
                 }
                 screnConstructor.KeyUp(e.KeyCode);
+            }
+        }
+
+        private static void ConfigureGameTwoPlayer()
+        {
+            FormGameMode gameMode = new FormGameMode();
+            if (DialogResult.OK == gameMode.ShowDialog())
+            {
+                DialogIP dialogIP = new DialogIP();
+                if (DialogResult.OK == dialogIP.ShowDialog())
+                {
+                    if (gameMode.NewGame)
+                    {
+
+                    }
+                    else if (gameMode.JoinGame)
+                    {
+
+                    }
+                }
             }
         }
     }
