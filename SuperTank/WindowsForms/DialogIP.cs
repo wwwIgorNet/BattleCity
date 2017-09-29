@@ -24,6 +24,8 @@ namespace SuperTank.WindowsForms
             // Показ адреса в label'е.
             textBoxYourIP.Text = ip.ToString();
 
+            textBoxIPGame.Text = ip.ToString(); // todo delite it
+
             this.ActiveControl = textBoxIPGame;
         }
 
@@ -42,6 +44,8 @@ namespace SuperTank.WindowsForms
                 textBoxIPGame.ForeColor = Color.Red;
             }
         }
+        public bool NewGame { get { return radioButtonNewGame.Checked; } }
+        public bool JoinGame { get { return radioButtonJoinGame.Checked; } }
 
         private void button2_Click(object sender, EventArgs e)
         {

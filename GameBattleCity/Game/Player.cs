@@ -13,13 +13,15 @@ namespace SuperTank
         private IGameInfo gameInfo;
         private int countTank;
         private bool isEagleDestroed;
+        protected Func<Point> getPos;
 
-        public Player(ISoundGame soundGame, Owner owner, IKeyboard keyboard, IGameInfo gameInfo)
+        public Player(ISoundGame soundGame, Owner owner, IKeyboard keyboard, IGameInfo gameInfo, Func<Point> getPos)
         {
             this.soundGame = soundGame;
             this.owner = owner;
             this.keyboard = keyboard;
             this.gameInfo = gameInfo;
+            this.getPos = getPos;
             Points = 0;
             InitDestroyedTanks();
         }
@@ -44,6 +46,7 @@ namespace SuperTank
 
         public void Clear()
         {
+            soundGame.TankSoundStop();
             InitDestroyedTanks();
         }
         public override void Start()
@@ -60,7 +63,7 @@ namespace SuperTank
 
             if (CountTank > 0)
             {
-                if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank))))
+                if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankIPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank))))
                 {
                     AddToScene(TypeUnit.SmallTankPlaeyr);
                     CountTank--;
@@ -87,8 +90,8 @@ namespace SuperTank
         private void AddToScene(TypeUnit typeTank)
         {
             IDriver plaeyrDriver = new PlayerDriver(keyboard);
-            CurrentTank = FactoryUnit.CreateTank(ConfigurationGame.StartPositionTankPlaeyr.X, ConfigurationGame.StartPositionTankPlaeyr.Y
-                    , typeTank, Direction.Up, plaeyrDriver, soundGame, this);
+            Point pos = getPos.Invoke();
+            CurrentTank = FactoryUnit.CreateTank(pos.X, pos.Y, typeTank, Direction.Up, plaeyrDriver, soundGame, this);
             plaeyrDriver.Tank = CurrentTank;
 
 
@@ -98,6 +101,7 @@ namespace SuperTank
             new HelmetBonus(CurrentTank, 6).Start();
             Stop();
         }
+
         private void InitDestroyedTanks()
         {
             DestroyedTanks = new Dictionary<TypeUnit, int>()

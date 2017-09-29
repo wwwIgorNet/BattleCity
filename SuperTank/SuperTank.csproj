@@ -81,6 +81,7 @@
     <None Include="Content\MaxPoints">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Compile Include="Comunication\ITwoComputer.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\ConfigurationView.cs" />
@@ -103,12 +104,6 @@
     </Compile>
     <Compile Include="WindowsForms\DialogIP.Designer.cs">
       <DependentUpon>DialogIP.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WindowsForms\FormGameMode.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WindowsForms\FormGameMode.Designer.cs">
-      <DependentUpon>FormGameMode.cs</DependentUpon>
     </Compile>
     <Compile Include="WindowsForms\GameForm.cs">
       <SubType>Form</SubType>
@@ -141,9 +136,6 @@
     <Compile Include="WindowsForms\Text.cs" />
     <EmbeddedResource Include="WindowsForms\DialogIP.resx">
       <DependentUpon>DialogIP.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WindowsForms\FormGameMode.resx">
-      <DependentUpon>FormGameMode.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WindowsForms\GameForm.resx">
       <DependentUpon>GameForm.cs</DependentUpon>

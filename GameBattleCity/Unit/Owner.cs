@@ -2,7 +2,8 @@
 {
     public enum Owner
     {
-        Player,
+        IPlayer,
+        IIPlayer,
         Enemy
     }
 }

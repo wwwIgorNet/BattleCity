@@ -16,7 +16,7 @@
             set
             {
                 tank = value;
-                tank.Properties[PropertiesType.Owner] = Owner.Player;
+                tank.Properties[PropertiesType.Owner] = Owner.IPlayer;
             }
         }
 

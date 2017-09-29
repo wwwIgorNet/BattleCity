@@ -15,7 +15,8 @@ namespace SuperTank
             CountTankEnemy = 20;
 
             PositionEagle = new Point(12 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTile * 2);
-            StartPositionTankPlaeyr = new Point(8 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTank);
+            StartPositionTankIPlaeyr = new Point(8 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTank);
+            StartPositionTankIIPlaeyr = new Point(16 * ConfigurationGame.WidthTile, ConfigurationGame.HeightBoard - ConfigurationGame.HeightTank);
             StartPositionTankEnemy1 = new Point(0, 0);
             StartPositionTankEnemy2 = new Point(12 * ConfigurationGame.WidthTile, 0);
             StartPositionTankEnemy3 = new Point(ConfigurationGame.WidthBoard - ConfigurationGame.WidthTank, 0);
@@ -41,7 +42,8 @@ namespace SuperTank
 
         public static string Maps { get { return @"Content\Maps\"; } }
         public static Point PositionEagle { get; private set; }
-        public static Point StartPositionTankPlaeyr { get; private set; }
+        public static Point StartPositionTankIPlaeyr { get; private set; }
+        public static Point StartPositionTankIIPlaeyr { get; private set; }
         public static Point StartPositionTankEnemy1 { get; private set; }
         public static Point StartPositionTankEnemy2 { get; private set; }
         public static Point StartPositionTankEnemy3 { get; private set; }

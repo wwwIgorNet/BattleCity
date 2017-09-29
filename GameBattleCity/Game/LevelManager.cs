@@ -19,7 +19,8 @@ namespace SuperTank
         private IGameInfo gameInfo;
         private ISoundGame soundGame;
         private int curentLevel;
-        private Player plaeyr;
+        private Player IPlayer;
+        private Player IIPlayer;
         private Enemy enemy;
         private bool gameOver;
 
@@ -28,15 +29,17 @@ namespace SuperTank
             timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
         }
-        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player plaeyr, Enemy enemy)
+        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy)
         {
             abortUpdate = false;
             curentLevel = 0;
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
-            plaeyr.PlayerGameOver += GameOver;
-            this.plaeyr = plaeyr;
-            plaeyr.CountTank = 2;
+            IPlayer.PlayerGameOver += GameOver;
+            this.IPlayer = IPlayer;
+            IPlayer.CountTank = 2;
+            this.IIPlayer = IIPlayer;
+            if(IIPlayer != null) IIPlayer.CountTank = 2;
             this.enemy = enemy;
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
             CountLevel = ConfigurationGame.CountLevel;
@@ -48,7 +51,8 @@ namespace SuperTank
 
         public void EagleDelited()
         {
-            plaeyr.EagleDestoed();
+            IPlayer.EagleDestoed();
+            if (IIPlayer != null) IIPlayer.EagleDestoed();
             GameOver();
         }
         public void GameOver()
@@ -61,14 +65,19 @@ namespace SuperTank
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) =>
             {
-                gameInfo.EndLevel(curentLevel, plaeyr.Points, plaeyr.DestroyedTanks);
+                gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks);
                 abortUpdate = true;
                 Stop();
                 Updatable.Clear();
                 System.Threading.Thread.Sleep(100);
                 enemy.Clear();
-                plaeyr.Clear();
-                plaeyr.CountTank = 0;
+                IPlayer.Clear();
+                IPlayer.CountTank = 0;
+                if (IIPlayer != null)
+                {
+                    IIPlayer.Clear();
+                    IIPlayer.CountTank = 0;
+                }
                 gameInfo.SetCountTankEnemy(0);
                 Scene.Clear();
                 curentLevel = 0;
@@ -81,7 +90,7 @@ namespace SuperTank
         public void StartLevel(char[,] map)
         {
             ClerPos(map, ConfigurationGame.PositionEagle);
-            ClerPos(map, ConfigurationGame.StartPositionTankPlaeyr);
+            ClerPos(map, ConfigurationGame.StartPositionTankIPlaeyr);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy1);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy2);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy3);
@@ -116,13 +125,13 @@ namespace SuperTank
 
         public void EndLevel()
         {
-            soundGame.TankSoundStop();
-            gameInfo.EndLevel(curentLevel, plaeyr.Points, plaeyr.DestroyedTanks);
+            gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks);
             timer.Stop();
             abortUpdate = true;
             updatable.Clear();
             enemy.Clear();
-            plaeyr.Clear();
+            IPlayer.Clear();
+            if (IIPlayer != null) IIPlayer.Clear();
             System.Threading.Thread.Sleep(200);
             for (int i = Scene.Units.Count - 1; i >= 0; i--)
             {
@@ -165,7 +174,8 @@ namespace SuperTank
             Scene.Clear();
             CreateLevel(curentLevel + 1);
             System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
-            plaeyr.Start();
+            IPlayer.Start();
+            if (IIPlayer != null) IIPlayer.Start();
             enemy.Start();
             abortUpdate = false;
             timer.Start();

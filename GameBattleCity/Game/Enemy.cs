@@ -66,7 +66,7 @@ namespace SuperTank
         }
         public override void Update()
         {
-            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.Player)) + Scene.Stars.Count < countTankInScene)
+            if (CountTank() > 0 && Scene.Tanks.Count(t => !((Owner)t.Properties[PropertiesType.Owner] == Owner.IPlayer)) + Scene.Stars.Count < countTankInScene)
             {
                 if (iterationAddingTank > DelayAddingTank)
                 {
