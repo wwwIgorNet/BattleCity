@@ -19,7 +19,5 @@ namespace SuperTank.View
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
         void AddRange(List<UnitDataForView> collection);
-        [OperationContract(IsOneWay = true)]
-        void Init();
     }
 }

@@ -10,13 +10,18 @@ namespace SuperTank
 {
     public class Game
     {
+        private readonly int portHostKeyboard = 9091;
+        private readonly int portChannelRender = 9090;
+        private readonly int portChannelSound = 9090;
+        private readonly int portChannelInfo = 9090;
+
         private LevelManager levelManager;
         private Player IPlaeyr;
         private Player IIPlaeyr;
         private Enemy enemy;
-
-        private ServiceHost hostKeyboardIPlayer;
-        private ServiceHost hostKeyboardIIPlayer;
+        
+        private Action closeChannel = () => { };
+        private Action closeHost = () => { };
 
         public void Start(IPAddress ipIIPlayer)
         {
@@ -24,17 +29,25 @@ namespace SuperTank
 
             levelManager.StartLevel();
         }
-
-        public Action CloseFactory = () =>{};
-
-        public void Stop()
+        public void Start(char[,] map, IPAddress ipIIPlayer)
         {
-            levelManager.Stop();
+            InitGame(ipIIPlayer);
+
+            levelManager.StartLevel(map);
+        }
+        public void CloseChannel()
+        {
+            closeChannel.Invoke();
+            closeChannel = () => { };
         }
         public void CloseHost()
         {
-            hostKeyboardIPlayer.Close();
-            if(hostKeyboardIIPlayer != null) hostKeyboardIIPlayer.Close();
+            closeHost.Invoke();
+            closeHost = () => { };
+        }
+        public void Stop()
+        {
+            levelManager.Stop();
         }
 
         private void InitGame(IPAddress ipIIPlayer)
@@ -56,7 +69,6 @@ namespace SuperTank
 
                 OpenChanelFactoryIIPlayer(out renderIIPlayer, out soundIIPlayer, out gameInfoIIPlayer, ipIIPlayer.ToString());
 
-
                 render = new RenderTwoPlayers(render, renderIIPlayer);
                 gameInfo = new GameInfoTwoPlayers(gameInfo, gameInfoIIPlayer);
 
@@ -67,27 +79,23 @@ namespace SuperTank
             enemy = new Enemy(gameInfo);
             Scene.Render = render;
             levelManager = new LevelManager(sound, gameInfo, IPlaeyr, IIPlaeyr, enemy);
-
-            render.Init();
         }
-
         private void OpenChanelFactoryIIPlayer(out IRender renderIIPlayer, out ISoundGame soundIIPlayer, out IGameInfo gameInfoIIPlayer, string ipAddress)
         {
-            ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/IRender");
+            ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelRender + "/IRender");
             renderIIPlayer = factoryRender.CreateChannel();
-            ChannelFactory<ISoundGame> factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/ISoundGame");
+            ChannelFactory<ISoundGame> factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelSound + "/ISoundGame");
             soundIIPlayer = factorySound.CreateChannel();
-            ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/IGameInfo");
+            ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelInfo + "/IGameInfo");
             gameInfoIIPlayer = factoryGameInfo.CreateChannel();
 
-            CloseFactory += () =>
+            closeChannel += () =>
             {
                 factorySound.Abort();
                 factoryRender.Abort();
                 factoryGameInfo.Abort();
             };
         }
-
         private void OpenChanelFactoryIPlayer(out IRender render, out ISoundGame sound, out IGameInfo gameInfo)
         {
             ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
@@ -97,39 +105,36 @@ namespace SuperTank
             ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             gameInfo = factoryGameInfo.CreateChannel();
 
-            CloseFactory += () =>
+            closeChannel += () =>
             {
                 factorySound.Abort();
                 factoryRender.Abort();
                 factoryGameInfo.Abort();
             };
         }
-
         private IKeyboard OpenIPlayerHost()
         {
             Keyboard keyboard = new Keyboard();
-            hostKeyboardIPlayer = new ServiceHost(keyboard);
+            ServiceHost hostKeyboardIPlayer = new ServiceHost(keyboard);
             hostKeyboardIPlayer.CloseTimeout = TimeSpan.FromMilliseconds(0);
             hostKeyboardIPlayer.AddServiceEndpoint(typeof(IKeyboard), new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
             hostKeyboardIPlayer.Open();
+
+            closeHost += () => hostKeyboardIPlayer.Close();
+
             return keyboard;
         }
         private IKeyboard OpenIIPlayerHost(string ipAddress)
         {
             Keyboard keyboard = new Keyboard();
-            hostKeyboardIIPlayer = new ServiceHost(keyboard);
+            ServiceHost hostKeyboardIIPlayer = new ServiceHost(keyboard);
             hostKeyboardIIPlayer.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostKeyboardIIPlayer.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://" + ipAddress + ":9091/IKeyboard");
+            hostKeyboardIIPlayer.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostKeyboard + "/IKeyboard");
             hostKeyboardIIPlayer.Open();
 
+            closeHost += () => hostKeyboardIIPlayer.Close();
+
             return keyboard;
-        }
-
-        public void Start(char[,] map)
-        {
-            InitGame(null);
-
-            levelManager.StartLevel(map);
         }
     }
 }

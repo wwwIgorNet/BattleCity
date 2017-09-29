@@ -22,30 +22,34 @@ namespace SuperTank.WindowsForms
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class GameForm : Form, ITwoComputer
     {
-        private Game game;
+        private readonly int portChannelKeyboard = 9091;
+        private readonly int portTwoComputer = 9092;
+        private readonly int portHostRender = 9090;
+        private readonly int portHostSound = 9090;
+        private readonly int portHostInfo = 9090;
 
-        private ServiceHost hostSound;
-        private ServiceHost hostSceneView;
-        private ServiceHost hostGameInfo;
+        private IPAddress ipIIPlayer;
+        private Game game;
+        
         private ServiceHost hostTwoComputer;
         private GameOver gameOver = new GameOver();
         private StartScren startScren;
         private ScrenRecord screnRecord = null;
         private ScrenConstructor screnConstructor;
 
-        private static ChannelFactory<IKeyboard> factoryKeyboard;
-
         private SoundGame soundGame;
         private SceneView sceneView;
         private ScrenGame screnGame;
         private static IViewSound viewSound;
 
-        private DialogIP dialogIP;
-
         private bool wcfClose;
         private bool isGameStop = true;
         private bool isStartScren = true;
+        private bool waitForConectToGame = false;
         private bool constructorHasMap;
+
+        private Action closeHost = () => { };
+        private Action closeChannel = () => { };
 
         public GameForm()
         {
@@ -67,6 +71,97 @@ namespace SuperTank.WindowsForms
             Controls.Add(startScren);
         }
 
+        public static IViewSound Sound { get { return viewSound; } }
+        public IKeyboard Keyboard { get; set; }
+
+        public void IsStartedTwoComp()
+        {
+            hostTwoComputer.BeginClose(null, null);
+            StartNewGame(ipIIPlayer);
+            waitForConectToGame = false;
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            if (!isGameStop)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                    case Keys.Right:
+                    case Keys.Up:
+                    case Keys.Down:
+                    case Keys.Space:
+                    case Keys.Enter:
+                    case Keys.Escape:
+                        Keyboard.KeyDown(e.KeyCode);
+                        break;
+                }
+            }
+            else if (screnConstructor.IsActiv)
+            {
+                screnConstructor.KeyDown(e.KeyCode);
+            }
+        }
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+
+            if (waitForConectToGame) return;
+
+            if (!isGameStop)
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Left:
+                    case Keys.Right:
+                    case Keys.Up:
+                    case Keys.Down:
+                    case Keys.Space:
+                    case Keys.Enter:
+                    case Keys.Escape:
+                        Keyboard.KeyUp(e.KeyCode);
+                        break;
+                }
+            }
+            else if (isStartScren)
+            {
+                if (e.KeyCode == Keys.Enter)
+                {
+                    if (startScren.IndexMenu == 0)
+                    {
+                        StartNewGame(null);
+                    }
+                    else if (startScren.IndexMenu == 1)
+                    {
+                        ConfigureGameTwoPlayer();
+                    }
+                    else if (startScren.IndexMenu == 2)
+                    {
+                        StartConstructor();
+                    }
+                }
+                else if (e.KeyCode == Keys.Up)
+                {
+                    startScren.MenuCursorUp();
+                }
+                else if (e.KeyCode == Keys.Down)
+                {
+                    startScren.MenuCursorDown();
+                }
+            }
+            else if (screnConstructor.IsActiv)
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    StopConstructor();
+                }
+                screnConstructor.KeyUp(e.KeyCode);
+            }
+        }
+
         private void StartNewGame(IPAddress ipIIPlayer)
         {
             isStartScren = false;
@@ -82,15 +177,14 @@ namespace SuperTank.WindowsForms
                 ThreadPool.QueueUserWorkItem((s) =>
                 {
                     game = new Game();
-                    if (constructorHasMap) game.Start(screnConstructor.GetMap());
+                    if (constructorHasMap) game.Start(screnConstructor.GetMap(), ipIIPlayer);
                     else game.Start(ipIIPlayer);
                     isGameStop = false;
                 });
 
-                this.OpenChenalFactory();
+                this.OpenChannel();
             });
         }
-
         private void GameOver()
         {
             ThreadPool.QueueUserWorkItem((s) =>
@@ -144,28 +238,6 @@ namespace SuperTank.WindowsForms
                 }));
             });
         }
-
-        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (!wcfClose)
-            {
-                e.Cancel = true;
-                soundGame.Dispose();
-
-                ThreadPool.QueueUserWorkItem(s =>
-                {
-                    StopGame();
-
-                    wcfClose = true;
-
-                    ((Form)sender).Invoke((MethodInvoker)delegate ()
-                    {
-                        ((Form)sender).Close();
-                    });
-                });
-            }
-        }
-
         private void StopGame()
         {
             if (isGameStop) return;
@@ -176,60 +248,12 @@ namespace SuperTank.WindowsForms
             {
                 game.Stop();
                 Thread.Sleep(300);
-                game.CloseFactory();
+                game.CloseChannel();
                 this.CloseChenalFactory();
                 game.CloseHost();
                 game = null;
             }
             this.CloseHost();
-        }
-
-        public void OpenHost()
-        {
-            hostSound = new ServiceHost(soundGame);
-            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
-            hostSound.Open();
-
-            hostSceneView = new ServiceHost(sceneView);
-            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
-            hostSceneView.Open();
-
-            hostGameInfo = new ServiceHost(screnGame);
-            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
-            hostGameInfo.Open();
-        }
-        public void OpenChenalFactory()
-        {
-            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            Keyboard = factoryKeyboard.CreateChannel();
-        }
-        public void CloseChenalFactory()
-        {
-            factoryKeyboard.Close();
-        }
-        public void CloseHost()
-        {
-            hostSound.Close();
-            hostSceneView.Close();
-            hostGameInfo.Close();
-        }
-
-
-        public static IViewSound Sound { get { return viewSound; } }
-
-        public IKeyboard Keyboard { get; set; }
-
-
-        private void StopConstructor()
-        {
-            isStartScren = true;
-            screnConstructor.Stop();
-            Controls.Remove(screnConstructor);
-            Controls.Add(startScren);
-            constructorHasMap = true;
         }
         private void StartConstructor()
         {
@@ -238,97 +262,27 @@ namespace SuperTank.WindowsForms
             Controls.Remove(startScren);
             Controls.Add(screnConstructor);
         }
-
-        protected override void OnKeyDown(KeyEventArgs e)
+        private void StopConstructor()
         {
-            base.OnKeyDown(e);
-
-            if (!isGameStop)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                    case Keys.Right:
-                    case Keys.Up:
-                    case Keys.Down:
-                    case Keys.Space:
-                    case Keys.Enter:
-                    case Keys.Escape:
-                        Keyboard.KeyDown(e.KeyCode);
-                        break;
-                }
-            }
-            else if (screnConstructor.IsActiv)
-            {
-                screnConstructor.KeyDown(e.KeyCode);
-            }
+            isStartScren = true;
+            screnConstructor.Stop();
+            Controls.Remove(screnConstructor);
+            Controls.Add(startScren);
+            constructorHasMap = true;
         }
-        protected override void OnKeyUp(KeyEventArgs e)
-        {
-            base.OnKeyUp(e);
-
-            if (!isGameStop)
-            {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                    case Keys.Right:
-                    case Keys.Up:
-                    case Keys.Down:
-                    case Keys.Space:
-                    case Keys.Enter:
-                    case Keys.Escape:
-                        Keyboard.KeyUp(e.KeyCode);
-                        break;
-                }
-            }
-            else if (isStartScren)
-            {
-                if (e.KeyCode == Keys.Enter)
-                {
-                    if (startScren.IndexMenu == 0)
-                    {
-                        StartNewGame(null);
-                    }
-                    else if (startScren.IndexMenu == 1)
-                    {
-                        ConfigureGameTwoPlayer();
-                    }
-                    else if (startScren.IndexMenu == 2)
-                    {
-                        StartConstructor();
-                    }
-                }
-                else if (e.KeyCode == Keys.Up)
-                {
-                    startScren.MenuCursorUp();
-                }
-                else if (e.KeyCode == Keys.Down)
-                {
-                    startScren.MenuCursorDown();
-                }
-            }
-            else if (screnConstructor.IsActiv)
-            {
-                if (e.KeyCode == Keys.Escape)
-                {
-                    StopConstructor();
-                }
-                screnConstructor.KeyUp(e.KeyCode);
-            }
-        }
-
         private void ConfigureGameTwoPlayer()
         {
-                dialogIP = new DialogIP();
-                if (DialogResult.OK == dialogIP.ShowDialog())
-                {
+            DialogIP dialogIP = new DialogIP();
+            if (DialogResult.OK == dialogIP.ShowDialog())
+            {
                 if (dialogIP.NewGame)
                 {
+                    ipIIPlayer = dialogIP.GameIP;
                     hostTwoComputer = new ServiceHost(this);
                     hostTwoComputer.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":9092/ITwoComputer");
+                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
                     hostTwoComputer.Open();
+                    waitForConectToGame = true;
                 }
                 else if (dialogIP.JoinGame)
                 {
@@ -336,16 +290,15 @@ namespace SuperTank.WindowsForms
                 }
             }
         }
-
         private void JoinToGame(DialogIP dialogIP)
         {
             try
             {
-                ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":9092/ITwoComputer");
+                ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
 
                 sceneView = new SceneView();
                 screnGame = new ScrenGame(sceneView, this.GameOver);
-                this.OpenTCPHost(dialogIP.GameIP);
+                this.OpenHost(dialogIP.GameIP);
 
                 factoryTwoComputer.CreateChannel().IsStartedTwoComp();
                 factoryTwoComputer.BeginClose(null, null);
@@ -358,41 +311,112 @@ namespace SuperTank.WindowsForms
                 return;
             }
 
-
-            isStartScren = false;
-            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":9091/IKeyboard");
-            factoryKeyboard.Open(TimeSpan.FromMilliseconds(500));
-            Keyboard = factoryKeyboard.CreateChannel();
-
+            OpenTCPChannel(dialogIP.GameIP);
 
             Controls.Remove(startScren);
             Controls.Add(screnGame);
+
+            isStartScren = false;
             isGameStop = false;
         }
 
-        private void OpenTCPHost(IPAddress ipIIPlayer)
+        public void CloseChenalFactory()
+        {
+            closeChannel.Invoke();
+            closeChannel = () => { };
+        }
+        public void OpenChannel()
+        {
+            ChannelFactory<IKeyboard>  factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
+            Keyboard = factoryKeyboard.CreateChannel();
+            closeChannel += () =>
+            {
+                factoryKeyboard.Close();
+            };
+        }
+        public void OpenTCPChannel(IPAddress ipIIPlayer)
         {
             string ipAddress = ipIIPlayer.ToString();
-            hostSound = new ServiceHost(soundGame);
+            ChannelFactory<IKeyboard>  factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelKeyboard + "/IKeyboard");
+            factoryKeyboard.Open(TimeSpan.FromMilliseconds(500));
+            Keyboard = factoryKeyboard.CreateChannel();
+            closeChannel += () =>
+            {
+                factoryKeyboard.Close();
+            };
+        }
+        public void OpenHost()
+        {
+            ServiceHost hostSound = new ServiceHost(soundGame);
             hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/ISoundGame");
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
             hostSound.Open();
 
-            hostSceneView = new ServiceHost(sceneView);
+            ServiceHost hostSceneView = new ServiceHost(sceneView);
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/IRender");
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             hostSceneView.Open();
 
-            hostGameInfo = new ServiceHost(screnGame);
+            ServiceHost hostGameInfo = new ServiceHost(screnGame);
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://" + ipAddress + ":9090/IGameInfo");
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             hostGameInfo.Open();
-        }
 
-        public void IsStartedTwoComp()
+            closeHost += () =>
+            {
+                hostSound.Close();
+                hostSceneView.Close();
+                hostGameInfo.Close();
+            };
+        }
+        private void OpenHost(IPAddress ipIIPlayer)
         {
-            hostTwoComputer.BeginClose(null, null);
-            StartNewGame(dialogIP.GameIP);
+            string ipAddress = ipIIPlayer.ToString();
+            ServiceHost hostSound = new ServiceHost(soundGame);
+            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostSound + "/ISoundGame");
+            hostSound.Open();
+
+            ServiceHost hostSceneView = new ServiceHost(sceneView);
+            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostRender + "/IRender");
+            hostSceneView.Open();
+
+            ServiceHost hostGameInfo = new ServiceHost(screnGame);
+            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostInfo + "/IGameInfo");
+            hostGameInfo.Open();
+
+            closeHost += () =>
+            {
+                hostSound.Close();
+                hostSceneView.Close();
+                hostGameInfo.Close();
+            };
+        }
+        public void CloseHost()
+        {
+            closeHost.Invoke();
+            closeHost = () => { };
+        }
+        private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!wcfClose)
+            {
+                e.Cancel = true;
+                soundGame.Dispose();
+
+                ThreadPool.QueueUserWorkItem(s =>
+                {
+                    StopGame();
+                    wcfClose = true;
+
+                    Invoke((MethodInvoker)delegate ()
+                    {
+                        ((Form)sender).Close();
+                    });
+                });
+            }
         }
     }
 }

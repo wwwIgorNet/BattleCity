@@ -33,12 +33,6 @@ namespace GameBattleCity.TwoPlayers
             IIPlayer.Clear();
         }
 
-        public void Init()
-        {
-            IPlayer.Init();
-            IIPlayer.Init();
-        }
-
         public void Remove(int id)
         {
             IPlayer.Remove(id);
