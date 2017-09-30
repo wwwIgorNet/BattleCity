@@ -40,7 +40,7 @@ namespace SuperTank
             }
             set
             {
-                gameInfo.SetCountTankPlaeyr(value);
+                gameInfo.SetCountTankPlaeyr(value, this.owner);
                 countTank = value;
             }
         }

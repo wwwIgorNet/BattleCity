@@ -166,7 +166,10 @@ namespace SuperTank.WindowsForms
         {
             isStartScren = false;
             sceneView = new SceneScene();
-            screnGame = new ScrenGame(sceneView, this.GameOver);
+            LevelInfo levelInfo = null;
+            if (ipIIPlayer != null) levelInfo = new LevelInfoTwoPlayer();
+            else levelInfo = new LevelInfo();
+            screnGame = new ScrenGame(sceneView, levelInfo, this.GameOver);
 
             this.OpenHost();
             Controls.Remove(startScren);
@@ -297,7 +300,7 @@ namespace SuperTank.WindowsForms
                 ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
 
                 sceneView = new SceneScene();
-                screnGame = new ScrenGame(sceneView, this.GameOver);
+                screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), this.GameOver);
                 this.OpenHost(dialogIP.GameIP);
 
                 factoryTwoComputer.CreateChannel().IsStartedTwoComp();

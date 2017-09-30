@@ -72,7 +72,7 @@ namespace SuperTank
                 render = new RenderTwoPlayers(render, renderIIPlayer);
                 gameInfo = new GameInfoTwoPlayers(gameInfo, gameInfoIIPlayer);
 
-                IIPlaeyr = new Player(soundIIPlayer, Owner.IIPlayer, keyboardIIPlayer, gameInfoIIPlayer, () => new Point(ConfigurationGame.StartPositionTankIIPlaeyr.X, ConfigurationGame.StartPositionTankIIPlaeyr.Y));
+                IIPlaeyr = new Player(soundIIPlayer, Owner.IIPlayer, keyboardIIPlayer, gameInfo, () => new Point(ConfigurationGame.StartPositionTankIIPlaeyr.X, ConfigurationGame.StartPositionTankIIPlaeyr.Y));
             }
 
             IPlaeyr = new Player(sound, Owner.IPlayer, keyboard, gameInfo, ()=> new Point(ConfigurationGame.StartPositionTankIPlaeyr.X, ConfigurationGame.StartPositionTankIPlaeyr.Y));

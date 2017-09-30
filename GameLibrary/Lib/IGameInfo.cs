@@ -15,6 +15,7 @@ namespace SuperTank
         [OperationContract(IsOneWay = true)]
         void SetCountTankEnemy(int count);
         [OperationContract(IsOneWay = true)]
-        void SetCountTankPlaeyr(int count);
+        [ServiceKnownType(typeof(Owner))]
+        void SetCountTankPlaeyr(int count, Owner owner);
     }
 }

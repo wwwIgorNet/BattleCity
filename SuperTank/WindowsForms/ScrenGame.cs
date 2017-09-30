@@ -19,7 +19,7 @@ namespace SuperTank.WindowsForms
         private ScrenGameOver screnGameOver = new ScrenGameOver();
         private int countPoints = 0;
 
-        public ScrenGame(SceneScene sceneView, Action gameOver)
+        public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, Action gameOver)
         {
             this.gameOver = gameOver;
             timerInvalidate.Interval = ConfigurationView.TimerInterval;
@@ -31,7 +31,7 @@ namespace SuperTank.WindowsForms
             this.SuspendLayout();
             this.sceneView = sceneView;
 
-            levelInfo = new LevelInfo();
+            this.levelInfo = levelInfo;
             this.ResumeLayout(false);
 
             GraphicsOption();
@@ -43,9 +43,9 @@ namespace SuperTank.WindowsForms
         {
             levelInfo.CountTankEnemy = count;
         }
-        public void SetCountTankPlaeyr(int count)
+        public void SetCountTankPlaeyr(int count, Owner owner)
         {
-            levelInfo.CountTankPlaeyr = count;
+            levelInfo.SetCountTankPlaeyr(count, owner);
         }
         public void StartLevel(int level)
         {

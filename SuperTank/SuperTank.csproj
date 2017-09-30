@@ -115,6 +115,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="WindowsForms\LevelInfo.cs" />
+    <Compile Include="WindowsForms\LevelInfoTwoPlayer.cs" />
     <Compile Include="WindowsForms\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WindowsForms\SceneScene.cs" />
@@ -380,6 +381,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Detonation\Detonation1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Textures\Info\DashboardInfoIIPlayer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Textures\Info\DashboardInfo.png">

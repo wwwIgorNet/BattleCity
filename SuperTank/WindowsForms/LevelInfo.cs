@@ -5,9 +5,9 @@ namespace SuperTank.WindowsForms
 {
     class LevelInfo
     {
-        private Font font = new Font(ConfigurationView.InfoFontFamily, 15);
-        private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 17 + 1);
-        private Point pointLevel = new Point(ConfigurationView.WidthTile - 2, ConfigurationView.HeightTile * 24 + 1);
+        private Font font = new Font(ConfigurationView.InfoFontFamily, 13);
+        private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile, ConfigurationView.HeightTile * 16 + 12);
+        private Point pointLevel = new Point(ConfigurationView.WidthTile, ConfigurationView.HeightTile * 23);
         private int countTankEnemy;
         private int level;
         private int countTankPlaeyr;
@@ -39,18 +39,22 @@ namespace SuperTank.WindowsForms
                 UpdateImage();
             }
         }
-        public int CountTankPlaeyr
+
+        protected Font Font { get { return font; } }
+        protected virtual Image DashboardInfo { get { return Images.DashboardInfo; } }
+
+        public virtual void SetCountTankPlaeyr(int count, Owner owner)
         {
-            set
+            if (Owner.IPlayer == owner)
             {
-                countTankPlaeyr = value;
-                UpdateImage();
+                countTankPlaeyr = count;
             }
+            UpdateImage();
         }
 
-        protected void UpdateImage()
+        protected virtual void UpdateImage()
         {
-            Bitmap bitmap = new Bitmap(Images.DashboardInfo);
+            Bitmap bitmap = new Bitmap(DashboardInfo);
             Graphics g = Graphics.FromImage(bitmap);
 
             g.DrawString(countTankPlaeyr.ToString(), font, Brushes.Black, new Point(pointCountTankPlaeyr.X, pointCountTankPlaeyr.Y));

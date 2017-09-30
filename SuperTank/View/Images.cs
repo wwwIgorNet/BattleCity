@@ -55,6 +55,7 @@ namespace SuperTank.View
 #pragma warning restore CS0649
 
         private static Image blankImage = new Bitmap(1, 1);
+        private static Image dashboardInfoIIPlayer;
 
         public static Image BlankImage { get { return blankImage; } }
 
@@ -69,6 +70,13 @@ namespace SuperTank.View
             get
             {
                 return Validate(dashboardInfo, @"Info\DashboardInfo.png");
+            }
+        }
+        public static Image DashboardInfoIIPlayer
+        {
+            get
+            {
+                return Validate(dashboardInfoIIPlayer, @"Info\DashboardInfoIIPlayer.png");
             }
         }
 

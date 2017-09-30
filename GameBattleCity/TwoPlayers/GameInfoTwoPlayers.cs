@@ -46,12 +46,12 @@ namespace GameBattleCity.TwoPlayers
             });
         }
 
-        public void SetCountTankPlaeyr(int count)
+        public void SetCountTankPlaeyr(int count, Owner owner)
         {
             ThreadPool.QueueUserWorkItem(s =>
             {
-                IPlayer.SetCountTankPlaeyr(count);
-                IIPlayer.SetCountTankPlaeyr(count);
+                IPlayer.SetCountTankPlaeyr(count, owner);
+                IIPlayer.SetCountTankPlaeyr(count, owner);
             });
         }
 
