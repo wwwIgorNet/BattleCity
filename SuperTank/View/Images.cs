@@ -59,6 +59,7 @@ namespace SuperTank.View
         public static Image BlankImage { get { return blankImage; } }
 
         public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
+        public static TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
 
@@ -298,6 +299,21 @@ namespace SuperTank.View
                     return GetImages(Enemy.QuickFireTank);
                 case TypeUnit.ArmoredTank:
                     return GetImages(Enemy.ArmoredTank);
+            }
+            return null;
+        }
+        public static Dictionary<Direction, Image[]> GetImgesForTankIIPlayer(TypeUnit type)
+        {
+            switch (type)
+            {
+                case TypeUnit.SmallTankPlaeyr:
+                    return GetImages(Plaeyr2.SmallTank);
+                case TypeUnit.LightTankPlaeyr:
+                    return GetImages(Plaeyr2.LightTank);
+                case TypeUnit.MediumTankPlaeyr:
+                    return GetImages(Plaeyr2.MmediumTank);
+                case TypeUnit.HeavyTankPlaeyr:
+                    return GetImages(Plaeyr2.HeavyTank);
             }
             return null;
         }

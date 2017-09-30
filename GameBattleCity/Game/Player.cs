@@ -8,7 +8,7 @@ namespace SuperTank
     public class Player : BaseOwner
     {
         private ISoundGame soundGame;
-        public Owner owner;
+        private Owner owner;
         private IKeyboard keyboard;
         private IGameInfo gameInfo;
         private int countTank;
@@ -26,8 +26,10 @@ namespace SuperTank
             InitDestroyedTanks();
         }
 
-        public event Action PlayerGameOver;
+        public event Action<Owner> PlayerGameOver;
 
+        public Point StartPosition { get; set; }
+        public Owner Owner { get { return owner; } }
         public int Points { get; set; }
         public TankPlayer CurrentTank { get; set; }
         public int CountTank
@@ -63,7 +65,7 @@ namespace SuperTank
 
             if (CountTank > 0)
             {
-                if (Scene.IsFreePosition(new Rectangle(ConfigurationGame.StartPositionTankIPlaeyr, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank))))
+                if (Scene.IsFreePosition(new Rectangle(StartPosition, new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank))))
                 {
                     AddToScene(TypeUnit.SmallTankPlaeyr);
                     CountTank--;
@@ -73,7 +75,7 @@ namespace SuperTank
             }
             else
             {
-                PlayerGameOver.Invoke();
+                PlayerGameOver.Invoke(owner);
             }
         }
         public override void Update()
@@ -93,7 +95,6 @@ namespace SuperTank
             Point pos = getPos.Invoke();
             CurrentTank = FactoryUnit.CreateTank(pos.X, pos.Y, typeTank, Direction.Up, plaeyrDriver, soundGame, this);
             plaeyrDriver.Tank = CurrentTank;
-
 
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, CurrentTank);
             star.UnitDisposable += u => { if (isEagleDestroed) EagleDestoed(); };

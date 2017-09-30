@@ -13,13 +13,13 @@ namespace SuperTank.WindowsForms
         private Action gameOver;
         private Timer timerInvalidate = new Timer();
         private LevelInfo levelInfo;
-        private SceneView sceneView;
+        private SceneScene sceneView;
         private ScrenLoadLevel viewLoadLevel = new ScrenLoadLevel();
         private ScrenScore screnScore = new ScrenScore();
         private ScrenGameOver screnGameOver = new ScrenGameOver();
         private int countPoints = 0;
 
-        public ScrenGame(SceneView sceneView, Action gameOver)
+        public ScrenGame(SceneScene sceneView, Action gameOver)
         {
             this.gameOver = gameOver;
             timerInvalidate.Interval = ConfigurationView.TimerInterval;

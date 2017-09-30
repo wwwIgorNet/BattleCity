@@ -38,7 +38,7 @@ namespace SuperTank.WindowsForms
         private ScrenConstructor screnConstructor;
 
         private SoundGame soundGame;
-        private SceneView sceneView;
+        private SceneScene sceneView;
         private ScrenGame screnGame;
         private static IViewSound viewSound;
 
@@ -165,7 +165,7 @@ namespace SuperTank.WindowsForms
         private void StartNewGame(IPAddress ipIIPlayer)
         {
             isStartScren = false;
-            sceneView = new SceneView();
+            sceneView = new SceneScene();
             screnGame = new ScrenGame(sceneView, this.GameOver);
 
             this.OpenHost();
@@ -296,7 +296,7 @@ namespace SuperTank.WindowsForms
             {
                 ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
 
-                sceneView = new SceneView();
+                sceneView = new SceneScene();
                 screnGame = new ScrenGame(sceneView, this.GameOver);
                 this.OpenHost(dialogIP.GameIP);
 

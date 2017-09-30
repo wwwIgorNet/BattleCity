@@ -23,6 +23,7 @@ namespace SuperTank
         private Player IIPlayer;
         private Enemy enemy;
         private bool gameOver;
+        private int countPlayer;
 
         static LevelManager()
         {
@@ -31,15 +32,25 @@ namespace SuperTank
         }
         public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy)
         {
+            countPlayer = 1;
             abortUpdate = false;
             curentLevel = 0;
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
-            IPlayer.PlayerGameOver += GameOver;
+
+            IPlayer.PlayerGameOver += GameOverPlayer;
             this.IPlayer = IPlayer;
             IPlayer.CountTank = 2;
+            IPlayer.StartPosition = ConfigurationGame.StartPositionTankIPlaeyr;
+
             this.IIPlayer = IIPlayer;
-            if(IIPlayer != null) IIPlayer.CountTank = 2;
+            if (IIPlayer != null)
+            {
+                IIPlayer.CountTank = 2;
+                IIPlayer.PlayerGameOver += GameOverPlayer;
+                IIPlayer.StartPosition = ConfigurationGame.StartPositionTankIIPlaeyr;
+                countPlayer++;
+            }
             this.enemy = enemy;
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
             CountLevel = ConfigurationGame.CountLevel;
@@ -54,6 +65,11 @@ namespace SuperTank
             IPlayer.EagleDestoed();
             if (IIPlayer != null) IIPlayer.EagleDestoed();
             GameOver();
+        }
+        public void GameOverPlayer(Owner player)
+        {
+            countPlayer--;
+            if(countPlayer == 0) GameOver();
         }
         public void GameOver()
         {
@@ -86,7 +102,21 @@ namespace SuperTank
             };
             t.Start();
         }
-
+        public void StartLevel()
+        {
+            DateTime start = DateTime.Now;
+            if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
+            gameInfo.StartLevel(curentLevel + 1);
+            System.Threading.Thread.Sleep(1000);
+            Scene.Clear();
+            CreateLevel(curentLevel + 1);
+            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
+            IPlayer.Start();
+            if (IIPlayer != null) IIPlayer.Start();
+            enemy.Start();
+            abortUpdate = false;
+            timer.Start();
+        }
         public void StartLevel(char[,] map)
         {
             ClerPos(map, ConfigurationGame.PositionEagle);
@@ -115,14 +145,6 @@ namespace SuperTank
 
             CountLevel++;
         }
-
-        private void ClerPos(char[,] map, Point point)
-        {
-            int x = point.X / ConfigurationGame.WidthTile;
-            int y = point.Y / ConfigurationGame.HeightTile;
-            map[y, x] = map[y, x + 1] = map[y + 1, x] = map[y + 1, x + 1] = ' ';
-        }
-
         public void EndLevel()
         {
             gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks);
@@ -165,24 +187,16 @@ namespace SuperTank
 
             LoadEnemyTank(linesTileMap[26], enemy);
         }
-        public void StartLevel()
-        {
-            DateTime start = DateTime.Now;
-            if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
-            gameInfo.StartLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(1000);
-            Scene.Clear();
-            CreateLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
-            IPlayer.Start();
-            if (IIPlayer != null) IIPlayer.Start();
-            enemy.Start();
-            abortUpdate = false;
-            timer.Start();
-        }
         public void Stop()
         {
             timer.Stop();
+        }
+
+        private void ClerPos(char[,] map, Point point)
+        {
+            int x = point.X / ConfigurationGame.WidthTile;
+            int y = point.Y / ConfigurationGame.HeightTile;
+            map[y, x] = map[y, x + 1] = map[y + 1, x] = map[y + 1, x + 1] = ' ';
         }
 
         private void LoadEnemyTank(string data, Enemy enemy)

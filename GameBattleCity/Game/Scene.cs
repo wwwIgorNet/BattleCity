@@ -116,7 +116,7 @@ namespace SuperTank
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                     properties = new Dictionary<PropertiesType, object>();
-
+                     properties[PropertiesType.Owner] = unit.Properties[PropertiesType.Owner];
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
                     properties[PropertiesType.IsBonusTank] = unit.Properties[PropertiesType.IsBonusTank];
@@ -124,7 +124,7 @@ namespace SuperTank
                     break;
                 case TypeUnit.ArmoredTank:
                     properties = new Dictionary<PropertiesType, object>();
-
+                    properties[PropertiesType.Owner] = unit.Properties[PropertiesType.Owner];
                     properties[PropertiesType.Direction] = unit.Properties[PropertiesType.Direction];
                     properties[PropertiesType.IsParking] = unit.Properties[PropertiesType.IsParking];
                     properties[PropertiesType.NumberOfHits] = unit.Properties[PropertiesType.NumberOfHits];

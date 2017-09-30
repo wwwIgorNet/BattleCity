@@ -8,6 +8,7 @@ namespace SuperTank.View
     {
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
+        [ServiceKnownType(typeof(Owner))]
         void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties);
         [OperationContract(IsOneWay = true)]
         void Remove(int id);

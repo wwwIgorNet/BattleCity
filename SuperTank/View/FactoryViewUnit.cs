@@ -18,6 +18,23 @@ namespace SuperTank
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
+                    if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
+                    {
+                        resView = new ViewAnimationTank(id, x, y,
+                           ConfigurationView.WidthTank,
+                           ConfigurationView.HeightTank,
+                           ConfigurationView.ZIndexTank,
+                           Images.GetImgesForTankIIPlayer(typeUnit));
+                    }
+                    else
+                    {
+                        resView = new ViewAnimationTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeightTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImgesForTank(typeUnit));
+                    }
+                    break;
 
                 case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:

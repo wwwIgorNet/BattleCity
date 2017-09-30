@@ -11,9 +11,10 @@ namespace SuperTank
         {
             this.soundGame = soundGame;
             this.OwnerPlaeyr = plaeyr;
+            Properties[PropertiesType.Owner] = plaeyr.Owner;
         }
 
-        public Player OwnerPlaeyr { get; }
+        public Player OwnerPlaeyr { get; private set; }
         public ISoundGame SoundGame { get { return soundGame; } }
         public override bool IsParking
         {

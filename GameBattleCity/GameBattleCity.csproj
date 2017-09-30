@@ -74,7 +74,6 @@
     <Compile Include="Unit\Eagle.cs" />
     <Compile Include="Unit\FactoryUnit.cs" />
     <Compile Include="Unit\MovableUnit.cs" />
-    <Compile Include="Unit\Owner.cs" />
     <Compile Include="Unit\PlayerShell.cs" />
     <Compile Include="Unit\Points.cs" />
     <Compile Include="Unit\Shell.cs" />

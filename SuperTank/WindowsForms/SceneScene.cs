@@ -7,7 +7,7 @@ using System.ServiceModel;
 namespace SuperTank
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class SceneView : IRender
+    public class SceneScene : IRender
     {
         private readonly SortedView listDrowable = new SortedView();
         private readonly IFactoryViewUnit factoryViewUnit = new FactoryViewUnit();
