@@ -14,7 +14,7 @@ namespace SuperTank.WindowsForms
         private Timer timerInvalidate = new Timer();
         private LevelInfo levelInfo;
         private SceneScene sceneView;
-        private ScrenLoadLevel viewLoadLevel = new ScrenLoadLevel();
+        private ScrenLoadLevel viewLoadLevel;
         private ScrenScore screnScore = new ScrenScore();
         private ScrenGameOver screnGameOver = new ScrenGameOver();
         private int countPoints = 0;
@@ -32,6 +32,7 @@ namespace SuperTank.WindowsForms
             this.sceneView = sceneView;
 
             this.levelInfo = levelInfo;
+            viewLoadLevel = new ScrenLoadLevel(levelInfo);
             this.ResumeLayout(false);
 
             GraphicsOption();
@@ -49,7 +50,6 @@ namespace SuperTank.WindowsForms
         }
         public void StartLevel(int level)
         {
-            viewLoadLevel.EndClose += () => levelInfo.Level = level;
             viewLoadLevel.Start(level);
             GameForm.Sound.GameStart();
         }

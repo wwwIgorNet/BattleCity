@@ -13,8 +13,12 @@ namespace SuperTank.WindowsForms
         private TimeSpan timeCloseOrOpen;
         private int curentLevel;
         private string infoText;
+        private LevelInfo levelInfo;
 
-        public event Action EndClose;
+        public ScrenLoadLevel(LevelInfo levelInfo)
+        {
+            this.levelInfo = levelInfo;
+        }
 
         public void Start(int level)
         {
@@ -54,7 +58,7 @@ namespace SuperTank.WindowsForms
                     isOpening = true;
                     infoText = "STAGE " + curentLevel;
                     UpdateImage();
-                    if (EndClose != null) EndClose.Invoke();
+                    levelInfo.Level = curentLevel;
                 }
             }
             else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationView.DelayScrenLoadLevel)
