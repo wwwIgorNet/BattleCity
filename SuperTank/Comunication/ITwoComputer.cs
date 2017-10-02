@@ -11,6 +11,6 @@ namespace SuperTank.Comunication
     interface ITwoComputer
     {
         [OperationContract(IsOneWay = true)]
-        void IsStartedTwoComp();
+        void StartedTwoComp();
     }
 }

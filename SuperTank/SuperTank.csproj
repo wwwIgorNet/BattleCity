@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="WindowsForms\ScrenScore.cs" />
     <Compile Include="WindowsForms\ScrenLoadLevel.cs" />
+    <Compile Include="WindowsForms\ScrenScoreTwoPlayers.cs" />
     <Compile Include="WindowsForms\StartScren.cs">
       <SubType>Component</SubType>
     </Compile>

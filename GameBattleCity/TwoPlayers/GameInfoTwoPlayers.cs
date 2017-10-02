@@ -18,13 +18,12 @@ namespace GameBattleCity.TwoPlayers
             this.IPlayer = IPlayer;
             this.IIPlayer = IIPlayer;
         }
-
-        public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
+        public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             ThreadPool.QueueUserWorkItem(s =>
             {
-                IPlayer.EndLevel(level, countPoints, destrouTanksPlaeyr);
-                IIPlayer.EndLevel(level, countPoints, destrouTanksPlaeyr);
+                IPlayer.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+                IIPlayer.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
             });
         }
 

@@ -13,6 +13,7 @@ namespace SuperTank.View
 
 #pragma warning disable CS0649
         private static Image dashboardInfo;
+        private static Image dashboardInfoIIPlayer;
         private static Image informationTank;
 
         private static readonly string pathForShell = @"Shell\";
@@ -55,7 +56,6 @@ namespace SuperTank.View
 #pragma warning restore CS0649
 
         private static Image blankImage = new Bitmap(1, 1);
-        private static Image dashboardInfoIIPlayer;
 
         public static Image BlankImage { get { return blankImage; } }
 

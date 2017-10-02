@@ -35,7 +35,7 @@ namespace SuperTank
 
             levelManager.StartLevel(map);
         }
-        public void CloseChannel()
+        public void CloseChannelFactory()
         {
             closeChannel.Invoke();
             closeChannel = () => { };

@@ -47,6 +47,7 @@ namespace SuperTank.WindowsForms
         private bool isStartScren = true;
         private bool waitForConectToGame = false;
         private bool constructorHasMap;
+        private Owner ownerPlayer;
 
         private Action closeHost = () => { };
         private Action closeChannel = () => { };
@@ -74,7 +75,7 @@ namespace SuperTank.WindowsForms
         public static IViewSound Sound { get { return viewSound; } }
         public IKeyboard Keyboard { get; set; }
 
-        public void IsStartedTwoComp()
+        public void StartedTwoComp()
         {
             hostTwoComputer.BeginClose(null, null);
             StartNewGame(ipIIPlayer);
@@ -133,6 +134,7 @@ namespace SuperTank.WindowsForms
                     if (startScren.IndexMenu == 0)
                     {
                         StartNewGame(null);
+                        ownerPlayer = SuperTank.Owner.IPlayer;
                     }
                     else if (startScren.IndexMenu == 1)
                     {
@@ -167,9 +169,18 @@ namespace SuperTank.WindowsForms
             isStartScren = false;
             sceneView = new SceneScene();
             LevelInfo levelInfo = null;
-            if (ipIIPlayer != null) levelInfo = new LevelInfoTwoPlayer();
-            else levelInfo = new LevelInfo();
-            screnGame = new ScrenGame(sceneView, levelInfo, this.GameOver);
+            ScrenScore screnScore = null;
+            if (ipIIPlayer != null)
+            {
+                levelInfo = new LevelInfoTwoPlayer();
+                screnScore = new ScrenScoreTwoPlayers();
+            }
+            else
+            {
+                levelInfo = new LevelInfo();
+                screnScore = new ScrenScore();
+            }
+            screnGame = new ScrenGame(sceneView, levelInfo, screnScore, this.GameOver);
 
             this.OpenHost();
             Controls.Remove(startScren);
@@ -193,7 +204,8 @@ namespace SuperTank.WindowsForms
             ThreadPool.QueueUserWorkItem((s) =>
             {
                 constructorHasMap = false;
-                int maxPoints = 0;
+                int maxPointsInFile = 0;
+                int maxPointsInGame = 0;
                 Thread.Sleep(ConfigurationView.DelayScrenPoints);
                 Invoke(new Action(() =>
                 {
@@ -203,21 +215,23 @@ namespace SuperTank.WindowsForms
                 }));
                 ThreadPool.QueueUserWorkItem((o) =>
                 {
-                    maxPoints = int.Parse(File.ReadAllText(ConfigurationView.MaxPointsPath));
-                    if (screnGame.CountPoints > maxPoints)
+                    maxPointsInFile = int.Parse(File.ReadAllText(ConfigurationView.MaxPointsPath));
+                    if (ownerPlayer == SuperTank.Owner.IIPlayer) maxPointsInGame = screnGame.CountPointsIIPlayer;
+                    else maxPointsInGame = screnGame.CountPointsIPlayer;
+                    if (maxPointsInGame > maxPointsInFile)
                     {
-                        File.WriteAllText(ConfigurationView.MaxPointsPath, screnGame.CountPoints.ToString());
+                        File.WriteAllText(ConfigurationView.MaxPointsPath, maxPointsInGame.ToString());
                     }
                 });
 
                 Thread.Sleep(ConfigurationView.TimeScrenGameOver);
 
-                if (screnGame.CountPoints > maxPoints)
+                if (maxPointsInGame > maxPointsInFile)
                 {
                     Invoke(new Action(() =>
                     {
                         Controls.Remove(gameOver);
-                        screnRecord = new ScrenRecord(screnGame.CountPoints);
+                        screnRecord = new ScrenRecord(maxPointsInGame);
                         screnRecord.Size = ClientSize;
                         viewSound.HighScore();
                         Controls.Add(screnRecord);
@@ -230,7 +244,6 @@ namespace SuperTank.WindowsForms
                         Controls.Remove(screnRecord);
                     }));
                 }
-
                 StopGame();
                 Invoke(new Action(() =>
                 {
@@ -251,8 +264,8 @@ namespace SuperTank.WindowsForms
             {
                 game.Stop();
                 Thread.Sleep(300);
-                game.CloseChannel();
-                this.CloseChenalFactory();
+                game.CloseChannelFactory(); 
+                this.CloseChannelFactory();
                 game.CloseHost();
                 game = null;
             }
@@ -300,12 +313,12 @@ namespace SuperTank.WindowsForms
                 ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
 
                 sceneView = new SceneScene();
-                screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), this.GameOver);
+                screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), new ScrenScoreTwoPlayers(), this.GameOver);
                 this.OpenHost(dialogIP.GameIP);
 
-                factoryTwoComputer.CreateChannel().IsStartedTwoComp();
+                factoryTwoComputer.CreateChannel().StartedTwoComp();
                 factoryTwoComputer.BeginClose(null, null);
-
+                ownerPlayer = SuperTank.Owner.IIPlayer;
             }
             catch (Exception ex)
             {
@@ -323,10 +336,17 @@ namespace SuperTank.WindowsForms
             isGameStop = false;
         }
 
-        public void CloseChenalFactory()
+        public void CloseChannelFactory()
         {
-            closeChannel.Invoke();
-            closeChannel = () => { };
+            try
+            {
+                closeChannel.Invoke();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                closeChannel = () => { };
+            }
         }
         public void OpenChannel()
         {
@@ -336,6 +356,7 @@ namespace SuperTank.WindowsForms
             {
                 factoryKeyboard.Close();
             };
+            ownerPlayer = SuperTank.Owner.IPlayer;
         }
         public void OpenTCPChannel(IPAddress ipIIPlayer)
         {

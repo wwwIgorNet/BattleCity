@@ -7,7 +7,7 @@ namespace SuperTank
     public interface IGameInfo
     {
         [OperationContract(IsOneWay = true)]
-        void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr);
+        void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr);
         [OperationContract(IsOneWay = true)]
         void StartLevel(int level);
         [OperationContract(IsOneWay = true)]

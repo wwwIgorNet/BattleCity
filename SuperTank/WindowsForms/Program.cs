@@ -21,7 +21,7 @@ namespace SuperTank.WindowsForms
 
         private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            Console.WriteLine(e.ExceptionObject.ToString());
+            MessageBox.Show("Program\n" + e.ExceptionObject.ToString());
         }
     }
 }

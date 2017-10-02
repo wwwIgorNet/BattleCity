@@ -15,11 +15,12 @@ namespace SuperTank.WindowsForms
         private LevelInfo levelInfo;
         private SceneScene sceneView;
         private ScrenLoadLevel viewLoadLevel;
-        private ScrenScore screnScore = new ScrenScore();
+        private ScrenScore screnScore;
         private ScrenGameOver screnGameOver = new ScrenGameOver();
-        private int countPoints = 0;
+        private int countPointsIPlayer = 0;
+        private int countPointsIIPlayer = 0;
 
-        public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, Action gameOver)
+        public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, ScrenScore screnScore, Action gameOver)
         {
             this.gameOver = gameOver;
             timerInvalidate.Interval = ConfigurationView.TimerInterval;
@@ -35,10 +36,12 @@ namespace SuperTank.WindowsForms
             viewLoadLevel = new ScrenLoadLevel(levelInfo);
             this.ResumeLayout(false);
 
+            this.screnScore = screnScore;
             GraphicsOption();
         }
 
-        public int CountPoints { get { return countPoints; } }
+        public int CountPointsIPlayer { get { return countPointsIPlayer; } }
+        public int CountPointsIIPlayer { get { return countPointsIIPlayer; } }
 
         public void SetCountTankEnemy(int count)
         {
@@ -53,10 +56,11 @@ namespace SuperTank.WindowsForms
             viewLoadLevel.Start(level);
             GameForm.Sound.GameStart();
         }
-        public void EndLevel(int level, int countPoints, Dictionary<TypeUnit, int> destrouTanksPlaeyr)
+        public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            screnScore.EndLevel(level, countPoints, destrouTanksPlaeyr);
-            this.countPoints = countPoints;
+            screnScore.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+            this.countPointsIPlayer = countPointsIPlayer;
+            this.countPointsIIPlayer = countPointsIIPlayer;
         }
         public void GameOver()
         {

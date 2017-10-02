@@ -81,7 +81,7 @@ namespace SuperTank
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) =>
             {
-                gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks);
+                SetPointsToView();
                 abortUpdate = true;
                 Stop();
                 Updatable.Clear();
@@ -102,6 +102,13 @@ namespace SuperTank
             };
             t.Start();
         }
+
+        private void SetPointsToView()
+        {
+            if (IIPlayer == null) gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, 0, null);
+            else gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, IIPlayer.Points, IIPlayer.DestroyedTanks);
+        }
+
         public void StartLevel()
         {
             DateTime start = DateTime.Now;
@@ -147,7 +154,7 @@ namespace SuperTank
         }
         public void EndLevel()
         {
-            gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks);
+            SetPointsToView();
             timer.Stop();
             abortUpdate = true;
             updatable.Clear();
