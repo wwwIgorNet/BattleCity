@@ -36,6 +36,7 @@ namespace SuperTank.WindowsForms
         private StartScren startScren;
         private ScrenRecord screnRecord = null;
         private ScrenConstructor screnConstructor;
+        private ScrenScore screnScore;
 
         private SoundGame soundGame;
         private SceneScene sceneView;
@@ -169,7 +170,6 @@ namespace SuperTank.WindowsForms
             isStartScren = false;
             sceneView = new SceneScene();
             LevelInfo levelInfo = null;
-            ScrenScore screnScore = null;
             if (ipIIPlayer != null)
             {
                 levelInfo = new LevelInfoTwoPlayer();
@@ -206,7 +206,7 @@ namespace SuperTank.WindowsForms
                 constructorHasMap = false;
                 int maxPointsInFile = 0;
                 int maxPointsInGame = 0;
-                Thread.Sleep(ConfigurationView.DelayScrenPoints);
+                Thread.Sleep(screnScore.DelayScrenPoints);
                 Invoke(new Action(() =>
                 {
                     Controls.Remove(screnGame);
@@ -313,7 +313,8 @@ namespace SuperTank.WindowsForms
                 ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
 
                 sceneView = new SceneScene();
-                screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), new ScrenScoreTwoPlayers(), this.GameOver);
+                screnScore = new ScrenScoreTwoPlayers();
+                screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), screnScore, this.GameOver);
                 this.OpenHost(dialogIP.GameIP);
 
                 factoryTwoComputer.CreateChannel().StartedTwoComp();
@@ -345,6 +346,9 @@ namespace SuperTank.WindowsForms
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+            }
+            finally
+            {
                 closeChannel = () => { };
             }
         }
@@ -435,10 +439,7 @@ namespace SuperTank.WindowsForms
                     StopGame();
                     wcfClose = true;
 
-                    Invoke((MethodInvoker)delegate ()
-                    {
-                        ((Form)sender).Close();
-                    });
+                    Invoke(new MethodInvoker(((Form)sender).Close));
                 });
             }
         }

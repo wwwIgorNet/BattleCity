@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Timers;
+using System.Linq;
 
 namespace SuperTank
 {
@@ -24,6 +25,7 @@ namespace SuperTank
         private Enemy enemy;
         private bool gameOver;
         private int countPlayer;
+        private TimeSpan DelayScrenPoints;
 
         static LevelManager()
         {
@@ -77,7 +79,6 @@ namespace SuperTank
 
             gameOver = true;
             startGameOver = DateTime.Now;
-            gameInfo.GameOver();
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) =>
             {
@@ -101,12 +102,25 @@ namespace SuperTank
                 CountLevel = ConfigurationGame.CountLevel;
             };
             t.Start();
+            gameInfo.GameOver();
         }
 
         private void SetPointsToView()
         {
-            if (IIPlayer == null) gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, 0, null);
-            else gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, IIPlayer.Points, IIPlayer.DestroyedTanks);
+            int countTank;
+            if (IIPlayer == null)
+            {
+                gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, 0, null);
+                countTank = IPlayer.DestroyedTanks.Values.Sum();
+            }
+            else
+            {
+                gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, IIPlayer.Points, IIPlayer.DestroyedTanks);
+
+                if (IPlayer.Points > IIPlayer.Points) countTank = IPlayer.DestroyedTanks.Values.Sum();
+                else countTank = IIPlayer.DestroyedTanks.Values.Sum();
+            }
+            DelayScrenPoints = ConfigurationGame.GetDelayScrenPoints(countTank);
         }
 
         public void StartLevel()
@@ -178,7 +192,7 @@ namespace SuperTank
                         break;
                 }
             }
-            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenPoints);// todo
+            System.Threading.Thread.Sleep(DelayScrenPoints);// todo
         }
         public void CreateLevel(int level)
         {

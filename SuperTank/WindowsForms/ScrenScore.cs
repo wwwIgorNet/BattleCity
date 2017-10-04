@@ -43,6 +43,7 @@ namespace SuperTank.WindowsForms
         protected float ThirdOfWidth { get; set; } // треть ширины
         protected float LineInterval { get; set; }
         protected float TotalYPos { get; set; }
+        public TimeSpan DelayScrenPoints { get; protected set; }
 
         public override void UpdateImage()
         {
@@ -74,6 +75,7 @@ namespace SuperTank.WindowsForms
         }
         public virtual void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
+            DelayScrenPoints = ConfigurationView.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum());
             this.level = level;
             this.countPoints = countPointsIPlayer;
             this.destrouTanksPlaeyr = destrouTanksIPlaeyr;
@@ -86,7 +88,7 @@ namespace SuperTank.WindowsForms
 
         protected override void Timer_Tick(object sender, EventArgs e)
         {
-            if (DateTime.Now - StartTime < ConfigurationView.DelayScrenPoints)
+            if (DateTime.Now - StartTime < DelayScrenPoints)
             {
                 UpdateImage();
             }

@@ -23,7 +23,6 @@ namespace SuperTank
             TimeDetonation = 6;
             TimeBigDetonation = 10;
             TimeGameOver = 4000;
-            DelayScrenPoints = TimeSpan.FromSeconds(6);
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
 
             CountLevel = 35;
@@ -42,7 +41,6 @@ namespace SuperTank
         public static int TimeAppearanceOfTank { get; private set; }
         public static int TimeBigDetonation { get; private set; }
         public static int CountLevel { get; private set; }
-        public static TimeSpan DelayScrenPoints { get; private set; }
         public static TimeSpan DelayScrenLoadLevel { get; private set; }
         public static int TimeGameOver { get; private set; }
         public static char CharBrickWall { get { return '#'; } }
@@ -78,6 +76,11 @@ namespace SuperTank
                     return 500;
             }
             return 0;
+        }
+
+        public static TimeSpan GetDelayScrenPoints(int countTank)
+        {
+            return TimeSpan.FromMilliseconds(150 * (countTank + 9) + 1000);
         }
     }
 }

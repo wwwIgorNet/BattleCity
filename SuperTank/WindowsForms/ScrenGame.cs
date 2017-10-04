@@ -19,6 +19,7 @@ namespace SuperTank.WindowsForms
         private ScrenGameOver screnGameOver = new ScrenGameOver();
         private int countPointsIPlayer = 0;
         private int countPointsIIPlayer = 0;
+        private System.Threading.AutoResetEvent autoResetEvent = new System.Threading.AutoResetEvent(false);
 
         public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, ScrenScore screnScore, Action gameOver)
         {
@@ -55,24 +56,23 @@ namespace SuperTank.WindowsForms
         {
             viewLoadLevel.Start(level);
             GameForm.Sound.GameStart();
+            autoResetEvent.Reset();
         }
         public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             screnScore.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
             this.countPointsIPlayer = countPointsIPlayer;
             this.countPointsIIPlayer = countPointsIIPlayer;
+            autoResetEvent.Set();
         }
         public void GameOver()
         {
-            Timer t = new Timer();
-            t.Interval = ConfigurationView.TimeGameOver;
-            t.Tick += (o, s) =>
+            System.Threading.ThreadPool.QueueUserWorkItem( o =>
             {
-                t.Stop();
-                gameOver.Invoke();
+                autoResetEvent.WaitOne();
+                Invoke(new MethodInvoker(gameOver.Invoke));
                 screnGameOver.IsAcive = false;
-            };
-            t.Start();
+            });
 
             GameForm.Sound.GameOver();
             screnGameOver.Start();
