@@ -11,6 +11,7 @@ namespace SuperTank
             DelayPauseForClockBonus = 500;
             DelayShovelBonus = 20;
             GlidDelay = 20;
+            DelayTimePausePlayerTank = 10000;
 
             CountTankEnemy = 20;
 
@@ -71,5 +72,6 @@ namespace SuperTank
         public static int DelayShovelBonus { get; private set; }
         public static int GlidDelay { get; internal set; }
         public static int CountTankEnemy { get; internal set; }
+        public static double DelayTimePausePlayerTank { get; internal set; }
     }
 }

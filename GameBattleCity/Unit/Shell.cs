@@ -1,4 +1,6 @@
-﻿namespace SuperTank
+﻿using System.Timers;
+
+namespace SuperTank
 {
     public class Shell : MovableUnit
     {
@@ -66,18 +68,22 @@
                         case TypeUnit.LightTankPlaeyr:
                         case TypeUnit.MediumTankPlaeyr:
                         case TypeUnit.HeavyTankPlaeyr:
+                            if (!(bool)item.Properties[PropertiesType.IsInvulnerable])
+                            {
+                                if (Owner.Equals(Owner.Enemy)) HitInTank(item);
+                                else if (Owner.Equals(Owner.IPlayer) && item.Properties[PropertiesType.Owner].Equals(Owner.IIPlayer)
+                                    || Owner.Equals(Owner.IIPlayer) && item.Properties[PropertiesType.Owner].Equals(Owner.IPlayer))
+                                {
+                                    PauseTankPlayer(item);
+                                    Detonation(item, false);
+                                }
+                            }
+                            break;
 
                         case TypeUnit.PlainTank:
                         case TypeUnit.ArmoredPersonnelCarrierTank:
                         case TypeUnit.QuickFireTank:
-                            if (!Owner.Equals(item.Properties[PropertiesType.Owner]) && !(bool)item.Properties[PropertiesType.IsInvulnerable])
-                            {
-                                item.Properties[PropertiesType.Detonation] = true;
-                                Detonation(item, true);
-                                BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
-                                detonation.Start();
-                                return;
-                            }
+                            if (!Owner.Equals(item.Properties[PropertiesType.Owner])) HitInTank(item);
                             break;
                         case TypeUnit.ArmoredTank:
                             if (!Owner.Equals(item.Properties[PropertiesType.Owner]))
@@ -86,11 +92,7 @@
                                 numberOfHits++;
                                 if (numberOfHits == 4)
                                 {
-                                    item.Properties[PropertiesType.Detonation] = true;
-                                    Detonation(item, true);
-                                    BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
-                                    detonation.Start();
-                                    return;
+                                    HitInTank(item);
                                 }
                                 else
                                 {
@@ -123,6 +125,27 @@
                     }
                 }
             }
+        }
+
+        private static void PauseTankPlayer(Unit item)
+        {
+            Timer t = new Timer();
+            t.Interval = ConfigurationGame.DelayTimePausePlayerTank;
+            t.Elapsed += (s, e) =>
+            {
+                t.Stop();
+                ((Tank)item).IsPause = false;
+            };
+            ((Tank)item).IsPause = true;
+            t.Start();
+        }
+
+        private void HitInTank(Unit item)
+        {
+            item.Properties[PropertiesType.Detonation] = true;
+            Detonation(item, true);
+            BigDetonation detonation = FactoryUnit.CreateBigDetonation(item, TypeUnit.BigDetonation);
+            detonation.Start();
         }
     }
 }
