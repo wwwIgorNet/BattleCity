@@ -10,19 +10,14 @@ namespace SuperTank.WindowsForms
     {
         private int level;
         private int countPoints;
-        private Dictionary<TypeUnit, int> destrouTanksPlaeyr;
         private Font font = new Font(ConfigurationView.InfoFontFamily, 13);
         private float horisontalCentr;
         private float verticalCentr;
         private float pointsRightX;
         private float countTankRightX;
-        private float plainTankY;
         private float armoredPersonnelCarrierTankY;
         private float quickFireTankY;
         private float armoredTankY;
-        private int iteration;
-        private int countTank;
-        private TypeUnit curentTank;
 
         public ScrenScore()
         {
@@ -31,7 +26,7 @@ namespace SuperTank.WindowsForms
             verticalCentr = Height / 2;
 
             LineInterval = 54;
-            plainTankY = LineInterval * 5;
+            PlainTankY = LineInterval * 5;
             armoredPersonnelCarrierTankY = LineInterval * 6;
             quickFireTankY = LineInterval * 7;
             armoredTankY = LineInterval * 8;
@@ -44,45 +39,59 @@ namespace SuperTank.WindowsForms
         protected float LineInterval { get; set; }
         protected float TotalYPos { get; set; }
         public TimeSpan DelayScrenPoints { get; protected set; }
+        protected float PlainTankY { get; set; }
+        protected int Row { get; set; }
+        protected TypeUnit CurentTank { get; set; }
+        protected int CountTankIPlayer { get; set; }
+        protected Dictionary<TypeUnit, int> DestrouTanksIPlaeyr { get; set; }
 
         public override void UpdateImage()
         {
-            if (iteration < destrouTanksPlaeyr.Count)
+            if (Row < DestrouTanksIPlaeyr.Count)
             {
-                if (countTank < destrouTanksPlaeyr[curentTank])
+                if (CountTankIPlayer < DestrouTanksIPlaeyr[CurentTank])
                 {
-                    UpdateTank(plainTankY + LineInterval * iteration, TypeUnit.PlainTank + iteration, countTank);
-                    countTank++;
+                    UpdateTankIPlayer(PlainTankY + LineInterval * Row, CurentTank, CountTankIPlayer);
+                    GameForm.Sound.CountTankIncrement();
+                    CountTankIPlayer++;
                 }
-                else if (destrouTanksPlaeyr[curentTank] == countTank)
+                else if (DestrouTanksIPlaeyr[CurentTank] == CountTankIPlayer)
                 {
-                    UpdateTank(plainTankY + LineInterval * iteration, curentTank, countTank);
-                    curentTank++;
-                    iteration++;
-                    countTank = 0;
+                    UpdateTankIPlayer(PlainTankY + LineInterval * Row, CurentTank, CountTankIPlayer);
+                    RowIncrement();
                 }
             }
-            else
-            {
-                Graphics g = Graphics.FromImage(ImgScren);
-                Text totalTank = new Text(destrouTanksPlaeyr.Sum(kv => kv.Value).ToString(), Brushes.White);
-                totalTank.Size = g.MeasureString(totalTank.Str, Font);
-                totalTank.X = countTankRightX - totalTank.Width;
-                totalTank.Y = TotalYPos;
-
-                DrawString(g, totalTank);
-            }
+            else DrawTotal();
         }
+
+        protected virtual void RowIncrement()
+        {
+            Row++;
+            CurentTank++;
+            CountTankIPlayer = 0;
+        }
+
+        protected virtual void DrawTotal()
+        {
+            Graphics g = Graphics.FromImage(ImgScren);
+            Text totalTank = new Text(DestrouTanksIPlaeyr.Values.Sum().ToString(), Brushes.White);
+            totalTank.Size = g.MeasureString(totalTank.Str, Font);
+            totalTank.X = countTankRightX - totalTank.Width;
+            totalTank.Y = TotalYPos;
+
+            DrawString(g, totalTank);
+        }
+
         public virtual void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             DelayScrenPoints = ConfigurationView.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum());
             this.level = level;
             this.countPoints = countPointsIPlayer;
-            this.destrouTanksPlaeyr = destrouTanksIPlaeyr;
+            this.DestrouTanksIPlaeyr = destrouTanksIPlaeyr;
             Start();
-            iteration = 0;
-            countTank = 0;
-            curentTank = TypeUnit.PlainTank;
+            Row = 0;
+            CountTankIPlayer = 0;
+            CurentTank = TypeUnit.PlainTank;
             CreateImg();
         }
 
@@ -99,11 +108,8 @@ namespace SuperTank.WindowsForms
             }
         }
 
-        protected virtual void UpdateTank(float y, TypeUnit tank, int countTank)
+        protected void UpdateTankIPlayer(float y, TypeUnit tank, int countTank)
         {
-            if (countTank > 0)
-                GameForm.Sound.CountTankIncrement();
-
             Graphics g = Graphics.FromImage(ImgScren);
             Text points = new Text((countTank * ConfigurationView.GetCountPoints(tank)).ToString(), Brushes.White);
             points.Size = g.MeasureString(points.Str, Font);
@@ -162,7 +168,7 @@ namespace SuperTank.WindowsForms
             DrawString(g, IPlayer);
             DrawString(g, points);
 
-            DrawLine(g, plainTankY, TypeUnit.PlainTank);
+            DrawLine(g, PlainTankY, TypeUnit.PlainTank);
             DrawLine(g, armoredPersonnelCarrierTankY, TypeUnit.ArmoredPersonnelCarrierTank);
             DrawLine(g, quickFireTankY, TypeUnit.QuickFireTank);
             DrawLine(g, armoredTankY, TypeUnit.ArmoredTank);

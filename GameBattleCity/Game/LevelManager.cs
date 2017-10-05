@@ -117,8 +117,7 @@ namespace SuperTank
             {
                 gameInfo.EndLevel(curentLevel, IPlayer.Points, IPlayer.DestroyedTanks, IIPlayer.Points, IIPlayer.DestroyedTanks);
 
-                if (IPlayer.Points > IIPlayer.Points) countTank = IPlayer.DestroyedTanks.Values.Sum();
-                else countTank = IIPlayer.DestroyedTanks.Values.Sum();
+                countTank = IPlayer.DestroyedTanks.Values.Sum() + IIPlayer.DestroyedTanks.Values.Sum();
             }
             DelayScrenPoints = ConfigurationGame.GetDelayScrenPoints(countTank);
         }
