@@ -1,7 +1,11 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Game settings
+    /// </summary>
     public class ConfigurationGame : ConfigurationBase
     {
 
@@ -9,9 +13,12 @@ namespace SuperTank
         {
             DelayAddingTank = 50;
             DelayPauseForClockBonus = 500;
-            DelayShovelBonus = 20;
+            TimeShovelBonus = TimeSpan.FromSeconds(20);
             GlidDelay = 20;
             DelayTimePausePlayerTank = 10000;
+            TimeClockBonus = TimeSpan.FromSeconds(10);
+            TimeHelmetBonus = TimeSpan.FromSeconds(10);
+            TimeHelmetBonusNewTank = TimeSpan.FromSeconds(6);
 
             CountTankEnemy = 20;
 
@@ -69,9 +76,12 @@ namespace SuperTank
 
         public static int DelayAddingTank { get; private set; }
         public static int DelayPauseForClockBonus { get; private set; }
-        public static int DelayShovelBonus { get; private set; }
-        public static int GlidDelay { get; internal set; }
-        public static int CountTankEnemy { get; internal set; }
-        public static double DelayTimePausePlayerTank { get; internal set; }
+        public static TimeSpan TimeShovelBonus { get; private set; }
+        public static int GlidDelay { get; private set; }
+        public static int CountTankEnemy { get; private set; }
+        public static double DelayTimePausePlayerTank { get; private set; }
+        public static TimeSpan TimeClockBonus { get; private set; }
+        public static TimeSpan TimeHelmetBonusNewTank { get; private set; }
+        public static TimeSpan TimeHelmetBonus { get; private set; }
     }
 }

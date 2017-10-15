@@ -22,7 +22,13 @@ namespace SuperTank
             Properties[PropertiesType.IsInvulnerable] = false;
         }
 
+        /// <summary>
+        /// The driver of the tank
+        /// </summary>
         public IDriver Driver { get { return driver; } }
+        /// <summary>
+        /// Put the tank on pause
+        /// </summary>
         public bool IsPause
         {
             get

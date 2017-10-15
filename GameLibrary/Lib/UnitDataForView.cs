@@ -3,6 +3,9 @@ using System.Runtime.Serialization;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Properties unit for view
+    /// </summary>
     [DataContract]
     public class UnitDataForView
     {
@@ -29,10 +32,25 @@ namespace SuperTank
             this.properties = properties;
         }
 
+        /// <summary>
+        /// ID unit
+        /// </summary>
         public int ID { get { return id; } }
+        /// <summary>
+        /// Type unit
+        /// </summary>
         public TypeUnit TypeUnit { get { return typeUnit; } }
+        /// <summary>
+        /// Coordinate x unit
+        /// </summary>
         public int X { get { return x; } }
+        /// <summary>
+        /// Coordinate y unit
+        /// </summary>
         public int Y { get { return y; } }
+        /// <summary>
+        /// Other properties unit
+        /// </summary>
         public Dictionary<PropertiesType, object> Properties { get { return properties; } }
     }
 }

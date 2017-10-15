@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Driver of the player's tank
+    /// </summary>
     class PlayerDriver : IDriver
     {
         private IKeyboard keyboard;

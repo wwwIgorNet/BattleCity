@@ -4,7 +4,7 @@ using System.Windows.Forms;
 namespace SuperTank
 {
     /// <summary>
-    /// Состояние клавиатуры
+    /// Keyboard status
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class Keyboard : IKeyboard

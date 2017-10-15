@@ -54,13 +54,13 @@ namespace SuperTank
                     switch (Scene.Bonus[i].Type)
                     {
                         case TypeUnit.Clock:
-                            new ClockBonus().Start();
+                            new ClockBonus(ConfigurationGame.TimeClockBonus).Start();
                             break;
                         case TypeUnit.Grenade:
                             GrenadeBonus.DetonationAllTankInScene(soundGame);
                             break;
                         case TypeUnit.Helmet:
-                            new HelmetBonus(this, 10).Start();
+                            new HelmetBonus(this, ConfigurationGame.TimeHelmetBonus).Start();
                             break;
                         case TypeUnit.Pistol:
                             PistolBonus.UpdatableTank(this);

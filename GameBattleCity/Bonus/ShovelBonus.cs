@@ -4,10 +4,14 @@ using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Bonus, shovel. Surrounds the eagle with a concrete wall
+    /// </summary>
     class ShovelBonus : UpdatableBase
     {
         private static DateTime startTime;
         private Size size = new Size(ConfigurationGame.WidthTile, ConfigurationGame.HeightTile);
+        // Coordinates of the concrete wall around the eagle
         private Point[] position = new Point[]
         {
             new Point(ConfigurationGame.PositionEagle.X - 20, ConfigurationGame.PositionEagle.Y + 20),
@@ -20,13 +24,15 @@ namespace SuperTank
             new Point(ConfigurationGame.PositionEagle.X + 40, ConfigurationGame.PositionEagle.Y + 20)
 
         };
+        // List of units of the concrete wall around the eagle
         private List<Unit> unitsAroundEagle = new List<Unit>();
+        // Number of calls Update
         private int iteration = 0;
 
         public override void Start()
         {
             base.Start();
-            GetUnitsAroundEagle();
+            FindUnitsAroundEagle();
 
             startTime = DateTime.Now;
             RemoveUnitAroundEagle();
@@ -41,11 +47,12 @@ namespace SuperTank
         public override void Update()
         {
             TimeSpan period = DateTime.Now - startTime;
-            if(period > TimeSpan.FromSeconds(ConfigurationGame.DelayShovelBonus))
+            if(period > ConfigurationGame.TimeShovelBonus)
             {
                 Dispose();
             }
-            else if(period > TimeSpan.FromSeconds(16))
+            // The last 4 seconds, alternately changing the concrete wall and brick
+            else if (period > ConfigurationGame.TimeShovelBonus - TimeSpan.FromSeconds(4))
             {
                 if (iteration == 15)
                 {
@@ -63,6 +70,10 @@ namespace SuperTank
             }
         }
 
+        /// <summary>
+        /// Add units around eagle
+        /// </summary>
+        /// <param name="type">Type unit than add</param>
         private void AddUnitAroundEagle(TypeUnit type)
         {
             unitsAroundEagle.Clear();
@@ -73,12 +84,18 @@ namespace SuperTank
             }
             Scene.AddRange(unitsAroundEagle);
         }
+        /// <summary>
+        /// Remove units around eagle
+        /// </summary>
         private void RemoveUnitAroundEagle()
         {
             foreach (Unit unit in unitsAroundEagle)
                 unit.Dispose();
         }
-        private void GetUnitsAroundEagle()
+        /// <summary>
+        /// Find units around eagle
+        /// </summary>
+        private void FindUnitsAroundEagle()
         {
             Rectangle rec = new Rectangle(0, 0, size.Width, size.Height);
             for (int i = 0; i < Scene.Units.Count; i++)

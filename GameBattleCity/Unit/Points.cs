@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Displays the number of points on the stage
+    /// </summary>
     class Points : UpdatableUnit
     {
         private DateTime starTime;

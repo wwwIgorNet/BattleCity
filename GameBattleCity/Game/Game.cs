@@ -8,6 +8,9 @@ using System.ServiceModel;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Initializes the game and manages connections
+    /// </summary>
     public class Game
     {
         private readonly int portHostKeyboard = 9091;

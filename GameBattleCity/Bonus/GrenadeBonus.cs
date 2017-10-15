@@ -3,8 +3,15 @@ using System.Collections.Generic;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Bonus grenade, explodes all enemy tanks on stage
+    /// </summary>
     class GrenadeBonus
     {
+        /// <summary>
+        /// Explodes all enemy tanks on stage
+        /// </summary>
+        /// <param name="soundGame">Sound with detonation</param>
         public static void DetonationAllTankInScene(ISoundGame soundGame)
         {
             List<Unit> dispousTank = new List<Unit>();

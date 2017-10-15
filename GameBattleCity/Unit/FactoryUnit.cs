@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// The class creates units
+    /// </summary>
     static class FactoryUnit
     {
         public static Unit CreateUnit(int x, int y, TypeUnit type)

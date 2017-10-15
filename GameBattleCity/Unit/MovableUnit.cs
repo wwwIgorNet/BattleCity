@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Basic for moving objects
+    /// </summary>
     public abstract class MovableUnit : UpdatableUnit
     {
         public MovableUnit(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction) : base(id, x, y, width, height, type)

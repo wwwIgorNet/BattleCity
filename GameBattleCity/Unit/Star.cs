@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// The appearance of the tank on stage
+    /// </summary>
     public class Star : UpdatableUnit
     {
         private Tank tank;

@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Property types
+    /// </summary>
     public enum PropertiesType
     {
         Velosity,
@@ -11,7 +14,7 @@
         TypeUnit,
         Owner,
         Detonation,
-        NumberOfHits,  // количество попаданий снаряда
+        NumberOfHits,  // количество попаданий снаряда в танк
         IsBonusTank,
         IsInvulnerable, // неуязвимый
         Points

@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Star, bonus. Updates the player's tank
+    /// </summary>
     class StarMedalBonus
     {
         public static void UpdatableTank(TankPlayer tank)
@@ -29,7 +32,6 @@
             tank.OwnerPlaeyr.CurrentTank = FactoryUnit.CreateTank(tank.X, tank.Y, newType, tank.Direction, tank.Driver, tank.SoundGame, tank.OwnerPlaeyr);
             tank.OwnerPlaeyr.CurrentTank.Start();
             driver.Tank = tank.OwnerPlaeyr.CurrentTank;
-
         }
     }
 }

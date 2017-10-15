@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// The base object on the scene
+    /// </summary>
     public class Unit : IDisposable
     {
         private static int nextId = 0;

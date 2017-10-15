@@ -5,6 +5,9 @@ using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Player : BaseOwner
     {
         private ISoundGame soundGame;
@@ -99,7 +102,7 @@ namespace SuperTank
             Star star = FactoryUnit.CreateStar(TypeUnit.Star, CurrentTank);
             star.UnitDisposable += u => { if (isEagleDestroed) EagleDestoed(); };
             star.Start();
-            new HelmetBonus(CurrentTank, 6).Start();
+            new HelmetBonus(CurrentTank, ConfigurationGame.TimeHelmetBonusNewTank).Start();
             Stop();
         }
 

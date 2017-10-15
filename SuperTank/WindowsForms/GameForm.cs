@@ -197,6 +197,7 @@ namespace SuperTank.WindowsForms
                 });
 
                 this.OpenChannel();
+                ownerPlayer = SuperTank.Owner.IPlayer;
             });
         }
         private void GameOver()
@@ -296,7 +297,7 @@ namespace SuperTank.WindowsForms
                     ipIIPlayer = dialogIP.GameIP;
                     hostTwoComputer = new ServiceHost(this);
                     hostTwoComputer.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
+                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(), "net.tcp://" + dialogIP.MyIP + ":" + portTwoComputer + "/ITwoComputer");
                     hostTwoComputer.Open();
                     waitForConectToGame = true;
                 }
@@ -360,7 +361,6 @@ namespace SuperTank.WindowsForms
             {
                 factoryKeyboard.Close();
             };
-            ownerPlayer = SuperTank.Owner.IPlayer;
         }
         public void OpenTCPChannel(IPAddress ipIIPlayer)
         {

@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Base class for objects that are updated
+    /// </summary>
     public abstract class UpdatableUnit : Unit, IUpdatable
     {
         public UpdatableUnit(int id, int x, int y, int width, int height, TypeUnit type) : base(id, x, y, width, height, type)

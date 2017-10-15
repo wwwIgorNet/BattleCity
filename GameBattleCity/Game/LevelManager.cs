@@ -9,6 +9,9 @@ using System.Linq;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Controls the logic of the game end load level
+    /// </summary>
     public class LevelManager
     {
         private DateTime startGameOver;
@@ -24,7 +27,7 @@ namespace SuperTank
         private Player IIPlayer;
         private Enemy enemy;
         private bool gameOver;
-        private int countPlayer;
+        private int countPlayers;
         private TimeSpan DelayScrenPoints;
 
         static LevelManager()
@@ -34,7 +37,7 @@ namespace SuperTank
         }
         public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy)
         {
-            countPlayer = 1;
+            countPlayers = 1;
             abortUpdate = false;
             curentLevel = 0;
             this.soundGame = soundGame;
@@ -51,7 +54,7 @@ namespace SuperTank
                 IIPlayer.CountTank = 2;
                 IIPlayer.PlayerGameOver += GameOverPlayer;
                 IIPlayer.StartPosition = ConfigurationGame.StartPositionTankIIPlaeyr;
-                countPlayer++;
+                countPlayers++;
             }
             this.enemy = enemy;
             this.enemy.RemoveAllTank += Enemy_RemoveAllTank;
@@ -70,8 +73,8 @@ namespace SuperTank
         }
         public void GameOverPlayer(Owner player)
         {
-            countPlayer--;
-            if(countPlayer == 0) GameOver();
+            countPlayers--;
+            if(countPlayers == 0) GameOver();
         }
         public void GameOver()
         {

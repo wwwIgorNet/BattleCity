@@ -20,16 +20,17 @@ namespace SuperTank.WindowsForms
             // Получение имени компьютера.
             String host = System.Net.Dns.GetHostName();
             // Получение ip-адреса.
-            System.Net.IPAddress ip = Dns.GetHostByName(host).AddressList[0];
+            MyIP = Dns.GetHostByName(host).AddressList[0];
             // Показ адреса в label'е.
-            textBoxYourIP.Text = ip.ToString();
+            textBoxYourIP.Text = MyIP.ToString();
 
-            textBoxIPGame.Text = ip.ToString(); // todo delite it
+            textBoxIPGame.Text = MyIP.ToString(); // todo delite it
 
             this.ActiveControl = textBoxIPGame;
         }
 
         public IPAddress GameIP { get; private set; }
+        public IPAddress MyIP { get; private set; }
 
         private void button1_Click(object sender, EventArgs e)
         {

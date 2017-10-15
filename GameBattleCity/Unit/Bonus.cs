@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Bonus in scene
+    /// </summary>
     class Bonus : UpdatableUnit
     {
         private DateTime starTime;

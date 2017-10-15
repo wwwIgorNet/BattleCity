@@ -2,16 +2,19 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Bonus helmet, makes the player's tank invulnerable for a certain time
+    /// </summary>
     class HelmetBonus : UpdatableBase
     {
         private Tank tank;
         private static DateTime startTime;
         private TimeSpan timeOfAction;
-
-        public HelmetBonus(Tank tank, int timeOfAction)
+        
+        public HelmetBonus(Tank tank, TimeSpan timeOfAction)
         {
             this.tank = tank;
-            this.timeOfAction = TimeSpan.FromSeconds(timeOfAction);
+            this.timeOfAction = timeOfAction;
         }
 
         public override void Start()

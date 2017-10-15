@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Bonus gun, updates the player's tank to the maximum
+    /// </summary>
     class PistolBonus
     {
         public static void UpdatableTank(TankPlayer tank)

@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Big detonation(tank, eagle)
+    /// </summary>
     class BigDetonation : UpdatableUnit
     {
         private int iterationUpdate;

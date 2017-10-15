@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Shell of the player's tank
+    /// </summary>
     class PlayerShell : Shell
     {
         private ISoundGame soundGame;
@@ -12,6 +15,9 @@ namespace SuperTank
             OwnerTank = ownerTank;
         }
 
+        /// <summary>
+        /// The tank that fired a shell
+        /// </summary>
         protected TankPlayer OwnerTank { get; private set; }
 
         protected override void Detonation(Unit item, bool removeItem)
@@ -51,13 +57,18 @@ namespace SuperTank
             }
         }
 
-        private void DestroyTank(Unit item, int points)
+        /// <summary>
+        /// Called when a projectile hits a tank
+        /// </summary>
+        /// <param name="tank">The tank into which the projectile hit</param>
+        /// <param name="points">Number of points</param>
+        private void DestroyTank(Unit tank, int points)
         {
-            FactoryUnit.CreatePoints(item.X, item.Y, TypeUnit.Points, points).Start();
+            FactoryUnit.CreatePoints(tank.X, tank.Y, TypeUnit.Points, points).Start();
             OwnerTank.OwnerPlaeyr.Points += points;
-            OwnerTank.OwnerPlaeyr.DestroyedTanks[item.Type]++;
+            OwnerTank.OwnerPlaeyr.DestroyedTanks[tank.Type]++;
             soundGame.DetonationTank();
-            if ((bool)item.Properties[PropertiesType.IsBonusTank])
+            if ((bool)tank.Properties[PropertiesType.IsBonusTank])
                 soundGame.NewBonus();
         }
     }

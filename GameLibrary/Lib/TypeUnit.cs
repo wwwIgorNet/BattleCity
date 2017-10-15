@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// Types unit
+    /// </summary>
     public enum TypeUnit
     {
         Shell,

@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// A tank that shoots two shells
+    /// </summary>
     class TwoShellTank : TankPlayer
     {
         public TwoShellTank(int id, int x, int y, int width, int height, TypeUnit type, int velosity, Direction direction, IDriver driver, TypeUnit typeShell, int velosityShell, ISoundGame soundGame, Player plaeyr) : base(id, x, y, width, height, type, velosity, direction, driver, typeShell, velosityShell, soundGame, plaeyr)

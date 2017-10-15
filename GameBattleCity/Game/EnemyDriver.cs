@@ -1,5 +1,8 @@
 ﻿namespace SuperTank
 {
+    /// <summary>
+    /// The driver of the enemy tank
+    /// </summary>
     class EnemyDriver : IDriver
     {
         private Tank tank;

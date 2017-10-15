@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Flashing tank, after destroying it appears a bonus
+    /// </summary>
     class BonusTank : Tank
     {
         private static TypeUnit[] bonuses = new[]

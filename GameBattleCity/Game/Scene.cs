@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// The scene where the battles are taking place
+    /// </summary>
     public static class Scene
     {
         private static readonly List<Unit> units = new List<Unit>();

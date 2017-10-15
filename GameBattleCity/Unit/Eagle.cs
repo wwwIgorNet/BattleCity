@@ -2,6 +2,9 @@
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Eagle that protect players
+    /// </summary>
     class Eagle : Unit
     {
         private readonly ISoundGame soundGame;

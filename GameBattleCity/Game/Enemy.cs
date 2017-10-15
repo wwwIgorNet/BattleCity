@@ -5,6 +5,9 @@ using System.Linq;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Controls the enemy
+    /// </summary>
     public class Enemy : BaseOwner
     {
         private float delayAddingTank = ConfigurationGame.DelayAddingTank;
@@ -19,7 +22,7 @@ namespace SuperTank
                 };
         private int oldPosition;
         private int iterationAddingTank = 0;
-        private int countTankInScene = 3;
+        private int maxCountTankInScene = 3;
 
         public Enemy(IGameInfo gameInfo)
         {
@@ -41,7 +44,7 @@ namespace SuperTank
                 if(delayAddingTank <= 0)
                 {
                     delayAddingTank = ConfigurationGame.DelayAddingTank;
-                    countTankInScene++;
+                    maxCountTankInScene++;
                 }
             }
         }
@@ -66,11 +69,11 @@ namespace SuperTank
         }
         public override void Update()
         {
-            if (CountTank() > 0 && Scene.Tanks.Count(t => (Owner)t.Properties[PropertiesType.Owner] == Owner.Enemy) + Scene.Stars.Count < countTankInScene)
+            if (CountTank() > 0 && Scene.Tanks.Count(t => (Owner)t.Properties[PropertiesType.Owner] == Owner.Enemy) + Scene.Stars.Count < maxCountTankInScene)
             {
                 if (iterationAddingTank > DelayAddingTank)
                 {
-                    int posIndex = GetPosition();
+                    int posIndex = GetNextPosition();
                     if (posIndex == -1) return;
 
                     AddTank(posIndex);
@@ -106,7 +109,7 @@ namespace SuperTank
 
             gameInfo.SetCountTankEnemy(tankEnemy.Count);
         }
-        private int GetPosition()
+        private int GetNextPosition()
         {
             Size size = new Size(ConfigurationGame.WidthTank, ConfigurationGame.HeightTank);
 
