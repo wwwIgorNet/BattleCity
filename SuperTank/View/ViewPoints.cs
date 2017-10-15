@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying the number of points on the scene
+    /// </summary>
     class ViewPoints : BaseView
     {
         private static SizeF sizeText;

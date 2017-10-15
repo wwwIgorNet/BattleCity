@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Displays information about the game: the number of enemy tanks, the number of lives of players and the current level
+    /// </summary>
     class LevelInfoTwoPlayer : LevelInfo
     {
         private Point pointCountTankIIPlaeyr = new Point(0, ConfigurationView.HeightTile * 18 + 8);

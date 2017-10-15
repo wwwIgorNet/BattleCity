@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SuperTank.Comunication
 {
+    /// <summary>
+    /// To synchronize the connection of two computers
+    /// </summary>
     [ServiceContract]
     interface ITwoComputer
     {

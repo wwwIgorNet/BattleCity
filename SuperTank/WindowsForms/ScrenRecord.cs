@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Scren record
+    /// </summary>
     class ScrenRecord : Label
     {
         private Font font = new Font(ConfigurationView.FontFamilyBattleCities, 55);

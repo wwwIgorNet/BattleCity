@@ -2,6 +2,9 @@
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Detonation of a tank or an eagle
+    /// </summary>
     class BigDetonationView : ViewAnimationUnit
     {
         private float centrX;

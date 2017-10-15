@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// The screen is updated
+    /// </summary>
     abstract class BaseScren
     {
         private Bitmap imgScren = new Bitmap(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);

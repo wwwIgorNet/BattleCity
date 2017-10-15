@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Animated tank
+    /// </summary>
     class ViewAnimationTank : BaseView
     {
         private Dictionary<Direction, Image[]> images;

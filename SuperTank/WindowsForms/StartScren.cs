@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Start menu screen
+    /// </summary>
     class StartScren : Label
     {
         private Image img;

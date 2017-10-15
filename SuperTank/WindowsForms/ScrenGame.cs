@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Manages the display of the game and game status information
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class ScrenGame : Label, IGameInfo
     {
@@ -55,7 +58,7 @@ namespace SuperTank.WindowsForms
         public void StartLevel(int level)
         {
             viewLoadLevel.Start(level);
-            GameForm.Sound.GameStart();
+            GameForm.Sound.LevelStart();
             autoResetEvent.Reset();
         }
         public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)

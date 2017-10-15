@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Displays information about the game: the number of enemy tanks, the number of lives of player and the current level
+    /// </summary>
     class LevelInfo
     {
         private Font font = new Font(ConfigurationView.InfoFontFamily, 13);

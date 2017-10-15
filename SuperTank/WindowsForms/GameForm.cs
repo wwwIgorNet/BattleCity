@@ -19,6 +19,9 @@ using SuperTank.Comunication;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Main window
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public partial class GameForm : Form, ITwoComputer
     {

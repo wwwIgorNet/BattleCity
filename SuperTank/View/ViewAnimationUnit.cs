@@ -2,6 +2,9 @@
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Animation unit
+    /// </summary>
     class ViewAnimationUnit : BaseView
     {
         private Image[] images;

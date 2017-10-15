@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Caches and simplifies access to images
+    /// </summary>
     static class Images
     {
         private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");

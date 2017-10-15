@@ -11,6 +11,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// The game mode selection dialog and input IP
+    /// </summary>
     public partial class DialogIP : Form
     {
         public DialogIP()

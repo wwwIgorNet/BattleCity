@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying the bonus tank
+    /// </summary>
     class ViewBonusTank : ViewAnimationTank
     {
         private int iteration = 0;

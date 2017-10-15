@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Scren game over
+    /// </summary>
     class ScrenGameOver : BaseScren
     {
         private Font font = ConfigurationView.FontGameOver;

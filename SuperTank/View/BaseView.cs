@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Base class to display the unit
+    /// </summary>
     public abstract class BaseView
     {
         private int id;
@@ -19,6 +22,9 @@ namespace SuperTank.View
             ZIndex = zIndex;
         }
 
+        /// <summary>
+        /// Picture for the unit
+        /// </summary>
         public abstract Image Img { get; }
         public float X { get; set; }
         public float Width { get; set; }

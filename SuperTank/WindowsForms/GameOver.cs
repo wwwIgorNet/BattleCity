@@ -4,6 +4,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Scren game over
+    /// </summary>
     class GameOver : Label
     {
         private Font font = new Font(ConfigurationView.FontFamilyBattleCities, 64);

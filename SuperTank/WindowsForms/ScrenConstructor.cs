@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// The level design screen
+    /// </summary>
     class ScrenConstructor : Label
     {
         private Image brickWall;

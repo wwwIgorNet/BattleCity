@@ -6,6 +6,9 @@ using System.ServiceModel;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// The scene on which the game is played
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SceneScene : IRender
     {

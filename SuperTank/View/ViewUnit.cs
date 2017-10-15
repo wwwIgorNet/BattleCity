@@ -2,6 +2,9 @@
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Unit
+    /// </summary>
     class ViewUnit : BaseView
     {
         private Image img;

@@ -2,6 +2,9 @@
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying the projectile
+    /// </summary>
     class ViewShell : BaseView
     {
         private Image imgeShell;

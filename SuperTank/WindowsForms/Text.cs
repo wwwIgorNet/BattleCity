@@ -2,6 +2,9 @@
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Dimensions and position of a line of text
+    /// </summary>
     class Text
     {
         private PointF point = new PointF();

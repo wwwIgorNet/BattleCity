@@ -5,6 +5,9 @@ using System.ServiceModel;
 
 namespace SuperTank.Audio
 {
+    /// <summary>
+    /// All sounds of the game
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class SoundGame : ISoundGame, IViewSound, IDisposable
     {
@@ -63,7 +66,7 @@ namespace SuperTank.Audio
             gameOver.Stop();
             gameOver.Play();
         }
-        public void GameStart()
+        public void LevelStart()
         {
             gameStart.Stop();
             gameStart.Play();

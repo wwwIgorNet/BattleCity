@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Creates objects to display units
+    /// </summary>
     class FactoryViewUnit : IFactoryViewUnit
     {
         public BaseView Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)

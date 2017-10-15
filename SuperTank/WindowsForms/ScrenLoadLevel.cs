@@ -4,6 +4,9 @@ using System.Drawing;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Adds the effect of closing and opening the game board at the start level
+    /// </summary>
     class ScrenLoadLevel : BaseScren
     {
         private Font font = new Font(ConfigurationView.InfoFontFamily, 15);

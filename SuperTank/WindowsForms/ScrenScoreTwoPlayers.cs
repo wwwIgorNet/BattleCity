@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Scren two players
+    /// </summary>
     class ScrenScoreTwoPlayers : ScrenScore
     {
         private int countPointsIIPlayer;

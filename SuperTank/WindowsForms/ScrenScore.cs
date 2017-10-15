@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace SuperTank.WindowsForms
 {
+    /// <summary>
+    /// Scren score
+    /// </summary>
     class ScrenScore : BaseScren
     {
         private int level;

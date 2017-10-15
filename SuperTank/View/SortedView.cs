@@ -5,6 +5,9 @@ using System.Collections;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Collection for storing view units, sorted by zIndex (sorting occurs when adding)
+    /// </summary>
     public class SortedView : IEnumerable<BaseView>
     {
         private readonly SortedList<int, List<BaseView>> drowable = new SortedList<int, List<BaseView>>(new Int32());

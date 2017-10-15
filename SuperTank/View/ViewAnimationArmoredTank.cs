@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying an armored tank
+    /// </summary>
     class ViewAnimationArmoredTank : ViewAnimationTank
     {
         private readonly Dictionary<Direction, Image[]> tankGray;

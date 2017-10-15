@@ -3,6 +3,9 @@ using SuperTank.View;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Eagle display
+    /// </summary>
     class ViewEagle : ViewUnit
     {
         private Image eagle2;
