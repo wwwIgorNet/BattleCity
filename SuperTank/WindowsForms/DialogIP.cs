@@ -27,25 +27,25 @@ namespace SuperTank.WindowsForms
             // Показ адреса в label'е.
             textBoxYourIP.Text = MyIP.ToString();
 
-            textBoxIPGame.Text = MyIP.ToString(); // todo delite it
+            textBoxIPSecondComputer.Text = MyIP.ToString(); // todo delite it
 
-            this.ActiveControl = textBoxIPGame;
+            this.ActiveControl = textBoxIPSecondComputer;
         }
 
-        public IPAddress GameIP { get; private set; }
+        public IPAddress IPSecondComputer { get; private set; }
         public IPAddress MyIP { get; private set; }
 
         private void button1_Click(object sender, EventArgs e)
         {
             IPAddress ip = null;
-            if(IPAddress.TryParse(textBoxIPGame.Text, out ip))
+            if(IPAddress.TryParse(textBoxIPSecondComputer.Text, out ip))
             {
-                GameIP = ip;
+                IPSecondComputer = ip;
                 this.DialogResult = DialogResult.OK;
             }
             else
             {
-                textBoxIPGame.ForeColor = Color.Red;
+                textBoxIPSecondComputer.ForeColor = Color.Red;
             }
         }
         public bool NewGame { get { return radioButtonNewGame.Checked; } }
@@ -58,9 +58,9 @@ namespace SuperTank.WindowsForms
 
         private void textBoxIPGame_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(textBoxIPGame.ForeColor == Color.Red)
+            if(textBoxIPSecondComputer.ForeColor == Color.Red)
             {
-                textBoxIPGame.ForeColor = Color.Black;
+                textBoxIPSecondComputer.ForeColor = Color.Black;
             }
         }
     }

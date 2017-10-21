@@ -31,7 +31,8 @@ namespace SuperTank.WindowsForms
         private readonly int portHostSound = 9090;
         private readonly int portHostInfo = 9090;
 
-        private IPAddress ipIIPlayer;
+        private IPAddress ipSecondPlayer;
+        private IPAddress ipFirstPlayer;
         private Game game;
         
         private ServiceHost hostTwoComputer;
@@ -82,7 +83,7 @@ namespace SuperTank.WindowsForms
         public void StartedTwoComp()
         {
             hostTwoComputer.BeginClose(null, null);
-            StartNewGame(ipIIPlayer);
+            StartNewGame(ipSecondPlayer);
             waitForConectToGame = false;
         }
 
@@ -168,12 +169,12 @@ namespace SuperTank.WindowsForms
             }
         }
 
-        private void StartNewGame(IPAddress ipIIPlayer)
+        private void StartNewGame(IPAddress ipSecondPlayer)
         {
             isStartScren = false;
             sceneView = new SceneScene();
             LevelInfo levelInfo = null;
-            if (ipIIPlayer != null)
+            if (ipSecondPlayer != null)
             {
                 levelInfo = new LevelInfoTwoPlayer();
                 screnScore = new ScrenScoreTwoPlayers();
@@ -194,8 +195,8 @@ namespace SuperTank.WindowsForms
                 ThreadPool.QueueUserWorkItem((s) =>
                 {
                     game = new Game();
-                    if (constructorHasMap) game.Start(screnConstructor.GetMap(), ipIIPlayer);
-                    else game.Start(ipIIPlayer);
+                    if (constructorHasMap) game.Start(screnConstructor.GetMap(), ipFirstPlayer, ipSecondPlayer);
+                    else game.Start(ipFirstPlayer, ipSecondPlayer);
                     isGameStop = false;
                 });
 
@@ -297,10 +298,12 @@ namespace SuperTank.WindowsForms
             {
                 if (dialogIP.NewGame)
                 {
-                    ipIIPlayer = dialogIP.GameIP;
+                    ipSecondPlayer = dialogIP.IPSecondComputer;
+                    ipFirstPlayer = dialogIP.MyIP;
                     hostTwoComputer = new ServiceHost(this);
                     hostTwoComputer.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(), "net.tcp://" + dialogIP.MyIP + ":" + portTwoComputer + "/ITwoComputer");
+                    string conStr = "net.tcp://" + dialogIP.MyIP + ":" + portTwoComputer + "/ITwoComputer";
+                    hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(SecurityMode.None), conStr);
                     hostTwoComputer.Open();
                     waitForConectToGame = true;
                 }
@@ -314,15 +317,16 @@ namespace SuperTank.WindowsForms
         {
             try
             {
-                ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(), "net.tcp://" + dialogIP.GameIP + ":" + portTwoComputer + "/ITwoComputer");
+                string conStr = "net.tcp://" + dialogIP.IPSecondComputer + ":" + portTwoComputer + "/ITwoComputer";
+                ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(SecurityMode.None), conStr);
 
                 sceneView = new SceneScene();
                 screnScore = new ScrenScoreTwoPlayers();
                 screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), screnScore, this.GameOver);
-                this.OpenHost(dialogIP.GameIP);
-
+                this.OpenHost(dialogIP.MyIP);
                 factoryTwoComputer.CreateChannel().StartedTwoComp();
-                factoryTwoComputer.BeginClose(null, null);
+
+                factoryTwoComputer.Abort();
                 ownerPlayer = SuperTank.Owner.IIPlayer;
             }
             catch (Exception ex)
@@ -332,7 +336,7 @@ namespace SuperTank.WindowsForms
                 return;
             }
 
-            OpenTCPChannel(dialogIP.GameIP);
+            OpenTCPChannel(dialogIP.IPSecondComputer);
 
             Controls.Remove(startScren);
             Controls.Add(screnGame);
@@ -365,11 +369,11 @@ namespace SuperTank.WindowsForms
                 factoryKeyboard.Close();
             };
         }
-        public void OpenTCPChannel(IPAddress ipIIPlayer)
+        public void OpenTCPChannel(IPAddress ipSecondPlayer)
         {
-            string ipAddress = ipIIPlayer.ToString();
-            ChannelFactory<IKeyboard>  factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelKeyboard + "/IKeyboard");
-            factoryKeyboard.Open(TimeSpan.FromMilliseconds(500));
+            string ipAddress = ipSecondPlayer.ToString();
+            ChannelFactory<IKeyboard>  factoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelKeyboard + "/IKeyboard");
+            factoryKeyboard.Open(TimeSpan.FromMilliseconds(1000));
             Keyboard = factoryKeyboard.CreateChannel();
             closeChannel += () =>
             {
@@ -400,22 +404,22 @@ namespace SuperTank.WindowsForms
                 hostGameInfo.Close();
             };
         }
-        private void OpenHost(IPAddress ipIIPlayer)
+        private void OpenHost(IPAddress ipSecondPlayer)
         {
-            string ipAddress = ipIIPlayer.ToString();
+            string ipAddress = ipSecondPlayer.ToString();
             ServiceHost hostSound = new ServiceHost(soundGame);
             hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostSound + "/ISoundGame");
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portHostSound + "/ISoundGame");
             hostSound.Open();
 
             ServiceHost hostSceneView = new ServiceHost(sceneView);
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostRender + "/IRender");
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portHostRender + "/IRender");
             hostSceneView.Open();
 
             ServiceHost hostGameInfo = new ServiceHost(screnGame);
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostInfo + "/IGameInfo");
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portHostInfo + "/IGameInfo");
             hostGameInfo.Open();
 
             closeHost += () =>

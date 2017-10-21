@@ -26,15 +26,15 @@ namespace SuperTank
         private Action closeChannel = () => { };
         private Action closeHost = () => { };
 
-        public void Start(IPAddress ipIIPlayer)
+        public void Start(IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
         {
-            InitGame(ipIIPlayer);
+            InitGame(ipFirstPlayer, ipSecondPlayer);
 
             levelManager.StartLevel();
         }
-        public void Start(char[,] map, IPAddress ipIIPlayer)
+        public void Start(char[,] map, IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
         {
-            InitGame(ipIIPlayer);
+            InitGame(ipFirstPlayer, ipSecondPlayer);
 
             levelManager.StartLevel(map);
         }
@@ -53,7 +53,7 @@ namespace SuperTank
             levelManager.Stop();
         }
 
-        private void InitGame(IPAddress ipIIPlayer)
+        private void InitGame(IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
         {
             IKeyboard keyboard = OpenIPlayerHost();
 
@@ -62,15 +62,15 @@ namespace SuperTank
             IGameInfo gameInfo;
             OpenChanelFactoryIPlayer(out render, out sound, out gameInfo);
 
-            if(ipIIPlayer != null)
+            if(ipSecondPlayer != null)
             {
                 IRender renderIIPlayer;
                 ISoundGame soundIIPlayer;
                 IGameInfo gameInfoIIPlayer;
 
-                IKeyboard keyboardIIPlayer = OpenIIPlayerHost(ipIIPlayer.ToString());
+                IKeyboard keyboardIIPlayer = OpenIIPlayerHost(ipFirstPlayer.ToString());
 
-                OpenChanelFactoryIIPlayer(out renderIIPlayer, out soundIIPlayer, out gameInfoIIPlayer, ipIIPlayer.ToString());
+                OpenChanelFactoryIIPlayer(out renderIIPlayer, out soundIIPlayer, out gameInfoIIPlayer, ipSecondPlayer.ToString());
 
                 render = new RenderTwoPlayers(render, renderIIPlayer);
                 gameInfo = new GameInfoTwoPlayers(gameInfo, gameInfoIIPlayer);
@@ -85,11 +85,11 @@ namespace SuperTank
         }
         private void OpenChanelFactoryIIPlayer(out IRender renderIIPlayer, out ISoundGame soundIIPlayer, out IGameInfo gameInfoIIPlayer, string ipAddress)
         {
-            ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelRender + "/IRender");
+            ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelRender + "/IRender");
             renderIIPlayer = factoryRender.CreateChannel();
-            ChannelFactory<ISoundGame> factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelSound + "/ISoundGame");
+            ChannelFactory<ISoundGame> factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelSound + "/ISoundGame");
             soundIIPlayer = factorySound.CreateChannel();
-            ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portChannelInfo + "/IGameInfo");
+            ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelInfo + "/IGameInfo");
             gameInfoIIPlayer = factoryGameInfo.CreateChannel();
 
             closeChannel += () =>
@@ -132,7 +132,7 @@ namespace SuperTank
             Keyboard keyboard = new Keyboard();
             ServiceHost hostKeyboardIIPlayer = new ServiceHost(keyboard);
             hostKeyboardIIPlayer.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostKeyboardIIPlayer.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(), "net.tcp://" + ipAddress + ":" + portHostKeyboard + "/IKeyboard");
+            hostKeyboardIIPlayer.AddServiceEndpoint(typeof(IKeyboard), new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portHostKeyboard + "/IKeyboard");
             hostKeyboardIIPlayer.Open();
 
             closeHost += () => hostKeyboardIIPlayer.Close();

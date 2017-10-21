@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DialogIP));
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBoxIPGame = new System.Windows.Forms.TextBox();
+            this.textBoxIPSecondComputer = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.textBoxYourIP = new System.Windows.Forms.TextBox();
@@ -55,17 +55,17 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(18, 128);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(80, 13);
+            this.label1.Size = new System.Drawing.Size(105, 13);
             this.label1.TabIndex = 1;
-            this.label1.Text = "Enter IP game: ";
+            this.label1.Text = "IP second computer:";
             // 
-            // textBoxIPGame
+            // textBoxIPTwoComputer
             // 
-            this.textBoxIPGame.Location = new System.Drawing.Point(104, 125);
-            this.textBoxIPGame.Name = "textBoxIPGame";
-            this.textBoxIPGame.Size = new System.Drawing.Size(109, 20);
-            this.textBoxIPGame.TabIndex = 2;
-            this.textBoxIPGame.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxIPGame_KeyPress);
+            this.textBoxIPSecondComputer.Location = new System.Drawing.Point(128, 125);
+            this.textBoxIPSecondComputer.Name = "textBoxIPTwoComputer";
+            this.textBoxIPSecondComputer.Size = new System.Drawing.Size(109, 20);
+            this.textBoxIPSecondComputer.TabIndex = 2;
+            this.textBoxIPSecondComputer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxIPGame_KeyPress);
             // 
             // button1
             // 
@@ -79,7 +79,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(138, 162);
+            this.button2.Location = new System.Drawing.Point(162, 162);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             // textBoxYourIP
             // 
-            this.textBoxYourIP.Location = new System.Drawing.Point(104, 98);
+            this.textBoxYourIP.Location = new System.Drawing.Point(128, 98);
             this.textBoxYourIP.Name = "textBoxYourIP";
             this.textBoxYourIP.ReadOnly = true;
             this.textBoxYourIP.Size = new System.Drawing.Size(109, 20);
@@ -101,7 +101,7 @@
             this.groupBox1.Controls.Add(this.radioButtonNewGame);
             this.groupBox1.Location = new System.Drawing.Point(16, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(197, 71);
+            this.groupBox1.Size = new System.Drawing.Size(221, 71);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
@@ -132,12 +132,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(225, 200);
+            this.ClientSize = new System.Drawing.Size(251, 200);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxYourIP);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBoxIPGame);
+            this.Controls.Add(this.textBoxIPSecondComputer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -158,7 +158,7 @@
 
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBoxIPGame;
+        private System.Windows.Forms.TextBox textBoxIPSecondComputer;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.TextBox textBoxYourIP;
