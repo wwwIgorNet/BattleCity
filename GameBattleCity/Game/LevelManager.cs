@@ -144,6 +144,7 @@ namespace SuperTank
         {
             ClerPos(map, ConfigurationGame.PositionEagle);
             ClerPos(map, ConfigurationGame.StartPositionTankIPlaeyr);
+            ClerPos(map, ConfigurationGame.StartPositionTankIIPlaeyr);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy1);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy2);
             ClerPos(map, ConfigurationGame.StartPositionTankEnemy3);
