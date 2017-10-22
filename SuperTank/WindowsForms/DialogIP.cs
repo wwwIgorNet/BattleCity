@@ -35,10 +35,15 @@ namespace SuperTank.WindowsForms
         public IPAddress IPSecondComputer { get; private set; }
         public IPAddress MyIP { get; private set; }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void buttonOk_Click(object sender, EventArgs e)
+        {
+            PressOk();
+        }
+
+        private void PressOk()
         {
             IPAddress ip = null;
-            if(IPAddress.TryParse(textBoxIPSecondComputer.Text, out ip))
+            if (IPAddress.TryParse(textBoxIPSecondComputer.Text, out ip))
             {
                 IPSecondComputer = ip;
                 this.DialogResult = DialogResult.OK;
@@ -48,19 +53,37 @@ namespace SuperTank.WindowsForms
                 textBoxIPSecondComputer.ForeColor = Color.Red;
             }
         }
+
         public bool NewGame { get { return radioButtonNewGame.Checked; } }
         public bool JoinGame { get { return radioButtonJoinGame.Checked; } }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonCancel_Click(object sender, EventArgs e)
+        {
+            PressCancel();
+        }
+
+        private void PressCancel()
         {
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void textBoxIPGame_KeyPress(object sender, KeyPressEventArgs e)
+        private void textBoxIPSecond_KeyPress(object sender, KeyPressEventArgs e)
         {
             if(textBoxIPSecondComputer.ForeColor == Color.Red)
             {
                 textBoxIPSecondComputer.ForeColor = Color.Black;
+            }
+        }
+
+        private void textBoxIPSecondComputer_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                PressOk();
+            }
+            else if(e.KeyCode == Keys.Escape)
+            {
+                PressCancel();
             }
         }
     }

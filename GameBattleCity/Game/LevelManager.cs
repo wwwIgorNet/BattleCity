@@ -133,7 +133,8 @@ namespace SuperTank
             System.Threading.Thread.Sleep(1000);
             Scene.Clear();
             CreateLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start));
+            TimeSpan timeSlip = ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start);
+            System.Threading.Thread.Sleep(timeSlip > TimeSpan.Zero ? timeSlip : TimeSpan.Zero);
             IPlayer.Start();
             if (IIPlayer != null) IIPlayer.Start();
             enemy.Start();

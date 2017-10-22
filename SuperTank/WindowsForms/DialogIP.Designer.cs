@@ -32,8 +32,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.textBoxIPSecondComputer = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
+            this.buttonOk = new System.Windows.Forms.Button();
+            this.buttonCancel = new System.Windows.Forms.Button();
             this.textBoxYourIP = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.radioButtonJoinGame = new System.Windows.Forms.RadioButton();
@@ -59,33 +59,34 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "IP second computer:";
             // 
-            // textBoxIPTwoComputer
+            // textBoxIPSecondComputer
             // 
             this.textBoxIPSecondComputer.Location = new System.Drawing.Point(128, 125);
-            this.textBoxIPSecondComputer.Name = "textBoxIPTwoComputer";
+            this.textBoxIPSecondComputer.Name = "textBoxIPSecondComputer";
             this.textBoxIPSecondComputer.Size = new System.Drawing.Size(109, 20);
             this.textBoxIPSecondComputer.TabIndex = 2;
-            this.textBoxIPSecondComputer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxIPGame_KeyPress);
+            this.textBoxIPSecondComputer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxIPSecond_KeyPress);
+            this.textBoxIPSecondComputer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxIPSecondComputer_KeyUp);
             // 
-            // button1
+            // buttonOk
             // 
-            this.button1.Location = new System.Drawing.Point(16, 162);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "OK";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonOk.Location = new System.Drawing.Point(16, 162);
+            this.buttonOk.Name = "buttonOk";
+            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.TabIndex = 3;
+            this.buttonOk.Text = "OK";
+            this.buttonOk.UseVisualStyleBackColor = true;
+            this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
-            // button2
+            // buttonCancel
             // 
-            this.button2.Location = new System.Drawing.Point(162, 162);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 4;
-            this.button2.Text = "Cancel";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonCancel.Location = new System.Drawing.Point(162, 162);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
             // textBoxYourIP
             // 
@@ -135,8 +136,8 @@
             this.ClientSize = new System.Drawing.Size(251, 200);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxYourIP);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonOk);
             this.Controls.Add(this.textBoxIPSecondComputer);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
@@ -159,8 +160,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBoxIPSecondComputer;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.TextBox textBoxYourIP;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton radioButtonJoinGame;
