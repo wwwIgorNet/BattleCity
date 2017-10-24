@@ -9,12 +9,19 @@ namespace SuperTank.View
     /// </summary>
     public class ConfigurationView : ConfigurationBase
     {
-        private static PrivateFontCollection fonts = new PrivateFontCollection();
+        private static FontFamily fontBattleCity;
+        private static FontFamily fontBattleCityInfo;
 
         static ConfigurationView()
         {
+            PrivateFontCollection fonts = new PrivateFontCollection();
             fonts.AddFontFile(@"Content\Font\BattleCityInfo.ttf");
             fonts.AddFontFile(@"Content\Font\BattleCity.ttf");
+
+            fontBattleCity = new FontFamily("BATTLECITIES", fonts);
+            fontBattleCityInfo = new FontFamily("BattleCityInfo", fonts);
+            //fontBattleCityInfo = fonts.Families[0];
+
             FontGameOver = new Font(InfoFontFamily, 16);
 
             TimeScrenGameOver = 2000;
@@ -62,11 +69,11 @@ namespace SuperTank.View
         /// <summary>
         /// Font family for displaying information
         /// </summary>
-        public static FontFamily InfoFontFamily { get { return fonts.Families[1]; } }
+        public static FontFamily InfoFontFamily { get { return fontBattleCityInfo; } }
         /// <summary>
         /// Family of fonts in the form of bricks
         /// </summary>
-        public static FontFamily FontFamilyBattleCities { get { return fonts.Families[0]; } }
+        public static FontFamily FontFamilyBattleCities { get { return fontBattleCity; } }
         /// <summary>
         /// Font for scren game over
         /// </summary>
