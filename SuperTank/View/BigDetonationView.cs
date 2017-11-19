@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Detonation of a tank or an eagle
+    /// </summary>
     class BigDetonationView : ViewAnimationUnit
     {
         private float centrX;

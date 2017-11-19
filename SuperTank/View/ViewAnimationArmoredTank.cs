@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying an armored tank
+    /// </summary>
     class ViewAnimationArmoredTank : ViewAnimationTank
     {
         private readonly Dictionary<Direction, Image[]> tankGray;

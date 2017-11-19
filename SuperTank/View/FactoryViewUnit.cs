@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using SuperTank.View;
 using System.Drawing;
 
 namespace SuperTank
 {
+    /// <summary>
+    /// Creates objects to display units
+    /// </summary>
     class FactoryViewUnit : IFactoryViewUnit
     {
         public BaseView Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
@@ -22,6 +21,23 @@ namespace SuperTank
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
+                    if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
+                    {
+                        resView = new ViewAnimationTank(id, x, y,
+                           ConfigurationView.WidthTank,
+                           ConfigurationView.HeightTank,
+                           ConfigurationView.ZIndexTank,
+                           Images.GetImgesForTankIIPlayer(typeUnit));
+                    }
+                    else
+                    {
+                        resView = new ViewAnimationTank(id, x, y,
+                            ConfigurationView.WidthTank,
+                            ConfigurationView.HeightTank,
+                            ConfigurationView.ZIndexTank,
+                            Images.GetImgesForTank(typeUnit));
+                    }
+                    break;
 
                 case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
@@ -30,7 +46,7 @@ namespace SuperTank
                     {
                         resView = new ViewBonusTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImgesForTank(typeUnit),
                             Images.GetImgesForRedTank(typeUnit));
@@ -39,7 +55,7 @@ namespace SuperTank
                     {
                         resView = new ViewAnimationTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImgesForTank(typeUnit));
                     }
@@ -49,7 +65,7 @@ namespace SuperTank
                     {
                         resView = new ViewBonusArmoredTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImages(Images.Enemy.ArmoredTank),
                             Images.GetImages(Images.Enemy.ArmoredTankGreen),
@@ -60,7 +76,7 @@ namespace SuperTank
                     {
                         resView = new ViewAnimationArmoredTank(id, x, y,
                             ConfigurationView.WidthTank,
-                            ConfigurationView.HeigthTank,
+                            ConfigurationView.HeightTank,
                             ConfigurationView.ZIndexTank,
                             Images.GetImages(Images.Enemy.ArmoredTank),
                             Images.GetImages(Images.Enemy.ArmoredTankGreen),
@@ -101,28 +117,29 @@ namespace SuperTank
 
 
                 case TypeUnit.Clock:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Clock);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Clock);
                     break;
                 case TypeUnit.Grenade:
-                    return new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Grenade);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Grenade);
+                    break;
                 case TypeUnit.Helmet:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Helmet);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Helmet);
                     break;
                 case TypeUnit.Pistol:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Pistol);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Pistol);
                     break;
                 case TypeUnit.Shovel:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Shovel);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Shovel);
                     break;
                 case TypeUnit.StarMedal:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.StarMedal);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.StarMedal);
                     break;
                 case TypeUnit.Tank:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, Images.Bonus.Tank);
+                    resView = CreateBonusView(id, x, y, Images.Bonus.Tank);
                     break;
 
                 case TypeUnit.Points:
-                    resView = new ViewPonts(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
+                    resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
                     break;
             }
             if (properties != null)
@@ -131,6 +148,10 @@ namespace SuperTank
             return resView;
         }
 
+        private static BaseView CreateBonusView(int id, float x, float y, Image img)
+        {
+            return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, new Image[] { img, Images.BlankImage }, 6);
+        }
         private static Image[] GetImgForStar()
         {
             return new Image[] {

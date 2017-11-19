@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying the bonus tank
+    /// </summary>
     class ViewBonusTank : ViewAnimationTank
     {
         private int iteration = 0;
@@ -27,7 +26,7 @@ namespace SuperTank.View
                 {
                     base.Images = redImages;
                 }
-                else if(iteration == ConfigurationView.DelayChangColorBonusTank * 2)
+                else if (iteration == ConfigurationView.DelayChangColorBonusTank * 2)
                 {
                     base.Images = greyImages;
                     iteration = 0;
