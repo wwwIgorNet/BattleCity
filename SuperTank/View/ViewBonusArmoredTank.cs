@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Displaying a bonus armored tank
+    /// </summary>
     class ViewBonusArmoredTank : ViewAnimationArmoredTank
     {
         private int iteration = 0;
@@ -15,6 +14,16 @@ namespace SuperTank.View
         public ViewBonusArmoredTank(int id, float x, float y, float width, float height, int zIndex, Dictionary<Direction, Image[]> tankGray, Dictionary<Direction, Image[]> tankGreen, Dictionary<Direction, Image[]> tankYellow, Dictionary<Direction, Image[]> redImages) : base(id, x, y, width, height, zIndex, tankGray, tankGreen, tankYellow)
         {
             this.redImages = redImages;
+        }
+
+        public override Image Img
+        {
+            get
+            {
+                iteration++;
+
+                return base.Img;
+            }
         }
 
         protected override Dictionary<Direction, Image[]> Images
@@ -30,16 +39,6 @@ namespace SuperTank.View
                     iteration = 0;
                 }
                 return base.Images;
-            }
-        }
-
-        public override Image Img
-        {
-            get
-            {
-                iteration++;
-
-                return base.Img;
             }
         }
     }

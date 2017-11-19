@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Animation unit
+    /// </summary>
     class ViewAnimationUnit : BaseView
     {
         private Image[] images;

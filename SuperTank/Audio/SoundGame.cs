@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Media;
 using SuperTank.View;
-using System.Drawing;
 using System.Windows.Media;
 using System.ServiceModel;
 
 namespace SuperTank.Audio
 {
+    /// <summary>
+    /// All sounds of the game
+    /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class SoundGame : ISoundGame, IDisposable
+    class SoundGame : ISoundGame, IViewSound, IDisposable
     {
         private readonly MediaPlayer stop = new MediaPlayer();
         private readonly MediaPlayer move = new MediaPlayer();
@@ -20,11 +17,16 @@ namespace SuperTank.Audio
         private readonly MediaPlayer detonationShell = new MediaPlayer();
         private readonly MediaPlayer bigDetonation = new MediaPlayer();
         private readonly MediaPlayer fire = new MediaPlayer();
+        private readonly MediaPlayer fire2 = new MediaPlayer();
         private readonly MediaPlayer gameStart = new MediaPlayer();
         private readonly MediaPlayer gameOver = new MediaPlayer();
         private readonly MediaPlayer detonationBrickWall = new MediaPlayer();
         private readonly MediaPlayer detonationEagle = new MediaPlayer();
         private readonly MediaPlayer bonus = new MediaPlayer();
+        private readonly MediaPlayer newBonus = new MediaPlayer();
+        private readonly MediaPlayer countTankIncrement = new MediaPlayer();
+        private readonly MediaPlayer highScore = new MediaPlayer();
+        private readonly MediaPlayer twoFire = new MediaPlayer();
 
         public SoundGame()
         {
@@ -49,6 +51,14 @@ namespace SuperTank.Audio
             detonationEagle.Open(new Uri(ConfigurationView.SoundPath + "DetonationEagle.wav", UriKind.Relative));
 
             bonus.Open(new Uri(ConfigurationView.SoundPath + "Bonus.wav", UriKind.Relative));
+
+            newBonus.Open(new Uri(ConfigurationView.SoundPath + "NewBonus.wav", UriKind.Relative));
+
+            countTankIncrement.Open(new Uri(ConfigurationView.SoundPath + "CountTankIncrement.wav", UriKind.Relative));
+
+            highScore.Open(new Uri(ConfigurationView.SoundPath + "HighScore.wav", UriKind.Relative));
+
+            twoFire.Open(new Uri(ConfigurationView.SoundPath + "TwoFire.wav", UriKind.Relative));
         }
 
         public void GameOver()
@@ -56,51 +66,46 @@ namespace SuperTank.Audio
             gameOver.Stop();
             gameOver.Play();
         }
-
-        public void GameStart()
+        public void LevelStart()
         {
             gameStart.Stop();
             gameStart.Play();
         }
-
         public void Fire()
         {
             fire.Stop();
             fire.Play();
         }
-
-        public void BigDetonation()
+        public void TwoFire()
+        {
+            twoFire.Stop();
+            twoFire.Play();
+        }
+        public void DetonationTank()
         {
             bigDetonation.Stop();
             bigDetonation.Play();
         }
-
-
         public void DetonationShell()
         {
             detonationShell.Stop();
             detonationShell.Play();
         }
-
         public void Glide()
         {
             glide.Stop();
             glide.Play();
         }
-
         public void Move()
         {
             stop.Stop();
             move.Play();
         }
-
         public void Stop()
         {
             move.Stop();
             stop.Play();
-
         }
-
         public void Dispose()
         {
             stop.Close();
@@ -112,29 +117,42 @@ namespace SuperTank.Audio
             gameStart.Close();
             gameOver.Close();
             detonationBrickWall.Close();
+            highScore.Close();
+            twoFire.Close();
         }
-
         public void DetonationBrickWall()
         {
             detonationBrickWall.Stop();
             detonationBrickWall.Play();
         }
-
-        public void TankDispouse()
+        public void TankSoundStop()
         {
             stop.Stop();
             move.Stop();
         }
-
         public void DetonationEagle()
         {
+            detonationEagle.Stop();
             detonationEagle.Play();
         }
-
         public void Bonus()
         {
             bonus.Stop();
             bonus.Play();
+        }
+        public void NewBonus()
+        {
+            newBonus.Stop();
+            newBonus.Play();
+        }
+        public void CountTankIncrement()
+        {
+            countTankIncrement.Stop();
+            countTankIncrement.Play();
+        }
+        public void HighScore()
+        {
+            highScore.Play();
         }
     }
 }

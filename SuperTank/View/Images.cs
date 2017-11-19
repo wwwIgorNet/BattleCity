@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SuperTank.View
 {
+    /// <summary>
+    /// Caches and simplifies access to images
+    /// </summary>
     static class Images
     {
         private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
@@ -14,7 +14,9 @@ namespace SuperTank.View
         private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
+#pragma warning disable CS0649
         private static Image dashboardInfo;
+        private static Image dashboardInfoIIPlayer;
         private static Image informationTank;
 
         private static readonly string pathForShell = @"Shell\";
@@ -54,8 +56,14 @@ namespace SuperTank.View
         private static string pathForInvulnerable = @"Tank\";
         private static Image invulnerable1;
         private static Image invulnerable2;
+#pragma warning restore CS0649
+
+        private static Image blankImage = new Bitmap(1, 1);
+
+        public static Image BlankImage { get { return blankImage; } }
 
         public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
+        public static TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
 
@@ -65,6 +73,13 @@ namespace SuperTank.View
             get
             {
                 return Validate(dashboardInfo, @"Info\DashboardInfo.png");
+            }
+        }
+        public static Image DashboardInfoIIPlayer
+        {
+            get
+            {
+                return Validate(dashboardInfoIIPlayer, @"Info\DashboardInfoIIPlayer.png");
             }
         }
 
@@ -101,7 +116,7 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(shellRight , pathForShell + @"ShellRight.png");
+                return Validate(shellRight, pathForShell + @"ShellRight.png");
             }
         }
 
@@ -147,7 +162,7 @@ namespace SuperTank.View
                 return Validate(shellDetonationBig2, pathForDetonation + @"DetonationBig2.png");
             }
         }
-        
+
         public static Image Water_1
         {
             get
@@ -255,7 +270,7 @@ namespace SuperTank.View
         {
             get
             {
-                return Validate(invulnerable2, pathForInvulnerable+ @"Invulnerable2.png");
+                return Validate(invulnerable2, pathForInvulnerable + @"Invulnerable2.png");
             }
         }
 
@@ -265,7 +280,8 @@ namespace SuperTank.View
             try
             {
                 return img == null ? img = Image.FromFile(ConfigurationView.TexturePath + imgName) : img;
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 Console.WriteLine(imgName);
                 Console.WriteLine(ex.Message);
@@ -294,6 +310,21 @@ namespace SuperTank.View
                     return GetImages(Enemy.QuickFireTank);
                 case TypeUnit.ArmoredTank:
                     return GetImages(Enemy.ArmoredTank);
+            }
+            return null;
+        }
+        public static Dictionary<Direction, Image[]> GetImgesForTankIIPlayer(TypeUnit type)
+        {
+            switch (type)
+            {
+                case TypeUnit.SmallTankPlaeyr:
+                    return GetImages(Plaeyr2.SmallTank);
+                case TypeUnit.LightTankPlaeyr:
+                    return GetImages(Plaeyr2.LightTank);
+                case TypeUnit.MediumTankPlaeyr:
+                    return GetImages(Plaeyr2.MmediumTank);
+                case TypeUnit.HeavyTankPlaeyr:
+                    return GetImages(Plaeyr2.HeavyTank);
             }
             return null;
         }
@@ -368,6 +399,7 @@ namespace SuperTank.View
         public class Tank
         {
             private readonly string pathForTank;
+#pragma warning disable CS0649
             private Image up1;
             private Image up2;
             private Image down1;
@@ -376,6 +408,7 @@ namespace SuperTank.View
             private Image right2;
             private Image left1;
             private Image left2;
+#pragma warning restore CS0649
 
             public Tank(string pathForTank)
             {
@@ -463,6 +496,7 @@ namespace SuperTank.View
         public static class Bonus
         {
             private static readonly string pathForBonus = @"Bonus\";
+#pragma warning disable CS0649
             private static Image clock;
             private static Image grenade;
             private static Image helmet;
@@ -470,6 +504,7 @@ namespace SuperTank.View
             private static Image shovel;
             private static Image starMedal;
             private static Image tank;
+#pragma warning restore CS0649
 
             public static Image Clock
             {
