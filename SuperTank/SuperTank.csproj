@@ -86,6 +86,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Compile Include="Comunication\ITwoComputer.cs" />
+    <Compile Include="FH\FirewallHelper.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\ConfigurationView.cs" />

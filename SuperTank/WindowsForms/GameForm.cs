@@ -16,6 +16,7 @@ using System.Threading;
 using System.IO;
 using System.Net;
 using SuperTank.Comunication;
+using SuperTank.FH;
 
 namespace SuperTank.WindowsForms
 {
@@ -143,6 +144,7 @@ namespace SuperTank.WindowsForms
                     }
                     else if (startScren.IndexMenu == 1)
                     {
+                        FirewallHelper.Test();
                         ConfigureGameTwoPlayer();
                     }
                     else if (startScren.IndexMenu == 2)

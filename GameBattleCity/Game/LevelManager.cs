@@ -196,7 +196,7 @@ namespace SuperTank
                         break;
                 }
             }
-            System.Threading.Thread.Sleep(DelayScrenPoints);// todo
+            System.Threading.Thread.Sleep(DelayScrenPoints);
         }
         public void CreateLevel(int level)
         {

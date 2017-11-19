@@ -20,7 +20,6 @@ namespace SuperTank.View
 
             fontBattleCity = new FontFamily("BATTLECITIES", fonts);
             fontBattleCityInfo = new FontFamily("BattleCityInfo", fonts);
-            //fontBattleCityInfo = fonts.Families[0];
 
             FontGameOver = new Font(InfoFontFamily, 16);
 

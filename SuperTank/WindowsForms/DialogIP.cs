@@ -27,7 +27,7 @@ namespace SuperTank.WindowsForms
             // Показ адреса в label'е.
             textBoxYourIP.Text = MyIP.ToString();
 
-            textBoxIPSecondComputer.Text = MyIP.ToString(); // todo delite it
+            textBoxIPSecondComputer.Text = MyIP.ToString();
 
             this.ActiveControl = textBoxIPSecondComputer;
         }
