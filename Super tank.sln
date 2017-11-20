@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary", "GameLibrary\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameBattleCity", "GameBattleCity\GameBattleCity.csproj", "{966D4657-C737-4082-BF16-4D6017D38578}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperTankWPF", "SuperTankWPF\SuperTankWPF.csproj", "{848F3169-4F6D-42D6-8C23-25A7AE18E167}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewLibrary", "ViewLibrary\ViewLibrary.csproj", "{C8CE66CC-45AF-405F-BA38-CB34E87CB754}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{966D4657-C737-4082-BF16-4D6017D38578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{966D4657-C737-4082-BF16-4D6017D38578}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{966D4657-C737-4082-BF16-4D6017D38578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{848F3169-4F6D-42D6-8C23-25A7AE18E167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{848F3169-4F6D-42D6-8C23-25A7AE18E167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{848F3169-4F6D-42D6-8C23-25A7AE18E167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{848F3169-4F6D-42D6-8C23-25A7AE18E167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8CE66CC-45AF-405F-BA38-CB34E87CB754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8CE66CC-45AF-405F-BA38-CB34E87CB754}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8CE66CC-45AF-405F-BA38-CB34E87CB754}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8CE66CC-45AF-405F-BA38-CB34E87CB754}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -11,7 +11,7 @@ namespace SuperTank.Comunication
     /// To synchronize the connection of two computers
     /// </summary>
     [ServiceContract]
-    interface ITwoComputer
+    public interface ITwoComputer
     {
         [OperationContract(IsOneWay = true)]
         void StartedTwoComp();

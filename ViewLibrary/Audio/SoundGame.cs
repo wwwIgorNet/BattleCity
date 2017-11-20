@@ -9,7 +9,7 @@ namespace SuperTank.Audio
     /// All sounds of the game
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class SoundGame : ISoundGame, IViewSound, IDisposable
+    public class SoundGame : ISoundGame, IViewSound, IDisposable
     {
         private readonly MediaPlayer stop = new MediaPlayer();
         private readonly MediaPlayer move = new MediaPlayer();

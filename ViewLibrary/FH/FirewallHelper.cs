@@ -6,7 +6,7 @@ using System.Text;
 
 namespace SuperTank.FH
 {
-    class FirewallHelper
+    public class FirewallHelper
     {
         /// <summary>
         /// Запрашивает разришения брендмауера на запуск сервисов для етого приложения
