@@ -10,7 +10,7 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class ScrenRecord : Label
     {
-        private Font font = new Font(ConfigurationView.FontFamilyBattleCities, 55);
+        private Font font = new Font(ConfigurationWinForms.FontFamilyBattleCities, 55);
         private string strScore = "HISCORE";
         private string strPoints;
         private Brush brush = Brushes.White;
@@ -20,7 +20,7 @@ namespace SuperTank.WindowsForms
         public ScrenRecord(int points)
         {
             strPoints = points.ToString();
-            timer.Interval = ConfigurationView.TimerInterval;
+            timer.Interval = ConfigurationWinForms.TimerInterval;
             timer.Tick += Timer_Tick;
         }
 
@@ -60,7 +60,7 @@ namespace SuperTank.WindowsForms
             }
             Invalidate();
 
-            if (DateTime.Now - start >= ConfigurationView.DelayScrenRecord)
+            if (DateTime.Now - start >= ConfigurationWinForms.DelayScrenRecord)
             {
                 timer.Stop();
             }

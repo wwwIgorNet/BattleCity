@@ -22,11 +22,11 @@ namespace SuperTank.View
         {
             get
             {
-                if (iteration == ConfigurationView.DelayChangColorBonusTank)
+                if (iteration == ConfigurationWinForms.DelayChangColorBonusTank)
                 {
                     base.Images = redImages;
                 }
-                else if (iteration == ConfigurationView.DelayChangColorBonusTank * 2)
+                else if (iteration == ConfigurationWinForms.DelayChangColorBonusTank * 2)
                 {
                     base.Images = greyImages;
                     iteration = 0;

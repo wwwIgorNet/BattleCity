@@ -9,7 +9,7 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class ScrenGameOver : BaseScren
     {
-        private Font font = ConfigurationView.FontGameOver;
+        private Font font = ConfigurationWinForms.FontGameOver;
         private string strGame = "GAME";
         private string strOver = "OVER";
         private float heightGame;
@@ -25,8 +25,8 @@ namespace SuperTank.WindowsForms
             SizeF sizeTextGame = g.MeasureString(strGame, font);
             heightGame = sizeTextGame.Height;
             SizeF sizeTextOver = g.MeasureString(strOver, font);
-            gameX = ConfigurationView.WidthBoard / 2 - sizeTextGame.Width / 2 + ConfigurationView.WidthTile;
-            overX = ConfigurationView.HeightBoard / 2 - sizeTextGame.Width / 2 + ConfigurationView.HeightTile;
+            gameX = ConfigurationWinForms.WidthBoard / 2 - sizeTextGame.Width / 2 + ConfigurationWinForms.WidthTile;
+            overX = ConfigurationWinForms.HeightBoard / 2 - sizeTextGame.Width / 2 + ConfigurationWinForms.HeightTile;
         }
 
         public override void Start()

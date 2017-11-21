@@ -30,11 +30,11 @@ namespace SuperTank.View
         {
             get
             {
-                if (iteration <= ConfigurationView.DelayChangColorBonusTank)
+                if (iteration <= ConfigurationWinForms.DelayChangColorBonusTank)
                 {
                     return redImages;
                 }
-                else if (iteration == ConfigurationView.DelayChangColorBonusTank * 2)
+                else if (iteration == ConfigurationWinForms.DelayChangColorBonusTank * 2)
                 {
                     iteration = 0;
                 }

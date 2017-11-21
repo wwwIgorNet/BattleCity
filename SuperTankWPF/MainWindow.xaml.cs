@@ -24,5 +24,28 @@ namespace SuperTankWPF
         {
             InitializeComponent();
         }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            startScren.BeginLoad();
+            startScren.Focus();
+        }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+
+            }
+            else if (e.Key == Key.Escape)
+            {
+                this.Close();
+            }
+            else if (e.Key == Key.R)
+            {
+                startScren.BeginLoad();
+                startScren.Focus();
+            }
+        }
     }
 }

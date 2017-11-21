@@ -25,7 +25,7 @@ namespace SuperTank.WindowsForms
             this.destrouTanksIIPlaeyr = destrouTanksIIPlaeyr;
             base.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
 
-            DelayScrenPoints = ConfigurationView.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum() + destrouTanksIIPlaeyr.Values.Sum());
+            DelayScrenPoints = ConfigurationWinForms.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum() + destrouTanksIIPlaeyr.Values.Sum());
 
             countTankIIPlayer = 0;
         }
@@ -95,7 +95,7 @@ namespace SuperTank.WindowsForms
         private void UpdateTankIIPlayer(float y, TypeUnit tank, int countTank)
         {
             Graphics g = Graphics.FromImage(ImgScren);
-            Text points = new Text((countTank * ConfigurationView.GetCountPoints(tank)).ToString(), Brushes.White);
+            Text points = new Text((countTank * ConfigurationWinForms.GetCountPoints(tank)).ToString(), Brushes.White);
             points.Size = g.MeasureString(points.Str, Font);
             points.X = pointsLeftX;
             points.Y = y;
@@ -124,7 +124,7 @@ namespace SuperTank.WindowsForms
 
             Text arrow = new Text("→", Brushes.White);
             arrow.Size = g.MeasureString(arrow.Str, Font);
-            arrow.X = Width / 2 + ConfigurationView.WidthTank / 2;
+            arrow.X = Width / 2 + ConfigurationWinForms.WidthTank / 2;
             arrow.Y = y;
 
             countTankLeftX = arrow.X + arrow.Width;

@@ -9,9 +9,9 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class ScrenLoadLevel : BaseScren
     {
-        private Font font = new Font(ConfigurationView.InfoFontFamily, 15);
+        private Font font = new Font(ConfigurationWinForms.InfoFontFamily, 15);
         private bool isOpening;
-        private float centrScrean = ConfigurationView.WindowClientHeight / 2;
+        private float centrScrean = ConfigurationWinForms.WindowClientHeight / 2;
         private float height;
         private TimeSpan timeCloseOrOpen;
         private int curentLevel;
@@ -35,8 +35,8 @@ namespace SuperTank.WindowsForms
         {
             Graphics g = Graphics.FromImage(ImgScren);
             g.Clear(Color.Transparent);
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, 0, Width, height);
-            g.FillRectangle(new SolidBrush(ConfigurationView.BackColor), 0, Height - height, Width, height);
+            g.FillRectangle(new SolidBrush(ConfigurationWinForms.BackColor), 0, 0, Width, height);
+            g.FillRectangle(new SolidBrush(ConfigurationWinForms.BackColor), 0, Height - height, Width, height);
 
             if (infoText != null)
             {
@@ -64,7 +64,7 @@ namespace SuperTank.WindowsForms
                     levelInfo.Level = curentLevel;
                 }
             }
-            else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationView.DelayScrenLoadLevel)
+            else if (DateTime.Now - StartTime + timeCloseOrOpen < ConfigurationWinForms.DelayScrenLoadLevel)
                 return;
 
             else if (isOpening)

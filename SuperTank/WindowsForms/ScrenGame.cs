@@ -27,11 +27,11 @@ namespace SuperTank.WindowsForms
         public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, ScrenScore screnScore, Action gameOver)
         {
             this.gameOver = gameOver;
-            timerInvalidate.Interval = ConfigurationView.TimerInterval;
+            timerInvalidate.Interval = ConfigurationWinForms.TimerInterval;
             timerInvalidate.Tick += (s, e) => { Invalidate(); };
             timerInvalidate.Start();
-            this.BackColor = ConfigurationView.BackColor;
-            this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+            this.BackColor = ConfigurationWinForms.BackColor;
+            this.ClientSize = new Size(ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
 
             this.SuspendLayout();
             this.sceneView = sceneView;
@@ -86,19 +86,19 @@ namespace SuperTank.WindowsForms
             base.OnPaint(e);
             if (screnScore.IsAcive)
             {
-                e.Graphics.DrawImage(screnScore.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+                e.Graphics.DrawImage(screnScore.ImgScren, 0, 0, ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
             }
             else
             {
                 sceneView.Draw(e.Graphics);
-                e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationView.WidthBoard + ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile);
+                e.Graphics.DrawImage(levelInfo.ImgInfo, ConfigurationWinForms.WidthBoard + ConfigurationWinForms.WidthTile * 2, ConfigurationWinForms.HeightTile);
                 if (viewLoadLevel.IsAcive)
                 {
-                    e.Graphics.DrawImage(viewLoadLevel.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+                    e.Graphics.DrawImage(viewLoadLevel.ImgScren, 0, 0, ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
                 }
                 else if (screnGameOver.IsAcive)
                 {
-                    e.Graphics.DrawImage(screnGameOver.ImgScren, 0, 0, ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+                    e.Graphics.DrawImage(screnGameOver.ImgScren, 0, 0, ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
                 }
             }
         }

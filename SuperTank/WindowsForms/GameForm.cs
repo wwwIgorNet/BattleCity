@@ -65,7 +65,7 @@ namespace SuperTank.WindowsForms
             soundGame = new SoundGame();
 
             GameForm.viewSound = soundGame;
-            this.ClientSize = new Size(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+            this.ClientSize = new Size(ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
             this.FormClosing += GameForm_FormClosing;
 
             gameOver.Size = this.ClientSize;
@@ -222,16 +222,16 @@ namespace SuperTank.WindowsForms
                 }));
                 ThreadPool.QueueUserWorkItem((o) =>
                 {
-                    maxPointsInFile = int.Parse(File.ReadAllText(ConfigurationView.MaxPointsPath));
+                    maxPointsInFile = int.Parse(File.ReadAllText(ConfigurationWinForms.MaxPointsPath));
                     if (ownerPlayer == SuperTank.Owner.IIPlayer) maxPointsInGame = screnGame.CountPointsIIPlayer;
                     else maxPointsInGame = screnGame.CountPointsIPlayer;
                     if (maxPointsInGame > maxPointsInFile)
                     {
-                        File.WriteAllText(ConfigurationView.MaxPointsPath, maxPointsInGame.ToString());
+                        File.WriteAllText(ConfigurationWinForms.MaxPointsPath, maxPointsInGame.ToString());
                     }
                 });
 
-                Thread.Sleep(ConfigurationView.TimeScrenGameOver);
+                Thread.Sleep(ConfigurationWinForms.TimeScrenGameOver);
 
                 if (maxPointsInGame > maxPointsInFile)
                 {
@@ -245,7 +245,7 @@ namespace SuperTank.WindowsForms
                         screnRecord.Start();
                         screnRecord.Invalidate();
                     }));
-                    Thread.Sleep(ConfigurationView.DelayScrenRecord);
+                    Thread.Sleep(ConfigurationWinForms.DelayScrenRecord);
                     Invoke(new Action(() =>
                     {
                         Controls.Remove(screnRecord);

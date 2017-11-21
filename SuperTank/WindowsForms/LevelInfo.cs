@@ -8,9 +8,9 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class LevelInfo
     {
-        private Font font = new Font(ConfigurationView.InfoFontFamily, 13);
-        private Point pointCountTankPlaeyr = new Point(ConfigurationView.WidthTile, ConfigurationView.HeightTile * 16 + 12);
-        private Point pointLevel = new Point(ConfigurationView.WidthTile, ConfigurationView.HeightTile * 23);
+        private Font font = new Font(ConfigurationWinForms.InfoFontFamily, 13);
+        private Point pointCountTankPlaeyr = new Point(ConfigurationWinForms.WidthTile, ConfigurationWinForms.HeightTile * 16 + 12);
+        private Point pointLevel = new Point(ConfigurationWinForms.WidthTile, ConfigurationWinForms.HeightTile * 23);
         private int countTankEnemy;
         private int level;
         private int countTankPlaeyr;
@@ -29,7 +29,7 @@ namespace SuperTank.WindowsForms
                 level = value;
 
                 if (level > 9) pointLevel.X = -2;
-                else pointLevel.X = ConfigurationView.WidthTile - 2;
+                else pointLevel.X = ConfigurationWinForms.WidthTile - 2;
 
                 UpdateImage();
             }
@@ -66,9 +66,9 @@ namespace SuperTank.WindowsForms
 
             for (int i = 0; i < countTankEnemy; i++)
             {
-                int x, y = i / 2 * ConfigurationView.HeightTile;
+                int x, y = i / 2 * ConfigurationWinForms.HeightTile;
                 if (i % 2 == 0) x = 0;
-                else x = ConfigurationView.WidthTile;
+                else x = ConfigurationWinForms.WidthTile;
 
                 g.DrawImage(Images.InformationTank, x, y);
             }

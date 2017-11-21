@@ -13,7 +13,7 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class LevelInfoTwoPlayer : LevelInfo
     {
-        private Point pointCountTankIIPlaeyr = new Point(0, ConfigurationView.HeightTile * 18 + 8);
+        private Point pointCountTankIIPlaeyr = new Point(0, ConfigurationWinForms.HeightTile * 18 + 8);
         private int countTankIIPlaeyr;
 
         protected override Image DashboardInfo { get { return Images.DashboardInfoIIPlayer; } }
@@ -22,7 +22,7 @@ namespace SuperTank.WindowsForms
         {
             base.UpdateImage();
             Graphics g = Graphics.FromImage(ImgInfo);
-            g.DrawString(countTankIIPlaeyr.ToString(), Font, Brushes.Black, pointCountTankIIPlaeyr.X + ConfigurationView.WidthTile, pointCountTankIIPlaeyr.Y + ConfigurationView.HeightTile);
+            g.DrawString(countTankIIPlaeyr.ToString(), Font, Brushes.Black, pointCountTankIIPlaeyr.X + ConfigurationWinForms.WidthTile, pointCountTankIIPlaeyr.Y + ConfigurationWinForms.HeightTile);
         }
 
         public override void SetCountTankPlaeyr(int count, Owner owner)

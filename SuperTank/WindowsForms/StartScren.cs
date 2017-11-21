@@ -81,8 +81,8 @@ namespace SuperTank.WindowsForms
 
         private void CreateImg()
         {
-            Font font = new Font(ConfigurationView.FontFamilyBattleCities, 55);
-            Font fontInfo = new Font(ConfigurationView.InfoFontFamily, 12, FontStyle.Regular);
+            Font font = new Font(ConfigurationWinForms.FontFamilyBattleCities, 55);
+            Font fontInfo = new Font(ConfigurationWinForms.InfoFontFamily, 12, FontStyle.Regular);
             string strBattle = "BATTLE";
             string strCity = "CITY";
             string str1Player = "1 PLAYER";

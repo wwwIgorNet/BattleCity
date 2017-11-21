@@ -13,7 +13,7 @@ namespace SuperTank.WindowsForms
     {
         private int level;
         private int countPoints;
-        private Font font = new Font(ConfigurationView.InfoFontFamily, 13);
+        private Font font = new Font(ConfigurationWinForms.InfoFontFamily, 13);
         private float horisontalCentr;
         private float verticalCentr;
         private float pointsRightX;
@@ -87,7 +87,7 @@ namespace SuperTank.WindowsForms
 
         public virtual void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            DelayScrenPoints = ConfigurationView.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum());
+            DelayScrenPoints = ConfigurationWinForms.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum());
             this.level = level;
             this.countPoints = countPointsIPlayer;
             this.DestrouTanksIPlaeyr = destrouTanksIPlaeyr;
@@ -114,7 +114,7 @@ namespace SuperTank.WindowsForms
         protected void UpdateTankIPlayer(float y, TypeUnit tank, int countTank)
         {
             Graphics g = Graphics.FromImage(ImgScren);
-            Text points = new Text((countTank * ConfigurationView.GetCountPoints(tank)).ToString(), Brushes.White);
+            Text points = new Text((countTank * ConfigurationWinForms.GetCountPoints(tank)).ToString(), Brushes.White);
             points.Size = g.MeasureString(points.Str, Font);
             points.X = pointsRightX - points.Width;
             points.Y = y;

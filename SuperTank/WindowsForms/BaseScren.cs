@@ -10,13 +10,13 @@ namespace SuperTank.WindowsForms
     /// </summary>
     abstract class BaseScren
     {
-        private Bitmap imgScren = new Bitmap(ConfigurationView.WindowClientWidth, ConfigurationView.WindowClientHeight);
+        private Bitmap imgScren = new Bitmap(ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
         private Timer timer = new Timer();
         private DateTime startTime;
 
         public BaseScren()
         {
-            timer.Interval = ConfigurationView.TimerInterval;
+            timer.Interval = ConfigurationWinForms.TimerInterval;
             timer.Tick += Timer_Tick;
         }
 

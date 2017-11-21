@@ -17,10 +17,10 @@ namespace SuperTank
 
         public void Draw(Graphics g)
         {
-            g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
+            g.FillRectangle(Brushes.Black, ConfigurationWinForms.WidthTile, ConfigurationWinForms.HeightTile, ConfigurationWinForms.WidthBoard, ConfigurationWinForms.HeightBoard);
             foreach (var item in listDrowable)
             {
-                g.DrawImage(item.Img, item.X + ConfigurationView.WidthTile, item.Y + ConfigurationView.HeightTile, item.Width, item.Height);
+                g.DrawImage(item.Img, item.X + ConfigurationWinForms.WidthTile, item.Y + ConfigurationWinForms.HeightTile, item.Width, item.Height);
             }
         }
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)

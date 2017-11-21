@@ -7,7 +7,7 @@ namespace SuperTank.View
     /// <summary>
     /// Caches and simplifies access to images
     /// </summary>
-    static class Images
+    public static class Images
     {
         private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
         private static TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
@@ -279,7 +279,7 @@ namespace SuperTank.View
         {
             try
             {
-                return img == null ? img = Image.FromFile(ConfigurationView.TexturePath + imgName) : img;
+                return img == null ? img = Image.FromFile(ConfigurationWinForms.TexturePath + imgName) : img;
             }
             catch (Exception ex)
             {

@@ -9,7 +9,7 @@ namespace SuperTank.WindowsForms
     /// </summary>
     class GameOver : Label
     {
-        private Font font = new Font(ConfigurationView.FontFamilyBattleCities, 64);
+        private Font font = new Font(ConfigurationWinForms.FontFamilyBattleCities, 64);
         private string strGame = "GAME";
         private string strOver = "OVER";
 

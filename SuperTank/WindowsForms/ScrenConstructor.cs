@@ -40,9 +40,9 @@ namespace SuperTank.WindowsForms
             forest = Images.Forest;
             ice = Images.Ice;
 
-            this.BackColor = ConfigurationView.BackColor;
-            col = ConfigurationView.WidthBoard / ConfigurationView.WidthTile;
-            row = ConfigurationView.HeightBoard / ConfigurationView.HeightTile;
+            this.BackColor = ConfigurationWinForms.BackColor;
+            col = ConfigurationWinForms.WidthBoard / ConfigurationWinForms.WidthTile;
+            row = ConfigurationWinForms.HeightBoard / ConfigurationWinForms.HeightTile;
             map = new char[col, row];
             timer.Interval = 100;
             timer.Tick += Timer_Tick;
@@ -111,7 +111,7 @@ namespace SuperTank.WindowsForms
         }
         public void Start()
         {
-            currentChar = ConfigurationView.CharBrickWall;
+            currentChar = ConfigurationWinForms.CharBrickWall;
             for (int i = 0; i < row; i++)
             {
                 for (int j = 0; j < col; j++)
@@ -128,7 +128,7 @@ namespace SuperTank.WindowsForms
         {
             base.OnPaint(e);
             Graphics g = e.Graphics;
-            g.FillRectangle(Brushes.Black, ConfigurationView.WidthTile, ConfigurationView.HeightTile, ConfigurationView.WidthBoard, ConfigurationView.HeightBoard);
+            g.FillRectangle(Brushes.Black, ConfigurationWinForms.WidthTile, ConfigurationWinForms.HeightTile, ConfigurationWinForms.WidthBoard, ConfigurationWinForms.HeightBoard);
 
             Image img = null;
             for (int i = 0; i < map.GetLength(0); i++)
@@ -137,32 +137,32 @@ namespace SuperTank.WindowsForms
                 {
                     img = GetImg(map[i, j]);
                     if (img == null) continue;
-                    g.DrawImage(img, j * ConfigurationView.WidthTile + ConfigurationView.WidthTile, i * ConfigurationView.HeightTile + ConfigurationView.HeightTile, ConfigurationView.WidthTile, ConfigurationView.HeightTile);
+                    g.DrawImage(img, j * ConfigurationWinForms.WidthTile + ConfigurationWinForms.WidthTile, i * ConfigurationWinForms.HeightTile + ConfigurationWinForms.HeightTile, ConfigurationWinForms.WidthTile, ConfigurationWinForms.HeightTile);
                 }
             }
 
-            g.DrawImage(imgTank, posTank.X * ConfigurationView.WidthTank + ConfigurationView.WidthTile, posTank.Y * ConfigurationView.HeightTank + ConfigurationView.HeightTile);
+            g.DrawImage(imgTank, posTank.X * ConfigurationWinForms.WidthTank + ConfigurationWinForms.WidthTile, posTank.Y * ConfigurationWinForms.HeightTank + ConfigurationWinForms.HeightTile);
         }
 
         private Image GetImg(char c)
         {
-            if (c == ConfigurationView.CharBrickWall)
+            if (c == ConfigurationWinForms.CharBrickWall)
             {
                 return brickWall;
             }
-            else if (c == ConfigurationView.CharConcreteWall)
+            else if (c == ConfigurationWinForms.CharConcreteWall)
             {
                 return concreteWall;
             }
-            else if (c == ConfigurationView.CharWater)
+            else if (c == ConfigurationWinForms.CharWater)
             {
                 return water_1;
             }
-            else if (c == ConfigurationView.CharForest)
+            else if (c == ConfigurationWinForms.CharForest)
             {
                 return forest;
             }
-            else if (c == ConfigurationView.CharIce)
+            else if (c == ConfigurationWinForms.CharIce)
             {
                 return ice;
             }
@@ -209,25 +209,25 @@ namespace SuperTank.WindowsForms
         {
             if (currentChar == spaceChar)
             {
-                currentChar = ConfigurationView.CharBrickWall;
+                currentChar = ConfigurationWinForms.CharBrickWall;
             }
-            else if (currentChar == ConfigurationView.CharBrickWall)
+            else if (currentChar == ConfigurationWinForms.CharBrickWall)
             {
-                currentChar = ConfigurationView.CharConcreteWall;
+                currentChar = ConfigurationWinForms.CharConcreteWall;
             }
-            else if (currentChar == ConfigurationView.CharConcreteWall)
+            else if (currentChar == ConfigurationWinForms.CharConcreteWall)
             {
-                currentChar = ConfigurationView.CharForest;
+                currentChar = ConfigurationWinForms.CharForest;
             }
-            else if (currentChar == ConfigurationView.CharForest)
+            else if (currentChar == ConfigurationWinForms.CharForest)
             {
-                currentChar = ConfigurationView.CharIce;
+                currentChar = ConfigurationWinForms.CharIce;
             }
-            else if (currentChar == ConfigurationView.CharIce)
+            else if (currentChar == ConfigurationWinForms.CharIce)
             {
-                currentChar = ConfigurationView.CharWater;
+                currentChar = ConfigurationWinForms.CharWater;
             }
-            else if (currentChar == ConfigurationView.CharWater)
+            else if (currentChar == ConfigurationWinForms.CharWater)
             {
                 currentChar = spaceChar;
             }
