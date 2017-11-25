@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:img="clr-namespace:SuperTank.View"
              xmlns:local="clr-namespace:SuperTankWPF"
              mc:Ignorable="d" 
              Focusable="True"
@@ -12,29 +11,26 @@
              d:DesignWidth="{Binding Source={x:Static local:ConfigurationWPF.WindowClientWidth}}">
     <UserControl.Resources>
         <Style x:Key="gameName">
-            <Setter Property="Control.FontFamily" Value="Content/Font/#BATTLECITIES" />
+            <Setter Property="Control.FontFamily" Value="{StaticResource fontFamilyBattleCitiesText}" />
             <Setter Property="Control.FontSize" Value="70" />
             <Setter Property="Control.Foreground" Value="Red" />
             <Setter Property="Control.HorizontalAlignment" Value="Center" />
         </Style>
-        <Style x:Key="menuText">
-            <Setter Property="Control.FontFamily" Value="Content/Font/#BattleCityInfo"/>
-            <Setter Property="Control.FontSize" Value="15"/>
-            <Setter Property="Control.Foreground" Value="White"/>
+        <Style x:Key="menuText" BasedOn="{StaticResource infoText}">
             <Setter Property="Control.HorizontalAlignment" Value="Left"/>
-            <Setter Property="Control.VerticalAlignment" Value="Center"/>
+            <Setter Property="Control.Foreground" Value="White"/>
         </Style>
-        <Style x:Key="infoText" BasedOn="{StaticResource menuText}">
+        <Style x:Key="foterText" BasedOn="{StaticResource menuText}">
             <Setter Property="Control.Height" Value="{Binding ElementName=imageFor1Player, Path=Height}"/>
             <Setter Property="Control.HorizontalAlignment" Value="Center"/>
         </Style>
         <Style x:Key="imgTank">
-            <Setter Property="Image.Source" Value="Content/Textures/Tank/Plaeyr/SmallTank/Right1.png"/>
+            <Setter Property="Image.Source" Value="Content/Textures/Info/Marker.png"/>
         </Style>
     </UserControl.Resources>
-    <UniformGrid VerticalAlignment="Center" HorizontalAlignment="Center">
-        <StackPanel x:Name="stackPanel" Margin="0,20,0,10">
-            <Label x:Name="label" Content="  I-       00 HI- 20000" Style="{StaticResource infoText}" HorizontalAlignment="Left" Height="Auto"/>
+    <Border x:Name="border" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
+            <Label x:Name="label" Content="I-      00 HI- 20000   " Style="{StaticResource foterText}"/>
             <Label x:Name="labelBattle" Content="BATTLE" Style="{StaticResource gameName}"/>
             <Label x:Name="labelCity" Content="CITY" Style="{StaticResource gameName}"/>
             <Grid HorizontalAlignment="Center" Margin="0 10">
@@ -56,8 +52,8 @@
                 <Label Content="CONSTRUCTION" Grid.Row="2" Grid.Column="1" Style="{StaticResource menuText}"/>
                 <Label Content="COMPANY" Grid.Row="3" Grid.Column="1" FontWeight="Bold" Foreground="Red" FontSize="20" FontFamily="Arial"/>
             </Grid>
-            <Label Content="© 2015-2017 COMPANY LTD." Style="{StaticResource infoText}"/>
-            <Label Content="ALL RIGHTS RESERVED" Style="{StaticResource infoText}" Foreground="Gray"/>
+            <Label Content="© 2015-2017 COMPANY LTD." Style="{StaticResource foterText}"/>
+            <Label Content="ALL RIGHTS RESERVED" Style="{StaticResource foterText}" Foreground="Gray"/>
         </StackPanel>
-    </UniformGrid>
+    </Border>
 </UserControl>

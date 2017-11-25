@@ -52,8 +52,10 @@ namespace SuperTankWPF
         {
             IsAcive = false;
             animation.From = new Thickness(0, this.ActualHeight, 0, 0);
-            animation.To = new Thickness(0, stackPanel.Margin.Top, 0, 0);
-            stackPanel.BeginAnimation(StackPanel.MarginProperty, animation);
+            animation.To = new Thickness(0, 0, 0, 0);
+            border.BeginAnimation(StackPanel.MarginProperty, animation);
+            foreach (var c in imageCursor)
+                c.Visibility = Visibility.Hidden;
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -83,6 +85,8 @@ namespace SuperTankWPF
         private void Animation_Completed(object sender, EventArgs e)
         {
             IsAcive = true;
+            indexMenu = 0;
+            imageCursor[indexMenu].Visibility = Visibility.Visible;
         }
     }
 

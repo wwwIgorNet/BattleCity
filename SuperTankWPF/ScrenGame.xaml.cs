@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SuperTank;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,11 +20,38 @@ namespace SuperTankWPF
     /// <summary>
     /// Interaction logic for ScrenGame.xaml
     /// </summary>
-    public partial class ScrenGame : UserControl
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    public partial class ScrenGame : UserControl, IGameInfo
     {
         public ScrenGame()
         {
             InitializeComponent();
+        }
+
+        public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void GameOver()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SetCountTankEnemy(int count)
+        {
+            levelInfo.CountTankEnemy = count;
+        }
+
+        public void SetCountTankPlaeyr(int count, Owner owner)
+        {
+            if(owner == Owner.IPlayer)
+                levelInfo.CountTank1Player = count;
+        }
+
+        public void StartLevel(int level)
+        {
+            levelInfo.Level = level;
         }
     }
 }

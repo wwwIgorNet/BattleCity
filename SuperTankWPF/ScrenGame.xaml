@@ -5,10 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperTankWPF"
              mc:Ignorable="d" 
-             Background="Gray"
-             d:DesignHeight="{Binding Source={x:Static local:ConfigurationWPF.WindowClientHeight}}"
-             d:DesignWidth="{Binding Source={x:Static local:ConfigurationWPF.WindowClientWidth}}">
-    <StackPanel Orientation="Horizontal">
-        <Canvas Margin="{Binding Source={x:Static local:ConfigurationWPF.WidthTile}}" Background="Black" Height="{Binding Source={x:Static local:ConfigurationWPF.HeightBoard}}" Width="{Binding Source={x:Static local:ConfigurationWPF.WidthBoard}}"></Canvas>
+             Background="Gray">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+        <local:SceneScene Margin="{Binding Source={x:Static local:ConfigurationWPF.WidthTile}}"/>
+        <local:LevelInfo x:Name="levelInfo" Margin="0,20,20,0" CountTankEnemy="5" CountTank1Player="7" Level="3"/>
     </StackPanel>
 </UserControl>

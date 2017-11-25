@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using SuperTank.View;
 using System.Drawing;
+using SuperTank;
 
 namespace SuperTank
 {

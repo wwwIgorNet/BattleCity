@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -42,6 +43,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -61,13 +63,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="ConfigurationWPF.cs" />
-    <Compile Include="Images.cs" />
+    <Compile Include="Data\BitmapImages.cs" />
+    <Compile Include="LevelInfo.xaml.cs">
+      <DependentUpon>LevelInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="RowPoints.xaml.cs">
+      <DependentUpon>RowPoints.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="SceneScene.xaml.cs">
+      <DependentUpon>SceneScene.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ScrenGame.xaml.cs">
       <DependentUpon>ScrenGame.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ScrenScore.xaml.cs">
+      <DependentUpon>ScrenScore.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartScren.xaml.cs">
       <DependentUpon>StartScren.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Units\FactoryViewUnit.cs" />
+    <Compile Include="Units\ViewUnit.cs" />
+    <Page Include="LevelInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -80,7 +100,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="RowPoints.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SceneScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ScrenGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ScrenScore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -287,9 +319,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Textures\Info\InformationTank.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Textures\Info\Marker.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Textures\Shell\ShellDown.png" />
@@ -762,6 +791,10 @@
   <ItemGroup>
     <Resource Include="Content\Textures\Water\Water_3.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Textures\Info\Marker.png" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

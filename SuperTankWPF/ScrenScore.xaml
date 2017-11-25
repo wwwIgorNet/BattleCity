@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="SuperTankWPF.ScrenScore"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperTankWPF"
+             mc:Ignorable="d" 
+             Background="Black"
+             d:DesignHeight="{Binding Source={x:Static local:ConfigurationWPF.WindowClientHeight}}"
+             d:DesignWidth="{Binding Source={x:Static local:ConfigurationWPF.WindowClientWidth}}">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource pointsText}"/>
+    </UserControl.Resources>
+    <Border HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock Text="HI-SCORE" Foreground="Red"/>
+                <TextBlock Text="20000" Foreground="Yellow"/>
+            </StackPanel>
+            <TextBlock x:Name="textBlockStage" Text="STAGE "/>
+            <StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock Text=" I-PLAYER" Foreground="Red"/>
+                    <Separator Width="{Binding WidthCentr, ElementName=plainTank}" Height="0"/>
+                    <TextBlock Text="II-PLAYER" Foreground="Red"/>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <TextBlock x:Name="points1Player" Text="0" Foreground="Yellow" HorizontalAlignment="Right"/>
+                    <Separator Width="{Binding WidthCentr, ElementName=plainTank}" Height="0"/>
+                    <TextBlock x:Name="points2Player" Text="0" Foreground="Yellow" HorizontalAlignment="Left"/>
+                </StackPanel>
+
+                <local:RowPoints x:Name="plainTank" ImgSource="Content/Textures/Tank/Enemy/PlainTank/Up1.png" HorizontalAlignment="Center"/>
+                <local:RowPoints x:Name="armoredPersonnelCarrier" ImgSource="Content/Textures/Tank/Enemy/ArmoredPersonnelCarrier/Up1.png" HorizontalAlignment="Center"/>
+                <local:RowPoints x:Name="quickFireTank" ImgSource="Content/Textures/Tank/Enemy/QuickFireTank/Up1.png" HorizontalAlignment="Center"/>
+                <local:RowPoints x:Name="armoredTank" ImgSource="Content/Textures/Tank/Enemy/ArmoredTank/Up1.png" HorizontalAlignment="Center"/>
+
+                <Rectangle Height="2" Fill="White" Width="{Binding WidthCentr, ElementName=plainTank}" Margin="1"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,-5">
+                    <TextBlock Text="TOTAL"/>
+                    <UniformGrid Columns="2" Width="{Binding WidthCentr, ElementName=plainTank}">
+                        <TextBlock x:Name="totalTank1P" Text="" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="totalTank2P" Text="" HorizontalAlignment="Right"/>
+                    </UniformGrid>
+                    <TextBlock Text="TOTAL"/>
+                </StackPanel>
+
+                <!--<Rectangle Fill="Black" Visibility="Collapsed" Height="148" Width="230"/>-->
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</UserControl>

@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="SuperTankWPF.SceneScene"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperTankWPF"
+             xmlns:unit="clr-namespace:SuperTankWPF.Units"
+             mc:Ignorable="d" 
+             Background="Black" 
+             Height="{Binding Source={x:Static local:ConfigurationWPF.HeightBoard}}" 
+             Width="{Binding Source={x:Static local:ConfigurationWPF.WidthBoard}}">
+    <Canvas x:Name="board">
+        <unit:ViewUnit Source="{Binding Source={x:Static local:BitmapImages.BrickWall}}" X="55" Y="44"/>
+    </Canvas>
+</UserControl>
