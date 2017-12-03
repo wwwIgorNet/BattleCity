@@ -1,4 +1,5 @@
 ﻿using SuperTank.View;
+using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;

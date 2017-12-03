@@ -3,6 +3,7 @@ using SuperTank.View;
 using System.Drawing;
 using SuperTankWPF.Units;
 using SuperTankWPF;
+using SuperTankWPF.Model;
 
 namespace SuperTank
 {

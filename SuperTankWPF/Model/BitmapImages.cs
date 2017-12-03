@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 
-namespace SuperTankWPF
+namespace SuperTankWPF.Model
 {
     /// <summary>
     /// Caches and simplifies access to images
@@ -278,7 +278,7 @@ namespace SuperTankWPF
         {
             try
             {
-                return img == null ? img = new BitmapImage(new Uri(ConfigurationView.TexturePath + imgName, UriKind.Relative)) : img;
+                return img == null ? img = new BitmapImage(new Uri(ConfigurationWPF.TexturePath + imgName, UriKind.Relative)) : img;
             }
             catch (Exception ex)
             {

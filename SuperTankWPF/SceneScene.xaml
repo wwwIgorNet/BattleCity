@@ -5,11 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperTankWPF"
              xmlns:unit="clr-namespace:SuperTankWPF.Units"
+             xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
              Background="Black" 
-             Height="{Binding Source={x:Static local:ConfigurationWPF.HeightBoard}}" 
-             Width="{Binding Source={x:Static local:ConfigurationWPF.WidthBoard}}">
+             Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
+             Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}">
     <Canvas x:Name="board">
-        <unit:ViewUnit Source="{Binding Source={x:Static local:BitmapImages.BrickWall}}" X="55" Y="44"/>
+        <unit:ViewUnit Source="{Binding Source={x:Static model:BitmapImages.BrickWall}}" X="55" Y="44"/>
     </Canvas>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SuperTankWPF.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,7 +66,7 @@ namespace SuperTankWPF
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            startScren.BeginLoad();
+            //startScren.BeginLoad();
             startScren.Focus();
         }
 
@@ -81,7 +82,7 @@ namespace SuperTankWPF
             }
             else if (e.Key == Key.R)
             {
-                startScren.BeginLoad();
+                //startScren.BeginLoad();
                 startScren.Focus();
             }
         }

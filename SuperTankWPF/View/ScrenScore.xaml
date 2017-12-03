@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="SuperTankWPF.View.ScrenScore"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperTankWPF.View"
+             xmlns:model="clr-namespace:SuperTankWPF.Model"
+             xmlns:util="clr-namespace:SuperTankWPF.Util"
+             xmlns:viewModel="clr-namespace:SuperTankWPF.ViewModel"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             Background="Black"
+             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
+             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
+
+    <UserControl.Resources>
+        <viewModel:ScrenScoreViewModel x:Key="data"/>
+        <util:PointsConverter x:Key="PointsConverter"/>
+        <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource infoText}"/>
+        <Style TargetType="Image">
+            <Setter Property="Margin" Value="2"/>
+        </Style>
+    </UserControl.Resources>
+
+    <StackPanel DataContext="{StaticResource data}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <TextBlock Text="HI-SCORE" Foreground="Red"/>
+            <TextBlock Text="20000" Foreground="Yellow"/>
+        </StackPanel>
+
+        <TextBlock Text="{Binding Stage}"/>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <sys:Int32 x:Key="lineHeight"/>
+                <Style TargetType="ListBox">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="ItemsSource" Value="{Binding ListDeteils}"/>
+                </Style>
+            </Grid.Resources>
+
+            <TextBlock Text="{Binding Player1.TextPlayer}" HorizontalAlignment="Right" Foreground="Red" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock Text="{Binding Player2.TextPlayer}" HorizontalAlignment="Left" Foreground="Red" Grid.Row="0" Grid.Column="4"/>
+
+            <TextBlock Text="{Binding Player1.TotalCountPoints, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="1" Grid.Column="0" Foreground="Yellow"/>
+            <TextBlock Text="  " Grid.Row="1" Grid.Column="1"/>
+            <TextBlock Text="  " Grid.Row="1" Grid.Column="3"/>
+            <TextBlock Text="{Binding Player2.TotalCountPoints, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="4" Foreground="Yellow"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="0">
+                <TextBlock Text="{Binding Plain.Points1Player, Converter={StaticResource PointsConverter}}"/>
+                <TextBlock Text="{Binding Plain.PTS1P}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Plain.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding Plain.ArrowLeft}" Margin="0"/>
+                <Image Source="{Binding Plain.ImgTank}"/>
+                <TextBlock Text="{Binding Plain.ArrowRight}" Margin="0"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Plain.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="3"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="4">
+                <TextBlock Text="{Binding Plain.PTS2P}" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding Plain.Points2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="0">
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.Points1Player, Converter={StaticResource PointsConverter}}"/>
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.PTS1P}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding ArmoredPersonnelCarrier.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.ArrowLeft}" Margin="0"/>
+                <Image Source="{Binding ArmoredPersonnelCarrier.ImgTank}"/>
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.ArrowRight}" Margin="0"/>
+            </StackPanel>
+            <TextBlock Text="{Binding ArmoredPersonnelCarrier.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="3"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="4">
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.PTS2P}" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding ArmoredPersonnelCarrier.Points2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="0">
+                <TextBlock Text="{Binding QuickFire.Points1Player, Converter={StaticResource PointsConverter}}"/>
+                <TextBlock Text="{Binding QuickFire.PTS1P}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding QuickFire.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding QuickFire.ArrowLeft}" Margin="0"/>
+                <Image Source="{Binding QuickFire.ImgTank}"/>
+                <TextBlock Text="{Binding QuickFire.ArrowRight}" Margin="0"/>
+            </StackPanel>
+            <TextBlock Text="{Binding QuickFire.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="3"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="4">
+                <TextBlock Text="{Binding QuickFire.PTS2P}" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding QuickFire.Points2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="0">
+                <TextBlock Text="{Binding Armored.Points1Player, Converter={StaticResource PointsConverter}}"/>
+                <TextBlock Text="{Binding Armored.PTS1P}"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Armored.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left">
+                <TextBlock Text="{Binding Armored.ArrowLeft}" Margin="0"/>
+                <Image Source="{Binding Armored.ImgTank}"/>
+                <TextBlock Text="{Binding Armored.ArrowRight}" Margin="0"/>
+            </StackPanel>
+            <TextBlock Text="{Binding Armored.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="3"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="4">
+                <TextBlock Text="{Binding Armored.PTS2P}" HorizontalAlignment="Left"/>
+                <TextBlock Text="{Binding Armored.Points2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left"/>
+            </StackPanel>
+
+            <Rectangle Height="3" Fill="White" VerticalAlignment="Top" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3"/>
+            
+            <TextBlock Text="{Binding Player1.TextTotal}" HorizontalAlignment="Right" Grid.Row="7" Grid.Column="0"/>
+            <TextBlock Text="{Binding Player1.TotalCountTank, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="7" Grid.Column="1"/>
+            <TextBlock Text="{Binding Player2.TotalCountTank, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="3"/>
+            <TextBlock Text="{Binding Player2.TextTotal}" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="4"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperTankWPF"
-             mc:Ignorable="d" 
-             Height="{Binding Source={x:Static local:ConfigurationWPF.HeightBoard}}"
-             Width="{Binding Source={x:Static local:ConfigurationWPF.WidthTank}}">
+             xmlns:model="clr-namespace:SuperTankWPF.Model"
+             mc:Ignorable="d"
+             Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}"
+             Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}">
     <UserControl.Resources>
         <Style x:Key="textInfo">
             <Setter Property="Control.FontFamily" Value="{StaticResource FontFamilyTextInfo}"/>
@@ -15,7 +16,7 @@
         </Style>
     </UserControl.Resources>
     <Canvas>
-        <Image Source="{Binding Source={x:Static local:BitmapImages.DashboardInfo}}"/>
+        <Image Source="{Binding Source={x:Static model:BitmapImages.DashboardInfo}}"/>
         <UniformGrid x:Name="uniformGrid" Columns="2" Rows="26"/>
         <Label x:Name="label1Player" Content="0" Canvas.Top="328" Style="{StaticResource textInfo}"/>
         <Label x:Name="labelLevel" Content="0" Canvas.Top="456" Style="{StaticResource textInfo}"/>

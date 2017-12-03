@@ -11,11 +11,9 @@
             <Setter Property="Control.FontFamily" Value="{StaticResource fontFamilyTextInfo}"/>
             <Setter Property="Control.FontSize" Value="15"/>
             <Setter Property="Control.VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="pointsText" BasedOn="{StaticResource infoText}">
-            <Setter Property="Control.Foreground" Value="White"/>
             <Setter Property="Control.HorizontalAlignment" Value="Center"/>
             <Setter Property="Control.Margin" Value="10"/>
+            <Setter Property="Control.Foreground" Value="White"/>
         </Style>
     </Application.Resources>
 </Application>

@@ -4,17 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperTankWPF"
-        xmlns:View="clr-namespace:SuperTank.View;assembly=ViewLibrary" x:Class="SuperTankWPF.MainWindow"
+        xmlns:stv="clr-namespace:SuperTank.View;assembly=ViewLibrary" x:Class="SuperTankWPF.MainWindow"
+        xmlns:view="clr-namespace:SuperTankWPF.View"
         mc:Ignorable="d"
         Title="Battle City"
         Icon="Content\Ico\Ico.ico"
         Loaded="Window_Loaded" 
         KeyUp="Window_KeyUp"
-        d:DesignHeight="{Binding Source={x:Static View:ConfigurationView.WindowClientHeight}}"
-        d:DesignWidth="{Binding Source={x:Static View:ConfigurationView.WindowClientWidth}}">
+        d:DesignHeight="{Binding Source={x:Static stv:ConfigurationView.WindowClientHeight}}"
+        d:DesignWidth="{Binding Source={x:Static stv:ConfigurationView.WindowClientWidth}}">
     <Grid>
-        <local:StartScren x:Name="startScren" Visibility="Collapsed"/>
-        <local:ScrenGame Visibility="Collapsed"/>
-        <local:ScrenScore/>
+        <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
+        <local:ScrenGame/>
+        <view:ScrenScore Visibility="Collapsed"/>
     </Grid>
 </Window>
