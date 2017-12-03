@@ -84,31 +84,27 @@
     </ApplicationDefinition>
     <Compile Include="Model\ConfigurationWPF.cs" />
     <Compile Include="Model\BitmapImages.cs" />
-    <Compile Include="LevelInfo.xaml.cs">
-      <DependentUpon>LevelInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SceneScene.xaml.cs">
-      <DependentUpon>SceneScene.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="ScrenGame.xaml.cs">
-      <DependentUpon>ScrenGame.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Units\FactoryViewUnit.cs" />
     <Compile Include="Units\ViewUnit.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Util\WPFCommands.cs" />
     <Compile Include="ViewModel\ScrenScoreViewModel.cs" />
     <Compile Include="ViewModel\StartScrenViewModel.cs" />
+    <Compile Include="View\LevelInfo.xaml.cs">
+      <DependentUpon>LevelInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SceneScene.xaml.cs">
+      <DependentUpon>SceneScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScrenGame.xaml.cs">
+      <DependentUpon>ScrenGame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ScrenScore.xaml.cs">
       <DependentUpon>ScrenScore.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\StartScren.xaml.cs">
       <DependentUpon>StartScren.xaml</DependentUpon>
     </Compile>
-    <Page Include="LevelInfo.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,11 +117,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SceneScene.xaml">
+    <Page Include="View\LevelInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ScrenGame.xaml">
+    <Page Include="View\SceneScene.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScrenGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

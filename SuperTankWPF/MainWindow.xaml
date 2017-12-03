@@ -15,7 +15,7 @@
         d:DesignWidth="{Binding Source={x:Static stv:ConfigurationView.WindowClientWidth}}">
     <Grid>
         <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
-        <local:ScrenGame/>
+        <view:ScrenGame/>
         <view:ScrenScore Visibility="Collapsed"/>
     </Grid>
 </Window>

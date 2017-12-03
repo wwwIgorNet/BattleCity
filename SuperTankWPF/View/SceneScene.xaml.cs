@@ -1,7 +1,10 @@
-﻿using SuperTank.View;
+﻿using SuperTank;
+using SuperTank.View;
+using SuperTankWPF.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,17 +16,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using SuperTank;
-using System.ServiceModel;
-using SuperTankWPF.Units;
 
-namespace SuperTankWPF
+namespace SuperTankWPF.View
 {
     /// <summary>
     /// Interaction logic for SceneScene.xaml
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public partial class SceneScene : UserControl, IRender  
+    public partial class SceneScene : UserControl, IRender
     {
         private FactoryViewUnit factoryViewUnit = new FactoryViewUnit();
 
@@ -55,7 +55,7 @@ namespace SuperTankWPF
 
         public void Remove(int id)
         {
-            
+
         }
 
         public void Update(int id, PropertiesType prop, object value)

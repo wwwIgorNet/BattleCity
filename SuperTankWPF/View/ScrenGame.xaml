@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="SuperTankWPF.View.ScrenGame"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperTankWPF.View"
+             xmlns:model="clr-namespace:SuperTankWPF.Model"
+             mc:Ignorable="d" 
+             Background="Gray"
+             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
+             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <local:SceneScene Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
+        <local:LevelInfo x:Name="levelInfo" Margin="0,20,55,0" CountTankEnemy="5" CountTank1Player="7" Level="3"/>
+    </StackPanel>
+</UserControl>

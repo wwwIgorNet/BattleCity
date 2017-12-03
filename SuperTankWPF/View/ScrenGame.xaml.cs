@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SuperTankWPF
+namespace SuperTankWPF.View
 {
     /// <summary>
     /// Interaction logic for ScrenGame.xaml
@@ -45,7 +45,7 @@ namespace SuperTankWPF
 
         public void SetCountTankPlaeyr(int count, Owner owner)
         {
-            if(owner == Owner.IPlayer)
+            if (owner == Owner.IPlayer)
                 levelInfo.CountTank1Player = count;
         }
 

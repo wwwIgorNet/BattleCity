@@ -1,5 +1,4 @@
-﻿using SuperTank.View;
-using SuperTankWPF.Model;
+﻿using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SuperTankWPF
+namespace SuperTankWPF.View
 {
     /// <summary>
     /// Interaction logic for LevelInfo.xaml
@@ -65,7 +64,7 @@ namespace SuperTankWPF
             get { return (int)GetValue(CountTankEnemyProperty); }
             set { SetValue(CountTankEnemyProperty, value); }
         }
-        
+
         public static readonly DependencyProperty CountTankEnemyProperty =
             DependencyProperty.Register("CountTankEnemy", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, CountTankEnemyChangedCallback));
 

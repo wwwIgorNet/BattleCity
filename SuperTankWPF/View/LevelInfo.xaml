@@ -1,13 +1,13 @@
-﻿<UserControl x:Class="SuperTankWPF.LevelInfo"
+﻿<UserControl x:Class="SuperTankWPF.View.LevelInfo"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SuperTankWPF"
+             xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
-             mc:Ignorable="d"
-             Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}"
-             Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}">
+             mc:Ignorable="d" 
+             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
+             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WidthTank}}">
     <UserControl.Resources>
         <Style x:Key="textInfo">
             <Setter Property="Control.FontFamily" Value="{StaticResource FontFamilyTextInfo}"/>
@@ -20,6 +20,5 @@
         <UniformGrid x:Name="uniformGrid" Columns="2" Rows="26"/>
         <Label x:Name="label1Player" Content="0" Canvas.Top="328" Style="{StaticResource textInfo}"/>
         <Label x:Name="labelLevel" Content="0" Canvas.Top="456" Style="{StaticResource textInfo}"/>
-    </Canvas>
+    </Canvas>   
 </UserControl>
-
