@@ -2,6 +2,7 @@
 using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -63,8 +64,6 @@ namespace SuperTankWPF.View
         }
 
         #region DependencyProperty
-
-
         public bool IsTwoPlayer
         {
             get { return (bool)GetValue(IsTwoPlayerProperty); }
@@ -72,8 +71,8 @@ namespace SuperTankWPF.View
         }
         
         public static readonly DependencyProperty IsTwoPlayerProperty =
-            DependencyProperty.Register("IsTwoPlayer", typeof(bool), typeof(LevelInfo), new PropertyMetadata(false, IsTwoPlayerChangedCallback));
-
+            DependencyProperty.Register("IsTwoPlayer", typeof(bool), typeof(LevelInfo), new PropertyMetadata(true, IsTwoPlayerChangedCallback));
+        
         private static void IsTwoPlayerChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue.Equals(true))
