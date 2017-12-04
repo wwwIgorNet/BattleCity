@@ -90,6 +90,7 @@
     <Compile Include="Util\WPFCommands.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ScrenGameViewModel.cs" />
     <Compile Include="ViewModel\ScrenScoreViewModel.cs" />
     <Compile Include="ViewModel\StartScrenViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
