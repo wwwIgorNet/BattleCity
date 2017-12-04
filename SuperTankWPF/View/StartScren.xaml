@@ -24,7 +24,6 @@
     </UserControl.Resources>
     <Border x:Name="border" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel>
-            <Rectangle x:Name="rectangle"/>
             <TextBlock Text="I-      00 HI- 20000   "/>
             <TextBlock Text="BATTLE" Style="{StaticResource gameName}"/>
             <TextBlock Text="CITY" Style="{StaticResource gameName}"/>

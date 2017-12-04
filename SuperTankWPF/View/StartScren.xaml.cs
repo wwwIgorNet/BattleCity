@@ -23,7 +23,7 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class StartScren : UserControl
     {
-        private DoubleAnimation animation = new DoubleAnimation();
+        private ThicknessAnimation animation = new ThicknessAnimation();
 
         public StartScren()
         {
@@ -41,9 +41,9 @@ namespace SuperTankWPF.View
 
         private void StartScren_Loaded(object sender, RoutedEventArgs e)
         {
-            animation.Duration = new Duration(TimeSpan.FromSeconds(4));
-            SineEase easingFunction = new SineEase();
-            easingFunction.EasingMode = EasingMode.EaseOut;
+            animation.Duration = new Duration(TimeSpan.FromSeconds(3));
+            EasingFunctionBase easingFunction = new PowerEase();
+            easingFunction.EasingMode = EasingMode.EaseInOut;
             animation.EasingFunction = easingFunction;
             animation.Completed += Animation_Completed;
 
@@ -75,9 +75,9 @@ namespace SuperTankWPF.View
         {
             if (!IsVisible) return;
 
-            animation.From = this.ActualHeight;
-            animation.To = 0.0;
-            rectangle.BeginAnimation(Rectangle.HeightProperty, animation);
+            animation.From = new Thickness(0d, this.ActualHeight, 0d, 0d);
+            animation.To = new Thickness(0d);
+            border.BeginAnimation(Rectangle.MarginProperty, animation);
 
             if (IsValidIndex(menuList.SelectedIndex))
                 (menuList.ItemContainerGenerator.ContainerFromIndex(menuList.SelectedIndex) as ListBoxItem).IsSelected = false;
