@@ -42,19 +42,19 @@ namespace SuperTankWPF.View
             Binding bindingCountTank1Player = new Binding();
             bindingCountTank1Player.Source = this.DataContext;
             bindingCountTank1Player.Path = new PropertyPath("CountTank1Player");
-            this.SetBinding(LevelInfo.CountTank1PlayerProperty, bindingCountTank1Player);
+            this.countTank1Player.SetBinding(TextBlock.TextProperty, bindingCountTank1Player);
 
             Binding bindingCountTank2Player = new Binding();
             bindingCountTank2Player.Source = this.DataContext;
             bindingCountTank2Player.Path = new PropertyPath("CountTank2Player");
             bindingCountTank2Player.Converter = new PointsConverter();
-            this.SetBinding(LevelInfo.CountTank2PlayerProperty, bindingCountTank2Player);
+            this.countTank2Player.SetBinding(TextBlock.TextProperty, bindingCountTank2Player);
 
             Binding bindingLevel = new Binding();
             bindingLevel.Source = this.DataContext;
             bindingLevel.Path = new PropertyPath("Level");
             bindingLevel.Mode = BindingMode.OneWay;
-            this.SetBinding(LevelInfo.LevelProperty, bindingLevel);
+            this.carentLevel.SetBinding(TextBlock.TextProperty, bindingLevel);
 
             Binding bindingIsTwoPlayer = new Binding();
             bindingIsTwoPlayer.Source = this.DataContext;
@@ -80,52 +80,7 @@ namespace SuperTankWPF.View
             else
                 ((LevelInfo)d).backgroundImg.Source = BitmapImages.DashboardInfo;
         }
-
-
-        public int Level
-        {
-            get { return (int)GetValue(LevelProperty); }
-            set { SetValue(LevelProperty, value); }
-        }
-
-        public static readonly DependencyProperty LevelProperty =
-            DependencyProperty.Register("Level", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, LevelChangedCallback));
-
-        private static void LevelChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((LevelInfo)d).carentLevel.Text = e.NewValue.ToString();
-        }
-
-
-        public int CountTank1Player
-        {
-            get { return (int)GetValue(CountTank1PlayerProperty); }
-            set { SetValue(CountTank1PlayerProperty, value); }
-        }
-
-        public static readonly DependencyProperty CountTank1PlayerProperty =
-            DependencyProperty.Register("CountTank1Player", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, CountTank1PlayerChangedCallback));
-
-        private static void CountTank1PlayerChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((LevelInfo)d).countTank1Player.Text = e.NewValue.ToString();
-        }
-
-
-        public int CountTank2Player
-        {
-            get { return (int)GetValue(CountTank2PlayerProperty); }
-            set { SetValue(CountTank2PlayerProperty, value); }
-        }
-
-        public static readonly DependencyProperty CountTank2PlayerProperty =
-            DependencyProperty.Register("CountTank2Player", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, CountTank2PlayerChangedCallback));
-
-        private static void CountTank2PlayerChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((LevelInfo)d).countTank2Player.Text = e.NewValue.ToString();
-        }
-
+        
 
         public int CountTankEnemy
         {
