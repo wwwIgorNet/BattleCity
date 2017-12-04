@@ -18,7 +18,7 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartScrenViewModel>();
             SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel(IsTwoPlayer));
-            SimpleIoc.Default.Register<LevelInfoViewModel>();
+            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel(IsTwoPlayer));
         }
 
         public bool IsTwoPlayer { get; set; } = true;

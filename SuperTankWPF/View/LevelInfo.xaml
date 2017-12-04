@@ -16,14 +16,13 @@
 
     </UserControl.Resources>
     <Grid>
-        <Image Source="{Binding Source={x:Static model:BitmapImages.DashboardInfo}}"/>
+        <Image x:Name="backgroundImg" Source="{Binding Source={x:Static model:BitmapImages.DashboardInfoIIPlayer}}"/>
         <DockPanel LastChildFill="False">
-            <UniformGrid x:Name="uniformGrid" Columns="2" Rows="10" DockPanel.Dock="Top"/>
+            <UniformGrid x:Name="countTankEnemy" Columns="2" Rows="10" DockPanel.Dock="Top"/>
             <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
-                <TextBlock x:Name="label1Player" Text="0" Margin="20,0,0,0"/>
-                <Rectangle Height="100"/>
-                <TextBlock x:Name="labelLevel" Text="0" Margin="20,0,0,0"/>
-                <Rectangle Height="80"/>
+                <TextBlock x:Name="countTank1Player" Text="" Margin="20,0,0,37"/>
+                <TextBlock x:Name="countTank2Player" Text="" Margin="20,0,0,48"/>
+                <TextBlock x:Name="carentLevel" Text="" Margin="20,0,0,80"/>
             </StackPanel>
         </DockPanel>
     </Grid>

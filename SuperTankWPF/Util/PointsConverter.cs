@@ -14,7 +14,7 @@ namespace SuperTankWPF.Util
         {
             int number = (int)value;
             string res;
-            if (number == -1)
+            if (number < 0)
             {
                 res = "";
             }
