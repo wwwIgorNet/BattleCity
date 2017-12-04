@@ -36,7 +36,7 @@ namespace SuperTankWPF.View
 
         private void StartScren_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.R) BeginLoad();
+            if (e.Key == Key.R) BeginAnimationLoad();
         }
 
         private void StartScren_Loaded(object sender, RoutedEventArgs e)
@@ -47,9 +47,45 @@ namespace SuperTankWPF.View
             animation.EasingFunction = easingFunction;
             animation.Completed += Animation_Completed;
 
-            ((StartScrenViewModel)this.DataContext).Show += () => BeginLoad();
+            Binding bindimgIsAnimationLoadScren = new Binding();
+            bindimgIsAnimationLoadScren.Source = this.DataContext;
+            bindimgIsAnimationLoadScren.Path = new PropertyPath("IsAnimationLoadScren");
+            bindimgIsAnimationLoadScren.Mode = BindingMode.TwoWay;
+            this.SetBinding(StartScren.IsAnimationLoadScrenProperty, bindimgIsAnimationLoadScren);
+        }
 
-            BeginLoad();
+        #region DependencyProperty
+        public bool IsAnimationLoadScren
+        {
+            get { return (bool)GetValue(IsAnimationLoadScrenProperty); }
+            set { SetValue(IsAnimationLoadScrenProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsAnimationLoadScrenProperty =
+            DependencyProperty.Register(nameof(IsAnimationLoadScren), typeof(bool), typeof(StartScren), new PropertyMetadata(false, IsAnimationLoadScrenChangedCallback));
+
+        private static void IsAnimationLoadScrenChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue.Equals(true))
+                ((StartScren)d).BeginAnimationLoad();
+        }
+        #endregion
+
+        private void BeginAnimationLoad()
+        {
+            if (!IsVisible) return;
+
+            animation.From = this.ActualHeight;
+            animation.To = 0.0;
+            rectangle.BeginAnimation(Rectangle.HeightProperty, animation);
+
+            if (IsValidIndex(menuList.SelectedIndex))
+                (menuList.ItemContainerGenerator.ContainerFromIndex(menuList.SelectedIndex) as ListBoxItem).IsSelected = false;
+
+            for (int i = 0; i < menuList.ItemContainerGenerator.Items.Count; i++)
+                (menuList.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem).IsEnabled = false;
+
+            IsAnimationLoadScren = true;
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -59,22 +95,8 @@ namespace SuperTankWPF.View
 
             (menuList.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem).Focus();
             (menuList.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem).IsSelected = true;
-        }
 
-        public void BeginLoad()
-        {
-
-            if (!IsVisible) return;
-
-            animation.From = this.ActualHeight;
-            animation.To = 0.0;
-            rectangle.BeginAnimation(Rectangle.HeightProperty, animation);
-            
-            if (IsValidIndex(menuList.SelectedIndex))
-                (menuList.ItemContainerGenerator.ContainerFromIndex(menuList.SelectedIndex) as ListBoxItem).IsSelected = false;
-
-            for (int i = 0; i < menuList.ItemContainerGenerator.Items.Count; i++)
-                (menuList.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem).IsEnabled = false;
+            IsAnimationLoadScren = false;
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)

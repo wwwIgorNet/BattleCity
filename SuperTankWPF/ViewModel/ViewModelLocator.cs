@@ -16,7 +16,7 @@ namespace SuperTankWPF.ViewModel
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<StartScrenViewModel>();
+            SimpleIoc.Default.Register<StartScrenViewModel>(() => new StartScrenViewModel() { IsAnimationLoadScren = true });
             SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel(IsTwoPlayer));
             SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel(IsTwoPlayer));
         }
