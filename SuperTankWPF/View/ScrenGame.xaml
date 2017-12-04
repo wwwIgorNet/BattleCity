@@ -6,11 +6,15 @@
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
-             Background="Gray"
-             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
-             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <local:SceneScene Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
-        <local:LevelInfo x:Name="levelInfo" Margin="0,20,55,0" CountTankEnemy="5" CountTank1Player="7" Level="3"/>
-    </StackPanel>
+             Background="Gray">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+             Height="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
+             Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <local:SceneScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
+        <local:LevelInfo x:Name="levelInfo" Margin="0,20,20,20" Grid.Row="0" Grid.Column="1"/>
+    </Grid>
 </UserControl>

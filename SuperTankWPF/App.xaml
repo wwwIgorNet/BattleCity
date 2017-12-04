@@ -2,9 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:SuperTankWPF"
+             xmlns:vm="clr-namespace:SuperTankWPF.ViewModel"
              StartupUri="MainWindow.xaml"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>
+        <!--Global View Model Locator-->
+        <vm:ViewModelLocator x:Key="Locator"/>
+        
         <FontFamily x:Key="fontFamilyBattleCitiesText">Content/Font/#BATTLECITIES</FontFamily>
         <FontFamily x:Key="fontFamilyTextInfo">Content/Font/#BattleCityInfo</FontFamily>
         <Style x:Key="infoText">

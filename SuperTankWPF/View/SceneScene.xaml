@@ -11,6 +11,6 @@
              Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
              Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}">
     <Canvas x:Name="board">
-        <unit:ViewUnit Source="{Binding Source={x:Static model:BitmapImages.BrickWall}}" X="55" Y="44"/>
+        <unit:ViewUnit Source="{Binding Source={x:Static model:BitmapImages.BrickWall}}" X="490" Y="490"/>
     </Canvas>
 </UserControl>

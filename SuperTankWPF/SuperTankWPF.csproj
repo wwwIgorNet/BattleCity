@@ -88,8 +88,11 @@
     <Compile Include="Units\ViewUnit.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Util\WPFCommands.cs" />
+    <Compile Include="ViewModel\LevelInfoViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ScrenScoreViewModel.cs" />
     <Compile Include="ViewModel\StartScrenViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\LevelInfo.xaml.cs">
       <DependentUpon>LevelInfo.xaml</DependentUpon>
     </Compile>

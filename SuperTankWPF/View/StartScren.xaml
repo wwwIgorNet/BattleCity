@@ -8,6 +8,7 @@
              xmlns:util="clr-namespace:SuperTankWPF.Util"
              mc:Ignorable="d" 
              Background="Black"
+             DataContext="{Binding StartScren, Source={StaticResource Locator}}"
              d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
              d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <UserControl.Resources>
@@ -21,9 +22,6 @@
         <Style TargetType="TextBlock" BasedOn="{StaticResource infoText}"/>
         <Style x:Key="menuText" TargetType="TextBlock" BasedOn="{StaticResource infoText}"/>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <viewModel:StartScrenViewModel/>
-    </UserControl.DataContext>
     <Border x:Name="border" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel>
             <Rectangle x:Name="rectangle"/>

@@ -10,11 +10,11 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Background="Black"
+             DataContext="{Binding ScrenScore, Source={StaticResource Locator}}"
              d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
              d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
 
     <UserControl.Resources>
-        <viewModel:ScrenScoreViewModel x:Key="data"/>
         <util:PointsConverter x:Key="PointsConverter"/>
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource infoText}"/>
         <Style TargetType="Image">
@@ -22,7 +22,7 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel DataContext="{StaticResource data}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="HI-SCORE" Foreground="Red"/>
@@ -130,7 +130,7 @@
             </StackPanel>
 
             <Rectangle Height="3" Fill="White" VerticalAlignment="Top" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3"/>
-            
+
             <TextBlock Text="{Binding Player1.TextTotal}" HorizontalAlignment="Right" Grid.Row="7" Grid.Column="0"/>
             <TextBlock Text="{Binding Player1.TotalCountTank, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="7" Grid.Column="1"/>
             <TextBlock Text="{Binding Player2.TotalCountTank, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="7" Grid.Column="3"/>

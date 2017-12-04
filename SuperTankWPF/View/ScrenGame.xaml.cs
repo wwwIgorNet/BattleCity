@@ -40,18 +40,18 @@ namespace SuperTankWPF.View
 
         public void SetCountTankEnemy(int count)
         {
-            levelInfo.CountTankEnemy = count;
+            //levelInfo.CountTankEnemy = count;
         }
 
         public void SetCountTankPlaeyr(int count, Owner owner)
         {
-            if (owner == Owner.IPlayer)
-                levelInfo.CountTank1Player = count;
+            //if (owner == Owner.IPlayer)
+            //    levelInfo.CountTank1Player = count;
         }
 
         public void StartLevel(int level)
         {
-            levelInfo.Level = level;
+            //levelInfo.Level = level;
         }
     }
 }

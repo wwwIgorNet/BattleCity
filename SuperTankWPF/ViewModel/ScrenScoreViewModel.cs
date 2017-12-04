@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 
 namespace SuperTankWPF.ViewModel
 {
-    class ScrenScoreViewModel : ObservableObject
+    public class ScrenScoreViewModel : ObservableObject
     {
         private int level;
         private string stage;
@@ -28,7 +28,7 @@ namespace SuperTankWPF.ViewModel
             Cler();
 
             TestInit1P();
-            if(isTwoPlayer) TestInit2P();
+            if(IsTwoPlayer) TestInit2P();
         }
 
         private void TestInit1P()

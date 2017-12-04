@@ -1,4 +1,5 @@
 ﻿using SuperTankWPF.Util;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,8 +47,9 @@ namespace SuperTankWPF.View
             animation.EasingFunction = easingFunction;
             animation.Completed += Animation_Completed;
 
-            if (this.Visibility == Visibility.Visible)
-                BeginLoad();
+            ((StartScrenViewModel)this.DataContext).Show += () => BeginLoad();
+
+            BeginLoad();
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -61,14 +63,17 @@ namespace SuperTankWPF.View
 
         public void BeginLoad()
         {
+
+            if (!IsVisible) return;
+
             animation.From = this.ActualHeight;
             animation.To = 0.0;
             rectangle.BeginAnimation(Rectangle.HeightProperty, animation);
-
+            
             if (IsValidIndex(menuList.SelectedIndex))
                 (menuList.ItemContainerGenerator.ContainerFromIndex(menuList.SelectedIndex) as ListBoxItem).IsSelected = false;
 
-            for (int i = 0; i < menuList.Items.Count; i++)
+            for (int i = 0; i < menuList.ItemContainerGenerator.Items.Count; i++)
                 (menuList.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem).IsEnabled = false;
         }
 

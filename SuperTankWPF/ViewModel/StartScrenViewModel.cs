@@ -16,8 +16,6 @@ namespace SuperTankWPF.ViewModel
 {
     class StartScrenViewModel : ObservableObject
     {
-        private bool show;
-
         public StartScrenViewModel()
         {
             ListMenu = new ObservableCollection<MenuItem> {
@@ -27,10 +25,11 @@ namespace SuperTankWPF.ViewModel
             };
         }
 
-        public bool Show
+        public event Action Show;
+
+        public void ShowScren()
         {
-            get { return show; }
-            set { Set(nameof(Show), ref show, value); }
+            Show?.Invoke();
         }
 
         public BitmapImage Img { get { return BitmapImages.Plaeyr.SmallTank.Right1; } }

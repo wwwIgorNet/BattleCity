@@ -6,19 +6,25 @@
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
-             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
-             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WidthTank}}">
+             DataContext="{Binding LevelInfoLeve, Source={StaticResource Locator}}"
+             Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
+             Width="{Binding Source={x:Static model:ConfigurationWPF.WidthTank}}">
     <UserControl.Resources>
-        <Style x:Key="textInfo">
-            <Setter Property="Control.FontFamily" Value="{StaticResource FontFamilyTextInfo}"/>
-            <Setter Property="Control.FontSize" Value="18"/>
-            <Setter Property="Canvas.Left" Value="18"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource infoText}">
+            <Setter Property="Foreground" Value="Black"/>
         </Style>
+
     </UserControl.Resources>
-    <Canvas>
+    <Grid>
         <Image Source="{Binding Source={x:Static model:BitmapImages.DashboardInfo}}"/>
-        <UniformGrid x:Name="uniformGrid" Columns="2" Rows="26"/>
-        <Label x:Name="label1Player" Content="0" Canvas.Top="328" Style="{StaticResource textInfo}"/>
-        <Label x:Name="labelLevel" Content="0" Canvas.Top="456" Style="{StaticResource textInfo}"/>
-    </Canvas>   
+        <DockPanel LastChildFill="False">
+            <UniformGrid x:Name="uniformGrid" Columns="2" Rows="10" DockPanel.Dock="Top"/>
+            <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
+                <TextBlock x:Name="label1Player" Text="0" Margin="20,0,0,0"/>
+                <Rectangle Height="100"/>
+                <TextBlock x:Name="labelLevel" Text="0" Margin="20,0,0,0"/>
+                <Rectangle Height="80"/>
+            </StackPanel>
+        </DockPanel>
+    </Grid>
 </UserControl>
