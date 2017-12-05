@@ -24,11 +24,13 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class ScrenGame : UserControl
     {
+        private ThicknessAnimation animationGameOver = new ThicknessAnimation();
         private DoubleAnimation animationTop = new DoubleAnimation();
         private DoubleAnimation animationBottom = new DoubleAnimation();
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
         private TimeSpan durationShowLevel = TimeSpan.FromSeconds(2);
         private TimeSpan durationAnim = TimeSpan.FromSeconds(1);
+        private TimeSpan durationGameOver = TimeSpan.FromSeconds(2);
 
         public ScrenGame()
         {
@@ -46,7 +48,7 @@ namespace SuperTankWPF.View
             this.showNewLevelNumber.SetBinding(TextBlock.TextProperty, bindingLevel);
 
             animationTop.Duration = durationAnim;
-            EasingFunctionBase easingFunction = new CircleEase();
+            EasingFunctionBase easingFunction = new PowerEase();
             easingFunction.EasingMode = EasingMode.EaseOut;
             animationTop.EasingFunction = easingFunction;
 
@@ -57,7 +59,19 @@ namespace SuperTankWPF.View
             animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, durationAnim));
             animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationShowLevel + durationAnim));
 
+            animationGameOver.EasingFunction = easingFunction;
+            animationGameOver.Duration = durationGameOver;
+
+            AnimationGameOver();
             StartAnimation();
+        }
+
+        private void AnimationGameOver()
+        {
+            textGameOver.Visibility = Visibility.Visible;
+            animationGameOver.From = new Thickness(0, this.ActualHeight, 0, 0);
+            animationGameOver.To = new Thickness(0, this.ActualHeight / 2 - textGameOver.ActualHeight / 2, 0, 0);
+            textGameOver.BeginAnimation(StackPanel.MarginProperty, animationGameOver);
         }
 
         private void StartAnimation()

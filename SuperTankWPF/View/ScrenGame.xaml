@@ -7,13 +7,13 @@
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
              Background="Gray"
-             DataContext="{Binding ScrenGame, Source={StaticResource Locator}}"
-             Height="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
-             Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
+             DataContext="{Binding ScrenGame, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <SolidColorBrush Color="Gray" x:Key="backGround"/>
     </UserControl.Resources>
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+             d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
+             d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
@@ -21,9 +21,20 @@
         <local:SceneScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
         <local:LevelInfo x:Name="levelInfo" Margin="0,20,20,20" Grid.Row="0" Grid.Column="1"/>
         <DockPanel LastChildFill="False" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
-            <Rectangle x:Name="topRect" Fill="{StaticResource backGround}" DockPanel.Dock="Top"/>
-            <Rectangle x:Name="bottomRect" Fill="{StaticResource backGround}" DockPanel.Dock="Bottom"/>
+            <Rectangle x:Name="topRect" Fill="{StaticResource backGround}" DockPanel.Dock="Top" SnapsToDevicePixels="True"/>
+            <Rectangle x:Name="bottomRect" Fill="{StaticResource backGround}" DockPanel.Dock="Bottom" SnapsToDevicePixels="True"/>
         </DockPanel>
         <TextBlock x:Name="showNewLevelNumber" Text="STAGE" Style="{StaticResource infoText}" HorizontalAlignment="Center" Foreground="Black" Visibility="Collapsed" VerticalAlignment="Center"/>
+        <StackPanel x:Name="textGameOver" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Hidden">
+            <StackPanel.Resources>
+                <Style TargetType="TextBlock">
+                    <Setter Property="FontFamily" Value="{StaticResource fontFamilyBattleCitiesText}"/>
+                    <Setter Property="Foreground" Value="Red"/>
+                    <Setter Property="FontSize" Value="30"/>
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock Text="GAME"/>
+            <TextBlock Text="OVER"/>
+        </StackPanel>
     </Grid>
 </UserControl>
