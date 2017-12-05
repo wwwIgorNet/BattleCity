@@ -19,6 +19,7 @@
         <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
         <view:ScrenGame Visibility="Collapsed"/>
         <view:ScrenScore Visibility="Collapsed"/>
-        <view:ScrenGameOver/>
+        <view:ScrenGameOver Visibility="Collapsed"/>
+        <view:ScrenRecord/>
     </Grid>
 </Window>

@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="SuperTankWPF.View.ScrenRecord"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SuperTankWPF.View"
+             xmlns:mode="clr-namespace:SuperTankWPF.Model"
+             mc:Ignorable="d" 
+             Background="Black"
+             DataContext="{Binding ScrenRecord, Source={StaticResource Locator}}"
+             d:DesignHeight="{Binding Source={x:Static mode:ConfigurationWPF.WindowClientHeight}}"
+             d:DesignWidth="{Binding Source={x:Static mode:ConfigurationWPF.WindowClientWidth}}">
+    <!--<UserControl.Style>
+        <Style TargetType="UserControl">
+            <Style.Triggers>
+                <Trigger Property="IsVisible" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard TargetName="{Binding ElementName=textHiscore}" TargetProperty="Foreground" Duration="0:0:5">
+                                <ColorAnimationUsingKeyFrames>
+                                    <ColorKeyFrameCollection>
+                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="Yellow"/>
+                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="Blue"/>
+                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="White"/>
+                                    </ColorKeyFrameCollection>
+                                </ColorAnimationUsingKeyFrames>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Style>-->
+    <StackPanel Margin="0,0,0,150" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontFamily" Value="{StaticResource fontFamilyBattleCitiesText}"/>
+                <Setter Property="FontSize" Value="70"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Margin" Value="5"/>
+            </Style>
+        </StackPanel.Resources>
+        <TextBlock x:Name="textHiscore" Text="HISCORE"/>
+        <TextBlock x:Name="points" Text="{Binding CountPoints}" HorizontalAlignment="Right" Foreground="{Binding ElementName=textHiscore, Path=Foreground}"/>
+    </StackPanel>
+</UserControl>

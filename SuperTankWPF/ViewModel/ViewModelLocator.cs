@@ -20,6 +20,7 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel(IsTwoPlayer));
             SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel(IsTwoPlayer));
             SimpleIoc.Default.Register<ScrenGameViewModel>();
+            SimpleIoc.Default.Register<ScrenRecordViewModel>();
         }
 
         public bool IsTwoPlayer { get; set; } = true;
@@ -64,6 +65,13 @@ namespace SuperTankWPF.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
+            }
+        }
+        public ScrenRecordViewModel ScrenRecord
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ScrenRecordViewModel>();
             }
         }
 
