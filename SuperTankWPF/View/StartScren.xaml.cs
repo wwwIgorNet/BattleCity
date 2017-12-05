@@ -30,50 +30,35 @@ namespace SuperTankWPF.View
             InitializeComponent();
 
             Loaded += StartScren_Loaded;
-
+            IsVisibleChanged += StartScren_IsVisibleChanged;
             KeyDown += StartScren_KeyDown;
+        }
+
+        private void StartScren_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (IsVisible) AnimationLoadScren();
         }
 
         private void StartScren_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.R) BeginAnimationLoad();
+            Visibility = Visibility.Collapsed;
+            Visibility = Visibility.Visible;
         }
 
         private void StartScren_Loaded(object sender, RoutedEventArgs e)
         {
             animation.Duration = new Duration(TimeSpan.FromSeconds(3));
             EasingFunctionBase easingFunction = new PowerEase();
-            easingFunction.EasingMode = EasingMode.EaseInOut;
+            easingFunction.EasingMode = EasingMode.EaseOut;
             animation.EasingFunction = easingFunction;
             animation.Completed += Animation_Completed;
-
-            Binding bindimgIsAnimationLoadScren = new Binding();
-            bindimgIsAnimationLoadScren.Source = this.DataContext;
-            bindimgIsAnimationLoadScren.Path = new PropertyPath("IsAnimationLoadScren");
-            bindimgIsAnimationLoadScren.Mode = BindingMode.TwoWay;
-            this.SetBinding(StartScren.IsAnimationLoadScrenProperty, bindimgIsAnimationLoadScren);
+            
+            AnimationLoadScren();
         }
 
-        #region DependencyProperty
-        public bool IsAnimationLoadScren
+        private void AnimationLoadScren()
         {
-            get { return (bool)GetValue(IsAnimationLoadScrenProperty); }
-            set { SetValue(IsAnimationLoadScrenProperty, value); }
-        }
-
-        public static readonly DependencyProperty IsAnimationLoadScrenProperty =
-            DependencyProperty.Register(nameof(IsAnimationLoadScren), typeof(bool), typeof(StartScren), new PropertyMetadata(false, IsAnimationLoadScrenChangedCallback));
-
-        private static void IsAnimationLoadScrenChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            if (e.NewValue.Equals(true))
-                ((StartScren)d).BeginAnimationLoad();
-        }
-        #endregion
-
-        private void BeginAnimationLoad()
-        {
-            if (!IsVisible) return;
+            if (!IsLoaded || !IsVisible) return;
 
             animation.From = new Thickness(0d, this.ActualHeight, 0d, 0d);
             animation.To = new Thickness(0d);
@@ -84,8 +69,6 @@ namespace SuperTankWPF.View
 
             for (int i = 0; i < menuList.ItemContainerGenerator.Items.Count; i++)
                 (menuList.ItemContainerGenerator.ContainerFromIndex(i) as ListBoxItem).IsEnabled = false;
-
-            IsAnimationLoadScren = true;
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -95,8 +78,6 @@ namespace SuperTankWPF.View
 
             (menuList.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem).Focus();
             (menuList.ItemContainerGenerator.ContainerFromIndex(0) as ListBoxItem).IsSelected = true;
-
-            IsAnimationLoadScren = false;
         }
 
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
