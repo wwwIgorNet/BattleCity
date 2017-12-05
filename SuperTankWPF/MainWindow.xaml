@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperTankWPF"
-        xmlns:stv="clr-namespace:SuperTank.View;assembly=ViewLibrary"
+        xmlns:model="clr-namespace:SuperTankWPF.Model"
         x:Class="SuperTankWPF.MainWindow"
         xmlns:view="clr-namespace:SuperTankWPF.View"
         mc:Ignorable="d"
@@ -13,11 +13,12 @@
         Loaded="Window_Loaded" 
         KeyUp="Window_KeyUp"
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        d:DesignHeight="{Binding Source={x:Static stv:ConfigurationView.WindowClientHeight}}"
-        d:DesignWidth="{Binding Source={x:Static stv:ConfigurationView.WindowClientWidth}}">
+        d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
+        d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <Grid>
-        <view:StartScren x:Name="startScren"/>
+        <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
         <view:ScrenGame Visibility="Collapsed"/>
         <view:ScrenScore Visibility="Collapsed"/>
+        <view:ScrenGameOver/>
     </Grid>
 </Window>

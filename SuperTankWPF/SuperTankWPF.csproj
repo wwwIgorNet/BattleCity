@@ -103,6 +103,9 @@
     <Compile Include="View\ScrenGame.xaml.cs">
       <DependentUpon>ScrenGame.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ScrenGameOver.xaml.cs">
+      <DependentUpon>ScrenGameOver.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ScrenScore.xaml.cs">
       <DependentUpon>ScrenScore.xaml</DependentUpon>
     </Compile>
@@ -130,6 +133,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ScrenGame.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScrenGameOver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
