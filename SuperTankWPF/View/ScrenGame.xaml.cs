@@ -39,6 +39,41 @@ namespace SuperTankWPF.View
             this.Loaded += ScrenGame_Loaded;
         }
 
+        #region Dependensy
+        public bool IsShowAnimationNewLevel
+        {
+            get { return (bool)GetValue(IsShowAnimationNewLevelProperty); }
+            set { SetValue(IsShowAnimationNewLevelProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsShowAnimationNewLevelProperty =
+            DependencyProperty.Register("IsShowAnimationNewLevel", typeof(bool), typeof(ScrenGame), new PropertyMetadata(false, IsShowAnimationNewLevelChangedCallback));
+
+        private static void IsShowAnimationNewLevelChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue.Equals(true))
+                ((ScrenGame)d).StartAnimationNewLevel();
+        }
+
+
+        public bool IsShowGameOver
+        {
+            get { return (bool)GetValue(IsShowGameOverProperty); }
+            set { SetValue(IsShowGameOverProperty, value); }
+        }
+
+        public static readonly DependencyProperty IsShowGameOverProperty =
+            DependencyProperty.Register("IsShowGameOver", typeof(bool), typeof(ScrenGame), new PropertyMetadata(false, IsShowGameOverChangedCallback));
+
+        private static void IsShowGameOverChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (e.NewValue.Equals(true))
+                ((ScrenGame)d).AnimationGameOver();
+        }
+
+
+        #endregion
+
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
             Binding bindingLevel = new Binding();
@@ -47,9 +82,10 @@ namespace SuperTankWPF.View
             bindingLevel.StringFormat = "STAGE {0}";
             this.showNewLevelNumber.SetBinding(TextBlock.TextProperty, bindingLevel);
 
+
             animationTop.Duration = durationAnim;
             EasingFunctionBase easingFunction = new PowerEase();
-            easingFunction.EasingMode = EasingMode.EaseOut;
+            easingFunction.EasingMode = EasingMode.EaseInOut;
             animationTop.EasingFunction = easingFunction;
 
             animationBottom.Duration = durationAnim;
@@ -62,8 +98,15 @@ namespace SuperTankWPF.View
             animationGameOver.EasingFunction = easingFunction;
             animationGameOver.Duration = durationGameOver;
 
-            AnimationGameOver();
-            StartAnimation();
+            Binding bindingShowNewLevel = new Binding();
+            bindingShowNewLevel.Source = this.DataContext;
+            bindingShowNewLevel.Path = new PropertyPath("IsShowAnimationNewLevel");
+            this.SetBinding(ScrenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
+
+            Binding bindingIsShowGameOver = new Binding();
+            bindingIsShowGameOver.Source = this.DataContext;
+            bindingIsShowGameOver.Path = new PropertyPath("IsShowGameOver");
+            this.SetBinding(ScrenGame.IsShowGameOverProperty, bindingIsShowGameOver);
         }
 
         private void AnimationGameOver()
@@ -74,15 +117,15 @@ namespace SuperTankWPF.View
             textGameOver.BeginAnimation(StackPanel.MarginProperty, animationGameOver);
         }
 
-        private void StartAnimation()
+        private void StartAnimationNewLevel()
         {
             animationTop.Completed += Animation_Completed;
 
             animationTop.From = 0.0;
-            animationTop.To = this.ActualHeight / 2;
+            animationTop.To = this.ActualHeight / 2 + 2;
 
             animationBottom.From = 0.0;
-            animationBottom.To = this.ActualHeight / 2;
+            animationBottom.To = this.ActualHeight / 2 + 2;
 
             topRect.BeginAnimation(Rectangle.HeightProperty, animationTop);
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);
