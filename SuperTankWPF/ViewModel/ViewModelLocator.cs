@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<ScrenGameViewModel>();
             SimpleIoc.Default.Register<ScrenRecordViewModel>();
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
+            SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
         }
 
         public bool IsTwoPlayer { get; set; } = true;
@@ -79,7 +81,14 @@ namespace SuperTankWPF.ViewModel
         {
             get
             {
-                 return ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+                return ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+            }
+        }
+        public IImageSourceStor ImageSource
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<IImageSourceStor>();
             }
         }
 

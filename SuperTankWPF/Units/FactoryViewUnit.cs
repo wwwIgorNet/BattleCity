@@ -90,23 +90,23 @@ namespace SuperTank
                 //            break;
 
 
-                case TypeUnit.BrickWall:
-                    resView = new ViewUnit(id, x, y, BitmapImages.BrickWall);
-                    break;
-                case TypeUnit.ConcreteWall:
-                    resView = new ViewUnit(id, x, y, BitmapImages.ConcreteWall);
-                    break;
-                case TypeUnit.Water:
-                    //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
-                    break;
-                case TypeUnit.Forest:
-                    resView = new ViewUnit(id, x, y, BitmapImages.Forest);
-                    resView.ZIndex = 10;
-                    break;
-                case TypeUnit.Ice:
-                    resView = new ViewUnit(id, x, y, BitmapImages.Ice);
-                    resView.ZIndex = -1;
-                    break;
+                //case TypeUnit.BrickWall:
+                //    resView = new ViewUnit(id, x, y, BitmapImages.BrickWall);
+                //    break;
+                //case TypeUnit.ConcreteWall:
+                //    resView = new ViewUnit(id, x, y, BitmapImages.ConcreteWall);
+                //    break;
+                //case TypeUnit.Water:
+                //    //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
+                //    break;
+                //case TypeUnit.Forest:
+                //    resView = new ViewUnit(id, x, y, BitmapImages.Forest);
+                //    resView.ZIndex = 10;
+                //    break;
+                //case TypeUnit.Ice:
+                //    resView = new ViewUnit(id, x, y, BitmapImages.Ice);
+                //    resView.ZIndex = -1;
+                //    break;
 
 
                     //        case TypeUnit.Eagle:

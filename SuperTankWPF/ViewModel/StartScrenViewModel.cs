@@ -19,28 +19,24 @@ namespace SuperTankWPF.ViewModel
         public StartScrenViewModel()
         {
             ListMenu = new ObservableCollection<MenuItem> {
-                new MenuItem("I PLAYER", Img, new RelayCommand(() => MessageBox.Show("Command I PLAYERS"))) { IsActiv = false },
-                new MenuItem("II PLAYERS", Img, new RelayCommand(() => MessageBox.Show("Command II PLAYERS"))),
-                new MenuItem("CONSTRUCTION", Img, new RelayCommand(() => MessageBox.Show("Command CONSTRUCTION")))
+                new MenuItem("I PLAYER", new RelayCommand(() => MessageBox.Show("Command I PLAYERS"))) { IsActiv = false },
+                new MenuItem("II PLAYERS", new RelayCommand(() => MessageBox.Show("Command II PLAYERS"))),
+                new MenuItem("CONSTRUCTION", new RelayCommand(() => MessageBox.Show("Command CONSTRUCTION")))
             };
         }
-
-        public BitmapImage Img { get { return BitmapImages.Plaeyr.SmallTank.Right1; } }
 
         public ObservableCollection<MenuItem> ListMenu { get; set; }
     }
 
     public class MenuItem : ObservableObject
     {
-        private BitmapImage img;
         private string text;
         private bool isActiv;
         private ICommand command;
 
-        public MenuItem(string text, BitmapImage img, ICommand command)
+        public MenuItem(string text, ICommand command)
         {
             this.Text = text;
-            Img = img;
             Command = command;
         }
 
@@ -48,12 +44,6 @@ namespace SuperTankWPF.ViewModel
         {
             get { return command; }
             set { Set(ref command, value); }
-        }
-
-        public BitmapImage Img
-        {
-            get { return img; }
-            set { Set(ref img, value); }
         }
 
         public string Text

@@ -72,7 +72,7 @@
             <TextBlock Text="{Binding Plain.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="3" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Row="3" Grid.Column="2" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding Plain.ArrowLeft}" Margin="0"/>
-                <Image Source="{Binding Plain.ImgTank}"/>
+                <Image Source="{Binding ImageSource.Enemy.PlainTank.Up1, Mode=OneWay, Source={StaticResource Locator}}"/>
                 <TextBlock Text="{Binding Plain.ArrowRight}" Margin="0"/>
             </StackPanel>
             <TextBlock Text="{Binding Plain.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="3" Grid.Column="3"/>
@@ -88,7 +88,7 @@
             <TextBlock Text="{Binding ArmoredPersonnelCarrier.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="4" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Row="4" Grid.Column="2" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding ArmoredPersonnelCarrier.ArrowLeft}" Margin="0"/>
-                <Image Source="{Binding ArmoredPersonnelCarrier.ImgTank}"/>
+                <Image Source="{Binding ImageSource.Enemy.ArmoredPersonnelCarrierTank.Up1, Mode=OneWay, Source={StaticResource Locator}}"/>
                 <TextBlock Text="{Binding ArmoredPersonnelCarrier.ArrowRight}" Margin="0"/>
             </StackPanel>
             <TextBlock Text="{Binding ArmoredPersonnelCarrier.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="4" Grid.Column="3"/>
@@ -104,7 +104,7 @@
             <TextBlock Text="{Binding QuickFire.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="5" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.Column="2" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding QuickFire.ArrowLeft}" Margin="0"/>
-                <Image Source="{Binding QuickFire.ImgTank}"/>
+                <Image Source="{Binding ImageSource.Enemy.QuickFireTank.Up1, Mode=OneWay, Source={StaticResource Locator}}"/>
                 <TextBlock Text="{Binding QuickFire.ArrowRight}" Margin="0"/>
             </StackPanel>
             <TextBlock Text="{Binding QuickFire.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="5" Grid.Column="3"/>
@@ -120,7 +120,7 @@
             <TextBlock Text="{Binding Armored.CountTanl1Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Right" Grid.Row="6" Grid.Column="1"/>
             <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="2" HorizontalAlignment="Left">
                 <TextBlock Text="{Binding Armored.ArrowLeft}" Margin="0"/>
-                <Image Source="{Binding Armored.ImgTank}"/>
+                <Image Source="{Binding ImageSource.Enemy.ArmoredTank.Up1, Mode=OneWay, Source={StaticResource Locator}}"/>
                 <TextBlock Text="{Binding Armored.ArrowRight}" Margin="0"/>
             </StackPanel>
             <TextBlock Text="{Binding Armored.CountTanl2Player, Converter={StaticResource PointsConverter}}" HorizontalAlignment="Left" Grid.Row="6" Grid.Column="3"/>

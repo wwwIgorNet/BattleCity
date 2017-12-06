@@ -130,10 +130,10 @@ namespace SuperTankWPF.ViewModel
             set { Set(nameof(Player2), ref player2, value); }
         }
 
-        public TankDetils Plain { get; } = new TankDetils() { ImgTank = BitmapImages.Enemy.PlainTank.Up1 };
-        public TankDetils ArmoredPersonnelCarrier { get; } = new TankDetils() { ImgTank = BitmapImages.Enemy.ArmoredPersonnelCarrierTank.Up1 };
-        public TankDetils QuickFire { get; } = new TankDetils() { ImgTank = BitmapImages.Enemy.QuickFireTank.Up1 };
-        public TankDetils Armored { get; } = new TankDetils() { ImgTank = BitmapImages.Enemy.ArmoredTank.Up1 };
+        public TankDetils Plain { get; } = new TankDetils();
+        public TankDetils ArmoredPersonnelCarrier { get; } = new TankDetils();
+        public TankDetils QuickFire { get; } = new TankDetils();
+        public TankDetils Armored { get; } = new TankDetils();
 
         public ObservableCollection<TankDetils> ListDeteils { get; } = new ObservableCollection<TankDetils>();
 
@@ -148,7 +148,6 @@ namespace SuperTankWPF.ViewModel
             private int points2Player;
             private int сountTanl1Player;
             private int сountTanl2Player;
-            private BitmapImage imgTank;
 
             public TankDetils()
             {
@@ -196,12 +195,6 @@ namespace SuperTankWPF.ViewModel
             {
                 get { return сountTanl2Player; }
                 set { Set(nameof(CountTanl2Player), ref сountTanl2Player, value); }
-            }
-
-            public BitmapImage ImgTank
-            {
-                get { return imgTank; }
-                set { Set(nameof(ImgTank), ref imgTank, value); }
             }
 
             public static void Init(bool isTwoPlayer)

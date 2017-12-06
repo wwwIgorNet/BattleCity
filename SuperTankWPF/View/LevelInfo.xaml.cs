@@ -23,7 +23,7 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class LevelInfo : UserControl
     {
-        private BitmapImage bitmapImage = BitmapImages.InformationTank;
+        private ImageSource tankEnemy;
 
         public LevelInfo()
         {
@@ -33,29 +33,16 @@ namespace SuperTankWPF.View
 
         private void Init()
         {
+            tankEnemy = ((Image)FindResource("tankEnemy")).Source;
+            dashboardInfo = ((Image)FindResource("backgroundImgIPlayer")).Source;
+            dashboardInfoIIPlayer = ((Image)FindResource("backgroundImgIIPlayer")).Source;
+
             Binding bindingCountTankEnemy = new Binding();
             bindingCountTankEnemy.Source = this.DataContext;
             bindingCountTankEnemy.Path = new PropertyPath("CountTankEnemy");
             bindingCountTankEnemy.Mode = BindingMode.OneWay;
             this.SetBinding(LevelInfo.CountTankEnemyProperty, bindingCountTankEnemy);
-
-            Binding bindingCountTank1Player = new Binding();
-            bindingCountTank1Player.Source = this.DataContext;
-            bindingCountTank1Player.Path = new PropertyPath("CountTank1Player");
-            this.countTank1Player.SetBinding(TextBlock.TextProperty, bindingCountTank1Player);
-
-            Binding bindingCountTank2Player = new Binding();
-            bindingCountTank2Player.Source = this.DataContext;
-            bindingCountTank2Player.Path = new PropertyPath("CountTank2Player");
-            bindingCountTank2Player.Converter = new PointsConverter();
-            this.countTank2Player.SetBinding(TextBlock.TextProperty, bindingCountTank2Player);
-
-            Binding bindingLevel = new Binding();
-            bindingLevel.Source = this.DataContext;
-            bindingLevel.Path = new PropertyPath("Level");
-            bindingLevel.Mode = BindingMode.OneWay;
-            this.carentLevel.SetBinding(TextBlock.TextProperty, bindingLevel);
-
+            
             Binding bindingIsTwoPlayer = new Binding();
             bindingIsTwoPlayer.Source = this.DataContext;
             bindingIsTwoPlayer.Path = new PropertyPath("IsTwoPlayer");
@@ -71,14 +58,14 @@ namespace SuperTankWPF.View
         }
         
         public static readonly DependencyProperty IsTwoPlayerProperty =
-            DependencyProperty.Register("IsTwoPlayer", typeof(bool), typeof(LevelInfo), new PropertyMetadata(true, IsTwoPlayerChangedCallback));
+            DependencyProperty.Register("IsTwoPlayer", typeof(bool), typeof(LevelInfo), new PropertyMetadata(false, IsTwoPlayerChangedCallback));
         
         private static void IsTwoPlayerChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue.Equals(true))
-                ((LevelInfo)d).backgroundImg.Source = BitmapImages.DashboardInfoIIPlayer;
+                ((LevelInfo)d).backgroundImg.Source = dashboardInfoIIPlayer;
             else
-                ((LevelInfo)d).backgroundImg.Source = BitmapImages.DashboardInfo;
+                ((LevelInfo)d).backgroundImg.Source = dashboardInfo;
         }
         
 
@@ -90,6 +77,8 @@ namespace SuperTankWPF.View
 
         public static readonly DependencyProperty CountTankEnemyProperty =
             DependencyProperty.Register("CountTankEnemy", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, CountTankEnemyChangedCallback));
+        private static ImageSource dashboardInfo;
+        private static ImageSource dashboardInfoIIPlayer;
 
         private static void CountTankEnemyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -109,7 +98,7 @@ namespace SuperTankWPF.View
         {
             for (int i = 0; i < countTank; i++)
             {
-                countTankEnemy.Children.Add(new Image() { Source = bitmapImage });
+                countTankEnemy.Children.Add(new Image() { Source = tankEnemy });
             }
         }
     }

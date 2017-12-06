@@ -23,12 +23,15 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class ScrenScene : UserControl
     {
+        private static IImageSourceStor imageSource;
         public ScrenScene()
         {
             InitializeComponent();
 
-
             ((INotifyCollectionChanged)this.DataContext.GetType().GetProperty("Units").GetValue(this.DataContext)).CollectionChanged += ScrenScene_CollectionChanged;
+
+            var locator = FindResource("Locator");
+            imageSource = (IImageSourceStor)locator.GetType().GetProperty("ImageSource").GetValue(locator);
         }
 
         private void ScrenScene_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -37,9 +40,10 @@ namespace SuperTankWPF.View
             {
                 //foreach (UIElement element in e.NewItems)
                 //    board.Children.Add(element);
-                this.Dispatcher.BeginInvoke((Action)delegate () {
-                    board.Children.Add(new ViewUnit() { Source = BitmapImages.BrickWall, X = 490, Y = 490 });
-                    });
+                this.Dispatcher.BeginInvoke((Action)delegate ()
+                {
+                    board.Children.Add(new ViewUnit() { Source = imageSource.BrickWall, X = 490, Y = 490 });
+                });
             }
 
             else if (e.Action == NotifyCollectionChangedAction.Remove)

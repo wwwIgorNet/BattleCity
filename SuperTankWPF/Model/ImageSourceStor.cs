@@ -3,6 +3,7 @@ using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace SuperTankWPF.Model
@@ -10,71 +11,71 @@ namespace SuperTankWPF.Model
     /// <summary>
     /// Caches and simplifies access to images
     /// </summary>
-    public static class BitmapImages
+    public class ImageSourceStor : IImageSourceStor
     {
-        private static TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
-        private static TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
-        private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
-        private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
+        private TankPlaeyr tankPlaeyr = new TankPlaeyr(@"Tank\Plaeyr\SmallTank\", @"Tank\Plaeyr\LightTank\", @"Tank\Plaeyr\MediumTank\", @"Tank\Plaeyr\HeavyTank\");
+        private TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
+        private TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
+        private TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
 
 #pragma warning disable CS0649
-        private static BitmapImage dashboardInfo;
-        private static BitmapImage dashboardInfoIIPlayer;
-        private static BitmapImage informationTank;
+        private ImageSource dashboardInfo;
+        private ImageSource dashboardInfoIIPlayer;
+        private ImageSource informationTank;
 
-        private static readonly string pathForShell = @"Shell\";
-        private static BitmapImage shellUp;
-        private static BitmapImage shellDown;
-        private static BitmapImage shellRight;
-        private static BitmapImage shellLeft;
+        private readonly string pathForShell = @"Shell\";
+        private ImageSource shellUp;
+        private ImageSource shellDown;
+        private ImageSource shellRight;
+        private ImageSource shellLeft;
 
-        private static readonly string pathForDetonation = @"Detonation\";
-        private static BitmapImage shellDetonation1;
-        private static BitmapImage shellDetonation2;
-        private static BitmapImage shellDetonation3;
-        private static BitmapImage shellDetonation4;
-        private static BitmapImage shellDetonationBig;
-        private static BitmapImage shellDetonationBig2;
+        private readonly string pathForDetonation = @"Detonation\";
+        private ImageSource shellDetonation1;
+        private ImageSource shellDetonation2;
+        private ImageSource shellDetonation3;
+        private ImageSource shellDetonation4;
+        private ImageSource shellDetonationBig;
+        private ImageSource shellDetonationBig2;
 
-        private static BitmapImage brickWall;
-        private static BitmapImage concreteWall;
-        private static BitmapImage forest;
-        private static BitmapImage ice;
+        private ImageSource brickWall;
+        private ImageSource concreteWall;
+        private ImageSource forest;
+        private ImageSource ice;
 
-        private static readonly string pathForEagle = @"Eagle\";
-        private static BitmapImage eagle;
-        private static BitmapImage eagle2;
+        private readonly string pathForEagle = @"Eagle\";
+        private ImageSource eagle;
+        private ImageSource eagle2;
 
-        private static readonly string pathForWater = @"Water\";
-        private static BitmapImage water_1;
-        private static BitmapImage water_2;
-        private static BitmapImage water_3;
+        private readonly string pathForWater = @"Water\";
+        private ImageSource water_1;
+        private ImageSource water_2;
+        private ImageSource water_3;
 
-        private static readonly string pathForStar = @"Tank\";
-        private static BitmapImage star1;
-        private static BitmapImage star2;
-        private static BitmapImage star3;
-        private static BitmapImage star4;
+        private readonly string pathForStar = @"Tank\";
+        private ImageSource star1;
+        private ImageSource star2;
+        private ImageSource star3;
+        private ImageSource star4;
 
-        private static string pathForInvulnerable = @"Tank\";
-        private static BitmapImage invulnerable1;
-        private static BitmapImage invulnerable2;
+        private string pathForInvulnerable = @"Tank\";
+        private ImageSource invulnerable1;
+        private ImageSource invulnerable2;
 #pragma warning restore CS0649
 
-        public static TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
-        public static TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
-        public static TankEnemyExtend Enemy { get { return tankEnemy; } }
-        public static TankEnemy TankRed { get { return tankRed; } }
+        public TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
+        public TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
+        public TankEnemyExtend Enemy { get { return tankEnemy; } }
+        public TankEnemy TankRed { get { return tankRed; } }
 
 
-        public static BitmapImage DashboardInfo
+        public ImageSource DashboardInfo
         {
             get
             {
                 return Validate(dashboardInfo, @"Info\DashboardInfo.png");
             }
         }
-        public static BitmapImage DashboardInfoIIPlayer
+        public ImageSource DashboardInfoIIPlayer
         {
             get
             {
@@ -82,7 +83,7 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage InformationTank
+        public ImageSource InformationTank
         {
             get
             {
@@ -90,28 +91,28 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage ShellUp
+        public ImageSource ShellUp
         {
             get
             {
                 return Validate(shellUp, pathForShell + @"ShellUp.png");
             }
         }
-        public static BitmapImage ShellDown
+        public ImageSource ShellDown
         {
             get
             {
                 return Validate(shellDown, pathForShell + @"ShellDown.png");
             }
         }
-        public static BitmapImage ShellLeft
+        public ImageSource ShellLeft
         {
             get
             {
                 return Validate(shellLeft, pathForShell + @"ShellLeft.png");
             }
         }
-        public static BitmapImage ShellRight
+        public ImageSource ShellRight
         {
             get
             {
@@ -119,42 +120,42 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage ShellDetonation1
+        public ImageSource ShellDetonation1
         {
             get
             {
                 return Validate(shellDetonation1, pathForDetonation + @"Detonation1.png");
             }
         }
-        public static BitmapImage ShellDetonation2
+        public ImageSource ShellDetonation2
         {
             get
             {
                 return Validate(shellDetonation2, pathForDetonation + @"Detonation2.png");
             }
         }
-        public static BitmapImage ShellDetonation3
+        public ImageSource ShellDetonation3
         {
             get
             {
                 return Validate(shellDetonation3, pathForDetonation + @"Detonation3.png");
             }
         }
-        public static BitmapImage ShellDetonation4
+        public ImageSource ShellDetonation4
         {
             get
             {
                 return Validate(shellDetonation4, pathForDetonation + @"Detonation4.png");
             }
         }
-        public static BitmapImage ShellDetonationBig
+        public ImageSource ShellDetonationBig
         {
             get
             {
                 return Validate(shellDetonationBig, pathForDetonation + @"DetonationBig.png");
             }
         }
-        public static BitmapImage ShellDetonationBig2
+        public ImageSource ShellDetonationBig2
         {
             get
             {
@@ -162,21 +163,21 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage Water_1
+        public ImageSource Water_1
         {
             get
             {
                 return Validate(water_1, pathForWater + @"Water_1.png");
             }
         }
-        public static BitmapImage Water_2
+        public ImageSource Water_2
         {
             get
             {
                 return Validate(water_2, pathForWater + @"Water_2.png");
             }
         }
-        public static BitmapImage Water_3
+        public ImageSource Water_3
         {
             get
             {
@@ -184,28 +185,28 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage BrickWall
+        public ImageSource BrickWall
         {
             get
             {
                 return Validate(brickWall, "BrickWall.png");
             }
         }
-        public static BitmapImage Forest
+        public ImageSource Forest
         {
             get
             {
                 return Validate(forest, @"Forest.png");
             }
         }
-        public static BitmapImage Ice
+        public ImageSource Ice
         {
             get
             {
                 return Validate(ice, @"Ice.png");
             }
         }
-        public static BitmapImage ConcreteWall
+        public ImageSource ConcreteWall
         {
             get
             {
@@ -213,14 +214,14 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage Eagle
+        public ImageSource Eagle
         {
             get
             {
                 return Validate(eagle, pathForEagle + "Eagle.png");
             }
         }
-        public static BitmapImage Eagle2
+        public ImageSource Eagle2
         {
             get
             {
@@ -228,28 +229,28 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static BitmapImage Star1
+        public ImageSource Star1
         {
             get
             {
                 return Validate(star1, pathForStar + @"Star1.png");
             }
         }
-        public static BitmapImage Star2
+        public ImageSource Star2
         {
             get
             {
                 return Validate(star2, pathForStar + @"Star2.png");
             }
         }
-        public static BitmapImage Star3
+        public ImageSource Star3
         {
             get
             {
                 return Validate(star3, pathForStar + @"Star2.png");
             }
         }
-        public static BitmapImage Star4
+        public ImageSource Star4
         {
             get
             {
@@ -258,14 +259,14 @@ namespace SuperTankWPF.Model
         }
 
 
-        public static BitmapImage Invulnerable1
+        public ImageSource Invulnerable1
         {
             get
             {
                 return Validate(invulnerable1, pathForInvulnerable + @"Invulnerable1.png");
             }
         }
-        public static BitmapImage Invulnerable2
+        public ImageSource Invulnerable2
         {
             get
             {
@@ -274,7 +275,7 @@ namespace SuperTankWPF.Model
         }
 
 
-        private static BitmapImage Validate(BitmapImage img, String imgName)
+        private static ImageSource Validate(ImageSource img, String imgName)
         {
             try
             {
@@ -288,7 +289,7 @@ namespace SuperTankWPF.Model
             }
         }
 
-        public static Dictionary<Direction, BitmapImage[]> GetImgesForTank(TypeUnit type)
+        public Dictionary<Direction, ImageSource[]> GetImgesForTank(TypeUnit type)
         {
             switch (type)
             {
@@ -312,7 +313,7 @@ namespace SuperTankWPF.Model
             }
             return null;
         }
-        public static Dictionary<Direction, BitmapImage[]> GetImgesForTankIIPlayer(TypeUnit type)
+        public Dictionary<Direction, ImageSource[]> GetImgesForTankIIPlayer(TypeUnit type)
         {
             switch (type)
             {
@@ -328,7 +329,7 @@ namespace SuperTankWPF.Model
             return null;
         }
 
-        public static Dictionary<Direction, BitmapImage[]> GetImgesForRedTank(TypeUnit type)
+        public Dictionary<Direction, ImageSource[]> GetImgesForRedTank(TypeUnit type)
         {
             switch (type)
             {
@@ -344,9 +345,9 @@ namespace SuperTankWPF.Model
             return null;
         }
 
-        public static Dictionary<Direction, BitmapImage[]> GetImages(Tank tank)
+        public Dictionary<Direction, ImageSource[]> GetImages(Tank tank)
         {
-            return new Dictionary<Direction, BitmapImage[]>
+            return new Dictionary<Direction, ImageSource[]>
                     {
                         {Direction.Up, new []
                         { tank.Up1, tank.Up2 } },
@@ -399,14 +400,14 @@ namespace SuperTankWPF.Model
         {
             private readonly string pathForTank;
 #pragma warning disable CS0649
-            private BitmapImage up1;
-            private BitmapImage up2;
-            private BitmapImage down1;
-            private BitmapImage down2;
-            private BitmapImage right1;
-            private BitmapImage right2;
-            private BitmapImage left1;
-            private BitmapImage left2;
+            private ImageSource up1;
+            private ImageSource up2;
+            private ImageSource down1;
+            private ImageSource down2;
+            private ImageSource right1;
+            private ImageSource right2;
+            private ImageSource left1;
+            private ImageSource left2;
 #pragma warning restore CS0649
 
             public Tank(string pathForTank)
@@ -414,56 +415,56 @@ namespace SuperTankWPF.Model
                 this.pathForTank = pathForTank;
             }
 
-            public BitmapImage Up1
+            public ImageSource Up1
             {
                 get
                 {
                     return Validate(up1, pathForTank + "Up1.png");
                 }
             }
-            public BitmapImage Up2
+            public ImageSource Up2
             {
                 get
                 {
                     return Validate(up2, pathForTank + "Up2.png");
                 }
             }
-            public BitmapImage Down1
+            public ImageSource Down1
             {
                 get
                 {
                     return Validate(down1, pathForTank + "Down1.png");
                 }
             }
-            public BitmapImage Down2
+            public ImageSource Down2
             {
                 get
                 {
                     return Validate(down2, pathForTank + "Down2.png");
                 }
             }
-            public BitmapImage Left1
+            public ImageSource Left1
             {
                 get
                 {
                     return Validate(left1, pathForTank + "Left1.png");
                 }
             }
-            public BitmapImage Left2
+            public ImageSource Left2
             {
                 get
                 {
                     return Validate(left2, pathForTank + "Left2.png");
                 }
             }
-            public BitmapImage Right1
+            public ImageSource Right1
             {
                 get
                 {
                     return Validate(right1, pathForTank + "Right1.png");
                 }
             }
-            public BitmapImage Right2
+            public ImageSource Right2
             {
                 get
                 {
@@ -492,62 +493,62 @@ namespace SuperTankWPF.Model
             public Tank HeavyTank { get { return heavyTank; } }
         }
 
-        public static class Bonus
+        public class Bonus
         {
-            private static readonly string pathForBonus = @"Bonus\";
+            private readonly string pathForBonus = @"Bonus\";
 #pragma warning disable CS0649
-            private static BitmapImage clock;
-            private static BitmapImage grenade;
-            private static BitmapImage helmet;
-            private static BitmapImage pistol;
-            private static BitmapImage shovel;
-            private static BitmapImage starMedal;
-            private static BitmapImage tank;
+            private ImageSource clock;
+            private ImageSource grenade;
+            private ImageSource helmet;
+            private ImageSource pistol;
+            private ImageSource shovel;
+            private ImageSource starMedal;
+            private ImageSource tank;
 #pragma warning restore CS0649
 
-            public static BitmapImage Clock
+            public ImageSource Clock
             {
                 get
                 {
                     return Validate(clock, pathForBonus + @"Clock.png");
                 }
             }
-            public static BitmapImage Grenade
+            public ImageSource Grenade
             {
                 get
                 {
                     return Validate(grenade, pathForBonus + @"Grenade.png");
                 }
             }
-            public static BitmapImage Helmet
+            public ImageSource Helmet
             {
                 get
                 {
                     return Validate(helmet, pathForBonus + @"Helmet.png");
                 }
             }
-            public static BitmapImage Pistol
+            public ImageSource Pistol
             {
                 get
                 {
                     return Validate(pistol, pathForBonus + @"Pistol.png");
                 }
             }
-            public static BitmapImage Shovel
+            public ImageSource Shovel
             {
                 get
                 {
                     return Validate(shovel, pathForBonus + @"Shovel.png");
                 }
             }
-            public static BitmapImage StarMedal
+            public ImageSource StarMedal
             {
                 get
                 {
                     return Validate(starMedal, pathForBonus + @"StarMedal.png");
                 }
             }
-            public static BitmapImage Tank
+            public ImageSource Tank
             {
                 get
                 {

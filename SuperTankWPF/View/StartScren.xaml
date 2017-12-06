@@ -35,7 +35,7 @@
                             <Setter.Value>
                                 <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                     <StackPanel Orientation="Horizontal">
-                                        <Image x:Name="menuIcon" Source="{Binding Img}" Visibility="Hidden" Margin="0,-5,0,0"/>
+                                        <Image x:Name="menuIcon" Source="{Binding ImageSource.Plaeyr.SmallTank.Right1, Mode=OneWay, Source={StaticResource Locator}}" Visibility="Hidden" Margin="0,-5,0,0"/>
                                         <TextBlock Text="{Binding Text}" Style="{StaticResource menuText}"/>
                                     </StackPanel>
                                     <ControlTemplate.Triggers>

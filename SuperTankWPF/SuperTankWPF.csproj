@@ -83,7 +83,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ConfigurationWPF.cs" />
-    <Compile Include="Model\BitmapImages.cs" />
+    <Compile Include="Model\ImageSourceStor.cs" />
+    <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\FactoryViewUnit.cs" />
     <Compile Include="Units\ViewUnit.cs" />
     <Compile Include="Util\PointsConverter.cs" />
