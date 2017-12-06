@@ -25,23 +25,24 @@ namespace SuperTankWPF.ViewModel
             t.Start();
         }
 
-        ViewUnit vu;
         private void T_Elapsed(object sender, ElapsedEventArgs e)
         {
-            
-            Units.Add(null);
+            Add(0, TypeUnit.BrickWall, 50, 50, null);
+            Add(1, TypeUnit.Forest, 70, 70, null);
+            Add(2, TypeUnit.Ice, 0, 0, null);
         }
 
-        public ObservableCollection<UIElement> Units { get; } = new ObservableCollection<UIElement>();
+        public ObservableCollection<UnitViewModel> Units { get; } = new ObservableCollection<UnitViewModel>();
 
 
 
 
-        private SuperTank.FactoryViewUnit factoryViewUnit = new SuperTank.FactoryViewUnit();
+        //private SuperTank.FactoryViewUnit factoryViewUnit = new SuperTank.FactoryViewUnit();
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
-            ViewUnit view = factoryViewUnit.Create(id, x, y, typeUnit, properties);
+            Units.Add(new UnitViewModel(id, typeUnit) { X = x, Y = y });
+            //ViewUnit view = factoryViewUnit.Create(id, x, y, typeUnit, properties);
             //board.Children.Add(view);
             //if (view != null) listDrowable.Add(view);
         }

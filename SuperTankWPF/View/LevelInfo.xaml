@@ -14,9 +14,6 @@
         <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource infoText}">
             <Setter Property="Foreground" Value="Black"/>
         </Style>
-        <Image x:Key="tankEnemy" Source="{Binding ImageSource.InformationTank, Mode=OneWay, Source={StaticResource Locator}}"/>
-        <Image x:Key="backgroundImgIIPlayer" Source="{Binding ImageSource.DashboardInfoIIPlayer, Mode=OneWay, Source={StaticResource Locator}}"/>
-        <Image x:Key="backgroundImgIPlayer" Source="{Binding ImageSource.DashboardInfo, Mode=OneWay, Source={StaticResource Locator}}"/>
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Path="LevelInfoLeve" Source="{StaticResource Locator}"/>

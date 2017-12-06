@@ -4,20 +4,34 @@ using System.Drawing;
 using SuperTankWPF.Units;
 using SuperTankWPF;
 using SuperTankWPF.Model;
+using System.Windows.Media;
+using SuperTank;
 
-namespace SuperTank
+namespace SuperTankWPF.Units
 {
     /// <summary>
     /// Creates objects to display units
     /// </summary>
-    class FactoryViewUnit
+    class FactoryUnitView : IFactoryUnitView
     {
-        public ViewUnit Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
+        private IImageSourceStor imgStor;
+
+        public FactoryUnitView(IImageSourceStor imgStor)
+        {
+            this.imgStor = imgStor;
+        }
+
+        public UnitView Create(float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
+        {
+            return null;
+        }
+
+        public UnitView Create(UnitViewModel unitViewModel)
         {
             //public ViewUnit Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
             //{
-            ViewUnit resView = null;
-            switch (typeUnit)
+            UnitView resView = null;
+            switch (unitViewModel.TypeUnit)
             { // todo
               //        case TypeUnit.Star:
               //            resView = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, GetImgForStar(), 4);
@@ -88,25 +102,24 @@ namespace SuperTank
                 //                    Images.GetImages(Images.Enemy.ArmoredTankYellow));
                 //            }
                 //            break;
-
-
-                //case TypeUnit.BrickWall:
-                //    resView = new ViewUnit(id, x, y, BitmapImages.BrickWall);
-                //    break;
-                //case TypeUnit.ConcreteWall:
-                //    resView = new ViewUnit(id, x, y, BitmapImages.ConcreteWall);
-                //    break;
-                //case TypeUnit.Water:
-                //    //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
-                //    break;
-                //case TypeUnit.Forest:
-                //    resView = new ViewUnit(id, x, y, BitmapImages.Forest);
-                //    resView.ZIndex = 10;
-                //    break;
-                //case TypeUnit.Ice:
-                //    resView = new ViewUnit(id, x, y, BitmapImages.Ice);
-                //    resView.ZIndex = -1;
-                //    break;
+                
+                case TypeUnit.BrickWall:
+                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.BrickWall };
+                    break;
+                case TypeUnit.ConcreteWall:
+                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.ConcreteWall };
+                    break;
+                case TypeUnit.Water:
+                    //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
+                    break;
+                case TypeUnit.Forest:
+                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.Forest };
+                    resView.ZIndex = 10;
+                    break;
+                case TypeUnit.Ice:
+                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.Ice };
+                    resView.ZIndex = -1;
+                    break;
 
 
                     //        case TypeUnit.Eagle:

@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
+using SuperTankWPF.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace SuperTankWPF.ViewModel
 {
     class ViewModelLocator
     {
-        public ViewModelLocator()
+        static ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
@@ -24,9 +25,10 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<ScrenRecordViewModel>();
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
+            SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
         }
 
-        public bool IsTwoPlayer { get; set; } = true;
+        public static bool IsTwoPlayer { get; set; } = true;
 
         /// <summary>
         /// Gets the Main property.

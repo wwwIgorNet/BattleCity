@@ -1,4 +1,5 @@
-﻿using SuperTankWPF.Model;
+﻿using GalaSoft.MvvmLight.Ioc;
+using SuperTankWPF.Model;
 using SuperTankWPF.Units;
 using System;
 using System.Collections.Generic;
@@ -23,32 +24,36 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class ScrenScene : UserControl
     {
-        private static IImageSourceStor imageSource;
+        private IImageSourceStor imageSource = SimpleIoc.Default.GetInstance<IImageSourceStor>();
+        private IFactoryUnitView factoryUnitView = SimpleIoc.Default.GetInstance<IFactoryUnitView>();
+
         public ScrenScene()
         {
             InitializeComponent();
-
+            
             ((INotifyCollectionChanged)this.DataContext.GetType().GetProperty("Units").GetValue(this.DataContext)).CollectionChanged += ScrenScene_CollectionChanged;
-
-            var locator = FindResource("Locator");
-            imageSource = (IImageSourceStor)locator.GetType().GetProperty("ImageSource").GetValue(locator);
         }
 
         private void ScrenScene_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             if (e.Action == NotifyCollectionChangedAction.Add)
             {
-                //foreach (UIElement element in e.NewItems)
-                //    board.Children.Add(element);
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    board.Children.Add(new ViewUnit() { Source = imageSource.BrickWall, X = 490, Y = 490 });
+                    foreach (UnitViewModel unitViewModel in e.NewItems)
+                        board.Children.Add(factoryUnitView.Create(unitViewModel));
                 });
             }
 
             else if (e.Action == NotifyCollectionChangedAction.Remove)
-                foreach (UIElement element in e.NewItems)
+            {
+
+                this.Dispatcher.BeginInvoke((Action)delegate ()
+                {
+                    foreach (UIElement element in e.NewItems)
                     board.Children.Remove(element);
+                });
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using SuperTankWPF.Model;
+﻿using GalaSoft.MvvmLight.Ioc;
+using SuperTankWPF.Model;
 using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
@@ -23,7 +24,7 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class LevelInfo : UserControl
     {
-        private ImageSource tankEnemy;
+        private IImageSourceStor imageSourceStor;
 
         public LevelInfo()
         {
@@ -33,9 +34,7 @@ namespace SuperTankWPF.View
 
         private void Init()
         {
-            tankEnemy = ((Image)FindResource("tankEnemy")).Source;
-            dashboardInfo = ((Image)FindResource("backgroundImgIPlayer")).Source;
-            dashboardInfoIIPlayer = ((Image)FindResource("backgroundImgIIPlayer")).Source;
+            imageSourceStor = SimpleIoc.Default.GetInstance<IImageSourceStor>();
 
             Binding bindingCountTankEnemy = new Binding();
             bindingCountTankEnemy.Source = this.DataContext;
@@ -62,10 +61,12 @@ namespace SuperTankWPF.View
         
         private static void IsTwoPlayerChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            LevelInfo levelInfo = (LevelInfo)d;
+
             if (e.NewValue.Equals(true))
-                ((LevelInfo)d).backgroundImg.Source = dashboardInfoIIPlayer;
+                levelInfo.backgroundImg.Source = levelInfo.imageSourceStor.DashboardInfoIIPlayer;
             else
-                ((LevelInfo)d).backgroundImg.Source = dashboardInfo;
+                levelInfo.backgroundImg.Source = levelInfo.imageSourceStor.DashboardInfo;
         }
         
 
@@ -77,8 +78,6 @@ namespace SuperTankWPF.View
 
         public static readonly DependencyProperty CountTankEnemyProperty =
             DependencyProperty.Register("CountTankEnemy", typeof(int), typeof(LevelInfo), new PropertyMetadata(0, CountTankEnemyChangedCallback));
-        private static ImageSource dashboardInfo;
-        private static ImageSource dashboardInfoIIPlayer;
 
         private static void CountTankEnemyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -98,7 +97,7 @@ namespace SuperTankWPF.View
         {
             for (int i = 0; i < countTank; i++)
             {
-                countTankEnemy.Children.Add(new Image() { Source = tankEnemy });
+                countTankEnemy.Children.Add(new Image() { Source = imageSourceStor.InformationTank });
             }
         }
     }
