@@ -1,41 +1,48 @@
-﻿using SuperTank;
+﻿using GalaSoft.MvvmLight;
+using SuperTank;
 using SuperTank.View;
+using SuperTankWPF.Model;
 using SuperTankWPF.Units;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace SuperTankWPF.View
+namespace SuperTankWPF.ViewModel
 {
-    /// <summary>
-    /// Interaction logic for SceneScene.xaml
-    /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public partial class SceneScene : UserControl, IRender
+    //[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    class ScrenSceneViewModel : ObservableObject, IRender
     {
-        private FactoryViewUnit factoryViewUnit = new FactoryViewUnit();
-
-        public SceneScene()
+        public ScrenSceneViewModel()
         {
-            InitializeComponent();
+            Timer t = new Timer(500);
+            t.Elapsed += T_Elapsed;
+            t.Start();
         }
+
+        ViewUnit vu;
+        private void T_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            
+            Units.Add(null);
+        }
+
+        public ObservableCollection<UIElement> Units { get; } = new ObservableCollection<UIElement>();
+
+
+
+
+        private SuperTank.FactoryViewUnit factoryViewUnit = new SuperTank.FactoryViewUnit();
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
             ViewUnit view = factoryViewUnit.Create(id, x, y, typeUnit, properties);
-            board.Children.Add(view);
+            //board.Children.Add(view);
             //if (view != null) listDrowable.Add(view);
         }
 

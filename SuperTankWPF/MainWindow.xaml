@@ -17,9 +17,9 @@
         d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <Grid>
         <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
-        <view:ScrenGame Visibility="Collapsed"/>
+        <view:ScrenGame/>
         <view:ScrenScore Visibility="Collapsed"/>
         <view:ScrenGameOver Visibility="Collapsed"/>
-        <view:ScrenRecord/>
+        <view:ScrenRecord Visibility="Collapsed"/>
     </Grid>
 </Window>

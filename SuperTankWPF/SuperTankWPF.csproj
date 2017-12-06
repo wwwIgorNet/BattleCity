@@ -92,14 +92,12 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ScrenGameViewModel.cs" />
     <Compile Include="ViewModel\ScrenRecordViewModel.cs" />
+    <Compile Include="ViewModel\ScrenSceneViewModel.cs" />
     <Compile Include="ViewModel\ScrenScoreViewModel.cs" />
     <Compile Include="ViewModel\StartScrenViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="View\LevelInfo.xaml.cs">
       <DependentUpon>LevelInfo.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\SceneScene.xaml.cs">
-      <DependentUpon>SceneScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ScrenGame.xaml.cs">
       <DependentUpon>ScrenGame.xaml</DependentUpon>
@@ -109,6 +107,9 @@
     </Compile>
     <Compile Include="View\ScrenRecord.xaml.cs">
       <DependentUpon>ScrenRecord.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScrenScene.xaml.cs">
+      <DependentUpon>ScrenScene.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ScrenScore.xaml.cs">
       <DependentUpon>ScrenScore.xaml</DependentUpon>
@@ -132,10 +133,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\SceneScene.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\ScrenGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -145,6 +142,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ScrenRecord.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScrenScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

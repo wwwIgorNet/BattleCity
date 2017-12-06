@@ -18,7 +18,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <local:SceneScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
+        <local:ScrenScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"/>
         <local:LevelInfo x:Name="levelInfo" Margin="0,20,20,20" Grid.Row="0" Grid.Column="1"/>
         <DockPanel LastChildFill="False" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Rectangle x:Name="topRect" Fill="{StaticResource backGround}" DockPanel.Dock="Top" SnapsToDevicePixels="True"/>
