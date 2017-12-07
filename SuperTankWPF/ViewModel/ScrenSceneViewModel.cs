@@ -20,73 +20,70 @@ namespace SuperTankWPF.ViewModel
     {
         public ScrenSceneViewModel()
         {
-            Timer t = new Timer(500);
+            t = new Timer(500);
             t.Elapsed += T_Elapsed;
             t.Start();
         }
 
+        Timer t;
         private void T_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Add(0, TypeUnit.BrickWall, 50, 50, null);
-            Add(1, TypeUnit.Forest, 70, 70, null);
             Add(2, TypeUnit.Ice, 0, 0, null);
+            Add(0, TypeUnit.ConcreteWall, 50, 50, null);
+            Add(1, TypeUnit.Forest, 70, 70, null);
+            Add(3, TypeUnit.BrickWall, 490, 500, null);
+
+            t.Stop();
         }
 
         public ObservableCollection<UnitViewModel> Units { get; } = new ObservableCollection<UnitViewModel>();
-
-
-
-
-        //private SuperTank.FactoryViewUnit factoryViewUnit = new SuperTank.FactoryViewUnit();
-
+        
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
             Units.Add(new UnitViewModel(id, typeUnit) { X = x, Y = y });
-            //ViewUnit view = factoryViewUnit.Create(id, x, y, typeUnit, properties);
-            //board.Children.Add(view);
-            //if (view != null) listDrowable.Add(view);
         }
 
         public void AddRange(List<UnitDataForView> collection)
         {
-            //for (int i = 0; i < collection.Count; i++)
-            //{
-            //    UnitDataForView data = collection[i];
-            //    Add(data.ID, data.TypeUnit, data.X, data.Y, data.Properties);
-            //}
+            for (int i = 0; i < collection.Count; i++)
+            {
+                UnitDataForView data = collection[i];
+                Add(data.ID, data.TypeUnit, data.X, data.Y, data.Properties);
+            }
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            Units.Clear();
         }
 
         public void Remove(int id)
         {
-
+            Units.Remove(Units.SingleOrDefault(uvm => uvm.ID == id));
         }
 
         public void Update(int id, PropertiesType prop, object value)
         {
             try
             {
-                //BaseView viewUpdate = listDrowable.FindByID(id);
-                //switch (prop)
-                //{
-                //    case PropertiesType.X:
-                //        viewUpdate.X = (int)value;
-                //        break;
-                //    case PropertiesType.Y:
-                //        viewUpdate.Y = (int)value;
-                //        break;
-                //    //case PropertiesType.Direction:
-                //    //case PropertiesType.IsStop:
-                //    //case PropertiesType.Detonation:
-                //    //case PropertiesType.Glide:
-                //    default:
-                //        viewUpdate.Properties[prop] = value;
-                //        break;
-                //}
+                UnitViewModel unitViewModel = Units.FirstOrDefault(u => u.ID == id);
+
+                switch (prop)
+                {
+                    case PropertiesType.X:
+                        unitViewModel.X = (int)value;
+                        break;
+                    case PropertiesType.Y:
+                        unitViewModel.Y = (int)value;
+                        break;
+                    //case PropertiesType.Direction:
+                    //case PropertiesType.IsStop:
+                    //case PropertiesType.Detonation:
+                    //case PropertiesType.Glide:
+                    default:
+                        unitViewModel.Properties[prop] = value;
+                        break;
+                }
             }
             catch (Exception ex)
             {

@@ -28,8 +28,6 @@ namespace SuperTankWPF.Units
 
         public UnitView Create(UnitViewModel unitViewModel)
         {
-            //public ViewUnit Create(int id, float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties)
-            //{
             UnitView resView = null;
             switch (unitViewModel.TypeUnit)
             { // todo
@@ -104,23 +102,22 @@ namespace SuperTankWPF.Units
                 //            break;
                 
                 case TypeUnit.BrickWall:
-                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.BrickWall };
+                    resView = new UnitView() { Source = imgStor.BrickWall, Width = ConfigurationWPF.WidthTile, Height = ConfigurationView.HeightTile };
                     break;
                 case TypeUnit.ConcreteWall:
-                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.ConcreteWall };
+                    resView = new UnitView() { Source = imgStor.ConcreteWall };
                     break;
                 case TypeUnit.Water:
                     //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
                     break;
                 case TypeUnit.Forest:
-                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.Forest };
+                    resView = new UnitView() { Source = imgStor.Forest, ZIndex = 10 };
                     resView.ZIndex = 10;
                     break;
                 case TypeUnit.Ice:
-                    resView = new UnitView() { X = unitViewModel.X, Y = unitViewModel.Y, Source = imgStor.Ice };
+                    resView = new UnitView() { Source = imgStor.Ice };
                     resView.ZIndex = -1;
                     break;
-
 
                     //        case TypeUnit.Eagle:
                     //            resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
@@ -165,6 +162,8 @@ namespace SuperTankWPF.Units
             //    if (properties != null)
             //        foreach (var item in properties)
             //            resView.Properties.Add(item.Key, item.Value);
+            resView.DataContext = unitViewModel;
+            unitViewModel.View = resView;
             return resView;
         }
 

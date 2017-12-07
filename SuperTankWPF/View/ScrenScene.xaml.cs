@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Ioc;
+using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
 using SuperTankWPF.Units;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -30,8 +32,8 @@ namespace SuperTankWPF.View
         public ScrenScene()
         {
             InitializeComponent();
-            
-            ((INotifyCollectionChanged)this.DataContext.GetType().GetProperty("Units").GetValue(this.DataContext)).CollectionChanged += ScrenScene_CollectionChanged;
+
+            ServiceLocator.Current.GetInstance<ScrenSceneViewModel>().Units.CollectionChanged += ScrenScene_CollectionChanged;
         }
 
         private void ScrenScene_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -41,17 +43,20 @@ namespace SuperTankWPF.View
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
                     foreach (UnitViewModel unitViewModel in e.NewItems)
+                    {
                         board.Children.Add(factoryUnitView.Create(unitViewModel));
+                    }
                 });
             }
 
             else if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    foreach (UIElement element in e.NewItems)
-                    board.Children.Remove(element);
+                    foreach (UnitViewModel unitViewModel in e.OldItems)
+                    {
+                        board.Children.Remove(unitViewModel.View);
+                    }
                 });
             }
         }

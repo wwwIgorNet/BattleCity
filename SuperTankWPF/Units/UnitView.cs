@@ -5,11 +5,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace SuperTankWPF.Units
 {
     class UnitView : Image
     {
+        public UnitView()
+        {
+            this.DataContextChanged += UnitView_DataContextChanged;
+        }
+
+        private void UnitView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            Binding bindingX = new Binding();
+            bindingX.Source = this.DataContext;
+            bindingX.Path = new PropertyPath("X");
+            bindingX.Mode = BindingMode.OneWay;
+            this.SetBinding(UnitView.XProperty, bindingX);
+
+            Binding bindingY = new Binding();
+            bindingY.Source = this.DataContext;
+            bindingY.Path = new PropertyPath("Y");
+            bindingY.Mode = BindingMode.OneWay;
+            this.SetBinding(UnitView.YProperty, bindingY);
+        }
+
         #region DependencyProperty
         public int ZIndex
         {
