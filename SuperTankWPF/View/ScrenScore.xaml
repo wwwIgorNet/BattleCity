@@ -10,7 +10,6 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
              Background="Black"
-             DataContext="{Binding ScrenScore, Source={StaticResource Locator}}"
              d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
              d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
 
@@ -22,7 +21,7 @@
         </Style>
     </UserControl.Resources>
 
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel DataContext="{Binding ScrenScore, Source={StaticResource Locator}}" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <TextBlock Text="HI-SCORE" Foreground="Red"/>

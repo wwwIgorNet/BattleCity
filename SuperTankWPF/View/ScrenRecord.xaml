@@ -7,31 +7,9 @@
              xmlns:mode="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
              Background="Black"
-             DataContext="{Binding ScrenRecord, Source={StaticResource Locator}}"
              d:DesignHeight="{Binding Source={x:Static mode:ConfigurationWPF.WindowClientHeight}}"
              d:DesignWidth="{Binding Source={x:Static mode:ConfigurationWPF.WindowClientWidth}}">
-    <!--<UserControl.Style>
-        <Style TargetType="UserControl">
-            <Style.Triggers>
-                <Trigger Property="IsVisible" Value="True">
-                    <Trigger.EnterActions>
-                        <BeginStoryboard>
-                            <Storyboard TargetName="{Binding ElementName=textHiscore}" TargetProperty="Foreground" Duration="0:0:5">
-                                <ColorAnimationUsingKeyFrames>
-                                    <ColorKeyFrameCollection>
-                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="Yellow"/>
-                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="Blue"/>
-                                        <LinearColorKeyFrame KeyTime="0:0:1" Value="White"/>
-                                    </ColorKeyFrameCollection>
-                                </ColorAnimationUsingKeyFrames>
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </Trigger.EnterActions>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Style>-->
-    <StackPanel Margin="0,0,0,150" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <StackPanel DataContext="{Binding ScrenRecord, Source={StaticResource Locator}}" Margin="0,0,0,150" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="FontFamily" Value="{StaticResource fontFamilyBattleCitiesText}"/>

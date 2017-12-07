@@ -31,18 +31,11 @@ namespace SuperTankWPF.View
 
             Loaded += StartScren_Loaded;
             IsVisibleChanged += StartScren_IsVisibleChanged;
-            KeyDown += StartScren_KeyDown;
         }
 
         private void StartScren_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (IsVisible) AnimationLoadScren();
-        }
-
-        private void StartScren_KeyDown(object sender, KeyEventArgs e)
-        {
-            Visibility = Visibility.Collapsed;
-            Visibility = Visibility.Visible;
         }
 
         private void StartScren_Loaded(object sender, RoutedEventArgs e)
@@ -62,7 +55,7 @@ namespace SuperTankWPF.View
 
             animation.From = new Thickness(0d, this.ActualHeight, 0d, 0d);
             animation.To = new Thickness(0d);
-            border.BeginAnimation(Rectangle.MarginProperty, animation);
+            mainBborder.BeginAnimation(Rectangle.MarginProperty, animation);
 
             if (IsValidIndex(menuList.SelectedIndex))
                 (menuList.ItemContainerGenerator.ContainerFromIndex(menuList.SelectedIndex) as ListBoxItem).IsSelected = false;

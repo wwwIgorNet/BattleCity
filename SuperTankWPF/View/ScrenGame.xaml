@@ -6,12 +6,11 @@
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
-             Background="Gray"
-             DataContext="{Binding ScrenGame, Source={StaticResource Locator}}">
+             Background="Gray">
     <UserControl.Resources>
         <SolidColorBrush Color="Gray" x:Key="backGround"/>
     </UserControl.Resources>
-    <Grid HorizontalAlignment="Center" VerticalAlignment="Center"
+    <Grid x:Name="mainGrid" DataContext="{Binding ScrenGame, Source={StaticResource Locator}}" HorizontalAlignment="Center" VerticalAlignment="Center"
              d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}" 
              d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
         <Grid.ColumnDefinitions>

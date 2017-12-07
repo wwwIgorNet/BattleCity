@@ -10,16 +10,14 @@
         mc:Ignorable="d"
         Title="Battle City"
         Icon="Content\Ico\Ico.ico"
-        Loaded="Window_Loaded" 
         KeyUp="Window_KeyUp"
-        DataContext="{Binding Main, Source={StaticResource Locator}}"
         d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
         d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
-    <Grid>
-        <view:StartScren x:Name="startScren" Visibility="Collapsed"/>
-        <view:ScrenGame/>
-        <view:ScrenScore Visibility="Collapsed"/>
-        <view:ScrenGameOver Visibility="Collapsed"/>
-        <view:ScrenRecord Visibility="Collapsed"/>
+    <Grid DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+        <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility, Mode=OneTime}"/>
+        <view:ScrenGame Visibility="{Binding ScrenGameVisibility}"/>
+        <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>
+        <view:ScrenRecord x:Name="gm" Visibility="{Binding ScrenRecordVisibility}"/>
+        <view:ScrenGameOver Visibility="{Binding ScrenGameOverVisibility}"/>
     </Grid>
 </Window>

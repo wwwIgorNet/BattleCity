@@ -37,13 +37,13 @@ namespace SuperTankWPF.View
             imageSourceStor = SimpleIoc.Default.GetInstance<IImageSourceStor>();
 
             Binding bindingCountTankEnemy = new Binding();
-            bindingCountTankEnemy.Source = this.DataContext;
+            bindingCountTankEnemy.Source = mainGrid.DataContext;
             bindingCountTankEnemy.Path = new PropertyPath("CountTankEnemy");
             bindingCountTankEnemy.Mode = BindingMode.OneWay;
             this.SetBinding(LevelInfo.CountTankEnemyProperty, bindingCountTankEnemy);
             
             Binding bindingIsTwoPlayer = new Binding();
-            bindingIsTwoPlayer.Source = this.DataContext;
+            bindingIsTwoPlayer.Source = mainGrid.DataContext;
             bindingIsTwoPlayer.Path = new PropertyPath("IsTwoPlayer");
             bindingIsTwoPlayer.Mode = BindingMode.OneWay;
             this.SetBinding(LevelInfo.IsTwoPlayerProperty, bindingIsTwoPlayer);

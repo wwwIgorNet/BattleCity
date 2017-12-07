@@ -8,8 +8,7 @@
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              mc:Ignorable="d" 
              Background="Black" 
-             DataContext="{Binding ScrenScene, Mode=OneWay, Source={StaticResource Locator}}"
              Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}" 
              Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}">
-    <Canvas x:Name="board"/>
+    <Canvas DataContext="{Binding ScrenScene, Mode=OneWay, Source={StaticResource Locator}}" x:Name="board"/>
 </UserControl>

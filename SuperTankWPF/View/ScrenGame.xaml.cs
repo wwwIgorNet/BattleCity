@@ -77,7 +77,7 @@ namespace SuperTankWPF.View
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
             Binding bindingLevel = new Binding();
-            bindingLevel.Source = this.DataContext;
+            bindingLevel.Source = mainGrid.DataContext;
             bindingLevel.Path = new PropertyPath("Level");
             bindingLevel.StringFormat = "STAGE {0}";
             this.showNewLevelNumber.SetBinding(TextBlock.TextProperty, bindingLevel);
@@ -99,12 +99,12 @@ namespace SuperTankWPF.View
             animationGameOver.Duration = durationGameOver;
 
             Binding bindingShowNewLevel = new Binding();
-            bindingShowNewLevel.Source = this.DataContext;
+            bindingShowNewLevel.Source = mainGrid.DataContext;
             bindingShowNewLevel.Path = new PropertyPath("IsShowAnimationNewLevel");
             this.SetBinding(ScrenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
 
             Binding bindingIsShowGameOver = new Binding();
-            bindingIsShowGameOver.Source = this.DataContext;
+            bindingIsShowGameOver.Source = mainGrid.DataContext;
             bindingIsShowGameOver.Path = new PropertyPath("IsShowGameOver");
             this.SetBinding(ScrenGame.IsShowGameOverProperty, bindingIsShowGameOver);
         }

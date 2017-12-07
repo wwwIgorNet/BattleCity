@@ -15,27 +15,9 @@ using System.Windows;
 
 namespace SuperTankWPF.ViewModel
 {
-    //[ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class ScrenSceneViewModel : ObservableObject, IRender
     {
-        public ScrenSceneViewModel()
-        {
-            t = new Timer(500);
-            t.Elapsed += T_Elapsed;
-            t.Start();
-        }
-
-        Timer t;
-        private void T_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            Add(2, TypeUnit.Ice, 0, 0, null);
-            Add(0, TypeUnit.ConcreteWall, 50, 50, null);
-            Add(1, TypeUnit.Forest, 70, 70, null);
-            Add(3, TypeUnit.BrickWall, 490, 500, null);
-
-            t.Stop();
-        }
-
         public ObservableCollection<UnitViewModel> Units { get; } = new ObservableCollection<UnitViewModel>();
         
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)

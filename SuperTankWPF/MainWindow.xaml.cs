@@ -1,4 +1,7 @@
-﻿using SuperTankWPF.Model;
+﻿using Microsoft.Practices.ServiceLocation;
+using SuperTankWPF.Model;
+using SuperTankWPF.View;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,12 +67,6 @@ namespace SuperTankWPF
         }
         #endregion
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            //startScren.BeginLoad();
-            startScren.Focus();
-        }
-
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -79,11 +76,6 @@ namespace SuperTankWPF
             else if (e.Key == Key.Escape)
             {
                 this.Close();
-            }
-            else if (e.Key == Key.R)
-            {
-                //startScren.BeginLoad();
-                startScren.Focus();
             }
         }
     }

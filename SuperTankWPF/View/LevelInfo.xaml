@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
-             xmlns:SuperTank="clr-namespace:SuperTank;assembly=GameLibrary" xmlns:Util="clr-namespace:SuperTankWPF.Util" x:Class="SuperTankWPF.View.LevelInfo"
+             xmlns:SuperTank="clr-namespace:SuperTank;assembly=GameLibrary"
+             xmlns:Util="clr-namespace:SuperTankWPF.Util"
+             x:Class="SuperTankWPF.View.LevelInfo"
              mc:Ignorable="d"
              Height="{Binding Source={x:Static SuperTank:ConfigurationBase.HeightBoard}}" 
              Width="{Binding Source={x:Static SuperTank:ConfigurationBase.WidthTank}}">
@@ -15,10 +17,7 @@
             <Setter Property="Foreground" Value="Black"/>
         </Style>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <Binding Path="LevelInfoLeve" Source="{StaticResource Locator}"/>
-    </UserControl.DataContext>
-    <Grid>
+    <Grid x:Name="mainGrid" DataContext="{Binding LevelInfoLeve, Mode=OneWay, Source={StaticResource Locator}}">
         <Image x:Name="backgroundImg" Source="{Binding ImageSource.DashboardInfo, Mode=OneWay, Source={StaticResource Locator}}"/>
         <DockPanel LastChildFill="False">
             <UniformGrid x:Name="countTankEnemy" Columns="2" Rows="10" DockPanel.Dock="Top"/>
