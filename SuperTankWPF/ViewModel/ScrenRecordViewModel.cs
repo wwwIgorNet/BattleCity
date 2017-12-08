@@ -9,7 +9,7 @@ namespace SuperTankWPF.ViewModel
 {
     class ScrenRecordViewModel : ObservableObject
     {
-        private int countPoints = 567854;
+        private int countPoints;
 
         public int CountPoints
         {

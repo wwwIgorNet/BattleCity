@@ -69,6 +69,9 @@ namespace SuperTankWPF.View
         {
             if (e.NewValue.Equals(true))
                 ((ScrenGame)d).AnimationGameOver();
+            else
+                ((ScrenGame)d).textGameOver.Visibility = Visibility.Collapsed;
+
         }
 
 

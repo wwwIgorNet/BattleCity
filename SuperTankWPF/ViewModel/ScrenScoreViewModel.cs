@@ -14,22 +14,16 @@ namespace SuperTankWPF.ViewModel
 {
     public class ScrenScoreViewModel : ObservableObject
     {
+        private string textStage;
         private int level;
         private string stage;
         private PlayerDeteils player1;
         private PlayerDeteils player2;
+        private bool isTwoPlayer;
 
-        public ScrenScoreViewModel() : this(true) { }
-
-        public ScrenScoreViewModel(bool isTwoPlayer)
+        public ScrenScoreViewModel()
         {
-            IsTwoPlayer = isTwoPlayer;
-            
             Init();
-            Cler();
-
-            TestInit1P();
-            if(IsTwoPlayer) TestInit2P();
         }
 
         private void TestInit1P()
@@ -75,19 +69,24 @@ namespace SuperTankWPF.ViewModel
         {
             Player1 = new PlayerDeteils();
             Player2 = new PlayerDeteils();
-
-            TankDetils.Init(IsTwoPlayer);
+            TankDetils.InitIsTwoPlayer(IsTwoPlayer);
 
             ListDeteils.Add(Plain);
             ListDeteils.Add(ArmoredPersonnelCarrier);
             ListDeteils.Add(QuickFire);
             ListDeteils.Add(Armored);
             
-            Stage = "STAGE";
+            textStage = "STAGE";
 
             Player1.TextPlayer = " I PLAYER";
             Player1.TextTotal = "TOTAL";
 
+            InitTextIsTwoPlayer();
+            Clear();
+        }
+
+        private void InitTextIsTwoPlayer()
+        {
             if (IsTwoPlayer)
             {
                 Player2.TextPlayer = "II PLAYER";
@@ -102,18 +101,30 @@ namespace SuperTankWPF.ViewModel
             }
         }
 
-        public void Cler()
+        public void Clear()
         {
             foreach (var item in ListDeteils)
                 item.Clear();
         }
 
-        public bool IsTwoPlayer { get; set; }
+        public bool IsTwoPlayer
+        {
+            get { return isTwoPlayer; }
+            set
+            {
+                isTwoPlayer = value;
+                InitTextIsTwoPlayer();
+                TankDetils.InitIsTwoPlayer(value);
+
+                TestInit1P();// todo delite test metods
+                if(value == true) TestInit2P();
+            }
+        }
 
         public int Level
         {
             get { return level; }
-            set { Stage += " " + value; }
+            set { Stage = textStage + " " + value; }
         }
 
         public string Stage
@@ -199,7 +210,7 @@ namespace SuperTankWPF.ViewModel
                 set { Set(nameof(CountTanl2Player), ref сountTanl2Player, value); }
             }
 
-            public static void Init(bool isTwoPlayer)
+            public static void InitIsTwoPlayer(bool isTwoPlayer)
             {
                 pts1p = "PTS";
                 arrowLeft = "←";

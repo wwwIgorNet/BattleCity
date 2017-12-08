@@ -19,13 +19,26 @@ namespace SuperTankWPF.ViewModel
         public StartScrenViewModel()
         {
             ListMenu = new ObservableCollection<MenuItem> {
-                new MenuItem("I PLAYER", new RelayCommand(() => MessageBox.Show("Command I PLAYERS"))) { IsActiv = false },
-                new MenuItem("II PLAYERS", new RelayCommand(() => MessageBox.Show("Command II PLAYERS"))),
-                new MenuItem("CONSTRUCTION", new RelayCommand(() => MessageBox.Show("Command CONSTRUCTION")))
+                new MenuItem("I PLAYER", new RelayCommand(() => OnIPlayerExecute() )),
+                new MenuItem("II PLAYERS", new RelayCommand(() => OnIIPlayerExecute())),
+                new MenuItem("CONSTRUCTION", new RelayCommand(() => OnConstructionExecute()))
             };
         }
 
-        public ObservableCollection<MenuItem> ListMenu { get; set; }
+        protected void OnIPlayerExecute()
+        {
+            MessageBox.Show("Command I PLAYERS");
+        }
+        protected void OnIIPlayerExecute()
+        {
+            MessageBox.Show("Command II PLAYERS");
+        }
+        protected void OnConstructionExecute()
+        {
+            MessageBox.Show("Command CONSTRUCTION");
+        }
+
+        public ObservableCollection<MenuItem> ListMenu { get; }
     }
 
     public class MenuItem : ObservableObject

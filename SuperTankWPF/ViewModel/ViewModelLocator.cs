@@ -19,10 +19,28 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartScrenViewModel>();
-            SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel(IsTwoPlayer));
-            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel(IsTwoPlayer));
-            SimpleIoc.Default.Register<ScrenGameViewModel>();
-            SimpleIoc.Default.Register<ScrenRecordViewModel>();
+            SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel
+            {
+                IsTwoPlayer = IsTwoPlayer
+            });
+            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel
+            {
+                IsTwoPlayer = IsTwoPlayer,
+                Level = 7,
+                CountTank1Player = 2,
+                CountTank2Player = 4,
+                CountTankEnemy = 17
+            });
+            SimpleIoc.Default.Register<ScrenGameViewModel>(() => new ScrenGameViewModel
+            {
+                Level = 5,
+                IsShowAnimationNewLevel = true,
+                IsShowGameOver = true
+            });
+            SimpleIoc.Default.Register<ScrenRecordViewModel>(() => new ScrenRecordViewModel
+            {
+                CountPoints = 435435
+            });
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();

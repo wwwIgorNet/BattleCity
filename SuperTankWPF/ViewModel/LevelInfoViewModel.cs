@@ -11,26 +11,18 @@ namespace SuperTankWPF.ViewModel
     {
         private int level;
         private int countTank1Player;
-        private int countTank2Player;
+        private int countTank2Player = -1;
         private int countTankEnemy;
         private bool isTwoPlayer;
-
-        public LevelInfoViewModel(bool isTwoPlayer)
-        {
-            this.IsTwoPlayer = isTwoPlayer;
-
-            Level = 3;
-            CountTank1Player = 2;
-            CountTank2Player = 4;
-            CountTankEnemy = 17;
-        }
-
-        public LevelInfoViewModel() : this(false) { }
 
         public bool IsTwoPlayer
         {
             get { return isTwoPlayer; }
-            set { Set(nameof(IsTwoPlayer), ref isTwoPlayer, value); }
+            set
+            {
+                if (value == false) CountTank2Player = -1;
+                Set(nameof(IsTwoPlayer), ref isTwoPlayer, value);
+            }
         }
         public int Level
         {

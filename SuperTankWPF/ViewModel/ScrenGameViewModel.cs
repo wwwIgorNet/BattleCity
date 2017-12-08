@@ -10,9 +10,9 @@ namespace SuperTankWPF.ViewModel
 {
     class ScrenGameViewModel : ObservableObject
     {
-        private int level = 6;
-        private bool isShowAnimationNewLevel = false;
-        private bool isShowGameOver = false;
+        private int level;
+        private bool isShowAnimationNewLevel;
+        private bool isShowGameOver;
 
         public int Level
         {
@@ -28,6 +28,13 @@ namespace SuperTankWPF.ViewModel
         {
             get { return isShowGameOver; }
             set { Set(nameof(IsShowGameOver), ref isShowGameOver, value); }
+        }
+
+        public void Clear()
+        {
+            Level = 0;
+            IsShowAnimationNewLevel = false;
+            IsShowGameOver = false;
         }
     }
 }
