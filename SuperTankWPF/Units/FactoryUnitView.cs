@@ -133,7 +133,7 @@ namespace SuperTankWPF.Units
 
 
                 case TypeUnit.Shell:
-                    resView = new UnitView() { Source = imgStor.ShellUp };
+                    resView = new UnitView() { Source = GetImgForShell((Direction)unitViewModel.Properties[PropertiesType.Direction]), ZIndex = 8 };
                     break;
 
                 //        case TypeUnit.ConcreteWallShell:
@@ -235,21 +235,21 @@ namespace SuperTankWPF.Units
         //        Images.ShellDetonation3
         //    };
         //}
-        //private static Image GetImgForShell(Direction dir)
-        //{
-        //    switch (dir)
-        //    {
-        //        case Direction.Up:
-        //            return Images.ShellUp;
-        //        case Direction.Right:
-        //            return Images.ShellRight;
-        //        case Direction.Down:
-        //            return Images.ShellDown;
-        //        case Direction.Left:
-        //            return Images.ShellLeft;
-        //    }
+        private ImageSource GetImgForShell(Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Up:
+                    return imgStor.ShellUp;
+                case Direction.Right:
+                    return imgStor.ShellRight;
+                case Direction.Down:
+                    return imgStor.ShellDown;
+                case Direction.Left:
+                    return imgStor.ShellLeft;
+            }
 
-        //    return null;
-        //}
+            return null;
+        }
     }
 }

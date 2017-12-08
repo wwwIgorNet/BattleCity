@@ -22,7 +22,7 @@ namespace SuperTankWPF.ViewModel
         
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
-            Units.Add(new UnitViewModel(id, typeUnit) { X = x, Y = y });
+            Units.Add(new UnitViewModel(id, typeUnit) { X = x, Y = y, Properties = properties });
         }
 
         public void AddRange(List<UnitDataForView> collection)

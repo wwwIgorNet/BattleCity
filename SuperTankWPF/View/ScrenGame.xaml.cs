@@ -29,9 +29,9 @@ namespace SuperTankWPF.View
         private DoubleAnimation animationTop = new DoubleAnimation();
         private DoubleAnimation animationBottom = new DoubleAnimation();
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
-        private TimeSpan durationShowLevel = TimeSpan.FromSeconds(2);
-        private TimeSpan durationAnim = TimeSpan.FromSeconds(1);
-        private TimeSpan durationGameOver = TimeSpan.FromSeconds(2);
+        private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds /  3);
+        private TimeSpan durationAnim = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
+        private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver);
 
         public ScrenGame()
         {
