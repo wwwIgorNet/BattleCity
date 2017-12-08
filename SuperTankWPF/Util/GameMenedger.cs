@@ -17,7 +17,7 @@ using System.Windows;
 namespace SuperTankWPF.Util
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class GameMenedger : IGameInfo
+    class GameMenedger
     {
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
@@ -26,8 +26,9 @@ namespace SuperTankWPF.Util
 
         public async void IPlayerExecute()
         {
+            ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Collapsed;
             ServiceLocator.Current.GetInstance<MainViewModel>().ScrenGameVisibility = Visibility.Visible;
-            
+
             await Task.Run(() =>
             {
                 ServiceLocator.Current.GetInstance<ScrenGameViewModel>().IsShowAnimationNewLevel = true;

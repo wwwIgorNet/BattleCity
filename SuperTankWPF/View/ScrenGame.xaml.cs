@@ -38,6 +38,24 @@ namespace SuperTankWPF.View
             InitializeComponent();
 
             this.Loaded += ScrenGame_Loaded;
+            this.IsVisibleChanged += ScrenGame_IsVisibleChanged;
+        }
+
+        private void ScrenGame_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if(e.NewValue.Equals(true)) this.Focus();
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            Console.WriteLine(e.Key.ToString());
+        }
+
+        protected override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            Console.WriteLine(e.Key.ToString());
         }
 
         #region Dependensy

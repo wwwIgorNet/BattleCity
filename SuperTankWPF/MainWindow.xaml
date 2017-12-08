@@ -16,7 +16,7 @@
         d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <Viewbox>
         <Grid DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
-            <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility, Mode=OneTime}"/>
+            <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility}"/>
             <view:ScrenGame Visibility="{Binding ScrenGameVisibility}"/>
             <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>
             <view:ScrenRecord Visibility="{Binding ScrenRecordVisibility}"/>

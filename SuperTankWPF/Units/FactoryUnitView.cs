@@ -107,13 +107,12 @@ namespace SuperTankWPF.Units
                 //            break;
 
                 case TypeUnit.BrickWall:
-                    resView = new UnitView() { Source = imgStor.BrickWall, Width = ConfigurationWPF.WidthTile, Height = ConfigurationView.HeightTile };
+                    resView = new UnitView() { Source = imgStor.BrickWall };
                     break;
                 case TypeUnit.ConcreteWall:
                     resView = new UnitView() { Source = imgStor.ConcreteWall };
                     break;
                 case TypeUnit.Water:
-
                     resView = new UnitView() { Source = imgStor.Water_1 };
                     //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
                     break;
@@ -171,7 +170,7 @@ namespace SuperTankWPF.Units
                 //            break;
 
                 default:
-                    resView = new UnitView() { Source = imgStor.Enemy.ArmoredTank.Down1 };
+                    resView = new UnitView() { Source = imgStor.Invulnerable1};
                     break;
             }
             //    if (properties != null)
