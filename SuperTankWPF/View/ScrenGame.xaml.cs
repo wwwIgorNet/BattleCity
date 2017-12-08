@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
+using SuperTankWPF.Model;
 
 namespace SuperTankWPF.View
 {
@@ -73,19 +74,10 @@ namespace SuperTankWPF.View
                 ((ScrenGame)d).textGameOver.Visibility = Visibility.Collapsed;
 
         }
-
-
         #endregion
 
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
-            Binding bindingLevel = new Binding();
-            bindingLevel.Source = mainGrid.DataContext;
-            bindingLevel.Path = new PropertyPath("Level");
-            bindingLevel.StringFormat = "STAGE {0}";
-            this.showNewLevelNumber.SetBinding(TextBlock.TextProperty, bindingLevel);
-
-
             animationTop.Duration = durationAnim;
             EasingFunctionBase easingFunction = new PowerEase();
             easingFunction.EasingMode = EasingMode.EaseInOut;
@@ -94,9 +86,8 @@ namespace SuperTankWPF.View
             animationBottom.Duration = durationAnim;
             animationBottom.EasingFunction = easingFunction;
 
-            animationText.Duration = durationShowLevel;
             animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, durationAnim));
-            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationShowLevel + durationAnim));
+            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationAnim + durationShowLevel));
 
             animationGameOver.EasingFunction = easingFunction;
             animationGameOver.Duration = durationGameOver;
@@ -123,12 +114,11 @@ namespace SuperTankWPF.View
         private void StartAnimationNewLevel()
         {
             animationTop.Completed += Animation_Completed;
-
             animationTop.From = 0.0;
-            animationTop.To = this.ActualHeight / 2 + 2;
+            animationTop.To = this.ActualHeight / 2 + 4;
 
             animationBottom.From = 0.0;
-            animationBottom.To = this.ActualHeight / 2 + 2;
+            animationBottom.To = this.ActualHeight / 2 + 4;
 
             topRect.BeginAnimation(Rectangle.HeightProperty, animationTop);
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);

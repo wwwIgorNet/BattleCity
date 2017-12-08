@@ -31,34 +31,39 @@ namespace SuperTankWPF.Units
             UnitView resView = null;
             switch (unitViewModel.TypeUnit)
             { // todo
-              //        case TypeUnit.Star:
-              //            resView = new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, GetImgForStar(), 4);
-              //            break;
-              //        case TypeUnit.SmallTankPlaeyr:
-              //        case TypeUnit.LightTankPlaeyr:
-              //        case TypeUnit.MediumTankPlaeyr:
-              //        case TypeUnit.HeavyTankPlaeyr:
-              //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
-              //            {
-              //                resView = new ViewAnimationTank(id, x, y,
-              //                   ConfigurationView.WidthTank,
-              //                   ConfigurationView.HeightTank,
-              //                   ConfigurationView.ZIndexTank,
-              //                   Images.GetImgesForTankIIPlayer(typeUnit));
-              //            }
-              //            else
-              //            {
-              //                resView = new ViewAnimationTank(id, x, y,
-              //                    ConfigurationView.WidthTank,
-              //                    ConfigurationView.HeightTank,
-              //                    ConfigurationView.ZIndexTank,
-              //                    Images.GetImgesForTank(typeUnit));
-              //            }
-              //            break;
+                case TypeUnit.Star:
+                    resView = new UnitView() { Source = imgStor.Star1 };
+                    break;
+                case TypeUnit.SmallTankPlaeyr:
+                case TypeUnit.LightTankPlaeyr:
+                case TypeUnit.MediumTankPlaeyr:
+                case TypeUnit.HeavyTankPlaeyr:
+                    resView = new UnitView() { Source = imgStor.Plaeyr.SmallTank.Up1 };
+                    break;
+                //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
+                //            {
+                //                resView = new ViewAnimationTank(id, x, y,
+                //                   ConfigurationView.WidthTank,
+                //                   ConfigurationView.HeightTank,
+                //                   ConfigurationView.ZIndexTank,
+                //                   Images.GetImgesForTankIIPlayer(typeUnit));
+                //            }
+                //            else
+                //            {
+                //                resView = new ViewAnimationTank(id, x, y,
+                //                    ConfigurationView.WidthTank,
+                //                    ConfigurationView.HeightTank,
+                //                    ConfigurationView.ZIndexTank,
+                //                    Images.GetImgesForTank(typeUnit));
+                //            }
+                //            break;
 
-                //        case TypeUnit.PlainTank:
-                //        case TypeUnit.ArmoredPersonnelCarrierTank:
-                //        case TypeUnit.QuickFireTank:
+                case TypeUnit.PlainTank:
+                case TypeUnit.ArmoredPersonnelCarrierTank:
+                case TypeUnit.QuickFireTank:
+                case TypeUnit.ArmoredTank:
+                    resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
+                    break;
                 //            if ((bool)properties[PropertiesType.IsBonusTank])
                 //            {
                 //                resView = new ViewBonusTank(id, x, y,
@@ -100,7 +105,7 @@ namespace SuperTankWPF.Units
                 //                    Images.GetImages(Images.Enemy.ArmoredTankYellow));
                 //            }
                 //            break;
-                
+
                 case TypeUnit.BrickWall:
                     resView = new UnitView() { Source = imgStor.BrickWall, Width = ConfigurationWPF.WidthTile, Height = ConfigurationView.HeightTile };
                     break;
@@ -108,60 +113,71 @@ namespace SuperTankWPF.Units
                     resView = new UnitView() { Source = imgStor.ConcreteWall };
                     break;
                 case TypeUnit.Water:
+
+                    resView = new UnitView() { Source = imgStor.Water_1 };
                     //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
                     break;
                 case TypeUnit.Forest:
                     resView = new UnitView() { Source = imgStor.Forest, ZIndex = 10 };
-                    resView.ZIndex = 10;
                     break;
                 case TypeUnit.Ice:
-                    resView = new UnitView() { Source = imgStor.Ice };
-                    resView.ZIndex = -1;
+                    resView = new UnitView() { Source = imgStor.Ice, ZIndex = -1 };
                     break;
 
-                    //        case TypeUnit.Eagle:
-                    //            resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
-                    //            break;
+
+                case TypeUnit.Eagle:
+                    resView = new UnitView() { Source = imgStor.Eagle };
+                    break;
+                //            resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
+                //            break;
 
 
-                    //        case TypeUnit.Shell:
-                    //        case TypeUnit.ConcreteWallShell:
-                    //            resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
-                    //            break;
-                    //        case TypeUnit.BigDetonation:
-                    //            resView = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, GetImgBigDetonation(), 2);
-                    //            break;
+                case TypeUnit.Shell:
+                    resView = new UnitView() { Source = imgStor.ShellUp };
+                    break;
+
+                //        case TypeUnit.ConcreteWallShell:
+                //            resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
+                //            break;
+                //        case TypeUnit.BigDetonation:
+                //            resView = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, GetImgBigDetonation(), 2);
+                //            break;
 
 
-                    //        case TypeUnit.Clock:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Clock);
-                    //            break;
-                    //        case TypeUnit.Grenade:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Grenade);
-                    //            break;
-                    //        case TypeUnit.Helmet:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Helmet);
-                    //            break;
-                    //        case TypeUnit.Pistol:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Pistol);
-                    //            break;
-                    //        case TypeUnit.Shovel:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Shovel);
-                    //            break;
-                    //        case TypeUnit.StarMedal:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.StarMedal);
-                    //            break;
-                    //        case TypeUnit.Tank:
-                    //            resView = CreateBonusView(id, x, y, Images.Bonus.Tank);
-                    //            break;
+                //        case TypeUnit.Clock:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Clock);
+                //            break;
+                //        case TypeUnit.Grenade:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Grenade);
+                //            break;
+                //        case TypeUnit.Helmet:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Helmet);
+                //            break;
+                //        case TypeUnit.Pistol:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Pistol);
+                //            break;
+                //        case TypeUnit.Shovel:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Shovel);
+                //            break;
+                //        case TypeUnit.StarMedal:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.StarMedal);
+                //            break;
+                //        case TypeUnit.Tank:
+                //            resView = CreateBonusView(id, x, y, Images.Bonus.Tank);
+                //            break;
 
-                    //        case TypeUnit.Points:
-                    //            resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
-                    //            break;
+                //        case TypeUnit.Points:
+                //            resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
+                //            break;
+
+                default:
+                    resView = new UnitView() { Source = imgStor.Enemy.ArmoredTank.Down1 };
+                    break;
             }
             //    if (properties != null)
             //        foreach (var item in properties)
             //            resView.Properties.Add(item.Key, item.Value);
+            
             resView.DataContext = unitViewModel;
             unitViewModel.View = resView;
             return resView;

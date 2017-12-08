@@ -11,13 +11,16 @@
         Title="Battle City"
         Icon="Content\Ico\Ico.ico"
         KeyUp="Window_KeyUp"
+        Background="Transparent"
         d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
         d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
-    <Grid DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
-        <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility, Mode=OneTime}"/>
-        <view:ScrenGame Visibility="{Binding ScrenGameVisibility}"/>
-        <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>
-        <view:ScrenRecord x:Name="gm" Visibility="{Binding ScrenRecordVisibility}"/>
-        <view:ScrenGameOver Visibility="{Binding ScrenGameOverVisibility}"/>
-    </Grid>
+    <Viewbox>
+        <Grid DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+            <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility, Mode=OneTime}"/>
+            <view:ScrenGame Visibility="{Binding ScrenGameVisibility}"/>
+            <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>
+            <view:ScrenRecord Visibility="{Binding ScrenRecordVisibility}"/>
+            <view:ScrenGameOver Visibility="{Binding ScrenGameOverVisibility}"/>
+        </Grid>
+    </Viewbox>
 </Window>

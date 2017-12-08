@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
 using SuperTankWPF.Units;
+using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,30 +24,24 @@ namespace SuperTankWPF.ViewModel
             {
                 IsTwoPlayer = IsTwoPlayer
             });
-            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel
-            {
-                IsTwoPlayer = IsTwoPlayer,
-                Level = 7,
-                CountTank1Player = 2,
-                CountTank2Player = 4,
-                CountTankEnemy = 17
-            });
+            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel());
             SimpleIoc.Default.Register<ScrenGameViewModel>(() => new ScrenGameViewModel
             {
                 Level = 5,
-                IsShowAnimationNewLevel = true,
-                IsShowGameOver = true
+                IsShowAnimationNewLevel = false,
+                IsShowGameOver = false
             });
             SimpleIoc.Default.Register<ScrenRecordViewModel>(() => new ScrenRecordViewModel
             {
                 CountPoints = 435435
             });
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
+            SimpleIoc.Default.Register<GameMenedger>();
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
         }
 
-        public static bool IsTwoPlayer { get; set; } = true;
+        public static bool IsTwoPlayer { get; set; }
 
         /// <summary>
         /// Gets the Main property.

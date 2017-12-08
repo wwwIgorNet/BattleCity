@@ -90,7 +90,7 @@ namespace SuperTankWPF.View
 
         private void RemoveTankkEnmy(int countTank)
         {
-            countTankEnemy.Children.RemoveRange(countTankEnemy.Children.Count - countTank - 1, countTank);
+            countTankEnemy.Children.RemoveRange(countTankEnemy.Children.Count - countTank, countTank);
         }
 
         private void AddTankEnemy(int countTank)

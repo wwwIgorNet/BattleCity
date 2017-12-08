@@ -57,7 +57,7 @@ namespace SuperTankWPF.Units
 
         private static void xChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((UnitView)d).SetValue(Canvas.TopProperty, e.NewValue);
+            ((UnitView)d).SetValue(Canvas.LeftProperty, e.NewValue);
         }
 
         public double Y
@@ -71,7 +71,7 @@ namespace SuperTankWPF.Units
 
         private static void yChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((UnitView)d).SetValue(Canvas.LeftProperty, e.NewValue);
+            ((UnitView)d).SetValue(Canvas.TopProperty, e.NewValue);
         }
         #endregion
     }

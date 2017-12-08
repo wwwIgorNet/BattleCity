@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
+using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,24 +20,12 @@ namespace SuperTankWPF.ViewModel
     {
         public StartScrenViewModel()
         {
+            GameMenedger gameMenedger = ServiceLocator.Current.GetInstance<GameMenedger>();
             ListMenu = new ObservableCollection<MenuItem> {
-                new MenuItem("I PLAYER", new RelayCommand(() => OnIPlayerExecute() )),
-                new MenuItem("II PLAYERS", new RelayCommand(() => OnIIPlayerExecute())),
-                new MenuItem("CONSTRUCTION", new RelayCommand(() => OnConstructionExecute()))
+                new MenuItem("I PLAYER", new RelayCommand(gameMenedger.IPlayerExecute)),
+                new MenuItem("II PLAYERS", new RelayCommand(gameMenedger.IIPlayerExecute)),
+                new MenuItem("CONSTRUCTION", new RelayCommand(gameMenedger.ConstructionExecute))
             };
-        }
-
-        protected void OnIPlayerExecute()
-        {
-            MessageBox.Show("Command I PLAYERS");
-        }
-        protected void OnIIPlayerExecute()
-        {
-            MessageBox.Show("Command II PLAYERS");
-        }
-        protected void OnConstructionExecute()
-        {
-            MessageBox.Show("Command CONSTRUCTION");
         }
 
         public ObservableCollection<MenuItem> ListMenu { get; }

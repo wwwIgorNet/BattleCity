@@ -83,10 +83,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ConfigurationWPF.cs" />
+    <Compile Include="Model\FeykAudio.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />
+    <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Units\UnitViewModel.cs" />
     <Compile Include="Units\UnitView.cs" />
@@ -181,45 +183,123 @@
     </EmbeddedResource>
     <Resource Include="Content\Font\BattleCity.ttf" />
     <Resource Include="Content\Font\BattleCityInfo.ttf" />
-    <Resource Include="Content\Maps\1" />
-    <Resource Include="Content\Maps\10" />
-    <Resource Include="Content\Maps\11" />
-    <Resource Include="Content\Maps\12" />
-    <Resource Include="Content\Maps\13" />
-    <Resource Include="Content\Maps\14" />
-    <Resource Include="Content\Maps\15" />
-    <Resource Include="Content\Maps\16" />
-    <Resource Include="Content\Maps\17" />
-    <Resource Include="Content\Maps\18" />
-    <Resource Include="Content\Maps\18 %281%29" />
-    <Resource Include="Content\Maps\19" />
-    <Resource Include="Content\Maps\19 %281%29" />
-    <Resource Include="Content\Maps\2" />
-    <Resource Include="Content\Maps\20" />
-    <Resource Include="Content\Maps\21" />
-    <Resource Include="Content\Maps\22" />
-    <Resource Include="Content\Maps\23" />
-    <Resource Include="Content\Maps\24" />
-    <Resource Include="Content\Maps\25" />
-    <Resource Include="Content\Maps\26" />
-    <Resource Include="Content\Maps\27" />
-    <Resource Include="Content\Maps\28" />
-    <Resource Include="Content\Maps\29" />
-    <Resource Include="Content\Maps\3" />
-    <Resource Include="Content\Maps\30" />
-    <Resource Include="Content\Maps\31" />
-    <Resource Include="Content\Maps\32" />
-    <Resource Include="Content\Maps\33" />
-    <Resource Include="Content\Maps\34" />
-    <Resource Include="Content\Maps\34 %281%29" />
-    <Resource Include="Content\Maps\35" />
-    <Resource Include="Content\Maps\35 %281%29" />
-    <Resource Include="Content\Maps\4" />
-    <Resource Include="Content\Maps\5" />
-    <Resource Include="Content\Maps\6" />
-    <Resource Include="Content\Maps\7" />
-    <Resource Include="Content\Maps\8" />
-    <Resource Include="Content\Maps\9" />
+    <None Include="Content\Maps\1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\10">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\11">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\12">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\13">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\14">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\15">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\16">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\17">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\18">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\18 %281%29">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\19">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\19 %281%29">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\2">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\20">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\21">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\22">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\23">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\24">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\25">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\26">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\27">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\28">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\29">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\30">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\31">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\32">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\33">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\34">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\34 %281%29">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\35">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\35 %281%29">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\5">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\6">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\7">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\8">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Maps\9">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Content\MaxPoints">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

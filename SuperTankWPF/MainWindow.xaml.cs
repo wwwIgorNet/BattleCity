@@ -48,7 +48,7 @@ namespace SuperTankWPF
             var horizontalBorderHeight = SystemParameters.ResizeFrameHorizontalBorderHeight;
             var captionHeight = SystemParameters.WindowCaptionHeight;
 
-            ((MainWindow)d).Height = 4 * horizontalBorderHeight + captionHeight + (double)e.NewValue;
+            ((MainWindow)d).Height = 2 * horizontalBorderHeight + captionHeight + (double)e.NewValue;
         }
 
         public double ClientWidth
