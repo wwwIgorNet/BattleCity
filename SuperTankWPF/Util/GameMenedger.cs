@@ -22,6 +22,7 @@ namespace SuperTankWPF.Util
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
         private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
+        private SynchronizationContext synchronizationContext = SynchronizationContext.Current;
 
         public async void IPlayerExecute()
         {
@@ -53,10 +54,13 @@ namespace SuperTankWPF.Util
 
         public void OpenHost()
         {
-            ServiceHost hostSound = new ServiceHost(new FeykAudio());
-            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
-            hostSound.Open();
+            synchronizationContext.Post((s) =>
+            {
+                ServiceHost hostSound = new ServiceHost(new SoundGame(ConfigurationWPF.SoundPath));
+                hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
+                hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
+                hostSound.Open();
+            }, null);
 
             ServiceHost hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);

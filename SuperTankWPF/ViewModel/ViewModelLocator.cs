@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using SuperTank.Audio;
 using SuperTankWPF.Model;
 using SuperTankWPF.Units;
 using SuperTankWPF.Util;
@@ -37,7 +38,7 @@ namespace SuperTankWPF.ViewModel
             });
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<GameMenedger>();
-            SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
+            SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>(); 
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
         }
 

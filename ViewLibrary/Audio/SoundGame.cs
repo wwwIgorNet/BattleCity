@@ -11,54 +11,63 @@ namespace SuperTank.Audio
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SoundGame : ISoundGame, IViewSound, IDisposable
     {
-        private readonly MediaPlayer stop = new MediaPlayer();
-        private readonly MediaPlayer move = new MediaPlayer();
-        private readonly MediaPlayer glide = new MediaPlayer();
-        private readonly MediaPlayer detonationShell = new MediaPlayer();
-        private readonly MediaPlayer bigDetonation = new MediaPlayer();
-        private readonly MediaPlayer fire = new MediaPlayer();
-        private readonly MediaPlayer fire2 = new MediaPlayer();
-        private readonly MediaPlayer gameStart = new MediaPlayer();
-        private readonly MediaPlayer gameOver = new MediaPlayer();
-        private readonly MediaPlayer detonationBrickWall = new MediaPlayer();
-        private readonly MediaPlayer detonationEagle = new MediaPlayer();
-        private readonly MediaPlayer bonus = new MediaPlayer();
-        private readonly MediaPlayer newBonus = new MediaPlayer();
-        private readonly MediaPlayer countTankIncrement = new MediaPlayer();
-        private readonly MediaPlayer highScore = new MediaPlayer();
-        private readonly MediaPlayer twoFire = new MediaPlayer();
+        protected readonly MediaPlayer stop = new MediaPlayer();
+        protected readonly MediaPlayer move = new MediaPlayer();
+        protected readonly MediaPlayer glide = new MediaPlayer();
+        protected readonly MediaPlayer detonationShell = new MediaPlayer();
+        protected readonly MediaPlayer bigDetonation = new MediaPlayer();
+        protected readonly MediaPlayer fire = new MediaPlayer();
+        protected readonly MediaPlayer fire2 = new MediaPlayer();
+        protected readonly MediaPlayer gameStart = new MediaPlayer();
+        protected readonly MediaPlayer gameOver = new MediaPlayer();
+        protected readonly MediaPlayer detonationBrickWall = new MediaPlayer();
+        protected readonly MediaPlayer detonationEagle = new MediaPlayer();
+        protected readonly MediaPlayer bonus = new MediaPlayer();
+        protected readonly MediaPlayer newBonus = new MediaPlayer();
+        protected readonly MediaPlayer countTankIncrement = new MediaPlayer();
+        protected readonly MediaPlayer highScore = new MediaPlayer();
+        protected readonly MediaPlayer twoFire = new MediaPlayer();
 
         public SoundGame()
         {
-            move.Open(new Uri(ConfigurationView.SoundPath + "SoundMove.wav", UriKind.Relative));
+            OpenMedia(ConfigurationView.SoundPath);
+        }
+        public SoundGame(string path)
+        {
+            OpenMedia(path);
+        }
 
-            stop.Open(new Uri(ConfigurationView.SoundPath + "SoundStop.wav", UriKind.Relative));
+        protected virtual void OpenMedia(string path)
+        {
+            move.Open(new Uri(path + "SoundMove.wav", UriKind.Relative));
 
-            gameStart.Open(new Uri(ConfigurationView.SoundPath + "GameStart.wav", UriKind.Relative));
+            stop.Open(new Uri(path + "SoundStop.wav", UriKind.Relative));
 
-            gameOver.Open(new Uri(ConfigurationView.SoundPath + "GameOver.wav", UriKind.Relative));
+            gameStart.Open(new Uri(path + "GameStart.wav", UriKind.Relative));
 
-            fire.Open(new Uri(ConfigurationView.SoundPath + "Fire.wav", UriKind.Relative));
+            gameOver.Open(new Uri(path + "GameOver.wav", UriKind.Relative));
 
-            bigDetonation.Open(new Uri(ConfigurationView.SoundPath + "DetonationShellBig.wav", UriKind.Relative));
+            fire.Open(new Uri(path + "Fire.wav", UriKind.Relative));
 
-            detonationShell.Open(new Uri(ConfigurationView.SoundPath + "DetonationShell.wav", UriKind.Relative));
+            bigDetonation.Open(new Uri(path + "DetonationShellBig.wav", UriKind.Relative));
 
-            glide.Open(new Uri(ConfigurationView.SoundPath + "Glide.wav", UriKind.Relative));
+            detonationShell.Open(new Uri(path + "DetonationShell.wav", UriKind.Relative));
 
-            detonationBrickWall.Open(new Uri(ConfigurationView.SoundPath + "DetonationBrickWall.wav", UriKind.Relative));
+            glide.Open(new Uri(path + "Glide.wav", UriKind.Relative));
 
-            detonationEagle.Open(new Uri(ConfigurationView.SoundPath + "DetonationEagle.wav", UriKind.Relative));
+            detonationBrickWall.Open(new Uri(path + "DetonationBrickWall.wav", UriKind.Relative));
 
-            bonus.Open(new Uri(ConfigurationView.SoundPath + "Bonus.wav", UriKind.Relative));
+            detonationEagle.Open(new Uri(path + "DetonationEagle.wav", UriKind.Relative));
 
-            newBonus.Open(new Uri(ConfigurationView.SoundPath + "NewBonus.wav", UriKind.Relative));
+            bonus.Open(new Uri(path + "Bonus.wav", UriKind.Relative));
 
-            countTankIncrement.Open(new Uri(ConfigurationView.SoundPath + "CountTankIncrement.wav", UriKind.Relative));
+            newBonus.Open(new Uri(path + "NewBonus.wav", UriKind.Relative));
 
-            highScore.Open(new Uri(ConfigurationView.SoundPath + "HighScore.wav", UriKind.Relative));
+            countTankIncrement.Open(new Uri(path + "CountTankIncrement.wav", UriKind.Relative));
 
-            twoFire.Open(new Uri(ConfigurationView.SoundPath + "TwoFire.wav", UriKind.Relative));
+            highScore.Open(new Uri(path + "HighScore.wav", UriKind.Relative));
+
+            twoFire.Open(new Uri(path + "TwoFire.wav", UriKind.Relative));
         }
 
         public void GameOver()
