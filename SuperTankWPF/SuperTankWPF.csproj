@@ -86,6 +86,7 @@
     <Compile Include="Model\ConfigurationWPF.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
+    <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
     <Compile Include="Units\IDirection.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />

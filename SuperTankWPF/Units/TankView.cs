@@ -12,28 +12,15 @@ using System.Windows.Media;
 
 namespace SuperTankWPF.Units
 {
-    class TankView : UnitView, IDirection, IParking
+    class TankView : AnimationView, IDirection, IParking
     {
-        private int frame = 0;
-        private Dictionary<Direction, ImageSource[]> imgSources;
-        private Timer timer = new Timer(ConfigurationWPF.TimerInterval * 4);
+        private Dictionary<Direction, ImageSource[]> imges;
 
         public TankView(Direction direction, Dictionary<Direction,ImageSource[]> imgSources)
+            : base(4, imgSources[direction])
         {
-            this.imgSources = imgSources;
-            Source = imgSources[direction][frame];
+            this.imges = imgSources;
             Direction = direction;
-            timer.Elapsed += Timer_Elapsed;
-        }
-
-        public int MaCountFrame { get; set; } = 2;
-
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            frame = frame >= MaCountFrame - 1 ? 0 : frame + 1;
-            this.Dispatcher.BeginInvoke((Action) delegate () {
-                this.Source = imgSources[this.Direction][frame];
-            });
         }
 
         public Direction Direction
@@ -48,7 +35,7 @@ namespace SuperTankWPF.Units
         private static void DirectionChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             TankView tv = (TankView)d;
-            tv.Source = tv.imgSources[(Direction)e.NewValue][tv.frame];
+            tv.ImagesSources = tv.imges[(Direction)e.NewValue];
         }
 
         public bool IsParking
@@ -63,8 +50,8 @@ namespace SuperTankWPF.Units
         private static void IsParkingChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if(e.NewValue.Equals(true))
-                ((TankView)d).timer.Stop();
-            else ((TankView)d).timer.Start();
+                ((TankView)d).AnimStop();
+            else ((TankView)d).AnimStart();
         }
     }
 }
