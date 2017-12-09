@@ -86,6 +86,7 @@ namespace SuperTankWPF.Util
 
         public void StartLevel(int level)
         {
+            screnGame.Level = level;
             levelInfo.Level = level;
         }
 

@@ -16,8 +16,8 @@ namespace SuperTankWPF.Units
     {
         private Dictionary<Direction, ImageSource[]> imges;
 
-        public TankView(Direction direction, Dictionary<Direction,ImageSource[]> imgSources)
-            : base(4, imgSources[direction])
+        public TankView(Direction direction, Dictionary<Direction,ImageSource[]> imgSources, int updateInterval)
+            : base(updateInterval, imgSources[direction])
         {
             this.imges = imgSources;
             Direction = direction;

@@ -6,6 +6,7 @@ using SuperTankWPF;
 using SuperTankWPF.Model;
 using System.Windows.Media;
 using SuperTank;
+using System.Windows.Media.Imaging;
 
 namespace SuperTankWPF.Units
 {
@@ -27,7 +28,7 @@ namespace SuperTankWPF.Units
             switch (typeUnit)
             { // todo
                 case TypeUnit.Star:
-                    resView = new UnitView() { Source = imgStor.Star1 };
+                    resView = new AnimationView(4, GetImgForStar(), true);
                     break;
                 case TypeUnit.SmallTankPlaeyr:
                 case TypeUnit.LightTankPlaeyr:
@@ -38,7 +39,7 @@ namespace SuperTankWPF.Units
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                 case TypeUnit.ArmoredTank:
-                    resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit));
+                    resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), 6);
                     break;
                 //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
                 //            {
@@ -58,24 +59,24 @@ namespace SuperTankWPF.Units
                 //            }
                 //            break;
 
-                    //resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
-                    //break;
-                    //            if ((bool)properties[PropertiesType.IsBonusTank])
-                    //            {
-                    //                resView = new ViewBonusTank(id, x, y,
-                    //                    ConfigurationView.WidthTank,
-                    //                    ConfigurationView.HeightTank,
-                    //                    ConfigurationView.ZIndexTank,
-                    //                    Images.GetImgesForTank(typeUnit),
-                    //                    Images.GetImgesForRedTank(typeUnit));
-                    //            }
-                    //            else
-                    //            {
-                    //                resView = new ViewAnimationTank(id, x, y,
-                    //                    ConfigurationView.WidthTank,
-                    //                    ConfigurationView.HeightTank,
-                    //ConfigurationView.ZIndexTank,
-                    //                Images.GetImgesForTank(typeUnit));
+                //resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
+                //break;
+                //            if ((bool)properties[PropertiesType.IsBonusTank])
+                //            {
+                //                resView = new ViewBonusTank(id, x, y,
+                //                    ConfigurationView.WidthTank,
+                //                    ConfigurationView.HeightTank,
+                //                    ConfigurationView.ZIndexTank,
+                //                    Images.GetImgesForTank(typeUnit),
+                //                    Images.GetImgesForRedTank(typeUnit));
+                //            }
+                //            else
+                //            {
+                //                resView = new ViewAnimationTank(id, x, y,
+                //                    ConfigurationView.WidthTank,
+                //                    ConfigurationView.HeightTank,
+                //ConfigurationView.ZIndexTank,
+                //                Images.GetImgesForTank(typeUnit));
                 //            }
                 //            break;
                 //        case TypeUnit.ArmoredTank:
@@ -128,6 +129,7 @@ namespace SuperTankWPF.Units
 
 
                 case TypeUnit.Shell:
+                case TypeUnit.ConcreteWallShell:
                     resView = new UnitView() { Source = GetImgForShell((Direction)properties[PropertiesType.Direction]), ZIndex = 8 };
                     break;
 
@@ -139,63 +141,60 @@ namespace SuperTankWPF.Units
                 //            break;
 
 
-                //        case TypeUnit.Clock:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Clock);
-                //            break;
-                //        case TypeUnit.Grenade:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Grenade);
-                //            break;
-                //        case TypeUnit.Helmet:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Helmet);
-                //            break;
-                //        case TypeUnit.Pistol:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Pistol);
-                //            break;
-                //        case TypeUnit.Shovel:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Shovel);
-                //            break;
-                //        case TypeUnit.StarMedal:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.StarMedal);
-                //            break;
-                //        case TypeUnit.Tank:
-                //            resView = CreateBonusView(id, x, y, Images.Bonus.Tank);
-                //            break;
+                case TypeUnit.Clock:
+                    resView = CreateBonusView(imgStor.Bonuses.Clock);
+                    break;
+                case TypeUnit.Grenade:
+                    resView = CreateBonusView(imgStor.Bonuses.Grenade);
+                    break;
+                case TypeUnit.Helmet:
+                    resView = CreateBonusView(imgStor.Bonuses.Helmet);
+                    break;
+                case TypeUnit.Pistol:
+                    resView = CreateBonusView(imgStor.Bonuses.Pistol);
+                    break;
+                case TypeUnit.Shovel:
+                    resView = CreateBonusView(imgStor.Bonuses.Shovel);
+                    break;
+                case TypeUnit.StarMedal:
+                    resView = CreateBonusView(imgStor.Bonuses.StarMedal);
+                    break;
+                case TypeUnit.Tank:
+                    resView = CreateBonusView(imgStor.Bonuses.Tank);
+                    break;
 
                 //        case TypeUnit.Points:
                 //            resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
                 //            break;
 
                 default:
-                    resView = new UnitView() { Source = imgStor.Invulnerable1};
+                    resView = new UnitView() { Source = imgStor.Invulnerable1 };
                     break;
             }
-            //    if (properties != null)
-            //        foreach (var item in properties)
-            //            resView.Properties.Add(item.Key, item.Value);
 
             resView.ID = id;
             resView.TypeUnit = typeUnit;
             resView.X = x;
             resView.Y = y;
-            
+
             return resView;
         }
 
-        //private static BaseView CreateBonusView(int id, float x, float y, Image img)
-        //{
-        //    return new ViewAnimationUnit(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, new Image[] { img, Images.BlankImage }, 6);
-        //}
-        //private static Image[] GetImgForStar()
-        //{
-        //    return new Image[] {
-        //        Images.Star1,
-        //        Images.Star2,
-        //        Images.Star3,
-        //        Images.Star4,
-        //        Images.Star3,
-        //        Images.Star2
-        //    };
-        //}
+        private UnitView CreateBonusView(ImageSource img)
+        {
+            return new AnimationView(10, new ImageSource[] { img, null }, true);
+        }
+        private ImageSource[] GetImgForStar()
+        {
+            return new ImageSource[] {
+                imgStor.Star1,
+                imgStor.Star2,
+                imgStor.Star3,
+                imgStor.Star4,
+                imgStor.Star3,
+                imgStor.Star2
+            };
+        }
         //private static Image[] GetImgBigDetonation()
         //{
         //    return new Image[] {

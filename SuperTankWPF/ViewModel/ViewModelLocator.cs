@@ -26,12 +26,7 @@ namespace SuperTankWPF.ViewModel
                 IsTwoPlayer = IsTwoPlayer
             });
             SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel());
-            SimpleIoc.Default.Register<ScrenGameViewModel>(() => new ScrenGameViewModel
-            {
-                Level = 5,
-                IsShowAnimationNewLevel = false,
-                IsShowGameOver = false
-            });
+            SimpleIoc.Default.Register<ScrenGameViewModel>();
             SimpleIoc.Default.Register<ScrenRecordViewModel>(() => new ScrenRecordViewModel
             {
                 CountPoints = 435435

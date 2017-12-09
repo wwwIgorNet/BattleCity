@@ -7,6 +7,7 @@ namespace SuperTankWPF.Model
 {
     public interface IImageSourceStor
     {
+        ImageSourceStor.Bonus Bonuses { get; }
         ImageSource BrickWall { get; }
         ImageSource ConcreteWall { get; }
         ImageSource DashboardInfo { get; }

@@ -17,6 +17,7 @@ namespace SuperTankWPF.Model
         private TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
         private TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
+        private Bonus bonuses = new Bonus();
 
 #pragma warning disable CS0649
         private ImageSource dashboardInfo;
@@ -62,11 +63,11 @@ namespace SuperTankWPF.Model
         private ImageSource invulnerable2;
 #pragma warning restore CS0649
 
+        public Bonus Bonuses { get { return bonuses; } }
         public TankPlaeyr Plaeyr { get { return tankPlaeyr; } }
         public TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
         public TankEnemyExtend Enemy { get { return tankEnemy; } }
         public TankEnemy TankRed { get { return tankRed; } }
-
 
         public ImageSource DashboardInfo
         {

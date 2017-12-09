@@ -16,14 +16,20 @@ namespace SuperTankWPF.Units
         private int frame;
         private ImageSource[] imagesSources;
 
-        public AnimationView(int updateInterval, ImageSource[] imgSources)
+        public AnimationView(int updateInterval, ImageSource[] imgSources, bool animStart)
         {
             method = new Action(UpdateSource);
             ImagesSources = imgSources;
             CountFrame = imgSources.Length;
             timer.Interval = ConfigurationWPF.TimerInterval * updateInterval;
             timer.Elapsed += Timer_Elapsed;
+
+            if (animStart) AnimStart();
         }
+
+        public AnimationView(int updateInterval, ImageSource[] imgSources)
+            :this(updateInterval, imgSources, false)
+        { }
 
         protected ImageSource[] ImagesSources
         {
@@ -40,7 +46,7 @@ namespace SuperTankWPF.Units
         {
             timer.Stop();
         }
-        protected void AnimStart()
+        public void AnimStart()
         {
             timer.Start();
         }
