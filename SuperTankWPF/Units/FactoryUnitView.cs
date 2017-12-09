@@ -6,6 +6,7 @@ using SuperTankWPF;
 using SuperTankWPF.Model;
 using System.Windows.Media;
 using SuperTank;
+using SuperTankWPF.Units.View;
 
 namespace SuperTankWPF.Units
 {
@@ -178,7 +179,6 @@ namespace SuperTankWPF.Units
             //            resView.Properties.Add(item.Key, item.Value);
             
             resView.DataContext = unitViewModel;
-            unitViewModel.View = resView;
             return resView;
         }
 

@@ -7,7 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace SuperTankWPF.Units
+namespace SuperTankWPF.Units.View
 {
     class UnitView : Image
     {
@@ -18,6 +18,12 @@ namespace SuperTankWPF.Units
 
         private void UnitView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            Binding bindingId = new Binding();
+            bindingId.Source = this.DataContext;
+            bindingId.Path = new PropertyPath("ID");
+            bindingId.Mode = BindingMode.OneWay;
+            this.SetBinding(UnitView.IDProperty, bindingId);
+
             Binding bindingX = new Binding();
             bindingX.Source = this.DataContext;
             bindingX.Path = new PropertyPath("X");
@@ -32,6 +38,15 @@ namespace SuperTankWPF.Units
         }
 
         #region DependencyProperty
+        public int ID
+        {
+            get { return (int)GetValue(IDProperty); }
+            set { SetValue(IDProperty, value); }
+        }
+
+        public static readonly DependencyProperty IDProperty =
+            DependencyProperty.Register("ID", typeof(int), typeof(UnitView), new PropertyMetadata(0));
+
         public int ZIndex
         {
             get { return (int)GetValue(ZIndexProperty); }

@@ -24,7 +24,6 @@ namespace SuperTankWPF.Units
         public int ID { get; }
         public TypeUnit TypeUnit { get; }
         public Dictionary<PropertiesType, Object> Properties { get; set; }
-        public UIElement View { get; set; }
 
         public double X
         {

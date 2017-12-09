@@ -2,6 +2,7 @@
 using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
 using SuperTankWPF.Units;
+using SuperTankWPF.Units.View;
 using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,12 @@ namespace SuperTankWPF.View
                 {
                     foreach (UnitViewModel unitViewModel in e.OldItems)
                     {
-                        board.Children.Remove(unitViewModel.View);
+                        UIElementCollection elements = board.Children;
+                        for (int i = 0; i < elements.Count; i++)
+                        {
+                            if (((UnitView)elements[i]).ID == unitViewModel.ID)
+                                elements.RemoveAt(i);
+                        }
                     }
                 });
             }
