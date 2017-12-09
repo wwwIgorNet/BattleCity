@@ -1,12 +1,11 @@
 ﻿using SuperTank;
-using SuperTankWPF.Units.View;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace SuperTankWPF.Units
 {
     interface IFactoryUnitView
     {
-        UnitView Create(UnitViewModel unitViewModel);
-        UnitView Create(float x, float y, TypeUnit typeUnit, Dictionary<PropertiesType, object> properties);
+        UnitView Create(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties);
     }
 }

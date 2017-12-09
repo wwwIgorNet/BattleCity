@@ -18,11 +18,18 @@ namespace SuperTankWPF.ViewModel
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class ScrenSceneViewModel : ObservableObject, IRender
     {
-        public ObservableCollection<UnitViewModel> Units { get; } = new ObservableCollection<UnitViewModel>();
-        
+        private IFactoryUnitView factoryUnitView;
+
+        public ScrenSceneViewModel(IFactoryUnitView factoryUnitView)
+        {
+            this.factoryUnitView = factoryUnitView;
+        }
+
+        public ObservableCollection<UnitView> Units { get; } = new ObservableCollection<UnitView>();
+
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
-            Units.Add(new UnitViewModel(id, typeUnit) { X = x, Y = y, Properties = properties });
+            Units.Add(factoryUnitView.Create(id, typeUnit, x, y, properties));
         }
 
         public void AddRange(List<UnitDataForView> collection)
@@ -41,30 +48,36 @@ namespace SuperTankWPF.ViewModel
 
         public void Remove(int id)
         {
-            Units.Remove(Units.SingleOrDefault(uvm => uvm.ID == id));
+            Units.Remove(Units.SingleOrDefault(uv => uv.ID == id));
         }
 
         public void Update(int id, PropertiesType prop, object value)
         {
             try
             {
-                UnitViewModel unitViewModel = Units.FirstOrDefault(u => u.ID == id);
+                UnitView unitView = Units.FirstOrDefault(u => u.ID == id);
 
                 switch (prop)
                 {
                     case PropertiesType.X:
-                        unitViewModel.X = (int)value;
+                        unitView.X = (int)value;
                         break;
                     case PropertiesType.Y:
-                        unitViewModel.Y = (int)value;
+                        unitView.Y = (int)value;
                         break;
-                    //case PropertiesType.Direction:
-                    //case PropertiesType.IsStop:
-                    //case PropertiesType.Detonation:
-                    //case PropertiesType.Glide:
-                    default:
-                        unitViewModel.Properties[prop] = value;
+                    case PropertiesType.Direction:
+                        var d = unitView as IDirection;
+                        if (d != null) d.Direction = (Direction)value;
                         break;
+                    case PropertiesType.IsParking:
+                        var p = unitView as IParking;
+                        if (p != null) p.IsParking = (bool)value;
+                        break;
+                        //case PropertiesType.Detonation:
+                        //case PropertiesType.Glide:
+                        //default:
+                        //    unitView.Properties[prop] = value;
+                        //    break;
                 }
             }
             catch (Exception ex)

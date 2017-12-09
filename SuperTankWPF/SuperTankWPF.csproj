@@ -84,15 +84,16 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\ConfigurationWPF.cs" />
-    <Compile Include="Model\FeykAudio.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
+    <Compile Include="Units\IDirection.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />
+    <Compile Include="Units\IParking.cs" />
+    <Compile Include="Units\TankView.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\PointsConverter.cs" />
-    <Compile Include="Units\UnitViewModel.cs" />
-    <Compile Include="Units\View\UnitView.cs" />
+    <Compile Include="Units\UnitView.cs" />
     <Compile Include="Util\WPFCommands.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

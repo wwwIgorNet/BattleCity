@@ -33,8 +33,8 @@ namespace SuperTankWPF.View
         private DoubleAnimation animationBottom = new DoubleAnimation();
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
         private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds /  3);
-        private TimeSpan durationAnim = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
-        private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver);
+        private TimeSpan durationClosOpenLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
+        private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver / 3);
 
         public ScrenGame()
         {
@@ -120,16 +120,16 @@ namespace SuperTankWPF.View
 
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
-            animationTop.Duration = durationAnim;
+            animationTop.Duration = durationClosOpenLevel;
             EasingFunctionBase easingFunction = new PowerEase();
             easingFunction.EasingMode = EasingMode.EaseInOut;
             animationTop.EasingFunction = easingFunction;
 
-            animationBottom.Duration = durationAnim;
+            animationBottom.Duration = durationClosOpenLevel;
             animationBottom.EasingFunction = easingFunction;
 
-            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, durationAnim));
-            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationAnim + durationShowLevel));
+            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, durationClosOpenLevel));
+            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationClosOpenLevel + durationShowLevel));
 
             animationGameOver.EasingFunction = easingFunction;
             animationGameOver.Duration = durationGameOver;

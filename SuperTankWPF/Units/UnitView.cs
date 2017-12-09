@@ -1,6 +1,8 @@
-﻿using SuperTankWPF.Model;
+﻿using SuperTank;
+using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,37 +11,21 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media.Animation;
 
-namespace SuperTankWPF.Units.View
+namespace SuperTankWPF.Units
 {
     class UnitView : Image
     {
-        public UnitView()
-        {
-            this.DataContextChanged += UnitView_DataContextChanged;
-        }
-
-        private void UnitView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            Binding bindingId = new Binding();
-            bindingId.Source = this.DataContext;
-            bindingId.Path = new PropertyPath("ID");
-            bindingId.Mode = BindingMode.OneWay;
-            this.SetBinding(UnitView.IDProperty, bindingId);
-
-            Binding bindingX = new Binding();
-            bindingX.Source = this.DataContext;
-            bindingX.Path = new PropertyPath("X");
-            bindingX.Mode = BindingMode.OneWay;
-            this.SetBinding(UnitView.XProperty, bindingX);
-
-            Binding bindingY = new Binding();
-            bindingY.Source = this.DataContext;
-            bindingY.Path = new PropertyPath("Y");
-            bindingY.Mode = BindingMode.OneWay;
-            this.SetBinding(UnitView.YProperty, bindingY);
-        }
-
         #region DependencyProperty
+        public TypeUnit TypeUnit
+        {
+            get { return (TypeUnit)GetValue(TypeUnitProperty); }
+            set { SetValue(TypeUnitProperty, value); }
+        }
+
+        public static readonly DependencyProperty TypeUnitProperty =
+            DependencyProperty.Register("TypeUnit", typeof(TypeUnit), typeof(UnitView));
+
+
         public int ID
         {
             get { return (int)GetValue(IDProperty); }

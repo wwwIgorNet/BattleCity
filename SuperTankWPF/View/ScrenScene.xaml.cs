@@ -2,7 +2,6 @@
 using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
 using SuperTankWPF.Units;
-using SuperTankWPF.Units.View;
 using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -27,25 +26,23 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class ScrenScene : UserControl
     {
-        private IImageSourceStor imageSource = SimpleIoc.Default.GetInstance<IImageSourceStor>();
-        private IFactoryUnitView factoryUnitView = SimpleIoc.Default.GetInstance<IFactoryUnitView>();
-
         public ScrenScene()
         {
             InitializeComponent();
 
-            ServiceLocator.Current.GetInstance<ScrenSceneViewModel>().Units.CollectionChanged += ScrenScene_CollectionChanged;
+            ScrenSceneViewModel ssvm = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+            ssvm.Units.CollectionChanged += ScrenScene_CollectionChanged;
         }
 
         private void ScrenScene_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.Action == NotifyCollectionChangedAction.Add)
+            if(e.Action == NotifyCollectionChangedAction.Add)
             {
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    foreach (UnitViewModel unitViewModel in e.NewItems)
+                    foreach (UIElement element in e.NewItems)
                     {
-                        board.Children.Add(factoryUnitView.Create(unitViewModel));
+                        board.Children.Add(element);
                     }
                 });
             }
@@ -54,14 +51,9 @@ namespace SuperTankWPF.View
             {
                 this.Dispatcher.BeginInvoke((Action)delegate ()
                 {
-                    foreach (UnitViewModel unitViewModel in e.OldItems)
+                    foreach (UIElement element in e.OldItems)
                     {
-                        UIElementCollection elements = board.Children;
-                        for (int i = 0; i < elements.Count; i++)
-                        {
-                            if (((UnitView)elements[i]).ID == unitViewModel.ID)
-                                elements.RemoveAt(i);
-                        }
+                        board.Children.Remove(element);
                     }
                 });
             }
