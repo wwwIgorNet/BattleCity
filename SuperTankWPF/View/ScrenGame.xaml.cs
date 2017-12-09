@@ -17,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Globalization;
 using SuperTankWPF.Model;
+using SuperTankWPF.ViewModel;
+using Microsoft.Practices.ServiceLocation;
 
 namespace SuperTankWPF.View
 {
@@ -25,6 +27,7 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class ScrenGame : UserControl
     {
+        private ScrenGameViewModel viewModel = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private ThicknessAnimation animationGameOver = new ThicknessAnimation();
         private DoubleAnimation animationTop = new DoubleAnimation();
         private DoubleAnimation animationBottom = new DoubleAnimation();
@@ -39,6 +42,7 @@ namespace SuperTankWPF.View
 
             this.Loaded += ScrenGame_Loaded;
             this.IsVisibleChanged += ScrenGame_IsVisibleChanged;
+            Focusable = true;
         }
 
         private void ScrenGame_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -49,13 +53,33 @@ namespace SuperTankWPF.View
         protected override void OnKeyDown(KeyEventArgs e)
         {
             base.OnKeyDown(e);
-            Console.WriteLine(e.Key.ToString());
+
+            switch (e.Key)
+            {
+                case Key.Up:
+                case Key.Down:
+                case Key.Left:
+                case Key.Right:
+                case Key.Space:
+                    viewModel?.KeyDown(e.Key);
+                    break;
+            }
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
-            Console.WriteLine(e.Key.ToString());
+
+            switch (e.Key)
+            {
+                case Key.Up:
+                case Key.Down:
+                case Key.Left:
+                case Key.Right:
+                case Key.Space:
+                    viewModel?.KeyUp(e.Key);
+                    break;
+            }
         }
 
         #region Dependensy

@@ -17,12 +17,11 @@ using System.Windows;
 namespace SuperTankWPF.Util
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class GameMenedger
+    class GameMenedger : IGameInfo
     {
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
         private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
-        IKeyboard Keyboard;
 
         public async void IPlayerExecute()
         {
@@ -72,7 +71,7 @@ namespace SuperTankWPF.Util
         public void OpenChannel()
         {
             ChannelFactory<IKeyboard> factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            Keyboard = factoryKeyboard.CreateChannel();
+            screnGame.Keyboard = factoryKeyboard.CreateChannel();
         }
 
         public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
