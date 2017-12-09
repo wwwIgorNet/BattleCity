@@ -33,13 +33,13 @@ namespace SuperTankWPF.Units
             switch (unitViewModel.TypeUnit)
             { // todo
                 case TypeUnit.Star:
-                    resView = new UnitView() { Source = imgStor.Star1 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Star1 };
                     break;
                 case TypeUnit.SmallTankPlaeyr:
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
-                    resView = new UnitView() { Source = imgStor.Plaeyr.SmallTank.Up1 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Plaeyr.SmallTank.Up1 };
                     break;
                 //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
                 //            {
@@ -63,7 +63,7 @@ namespace SuperTankWPF.Units
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                 case TypeUnit.ArmoredTank:
-                    resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Enemy.PlainTank.Down1 };
                     break;
                 //            if ((bool)properties[PropertiesType.IsBonusTank])
                 //            {
@@ -108,32 +108,32 @@ namespace SuperTankWPF.Units
                 //            break;
 
                 case TypeUnit.BrickWall:
-                    resView = new UnitView() { Source = imgStor.BrickWall };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.BrickWall };
                     break;
                 case TypeUnit.ConcreteWall:
-                    resView = new UnitView() { Source = imgStor.ConcreteWall };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.ConcreteWall };
                     break;
                 case TypeUnit.Water:
-                    resView = new UnitView() { Source = imgStor.Water_1 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Water_1 };
                     //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
                     break;
                 case TypeUnit.Forest:
-                    resView = new UnitView() { Source = imgStor.Forest, ZIndex = 10 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Forest, ZIndex = 10 };
                     break;
                 case TypeUnit.Ice:
-                    resView = new UnitView() { Source = imgStor.Ice, ZIndex = -1 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Ice, ZIndex = -1 };
                     break;
 
 
                 case TypeUnit.Eagle:
-                    resView = new UnitView() { Source = imgStor.Eagle };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Eagle };
                     break;
                 //            resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
                 //            break;
 
 
                 case TypeUnit.Shell:
-                    resView = new UnitView() { Source = GetImgForShell((Direction)unitViewModel.Properties[PropertiesType.Direction]), ZIndex = 8 };
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = GetImgForShell((Direction)unitViewModel.Properties[PropertiesType.Direction]), ZIndex = 8 };
                     break;
 
                 //        case TypeUnit.ConcreteWallShell:
@@ -171,7 +171,7 @@ namespace SuperTankWPF.Units
                 //            break;
 
                 default:
-                    resView = new UnitView() { Source = imgStor.Invulnerable1};
+                    resView = new UnitView(unitViewModel.X, unitViewModel.Y) { Source = imgStor.Invulnerable1};
                     break;
             }
             //    if (properties != null)
