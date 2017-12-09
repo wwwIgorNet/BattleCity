@@ -13,17 +13,9 @@ namespace SuperTankWPF.Units.View
 {
     class UnitView : Image
     {
-        private DoubleAnimation animationTop = new DoubleAnimation();
-        private DoubleAnimation animationLeft = new DoubleAnimation();
-
-        public UnitView(double x, double y)
+        public UnitView()
         {
-            this.SetValue(Canvas.TopProperty, y);
-            this.SetValue(Canvas.LeftProperty, x);
-
             this.DataContextChanged += UnitView_DataContextChanged;
-            animationTop.Duration = TimeSpan.FromMilliseconds(ConfigurationWPF.TimerInterval);
-            animationLeft.Duration = TimeSpan.FromMilliseconds(ConfigurationWPF.TimerInterval);
         }
 
         private void UnitView_DataContextChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -82,10 +74,7 @@ namespace SuperTankWPF.Units.View
 
         private static void xChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UnitView uv = ((UnitView)d);
-            uv.animationLeft.From = (double)uv.GetValue(Canvas.LeftProperty);// e.OldValue;
-            uv.animationLeft.To = (double)e.NewValue;
-            uv.BeginAnimation(Canvas.LeftProperty, uv.animationLeft);
+            ((UnitView)d).SetValue(Canvas.LeftProperty, e.NewValue);
         }
 
         public double Y
@@ -99,10 +88,7 @@ namespace SuperTankWPF.Units.View
 
         private static void yChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            UnitView uv = ((UnitView)d);
-            uv.animationTop.From = (double)uv.GetValue(Canvas.TopProperty);// (double)e.OldValue;
-            uv.animationTop.To = (double)e.NewValue;
-            uv.BeginAnimation(Canvas.TopProperty, uv.animationTop);
+            ((UnitView)d).SetValue(Canvas.TopProperty, e.NewValue);
         }
         #endregion
     }
