@@ -34,10 +34,17 @@ namespace SuperTankWPF.Units
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
-                    resView = new PlayerTankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), new []{ imgStor.Invulnerable1, imgStor.Invulnerable2 }, 6)
+                    Dictionary<Direction, ImageSource[]> imgTankPlayer;
+                    ImageSource[] Invulnerable = new[] { imgStor.Invulnerable1, imgStor.Invulnerable2 };
+                    if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
+                        imgTankPlayer = imgStor.GetImgesForTankIIPlayer(typeUnit);
+                    else
+                        imgTankPlayer = imgStor.GetImgesForTank(typeUnit);
+
+                    resView = new PlayerTankView((Direction)properties[PropertiesType.Direction], imgTankPlayer, Invulnerable, 6)
                     {
-                        ZIndex = ConfigurationView.ZIndexTank,
-                        IsInvulnerable = (bool)properties[PropertiesType.IsInvulnerable]
+                        IsInvulnerable = (bool)properties[PropertiesType.IsInvulnerable],
+                        ZIndex = ConfigurationView.ZIndexTank
                     };
                     break;
 
@@ -45,25 +52,16 @@ namespace SuperTankWPF.Units
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                 case TypeUnit.ArmoredTank:
-                    resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), 6) { ZIndex = ConfigurationView.ZIndexTank };
+                    if ((bool)properties[PropertiesType.IsBonusTank])
+                    {
+                        resView = new BonusTankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), imgStor.GetImgesForRedTank(typeUnit), 6);
+                    }
+                    else
+                    {
+                        resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), 6);
+                    }
+                    resView.ZIndex = ConfigurationView.ZIndexTank;
                     break;
-                //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
-                //            {
-                //                resView = new ViewAnimationTank(id, x, y,
-                //                   ConfigurationView.WidthTank,
-                //                   ConfigurationView.HeightTank,
-                //                   ConfigurationView.ZIndexTank,
-                //                   Images.GetImgesForTankIIPlayer(typeUnit));
-                //            }
-                //            else
-                //            {
-                //                resView = new ViewAnimationTank(id, x, y,
-                //                    ConfigurationView.WidthTank,
-                //                    ConfigurationView.HeightTank,
-                //                    ConfigurationView.ZIndexTank,
-                //                    Images.GetImgesForTank(typeUnit));
-                //            }
-                //            break;
 
                 //resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
                 //break;
@@ -117,7 +115,7 @@ namespace SuperTankWPF.Units
                     break;
                 case TypeUnit.Water:
                     resView = new UnitView() { Source = imgStor.Water_1 };
-                    //resView = new ViewAnimationUnit(id, x, y, 0, GetImgForWoter(), 10);
+                    resView = new AnimationView(10, GetImgForWoter(), true);
                     break;
                 case TypeUnit.Forest:
                     resView = new UnitView() { Source = imgStor.Forest, ZIndex = 10 };
@@ -170,10 +168,6 @@ namespace SuperTankWPF.Units
                         ZIndex = 12
                     };
                     break;
-
-                default:
-                    resView = new UnitView() { Source = imgStor.Invulnerable1 };
-                    break;
             }
 
             resView.ID = id;
@@ -216,14 +210,14 @@ namespace SuperTankWPF.Units
                 imgStor.ShellDetonation1
                };
         }
-        //private static Image[] GetImgForWoter()
-        //{
-        //    return new Image[] {
-        //        Images.Water_1,
-        //        Images.Water_2,
-        //        Images.Water_3
-        //    };
-        //}
+        private ImageSource[] GetImgForWoter()
+        {
+            return new ImageSource[] {
+                imgStor.Water_1,
+                imgStor.Water_2,
+                imgStor.Water_3
+            };
+        }
         private ImageSource[] GetImgForShellDetonation()
         {
             return new ImageSource[]

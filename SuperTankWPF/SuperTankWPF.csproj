@@ -87,6 +87,7 @@
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\AnimationView.cs" />
+    <Compile Include="Units\BonusTankView.cs" />
     <Compile Include="Units\EagleView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
     <Compile Include="Units\IDetonation.cs" />

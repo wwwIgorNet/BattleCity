@@ -14,13 +14,21 @@ namespace SuperTankWPF.Units
 {
     class TankView : AnimationView, IDirection, IParking
     {
-        private Dictionary<Direction, ImageSource[]> imges;
-
         public TankView(Direction direction, Dictionary<Direction,ImageSource[]> imgSources, int updateInterval)
             : base(updateInterval, imgSources[direction])
         {
-            this.imges = imgSources;
+            this.ImagesWithDirection = imgSources;
             Direction = direction;
+        }
+
+        public Dictionary<Direction, ImageSource[]> ImagesWithDirection
+        {
+            get { return imagesWithDirection; }
+            set
+            {
+                imagesWithDirection = value;
+                ImagesSources = imagesWithDirection[this.Direction];
+            }
         }
 
         public Direction Direction
@@ -35,7 +43,7 @@ namespace SuperTankWPF.Units
         private static void DirectionChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             TankView tv = (TankView)d;
-            tv.ImagesSources = tv.imges[(Direction)e.NewValue];
+            tv.ImagesSources = tv.ImagesWithDirection[(Direction)e.NewValue];
         }
 
         public bool IsParking
@@ -46,6 +54,7 @@ namespace SuperTankWPF.Units
         
         public static readonly DependencyProperty IsParkingProperty =
             DependencyProperty.Register("IsParking", typeof(bool), typeof(TankView), new PropertyMetadata(true, IsParkingChangedCallback));
+        private Dictionary<Direction, ImageSource[]> imagesWithDirection;
 
         private static void IsParkingChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
