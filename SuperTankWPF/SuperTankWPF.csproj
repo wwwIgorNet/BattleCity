@@ -88,10 +88,12 @@
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
+    <Compile Include="Units\IDetonation.cs" />
     <Compile Include="Units\IDirection.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />
     <Compile Include="Units\IParking.cs" />
     <Compile Include="Units\PointsView.cs" />
+    <Compile Include="Units\ShellView.cs" />
     <Compile Include="Units\TankView.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\PointsConverter.cs" />

@@ -73,7 +73,10 @@ namespace SuperTankWPF.ViewModel
                         var p = unitView as IParking;
                         if (p != null) p.IsParking = (bool)value;
                         break;
-                        //case PropertiesType.Detonation:
+                    case PropertiesType.Detonation:
+                        var detonation = unitView as IDetonation;
+                        if (detonation != null) detonation.Detonation = (bool)value;
+                        break;
                         //case PropertiesType.Glide:
                         //default:
                         //    unitView.Properties[prop] = value;

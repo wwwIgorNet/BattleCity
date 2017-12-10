@@ -34,7 +34,7 @@ namespace SuperTankWPF.View
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
         private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds /  3);
         private TimeSpan durationClosOpenLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
-        private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver / 3);
+        private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver / 2);
 
         public ScrenGame()
         {

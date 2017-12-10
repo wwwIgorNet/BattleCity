@@ -54,6 +54,9 @@ namespace SuperTankWPF.View
                     foreach (UIElement element in e.OldItems)
                     {
                         board.Children.Remove(element);
+
+                        IDisposable d = element as IDisposable;
+                        if (d != null) d.Dispose();
                     }
                 });
             }

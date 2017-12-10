@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace SuperTankWPF.Units
 {
-    class AnimationView : UnitView
+    class AnimationView : UnitView, IDisposable
     {
         private Timer timer = new Timer();
         private Action method;
@@ -61,5 +61,9 @@ namespace SuperTankWPF.Units
             this.Dispatcher.BeginInvoke(method);
         }
 
+        public void Dispose()
+        {
+            timer.Dispose();
+        }
     }
 }
