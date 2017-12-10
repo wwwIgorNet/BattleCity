@@ -34,6 +34,12 @@ namespace SuperTankWPF.Units
                 case TypeUnit.LightTankPlaeyr:
                 case TypeUnit.MediumTankPlaeyr:
                 case TypeUnit.HeavyTankPlaeyr:
+                    resView = new PlayerTankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), new []{ imgStor.Invulnerable1, imgStor.Invulnerable2 }, 6)
+                    {
+                        ZIndex = ConfigurationView.ZIndexTank,
+                        IsInvulnerable = (bool)properties[PropertiesType.IsInvulnerable]
+                    };
+                    break;
 
                 case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
@@ -132,13 +138,9 @@ namespace SuperTankWPF.Units
                 case TypeUnit.ConcreteWallShell:
                     resView = new ShellView(1, GetImgForShellDetonation()) { Source = GetImgForShell((Direction)properties[PropertiesType.Direction]), ZIndex = 8 };
                     break;
-
-                //        case TypeUnit.ConcreteWallShell:
-                //            resView = new ViewShell(id, x, y, ConfigurationView.WidthShell, ConfigurationView.HeightShell, 8, GetImgForShell((Direction)properties[PropertiesType.Direction]), GetImgForShellDetonation());
-                //            break;
-                //        case TypeUnit.BigDetonation:
-                //            resView = new BigDetonationView(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12, GetImgBigDetonation(), 2);
-                //            break;
+                case TypeUnit.BigDetonation:
+                    resView = new CentrAnimationView(1, GetImgBigDetonation(), true) { ZIndex = 12 };
+                    break;
 
 
                 case TypeUnit.Clock:
@@ -200,23 +202,23 @@ namespace SuperTankWPF.Units
                 imgStor.Star2
             };
         }
-        //private static Image[] GetImgBigDetonation()
-        //{
-        //    return new Image[] {
-        //        Images.ShellDetonation1,
-        //        Images.ShellDetonation2,
-        //        Images.ShellDetonation3,
-        //        Images.ShellDetonationBig,
-        //        Images.ShellDetonationBig,
-        //        Images.ShellDetonationBig,
-        //        Images.ShellDetonationBig2,
-        //        Images.ShellDetonationBig2,
-        //        Images.ShellDetonationBig2,
-        //        Images.ShellDetonation3,
-        //        Images.ShellDetonation2,
-        //        Images.ShellDetonation1
-        //       };
-        //}
+        private ImageSource[] GetImgBigDetonation()
+        {
+            return new ImageSource[] {
+                imgStor.ShellDetonation1,
+                imgStor.ShellDetonation2,
+                imgStor.ShellDetonation3,
+                imgStor.ShellDetonationBig,
+                imgStor.ShellDetonationBig,
+                imgStor.ShellDetonationBig,
+                imgStor.ShellDetonationBig2,
+                imgStor.ShellDetonationBig2,
+                imgStor.ShellDetonationBig2,
+                imgStor.ShellDetonation3,
+                imgStor.ShellDetonation2,
+                imgStor.ShellDetonation1
+               };
+        }
         //private static Image[] GetImgForWoter()
         //{
         //    return new Image[] {

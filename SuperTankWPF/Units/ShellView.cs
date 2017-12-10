@@ -9,20 +9,11 @@ using System.Windows.Media.Animation;
 
 namespace SuperTankWPF.Units
 {
-    class ShellView : AnimationView, IDetonation
+    class ShellView : CentrAnimationView, IDetonation
     {
         public ShellView(int updateInterval, ImageSource[] detonation)
-            : base(updateInterval, detonation)
+            : base(updateInterval, detonation, false)
         { }
-
-        protected override void UpdateSource()
-        {
-            double centrX = Source.Width / 2 + X;
-            double centrY = Source.Height / 2 + Y;
-            base.UpdateSource();
-            X = centrX - Source.Width / 2;
-            Y = centrY - Source.Height / 2;
-        }
 
         public bool Detonation
         {

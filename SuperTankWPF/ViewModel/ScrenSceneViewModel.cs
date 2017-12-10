@@ -77,6 +77,10 @@ namespace SuperTankWPF.ViewModel
                         var detonation = unitView as IDetonation;
                         if (detonation != null) detonation.Detonation = (bool)value;
                         break;
+                    case PropertiesType.IsInvulnerable:
+                        var i = unitView as IInvulnerable;
+                        if (i != null) i.IsInvulnerable = (bool)value;
+                        break;
                         //case PropertiesType.Glide:
                         //default:
                         //    unitView.Properties[prop] = value;
