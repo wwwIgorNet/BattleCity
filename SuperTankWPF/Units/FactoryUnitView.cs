@@ -39,7 +39,7 @@ namespace SuperTankWPF.Units
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
                 case TypeUnit.ArmoredTank:
-                    resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), 6);
+                    resView = new TankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), 6) { ZIndex = ConfigurationView.ZIndexTank };
                     break;
                 //            if ((Owner)properties[PropertiesType.Owner] == Owner.IIPlayer)
                 //            {
@@ -163,9 +163,14 @@ namespace SuperTankWPF.Units
                     resView = CreateBonusView(imgStor.Bonuses.Tank);
                     break;
 
-                //        case TypeUnit.Points:
-                //            resView = new ViewPoints(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 12);
-                //            break;
+                case TypeUnit.Points:
+                    resView = new PointsView((int)properties[PropertiesType.Points])
+                    {
+                        Width = ConfigurationWPF.WidthTile * 2,
+                        Height = ConfigurationWPF.HeightTile,
+                        ZIndex = 12
+                    };
+                    break;
 
                 default:
                     resView = new UnitView() { Source = imgStor.Invulnerable1 };
@@ -182,7 +187,7 @@ namespace SuperTankWPF.Units
 
         private UnitView CreateBonusView(ImageSource img)
         {
-            return new AnimationView(10, new ImageSource[] { img, null }, true);
+            return new AnimationView(10, new ImageSource[] { img, null }, true) { ZIndex = 12 };
         }
         private ImageSource[] GetImgForStar()
         {
