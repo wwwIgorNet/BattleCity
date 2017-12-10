@@ -51,7 +51,6 @@ namespace SuperTankWPF.Units
                 case TypeUnit.PlainTank:
                 case TypeUnit.ArmoredPersonnelCarrierTank:
                 case TypeUnit.QuickFireTank:
-                case TypeUnit.ArmoredTank:
                     if ((bool)properties[PropertiesType.IsBonusTank])
                     {
                         resView = new BonusTankView((Direction)properties[PropertiesType.Direction], imgStor.GetImgesForTank(typeUnit), imgStor.GetImgesForRedTank(typeUnit), 6);
@@ -63,27 +62,16 @@ namespace SuperTankWPF.Units
                     resView.ZIndex = ConfigurationView.ZIndexTank;
                     break;
 
-                //resView = new UnitView() { Source = imgStor.Enemy.PlainTank.Down1 };
-                //break;
-                //            if ((bool)properties[PropertiesType.IsBonusTank])
-                //            {
-                //                resView = new ViewBonusTank(id, x, y,
-                //                    ConfigurationView.WidthTank,
-                //                    ConfigurationView.HeightTank,
-                //                    ConfigurationView.ZIndexTank,
-                //                    Images.GetImgesForTank(typeUnit),
-                //                    Images.GetImgesForRedTank(typeUnit));
-                //            }
-                //            else
-                //            {
-                //                resView = new ViewAnimationTank(id, x, y,
-                //                    ConfigurationView.WidthTank,
-                //                    ConfigurationView.HeightTank,
-                //ConfigurationView.ZIndexTank,
-                //                Images.GetImgesForTank(typeUnit));
-                //            }
-                //            break;
-                //        case TypeUnit.ArmoredTank:
+                case TypeUnit.ArmoredTank:
+                    resView = new ArmoredTankView(
+                        (Direction)properties[PropertiesType.Direction],
+                        imgStor.GetImages(imgStor.Enemy.ArmoredTank),
+                        imgStor.GetImages(imgStor.Enemy.ArmoredTankGreen),
+                        imgStor.GetImages(imgStor.Enemy.ArmoredTankYellow), 6);
+
+                    
+                    resView.ZIndex = ConfigurationView.ZIndexTank;
+                    break;
                 //            if ((bool)properties[PropertiesType.IsBonusTank])
                 //            {
                 //                resView = new ViewBonusArmoredTank(id, x, y,

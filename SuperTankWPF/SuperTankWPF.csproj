@@ -87,6 +87,7 @@
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\AnimationView.cs" />
+    <Compile Include="Units\ArmoredTankView.cs" />
     <Compile Include="Units\BonusTankView.cs" />
     <Compile Include="Units\EagleView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="Units\IDirection.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />
     <Compile Include="Units\IInvulnerable.cs" />
+    <Compile Include="Units\INumberOfHits.cs" />
     <Compile Include="Units\IParking.cs" />
     <Compile Include="Units\PlayerTankView.cs" />
     <Compile Include="Units\PointsView.cs" />
