@@ -6,35 +6,52 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using SuperTank;
 using SuperTankWPF.Model;
+using System.Timers;
 
 namespace SuperTankWPF.Units
 {
     class BonusTankView : TankView
     {
+        private Timer timer = new Timer(ConfigurationWPF.TimerInterval);
         private Dictionary<Direction, ImageSource[]> imgGray;
         private Dictionary<Direction, ImageSource[]> imgRed;
         private int iteration = 0;
+        private Action chengRed;// = new Action(SetImgTankRed);
+        private Action chengGrey;// = new Action(SetImgTankRed);
 
         public BonusTankView(Direction direction, Dictionary<Direction, ImageSource[]> imgGray, Dictionary<Direction, ImageSource[]> imgRed, int updateInterval) : base(direction, imgGray, updateInterval)
         {
             this.imgGray = imgGray;
             this.imgRed = imgRed;
+
+            chengGrey = new Action(SetImgTankGray);
+            chengRed = new Action(SetImgTankRed);
+
+            timer.Elapsed += Timer_Elapsed;
+            timer.Start();
         }
 
-        protected override void UpdateSource()
+        private void SetImgTankRed()
         {
-            iteration++;
-            if (iteration == 2)
-            {
-                base.ImagesWithDirection = imgRed;
-            }
-            else if (iteration == 4)
-            {
-                iteration = 0;
-                base.ImagesWithDirection = imgGray;
-            }
+            base.ImagesWithDirection = imgRed;
+        }
+        private void SetImgTankGray()
+        {
+            base.ImagesWithDirection = imgGray;
+        }
 
-            base.UpdateSource();
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            if (iteration == ConfigurationWPF.DelayChangColorBonusTank)
+            {
+                this.Dispatcher.BeginInvoke(chengRed);
+            }
+            else if (iteration == ConfigurationWPF.DelayChangColorBonusTank * 2)
+            {
+                this.Dispatcher.BeginInvoke(chengGrey);
+                iteration = 0;
+            }
+            iteration++;
         }
     }
 }

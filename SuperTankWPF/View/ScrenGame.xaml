@@ -13,6 +13,9 @@
     <UserControl.Resources>
         <SolidColorBrush Color="Gray" x:Key="backGround"/>
     </UserControl.Resources>
+    <UserControl.FocusVisualStyle>
+        <Style/>
+    </UserControl.FocusVisualStyle>
     <UserControl.Background>
         <Binding Mode="OneWay" Source="{StaticResource backGround}"/>
     </UserControl.Background>
