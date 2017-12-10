@@ -48,7 +48,7 @@ namespace SuperTankWPF.ViewModel
 
         public void Remove(int id)
         {
-            Units.Remove(Units.SingleOrDefault(uv => uv.ID == id));
+            Units.Remove(Units.First(uv => uv.ID == id));
         }
 
         public void Update(int id, PropertiesType prop, object value)

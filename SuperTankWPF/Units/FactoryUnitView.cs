@@ -125,14 +125,11 @@ namespace SuperTankWPF.Units
                 case TypeUnit.Ice:
                     resView = new UnitView() { Source = imgStor.Ice, ZIndex = -1 };
                     break;
-
+                    
 
                 case TypeUnit.Eagle:
-                    resView = new UnitView() { Source = imgStor.Eagle };
+                    resView = new EagleView(imgStor.Eagle2) { Source = imgStor.Eagle };
                     break;
-                //            resView = new ViewEagle(id, x, y, ConfigurationView.WidthTile * 2, ConfigurationView.HeightTile * 2, 0, Images.Eagle, Images.Eagle2);
-                //            break;
-
 
                 case TypeUnit.Shell:
                 case TypeUnit.ConcreteWallShell:
