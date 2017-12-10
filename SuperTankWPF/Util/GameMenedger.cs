@@ -33,9 +33,9 @@ namespace SuperTankWPF.Util
             {
                 ServiceLocator.Current.GetInstance<ScrenGameViewModel>().IsShowAnimationNewLevel = true;
                 this.OpenHost();
-            });       
+            });
 
-            await Task.Run(() => 
+            await Task.Run(() =>
             {
                 Game game = new Game();
                 game.Start(null, null);
@@ -56,18 +56,18 @@ namespace SuperTankWPF.Util
         {
             synchronizationContext.Post((s) =>
             {
-                ServiceHost hostSound = new ServiceHost(new SoundGame(ConfigurationWPF.SoundPath));
+                ServiceHost hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
                 hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
                 hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
                 hostSound.Open();
 
-            ServiceHost hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
-            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
-            hostSceneView.Open();
+                ServiceHost hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
+                hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
+                hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
+                hostSceneView.Open();
             }, null);
 
-            ServiceHost hostGameInfo = new ServiceHost(this);
+            ServiceHost hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
             hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             hostGameInfo.Open();

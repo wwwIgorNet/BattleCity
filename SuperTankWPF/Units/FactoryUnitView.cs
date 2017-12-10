@@ -26,7 +26,7 @@ namespace SuperTankWPF.Units
         {
             UnitView resView = null;
             switch (typeUnit)
-            { // todo
+            {
                 case TypeUnit.Star:
                     resView = new AnimationView(4, GetImgForStar(), true);
                     break;

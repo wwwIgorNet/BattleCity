@@ -10,7 +10,7 @@ using System.Timers;
 
 namespace SuperTankWPF.Units
 {
-    class BonusTankView : TankView
+    class BonusTankView : TankView, IDisposable
     {
         private BonusTankAnimation bonusTankAnimation;
         private Dictionary<Direction, ImageSource[]> imgGray;
@@ -34,6 +34,12 @@ namespace SuperTankWPF.Units
         private void SetImgTankGray()
         {
             base.ImagesWithDirection = imgGray;
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            bonusTankAnimation.Dispose();
         }
     }
 }

@@ -85,10 +85,6 @@ namespace SuperTankWPF.ViewModel
                         var numberOfHits = unitView as INumberOfHits;
                         if (numberOfHits != null) numberOfHits.NumberOfHits = (int)value;
                         break;
-                        //case PropertiesType.Glide:
-                        //default:
-                        //    unitView.Properties[prop] = value;
-                        //    break;
                 }
             }
             catch (Exception ex)
