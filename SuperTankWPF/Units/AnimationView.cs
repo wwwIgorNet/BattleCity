@@ -61,7 +61,7 @@ namespace SuperTankWPF.Units
             this.Dispatcher.BeginInvoke(method);
         }
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             timer.Dispose();
         }

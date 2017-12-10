@@ -26,7 +26,7 @@ namespace SuperTankWPF.Units
             base.UpdateSource();
         }
 
-        public int NumberOfHits
+        public virtual int NumberOfHits
         {
             set
             {

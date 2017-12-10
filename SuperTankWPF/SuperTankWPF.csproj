@@ -88,6 +88,8 @@
     <Compile Include="Model\IImageSourceStor.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\ArmoredTankView.cs" />
+    <Compile Include="Units\BonusArmoredTankView.cs" />
+    <Compile Include="Units\BonusTankAnimation.cs" />
     <Compile Include="Units\BonusTankView.cs" />
     <Compile Include="Units\EagleView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />

@@ -63,37 +63,23 @@ namespace SuperTankWPF.Units
                     break;
 
                 case TypeUnit.ArmoredTank:
-                    resView = new ArmoredTankView(
-                        (Direction)properties[PropertiesType.Direction],
-                        imgStor.GetImages(imgStor.Enemy.ArmoredTank),
-                        imgStor.GetImages(imgStor.Enemy.ArmoredTankGreen),
-                        imgStor.GetImages(imgStor.Enemy.ArmoredTankYellow), 6);
+                    if ((bool)properties[PropertiesType.IsBonusTank])
+                        resView = new BonusArmoredTankView(
+                            (Direction)properties[PropertiesType.Direction],
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTank),
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTankGreen),
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTankYellow),
+                            imgStor.GetImages(imgStor.TankRed.ArmoredTank), 6);
+                    else
+                        resView = new ArmoredTankView(
+                            (Direction)properties[PropertiesType.Direction],
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTank),
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTankGreen),
+                            imgStor.GetImages(imgStor.Enemy.ArmoredTankYellow), 6);
 
-                    
                     resView.ZIndex = ConfigurationView.ZIndexTank;
                     break;
-                //            if ((bool)properties[PropertiesType.IsBonusTank])
-                //            {
-                //                resView = new ViewBonusArmoredTank(id, x, y,
-                //                    ConfigurationView.WidthTank,
-                //                    ConfigurationView.HeightTank,
-                //                    ConfigurationView.ZIndexTank,
-                //                    Images.GetImages(Images.Enemy.ArmoredTank),
-                //                    Images.GetImages(Images.Enemy.ArmoredTankGreen),
-                //                    Images.GetImages(Images.Enemy.ArmoredTankYellow),
-                //                    Images.GetImages(Images.TankRed.ArmoredTank));
-                //            }
-                //            else
-                //            {
-                //                resView = new ViewAnimationArmoredTank(id, x, y,
-                //                    ConfigurationView.WidthTank,
-                //                    ConfigurationView.HeightTank,
-                //                    ConfigurationView.ZIndexTank,
-                //                    Images.GetImages(Images.Enemy.ArmoredTank),
-                //                    Images.GetImages(Images.Enemy.ArmoredTankGreen),
-                //                    Images.GetImages(Images.Enemy.ArmoredTankYellow));
-                //            }
-                //            break;
+
 
                 case TypeUnit.BrickWall:
                     resView = new UnitView() { Source = imgStor.BrickWall };
@@ -111,7 +97,7 @@ namespace SuperTankWPF.Units
                 case TypeUnit.Ice:
                     resView = new UnitView() { Source = imgStor.Ice, ZIndex = -1 };
                     break;
-                    
+
 
                 case TypeUnit.Eagle:
                     resView = new EagleView(imgStor.Eagle2) { Source = imgStor.Eagle };

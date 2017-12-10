@@ -16,8 +16,8 @@ namespace SuperTankWPF.Units
         private Dictionary<Direction, ImageSource[]> imgGray;
         private Dictionary<Direction, ImageSource[]> imgRed;
         private int iteration = 0;
-        private Action chengRed;// = new Action(SetImgTankRed);
-        private Action chengGrey;// = new Action(SetImgTankRed);
+        private Action chengRed;
+        private Action chengGrey;
 
         public BonusTankView(Direction direction, Dictionary<Direction, ImageSource[]> imgGray, Dictionary<Direction, ImageSource[]> imgRed, int updateInterval) : base(direction, imgGray, updateInterval)
         {
