@@ -10,41 +10,66 @@ using System.Windows.Media.Imaging;
 using SuperTankWPF.Model;
 using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.ViewModel;
+using System.Timers;
 
 namespace SuperTankWPF.Units
 {
     class PlayerTankView : TankView, IInvulnerable
     {
         private ImageSource[] invulnerable;
-        private AnimationView animationView;
         private bool isInvulnerable;
+        private Timer timer = new Timer(ConfigurationWPF.TimerInterval * 3);
+        private int frame;
+        private Action invalidateRender;
 
         public PlayerTankView(Direction direction, Dictionary<Direction, ImageSource[]> imgSources, ImageSource[] invulnerable, int updateInterval) : base(direction, imgSources, updateInterval)
         {
+            invalidateRender = new Action(InvalidateRender);
             this.invulnerable = invulnerable;
+            timer.Elapsed += Timer_Elapsed;
         }
-        
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            this.Dispatcher.BeginInvoke(invalidateRender);
+        }
+
         public bool IsInvulnerable
         {
             get { return isInvulnerable; }
             set
             {
                 isInvulnerable = value;
-                if (isInvulnerable)
-                {
-                    var av = new AnimationView(1, invulnerable, true);
-                    av.X = X;
-                    av.Y = Y;
-                    av.ZIndex = 15;
-                    animationView = av;
-
-                    ServiceLocator.Current.GetInstance<ScrenSceneViewModel>().Units.Add(animationView);
-                }
+                if (value) timer.Start();
                 else
                 {
-                    ServiceLocator.Current.GetInstance<ScrenSceneViewModel>().Units.Remove(animationView);
+                    timer.Stop();
+                    InvalidateRender();
                 }
             }
+        }
+
+        protected override void OnRender(DrawingContext dc)
+        {
+            base.OnRender(dc);
+            if (IsInvulnerable)
+            {
+                frame = frame == 0 ? 1 : 0;
+                dc.DrawImage(invulnerable[frame], new Rect(0, 0, ActualWidth, ActualHeight));
+            }
+        }
+
+        private bool Invalidate
+        {
+            get { return (bool)GetValue(FremeProperty); }
+            set { SetValue(FremeProperty, value); }
+        }
+
+        private static readonly DependencyProperty FremeProperty = DependencyProperty.Register("Invalidate", typeof(bool), typeof(PlayerTankView), new FrameworkPropertyMetadata(false) { AffectsRender = true });
+
+       private void InvalidateRender()
+        {
+            Invalidate = !Invalidate;
         }
     }
 }
