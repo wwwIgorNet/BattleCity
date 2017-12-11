@@ -43,7 +43,8 @@ namespace SuperTankWPF.ViewModel
 
         public void Clear()
         {
-            Units.Clear();
+            for (int i = Units.Count - 1; i >= 0; i--)
+                Units.RemoveAt(i);
         }
 
         public void Remove(int id)

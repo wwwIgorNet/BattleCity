@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using SuperTank;
 using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
@@ -26,43 +28,63 @@ namespace SuperTankWPF.ViewModel
             Init();
         }
 
-        private void TestInit1P()
+        //private void TestInit1P()
+        //{
+        //    Level = 4;
+
+        //    Player1.TotalCountPoints = 33333;
+
+        //    Plain.Points1Player = 33;
+        //    Plain.CountTanl1Player = 4;
+
+        //    ArmoredPersonnelCarrier.Points1Player = 55;
+        //    ArmoredPersonnelCarrier.CountTanl1Player = 15;
+
+        //    QuickFire.Points1Player = 0;
+        //    QuickFire.CountTanl1Player = 0;
+
+        //    Armored.Points1Player = 111;
+        //    Armored.CountTanl1Player = 1;
+
+        //    Player1.TotalCountTank = 14;
+        //}
+        //private void TestInit2P()
+        //{
+        //    Player2.TotalCountPoints = 123456;
+
+        //    Plain.Points2Player = 1000;
+        //    Plain.CountTanl2Player = 20;
+
+        //    ArmoredPersonnelCarrier.Points2Player = 66;
+        //    ArmoredPersonnelCarrier.CountTanl2Player = 9;
+
+        //    QuickFire.Points2Player = 7;
+        //    QuickFire.CountTanl2Player = 1;
+
+        //    Armored.Points2Player = 44;
+        //    Armored.CountTanl2Player = 2;
+
+        //    Player2.TotalCountTank = 7;
+        //}
+
+        public async void Set(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
+                                   int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            Level = 4;
+            Clear();
 
-            Player1.TotalCountPoints = 33333;
+            Level = level;
+            Player1.TotalCountPoints = countPointsIPlayer;
 
-            Plain.Points1Player = 33;
-            Plain.CountTanl1Player = 4;
-
-            ArmoredPersonnelCarrier.Points1Player = 55;
-            ArmoredPersonnelCarrier.CountTanl1Player = 15;
-
-            QuickFire.Points1Player = 0;
-            QuickFire.CountTanl1Player = 0;
-
-            Armored.Points1Player = 111;
-            Armored.CountTanl1Player = 1;
-
-            Player1.TotalCountTank = 14;
-        }
-        private void TestInit2P()
-        {
-            Player2.TotalCountPoints = 123456;
-
-            Plain.Points2Player = 1000;
-            Plain.CountTanl2Player = 20;
-
-            ArmoredPersonnelCarrier.Points2Player = 66;
-            ArmoredPersonnelCarrier.CountTanl2Player = 9;
-
-            QuickFire.Points2Player = 7;
-            QuickFire.CountTanl2Player = 1;
-
-            Armored.Points2Player = 44;
-            Armored.CountTanl2Player = 2;
-
-            Player2.TotalCountTank = 7;
+            foreach (var item in ListDeteils)
+            {
+                for (int i = 0; i <= destrouTanksIPlaeyr[item.Key]; i++)
+                {
+                    item.Value.CountTanl1Player = i;
+                    item.Value.Points1Player = i * ConfigurationWPF.GetCountPoints(item.Key);
+                    await Task.Delay(150);
+                }
+            }
+            player1.TotalCountTank = destrouTanksIPlaeyr.Sum(kv => kv.Value);
         }
 
         public void Init()
@@ -71,10 +93,10 @@ namespace SuperTankWPF.ViewModel
             Player2 = new PlayerDeteils();
             TankDetils.InitIsTwoPlayer(IsTwoPlayer);
 
-            ListDeteils.Add(Plain);
-            ListDeteils.Add(ArmoredPersonnelCarrier);
-            ListDeteils.Add(QuickFire);
-            ListDeteils.Add(Armored);
+            ListDeteils.Add(TypeUnit.PlainTank, Plain);
+            ListDeteils.Add(TypeUnit.ArmoredPersonnelCarrierTank, ArmoredPersonnelCarrier);
+            ListDeteils.Add(TypeUnit.QuickFireTank, QuickFire);
+            ListDeteils.Add(TypeUnit.ArmoredTank, Armored);
             
             textStage = "STAGE";
 
@@ -104,7 +126,10 @@ namespace SuperTankWPF.ViewModel
         public void Clear()
         {
             foreach (var item in ListDeteils)
-                item.Clear();
+                item.Value.Clear();
+
+            player1.TotalCountTank = -1;
+            Player2.TotalCountTank = -1;
         }
 
         public bool IsTwoPlayer
@@ -115,32 +140,29 @@ namespace SuperTankWPF.ViewModel
                 isTwoPlayer = value;
                 InitTextIsTwoPlayer();
                 TankDetils.InitIsTwoPlayer(value);
-
-                TestInit1P();// todo delite test metods
-                if(value == true) TestInit2P();
             }
         }
 
         public int Level
         {
             get { return level; }
-            set { Stage = textStage + " " + value; }
+            private set { Stage = textStage + " " + value; }
         }
 
         public string Stage
         {
             get { return stage; }
-            set { Set(nameof(Stage), ref stage, value); }
+            private set { Set(nameof(Stage), ref stage, value); }
         }
         public PlayerDeteils Player1
         {
             get { return player1; }
-            set { Set(nameof(Player1), ref player1, value); }
+            private set { Set(nameof(Player1), ref player1, value); }
         }
         public PlayerDeteils Player2
         {
             get { return player2; }
-            set { Set(nameof(Player2), ref player2, value); }
+            private set { Set(nameof(Player2), ref player2, value); }
         }
 
         public TankDetils Plain { get; } = new TankDetils();
@@ -148,7 +170,7 @@ namespace SuperTankWPF.ViewModel
         public TankDetils QuickFire { get; } = new TankDetils();
         public TankDetils Armored { get; } = new TankDetils();
 
-        public ObservableCollection<TankDetils> ListDeteils { get; } = new ObservableCollection<TankDetils>();
+        public Dictionary<TypeUnit, TankDetils> ListDeteils { get; } = new Dictionary<TypeUnit, TankDetils>();
 
         public class TankDetils : ObservableObject
         {
@@ -170,22 +192,22 @@ namespace SuperTankWPF.ViewModel
             public string PTS1P
             {
                 get { return pts1p; }
-                set { Set(nameof(PTS1P), ref pts1p, value); }
+                private set { Set(nameof(PTS1P), ref pts1p, value); }
             }
             public string PTS2P
             {
                 get { return pts2p; }
-                set { Set(nameof(PTS2P), ref pts2p, value); }
+                private set { Set(nameof(PTS2P), ref pts2p, value); }
             }
             public string ArrowLeft
             {
                 get { return arrowLeft; }
-                set { Set(nameof(ArrowLeft), ref arrowLeft, value); }
+                private set { Set(nameof(ArrowLeft), ref arrowLeft, value); }
             }
             public string ArrowRight
             {
                 get { return arrowRight; }
-                set { Set(nameof(ArrowRight), ref arrowRight, value); }
+                private set { Set(nameof(ArrowRight), ref arrowRight, value); }
             }
 
             public int Points1Player

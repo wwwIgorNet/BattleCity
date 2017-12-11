@@ -44,5 +44,13 @@ namespace SuperTankWPF.ViewModel
             get { return countTankEnemy; }
             set { Set(nameof(CountTankEnemy), ref countTankEnemy, value); }
         }
+
+        public void Cler()
+        {
+            CountTankEnemy = 0;
+            CountTank2Player = -1;
+            countTank1Player = 0;
+            Level = 0;
+        }
     }
 }

@@ -20,18 +20,26 @@ namespace SuperTankWPF.Util
     class GameMenedger : IGameInfo
     {
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
+        private ScrenSceneViewModel screnScene = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
         private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
         private SynchronizationContext synchronizationContext = SynchronizationContext.Current;
+        private MainViewModel mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+
+        private System.Threading.AutoResetEvent autoResetEvent = new System.Threading.AutoResetEvent(false);
+
+        public GameMenedger()
+        {
+            mainViewModel.StartScrenVisibility = Visibility.Visible;
+        }
 
         public async void IPlayerExecute()
         {
-            ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Collapsed;
-            ServiceLocator.Current.GetInstance<MainViewModel>().ScrenGameVisibility = Visibility.Visible;
+            mainViewModel.ScrenGameVisibility = Visibility.Visible;
 
             await Task.Run(() =>
             {
-                ServiceLocator.Current.GetInstance<ScrenGameViewModel>().IsShowAnimationNewLevel = true;
+                screnGame.IsShowAnimationNewLevel = true;
                 this.OpenHost();
             });
 
@@ -78,21 +86,36 @@ namespace SuperTankWPF.Util
             screnGame.Keyboard = factoryKeyboard.CreateChannel();
         }
 
-        public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
+        public async void EndLevel(int level, int countPointsIPlayer,  Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
+                                        int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            screnScore.Level = level;
-            screnScore.Player1.TotalCountPoints = countPointsIIPlayer;
+            mainViewModel.ScrenScoreVisibility = Visibility.Visible;
+            screnScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+
+           await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum()));
+
+            mainViewModel.ScrenGameVisibility = Visibility.Visible;
+            screnGame.IsShowAnimationNewLevel = true;
+
+            autoResetEvent.Set();
         }
 
         public void StartLevel(int level)
         {
             screnGame.Level = level;
-            levelInfo.Level = level;
+            //levelInfo.Level = level;
+            autoResetEvent.Reset();
         }
 
-        public void GameOver()
+        public async void GameOver()
         {
             screnGame.IsShowGameOver = true;
+
+            //autoResetEvent.WaitOne();
+            await Task.Delay(ConfigurationWPF.TimeGameOver);
+            screnScene.Clear();
+            screnGame.Clear();
+            levelInfo.Cler();
         }
 
         public void SetCountTankEnemy(int count)

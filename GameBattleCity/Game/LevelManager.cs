@@ -130,7 +130,7 @@ namespace SuperTank
             DateTime start = DateTime.Now;
             if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
             gameInfo.StartLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(1000);
+            System.Threading.Thread.Sleep(1100);
             Scene.Clear();
             CreateLevel(curentLevel + 1);
             TimeSpan timeSlip = ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start);

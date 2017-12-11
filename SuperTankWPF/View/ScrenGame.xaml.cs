@@ -28,9 +28,10 @@ namespace SuperTankWPF.View
     public partial class ScrenGame : UserControl
     {
         private ScrenGameViewModel viewModel = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
+        private EasingFunctionBase easingFunction;
         private ThicknessAnimation animationGameOver = new ThicknessAnimation();
-        private DoubleAnimation animationTop = new DoubleAnimation();
-        private DoubleAnimation animationBottom = new DoubleAnimation();
+        private DoubleAnimation animationTop;
+        private DoubleAnimation animationBottom;
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
         private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds /  3);
         private TimeSpan durationClosOpenLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
@@ -120,16 +121,10 @@ namespace SuperTankWPF.View
 
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
-            animationTop.Duration = durationClosOpenLevel;
-            EasingFunctionBase easingFunction = new PowerEase();
+            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, TimeSpan.Zero));
+
+            easingFunction = new PowerEase();
             easingFunction.EasingMode = EasingMode.EaseInOut;
-            animationTop.EasingFunction = easingFunction;
-
-            animationBottom.Duration = durationClosOpenLevel;
-            animationBottom.EasingFunction = easingFunction;
-
-            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, durationClosOpenLevel));
-            animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Collapsed, durationClosOpenLevel + durationShowLevel));
 
             animationGameOver.EasingFunction = easingFunction;
             animationGameOver.Duration = durationGameOver;
@@ -137,11 +132,13 @@ namespace SuperTankWPF.View
             Binding bindingShowNewLevel = new Binding();
             bindingShowNewLevel.Source = mainGrid.DataContext;
             bindingShowNewLevel.Path = new PropertyPath("IsShowAnimationNewLevel");
+            bindingShowNewLevel.Mode = BindingMode.TwoWay;
             this.SetBinding(ScrenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
 
             Binding bindingIsShowGameOver = new Binding();
             bindingIsShowGameOver.Source = mainGrid.DataContext;
             bindingIsShowGameOver.Path = new PropertyPath("IsShowGameOver");
+            bindingIsShowGameOver.Mode = BindingMode.TwoWay;
             this.SetBinding(ScrenGame.IsShowGameOverProperty, bindingIsShowGameOver);
         }
 
@@ -155,7 +152,20 @@ namespace SuperTankWPF.View
 
         private void StartAnimationNewLevel()
         {
+            animationTop = new DoubleAnimation();
+            animationBottom = new DoubleAnimation();
+
             animationTop.Completed += Animation_Completed;
+
+            animationTop.Duration = durationClosOpenLevel;
+
+            animationTop.EasingFunction = easingFunction;
+            animationBottom.Duration = durationClosOpenLevel;
+            animationBottom.EasingFunction = easingFunction;
+
+            animationText.FillBehavior = FillBehavior.Stop;
+            animationText.Duration = durationShowLevel;
+
             animationTop.From = 0.0;
             animationTop.To = this.ActualHeight / 2 + 4;
 
@@ -164,7 +174,6 @@ namespace SuperTankWPF.View
 
             topRect.BeginAnimation(Rectangle.HeightProperty, animationTop);
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);
-            showNewLevelNumber.BeginAnimation(TextBlock.VisibilityProperty, animationText);
         }
 
         private void Animation_Completed(object sender, EventArgs e)
@@ -180,6 +189,9 @@ namespace SuperTankWPF.View
             animationBottom.BeginTime = durationShowLevel;
             animationBottom.To = 0.0;
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);
+
+            showNewLevelNumber.BeginAnimation(TextBlock.VisibilityProperty, animationText);
+            IsShowAnimationNewLevel = false;
         }
     }
 }
