@@ -23,13 +23,13 @@ namespace SuperTankWPF.Util
         private ScrenSceneViewModel screnScene = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
         private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
-        private SynchronizationContext synchronizationContext = SynchronizationContext.Current;
         private MainViewModel mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
-
-        private System.Threading.AutoResetEvent autoResetEvent = new System.Threading.AutoResetEvent(false);
+        private Comunication comunication = ServiceLocator.Current.GetInstance<Comunication>();
+        private Game game;
 
         public GameMenedger()
         {
+            comunication.SynchronizationContext = SynchronizationContext.Current;
             mainViewModel.StartScrenVisibility = Visibility.Visible;
         }
 
@@ -37,19 +37,23 @@ namespace SuperTankWPF.Util
         {
             mainViewModel.ScrenGameVisibility = Visibility.Visible;
 
-            await Task.Run(() =>
+            ThreadPool.QueueUserWorkItem(s =>
             {
+                screnGame.Clear();
                 screnGame.IsShowAnimationNewLevel = true;
-                this.OpenHost();
+
+                screnScene.Clear();
+                levelInfo.Cler();
+                comunication.OpenHost();
             });
 
             await Task.Run(() =>
             {
-                Game game = new Game();
+                game = new Game();
                 game.Start(null, null);
             });
 
-            ThreadPool.QueueUserWorkItem((s) => OpenChannel());
+            ThreadPool.QueueUserWorkItem((s) => screnGame.Keyboard = comunication.OpenChannel());
         }
         public void IIPlayerExecute()
         {
@@ -60,62 +64,42 @@ namespace SuperTankWPF.Util
             MessageBox.Show("Command CONSTRUCTION");
         }
 
-        public void OpenHost()
-        {
-            synchronizationContext.Post((s) =>
-            {
-                ServiceHost hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
-                hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
-                hostSound.Open();
-
-                ServiceHost hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
-                hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
-                hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
-                hostSceneView.Open();
-            }, null);
-
-            ServiceHost hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
-            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
-            hostGameInfo.Open();
-        }
-        public void OpenChannel()
-        {
-            ChannelFactory<IKeyboard> factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            screnGame.Keyboard = factoryKeyboard.CreateChannel();
-        }
-
-        public async void EndLevel(int level, int countPointsIPlayer,  Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
+        public async void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
                                         int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             mainViewModel.ScrenScoreVisibility = Visibility.Visible;
             screnScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
 
-           await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum()));
+            await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum()));
 
-            mainViewModel.ScrenGameVisibility = Visibility.Visible;
-            screnGame.IsShowAnimationNewLevel = true;
-
-            autoResetEvent.Set();
+            if (!screnGame.IsShowGameOver)
+            {
+                mainViewModel.ScrenGameVisibility = Visibility.Visible;
+                screnGame.IsShowAnimationNewLevel = true;
+            }
+            else
+            {
+                mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
+                comunication.CloseChannelFactory();
+                game.CloseHost();
+                game.CloseChannelFactory();
+                comunication.CloseHost();
+                screnGame.Keyboard = null;
+                await Task.Delay(ConfigurationGame.TimeGameOver);
+                mainViewModel.StartScrenVisibility = Visibility.Visible;
+            }
         }
 
-        public void StartLevel(int level)
+        public async void StartLevel(int level)
         {
             screnGame.Level = level;
-            //levelInfo.Level = level;
-            autoResetEvent.Reset();
+            await Task.Delay((int)ConfigurationWPF.DelayScrenLoadLevel.TotalMilliseconds /2);
+            levelInfo.Level = level;
         }
 
-        public async void GameOver()
+        public void GameOver()
         {
             screnGame.IsShowGameOver = true;
-
-            //autoResetEvent.WaitOne();
-            await Task.Delay(ConfigurationWPF.TimeGameOver);
-            screnScene.Clear();
-            screnGame.Clear();
-            levelInfo.Cler();
         }
 
         public void SetCountTankEnemy(int count)
@@ -123,8 +107,11 @@ namespace SuperTankWPF.Util
             levelInfo.CountTankEnemy = count;
         }
 
-        public void SetCountTankPlaeyr(int count, Owner owner)
+        public async void SetCountTankPlaeyr(int count, Owner owner)
         {
+            if(screnGame.IsShowAnimationNewLevel)
+                await Task.Delay((int)ConfigurationWPF.DelayScrenLoadLevel.TotalMilliseconds / 2);
+
             if (owner == Owner.IPlayer) levelInfo.CountTank1Player = count;
             else if (owner == Owner.IIPlayer) levelInfo.CountTank2Player = count;
         }

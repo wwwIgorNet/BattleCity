@@ -23,25 +23,20 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartScrenViewModel>();
-            SimpleIoc.Default.Register<ScrenScoreViewModel>(() => new ScrenScoreViewModel
-            {
-                IsTwoPlayer = IsTwoPlayer
-            });
+            SimpleIoc.Default.Register<ScrenScoreViewModel>();
             SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel());
             SimpleIoc.Default.Register<ScrenGameViewModel>();
-            SimpleIoc.Default.Register<ScrenRecordViewModel>(() => new ScrenRecordViewModel
-            {
-                CountPoints = 435435
-            });
+            SimpleIoc.Default.Register<ScrenRecordViewModel>();
+
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<GameMenedger>();
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
             SimpleIoc.Default.Register<ISoundGame>(() => new SoundGame(ConfigurationWPF.SoundPath));
-        }
 
-        public static bool IsTwoPlayer { get; set; }
+            SimpleIoc.Default.Register<Comunication>();
+        }
 
         /// <summary>
         /// Gets the Main property.
@@ -112,6 +107,7 @@ namespace SuperTankWPF.ViewModel
         /// </summary>
         public static void Cleanup()
         {
+            //ServiceLocator.Current.GetInstance<Comunication>().Dispose();
         }
     }
 }

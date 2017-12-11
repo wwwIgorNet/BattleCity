@@ -22,9 +22,9 @@
         <DockPanel LastChildFill="False">
             <UniformGrid x:Name="countTankEnemy" Columns="2" Rows="10" DockPanel.Dock="Top"/>
             <StackPanel Orientation="Vertical" DockPanel.Dock="Bottom">
-                <TextBlock x:Name="countTank1Player" Text="{Binding CountTank1Player}" Margin="20,0,0,37"/>
+                <TextBlock x:Name="countTank1Player" Text="{Binding CountTank1Player, Converter={StaticResource PointsConverter}}" Margin="20,0,0,37"/>
                 <TextBlock x:Name="countTank2Player" Text="{Binding CountTank2Player, Converter={StaticResource PointsConverter}}" Margin="20,0,0,48"/>
-                <TextBlock x:Name="carentLevel" Text="{Binding Level}" Margin="20,0,0,80"/>
+                <TextBlock x:Name="carentLevel" Text="{Binding Level, Converter={StaticResource PointsConverter}}" Margin="20,0,0,80"/>
             </StackPanel>
         </DockPanel>
     </Grid>
