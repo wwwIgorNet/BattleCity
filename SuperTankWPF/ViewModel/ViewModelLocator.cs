@@ -38,9 +38,6 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
-            //SimpleIoc.Default.Register<IRender, ScrenSceneViewModel>();
-            //SimpleIoc.Default.Register<IGameInfo, GameMenedger>();
-
             SimpleIoc.Default.Register<ISoundGame>(() => new SoundGame(ConfigurationWPF.SoundPath));
         }
 

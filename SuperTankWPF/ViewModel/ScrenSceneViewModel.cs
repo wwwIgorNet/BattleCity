@@ -66,24 +66,20 @@ namespace SuperTankWPF.ViewModel
                         unitView.Y = (int)value;
                         break;
                     case PropertiesType.Direction:
-                        var direction = unitView as IDirection;
-                        if (direction != null) direction.Direction = (Direction)value;
+                        ((IDirection)unitView).Direction = (Direction)value;
                         break;
                     case PropertiesType.IsParking:
-                        var isParking = unitView as IParking;
-                        if (isParking != null) isParking.IsParking = (bool)value;
+                        ((IParking)unitView).IsParking = (bool)value;
                         break;
                     case PropertiesType.Detonation:
-                        var detonation = unitView as IDetonation;
-                        if (detonation != null) detonation.Detonation = (bool)value;
+                        IDetonation detonation = unitView as IDetonation;
+                        if(detonation != null) detonation.Detonation = (bool)value;
                         break;
                     case PropertiesType.IsInvulnerable:
-                        var isInvulnerable = unitView as IInvulnerable;
-                        if (isInvulnerable != null) isInvulnerable.IsInvulnerable = (bool)value;
+                        ((IInvulnerable)unitView).IsInvulnerable = (bool)value;
                         break;
                     case PropertiesType.NumberOfHits:
-                        var numberOfHits = unitView as INumberOfHits;
-                        if (numberOfHits != null) numberOfHits.NumberOfHits = (int)value;
+                        ((INumberOfHits)unitView).NumberOfHits = (int)value;
                         break;
                 }
             }

@@ -30,44 +30,44 @@ namespace SuperTank.Audio
 
         public SoundGame()
         {
-            OpenMedia(ConfigurationView.SoundPath);
+            OpenMedia(ConfigurationView.SoundPath, UriKind.Relative);
         }
         public SoundGame(string path)
         {
-            OpenMedia(path);
+            OpenMedia(path, UriKind.Relative);
         }
 
-        protected virtual void OpenMedia(string path)
+        protected virtual void OpenMedia(string path, UriKind uriKind)
         {
-            move.Open(new Uri(path + "SoundMove.wav", UriKind.Relative));
+            move.Open(new Uri(path + "SoundMove.wav", uriKind));
 
-            stop.Open(new Uri(path + "SoundStop.wav", UriKind.Relative));
+            stop.Open(new Uri(path + "SoundStop.wav", uriKind));
 
-            gameStart.Open(new Uri(path + "GameStart.wav", UriKind.Relative));
+            gameStart.Open(new Uri(path + "GameStart.wav", uriKind));
 
-            gameOver.Open(new Uri(path + "GameOver.wav", UriKind.Relative));
+            gameOver.Open(new Uri(path + "GameOver.wav", uriKind));
 
-            fire.Open(new Uri(path + "Fire.wav", UriKind.Relative));
+            fire.Open(new Uri(path + "Fire.wav", uriKind));
 
-            bigDetonation.Open(new Uri(path + "DetonationShellBig.wav", UriKind.Relative));
+            bigDetonation.Open(new Uri(path + "DetonationShellBig.wav", uriKind));
 
-            detonationShell.Open(new Uri(path + "DetonationShell.wav", UriKind.Relative));
+            detonationShell.Open(new Uri(path + "DetonationShell.wav", uriKind));
 
-            glide.Open(new Uri(path + "Glide.wav", UriKind.Relative));
+            glide.Open(new Uri(path + "Glide.wav", uriKind));
 
-            detonationBrickWall.Open(new Uri(path + "DetonationBrickWall.wav", UriKind.Relative));
+            detonationBrickWall.Open(new Uri(path + "DetonationBrickWall.wav", uriKind));
 
-            detonationEagle.Open(new Uri(path + "DetonationEagle.wav", UriKind.Relative));
+            detonationEagle.Open(new Uri(path + "DetonationEagle.wav", uriKind));
 
-            bonus.Open(new Uri(path + "Bonus.wav", UriKind.Relative));
+            bonus.Open(new Uri(path + "Bonus.wav", uriKind));
 
-            newBonus.Open(new Uri(path + "NewBonus.wav", UriKind.Relative));
+            newBonus.Open(new Uri(path + "NewBonus.wav", uriKind));
 
-            countTankIncrement.Open(new Uri(path + "CountTankIncrement.wav", UriKind.Relative));
+            countTankIncrement.Open(new Uri(path + "CountTankIncrement.wav", uriKind));
 
-            highScore.Open(new Uri(path + "HighScore.wav", UriKind.Relative));
+            highScore.Open(new Uri(path + "HighScore.wav", uriKind));
 
-            twoFire.Open(new Uri(path + "TwoFire.wav", UriKind.Relative));
+            twoFire.Open(new Uri(path + "TwoFire.wav", uriKind));
         }
 
         public void GameOver()
