@@ -11,7 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SuperTankWPF.ViewModel
 {
@@ -21,6 +23,7 @@ namespace SuperTankWPF.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
+            SimpleIoc.Default.Register<SynchronizationContext>(() => SynchronizationContext.Current);
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartScrenViewModel>();
             SimpleIoc.Default.Register<ScrenScoreViewModel>();
@@ -33,7 +36,8 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
-            SimpleIoc.Default.Register<ISoundGame>(() => new SoundGame(ConfigurationWPF.SoundPath));
+            SoundGame sg = new SoundGame(ConfigurationWPF.SoundPath);
+            SimpleIoc.Default.Register<ISoundGame>(() => sg);
 
             SimpleIoc.Default.Register<Comunication>();
         }
@@ -107,7 +111,12 @@ namespace SuperTankWPF.ViewModel
         /// </summary>
         public static void Cleanup()
         {
-            //ServiceLocator.Current.GetInstance<Comunication>().Dispose();
+            ServiceLocator.Current.GetInstance<GameMenedger>().Dispose();
+        }
+
+        public static void Start()
+        {
+            ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Visible;
         }
     }
 }

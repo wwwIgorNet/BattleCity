@@ -86,10 +86,13 @@ namespace SuperTank
         private void OpenChanelFactoryIIPlayer(out IRender renderIIPlayer, out ISoundGame soundIIPlayer, out IGameInfo gameInfoIIPlayer, string ipAddress)
         {
             ChannelFactory<IRender> factoryRender = new ChannelFactory<IRender>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelRender + "/IRender");
+            factoryRender.Open();
             renderIIPlayer = factoryRender.CreateChannel();
             ChannelFactory<ISoundGame> factorySound = new ChannelFactory<ISoundGame>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelSound + "/ISoundGame");
+            factorySound.Open();
             soundIIPlayer = factorySound.CreateChannel();
             ChannelFactory<IGameInfo> factoryGameInfo = new ChannelFactory<IGameInfo>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelInfo + "/IGameInfo");
+            factoryGameInfo.Open();
             gameInfoIIPlayer = factoryGameInfo.CreateChannel();
 
             closeChannel += () =>

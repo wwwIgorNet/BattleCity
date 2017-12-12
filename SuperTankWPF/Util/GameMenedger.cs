@@ -17,7 +17,7 @@ using System.Windows;
 namespace SuperTankWPF.Util
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class GameMenedger : IGameInfo
+    class GameMenedger : IGameInfo, IDisposable
     {
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private ScrenSceneViewModel screnScene = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
@@ -27,13 +27,7 @@ namespace SuperTankWPF.Util
         private Comunication comunication = ServiceLocator.Current.GetInstance<Comunication>();
         private Game game;
 
-        public GameMenedger()
-        {
-            comunication.SynchronizationContext = SynchronizationContext.Current;
-            mainViewModel.StartScrenVisibility = Visibility.Visible;
-        }
-
-        public async void IPlayerExecute()
+        public void IPlayerExecute()
         {
             mainViewModel.ScrenGameVisibility = Visibility.Visible;
 
@@ -44,16 +38,17 @@ namespace SuperTankWPF.Util
 
                 screnScene.Clear();
                 levelInfo.Cler();
+
                 comunication.OpenHost();
+
+                screnGame.Keyboard = comunication.OpenChannel();
             });
 
-            await Task.Run(() =>
+            ThreadPool.QueueUserWorkItem(s =>
             {
                 game = new Game();
                 game.Start(null, null);
             });
-
-            ThreadPool.QueueUserWorkItem((s) => screnGame.Keyboard = comunication.OpenChannel());
         }
         public void IIPlayerExecute()
         {
@@ -80,11 +75,7 @@ namespace SuperTankWPF.Util
             else
             {
                 mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
-                comunication.CloseChannelFactory();
-                game.CloseHost();
-                game.CloseChannelFactory();
-                comunication.CloseHost();
-                screnGame.Keyboard = null;
+                StpoGame();
                 await Task.Delay(ConfigurationGame.TimeGameOver);
                 mainViewModel.StartScrenVisibility = Visibility.Visible;
             }
@@ -114,6 +105,22 @@ namespace SuperTankWPF.Util
 
             if (owner == Owner.IPlayer) levelInfo.CountTank1Player = count;
             else if (owner == Owner.IIPlayer) levelInfo.CountTank2Player = count;
+        }
+
+        public void Dispose()
+        {
+            StpoGame();
+        }
+
+        private void StpoGame()
+        {
+            screnGame.Keyboard = null;
+            game?.Stop();
+            comunication?.CloseChannelFactory();
+            comunication?.CloseChannelFactory();
+            game?.CloseHost();
+            game?.CloseChannelFactory();
+            comunication?.CloseHost();
         }
     }
 }

@@ -30,8 +30,14 @@ namespace SuperTankWPF
 
             ClientWidth = ConfigurationWPF.WindowClientWidth;
             ClientHeight = ConfigurationWPF.WindowClientHeight;
-
+            
+            this.Activated += MainWindow_Activated;
             this.Closed += MainWindow_Closed;
+        }
+
+        private void MainWindow_Activated(object sender, EventArgs e)
+        {
+            ViewModelLocator.Start();
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)

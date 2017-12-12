@@ -19,23 +19,27 @@ namespace SuperTankWPF.Util
         private ServiceHost hostGameInfo;
         private ServiceHost hostSceneView;
         private ServiceHost hostSound;
-        
-        public SynchronizationContext SynchronizationContext { get; set; }
+        private SynchronizationContext synchronizationContext;
+
+        public Comunication(SynchronizationContext synchronizationContext)
+        {
+            this.synchronizationContext = synchronizationContext;
+        }
 
         public void OpenHost()
         {
-            SynchronizationContext.Post((s) =>
+            synchronizationContext.Post((s) =>
             {
                 hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
                 hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
                 hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
                 hostSound.Open();
+            }, null);
 
                 hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
                 hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
                 hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
                 hostSceneView.Open();
-            }, null);
 
             hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
@@ -51,14 +55,14 @@ namespace SuperTankWPF.Util
 
         public void CloseHost()
         {
-            hostSound.Close();
-            hostSceneView.Close();
-            hostGameInfo.Close();
+            hostSound?.Close();
+            hostSceneView?.Close();
+            hostGameInfo?.Close();
         }
 
         public void CloseChannelFactory()
         {
-            factoryKeyboard.Close();
+            factoryKeyboard?.Close();
         }
 
         public void Dispose()

@@ -9,7 +9,7 @@ namespace SuperTankWPF.ViewModel
 {
     class LevelInfoViewModel : ObservableObject
     {
-        private int level;
+        private int level = -1;
         private int countTank1Player = -1;
         private int countTank2Player = -1;
         private int countTankEnemy;
