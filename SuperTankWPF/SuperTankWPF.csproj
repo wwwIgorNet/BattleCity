@@ -110,6 +110,7 @@
     <Compile Include="Util\WPFCommands.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ScrenConstructionViewModel.cs" />
     <Compile Include="ViewModel\ScrenGameViewModel.cs" />
     <Compile Include="ViewModel\ScrenRecordViewModel.cs" />
     <Compile Include="ViewModel\ScrenSceneViewModel.cs" />
@@ -119,6 +120,9 @@
     <Compile Include="Units\CentrAnimationView.cs" />
     <Compile Include="View\LevelInfo.xaml.cs">
       <DependentUpon>LevelInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScrenConstruction.xaml.cs">
+      <DependentUpon>ScrenConstruction.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ScrenGame.xaml.cs">
       <DependentUpon>ScrenGame.xaml</DependentUpon>
@@ -151,6 +155,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\LevelInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScrenConstruction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

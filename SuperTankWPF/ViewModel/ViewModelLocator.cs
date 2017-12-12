@@ -30,6 +30,7 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel());
             SimpleIoc.Default.Register<ScrenGameViewModel>();
             SimpleIoc.Default.Register<ScrenRecordViewModel>();
+            SimpleIoc.Default.Register<ScrenConstructionViewModel>();
 
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<GameMenedger>();
@@ -96,6 +97,13 @@ namespace SuperTankWPF.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+            }
+        }
+        public ScrenConstructionViewModel ScrenConstruction
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
             }
         }
         public IImageSourceStor ImageSource

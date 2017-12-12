@@ -15,6 +15,7 @@ namespace SuperTankWPF.ViewModel
         private Visibility startScrenVisibility;
         private Visibility screnGameOverVisibility;
         private Visibility screnRecordVisibility;
+        private Visibility screnConstructionVisibility;
 
         public MainViewModel()
         {
@@ -47,6 +48,11 @@ namespace SuperTankWPF.ViewModel
             get { return screnRecordVisibility; }
             set { UpdateValue(nameof(ScrenRecordVisibility), ref screnRecordVisibility, value); }
         }
+        public Visibility ScrenConstructionVisibility
+        {
+            get { return screnConstructionVisibility; }
+            set { UpdateValue(nameof(ScrenConstructionVisibility), ref screnConstructionVisibility, value); }
+        }
 
         private void UpdateValue(string propertyName, ref Visibility field, Visibility newValue)
         {
@@ -63,6 +69,7 @@ namespace SuperTankWPF.ViewModel
             Set(nameof(StartScrenVisibility), ref startScrenVisibility, visibility);
             Set(nameof(ScrenGameOverVisibility), ref screnGameOverVisibility, visibility);
             Set(nameof(ScrenRecordVisibility), ref screnRecordVisibility, visibility);
+            Set(nameof(ScrenConstructionVisibility), ref screnConstructionVisibility, visibility);
         }
     }
 }

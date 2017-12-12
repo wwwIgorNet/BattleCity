@@ -56,7 +56,7 @@ namespace SuperTankWPF.Util
         }
         public void ConstructionExecute()
         {
-            MessageBox.Show("Command CONSTRUCTION");
+            mainViewModel.ScrenConstructionVisibility = Visibility.Visible;
         }
 
         public async void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,

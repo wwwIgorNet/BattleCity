@@ -21,6 +21,7 @@
             <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>
             <view:ScrenRecord Visibility="{Binding ScrenRecordVisibility}"/>
             <view:ScrenGameOver Visibility="{Binding ScrenGameOverVisibility}"/>
+            <view:ScrenConstruction Visibility="{Binding ScrenConstructionVisibility}"/>
         </Grid>
     </Viewbox>
 </Window>
