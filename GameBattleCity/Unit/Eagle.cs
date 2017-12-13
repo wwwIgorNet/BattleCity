@@ -22,7 +22,8 @@ namespace SuperTank
                 Properties[PropertiesType.Detonation] = true;
                 soundGame.DetonationEagle();
                 FactoryUnit.CreateBigDetonation(this, TypeUnit.BigDetonation).Start();
-                base.Dispose();
+                //base.Dispose();
+                OnUnitDisposable();
             }
         }
     }

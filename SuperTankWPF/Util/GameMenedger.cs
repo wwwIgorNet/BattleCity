@@ -119,7 +119,7 @@ namespace SuperTankWPF.Util
             StpoGame();
         }
 
-        private async void StpoGame()
+        private /*async*/ void StpoGame()
         {
             screnGame.Keyboard = null;
             game?.Stop();
