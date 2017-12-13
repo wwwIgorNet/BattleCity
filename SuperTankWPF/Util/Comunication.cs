@@ -31,25 +31,25 @@ namespace SuperTankWPF.Util
             synchronizationContext.Post((s) =>
             {
                 hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
-                hostSound.CloseTimeout = TimeSpan.FromMilliseconds(0);
+                hostSound.CloseTimeout = TimeSpan.FromMilliseconds(50);
                 hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
                 hostSound.Open();
             }, null);
 
                 hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
-                hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(0);
+                hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(50);
                 hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
                 hostSceneView.Open();
 
             hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
-            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(0);
+            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
             hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             hostGameInfo.Open();
         }
         public IKeyboard OpenChannel()
         {
             factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            factoryKeyboard.Open(TimeSpan.FromSeconds(5));
+            factoryKeyboard.Open(TimeSpan.FromSeconds(1));
             return factoryKeyboard.CreateChannel();
         }
 

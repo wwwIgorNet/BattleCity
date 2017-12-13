@@ -50,7 +50,7 @@ namespace SuperTankWPF.View
 
             Binding bindingMap = new Binding("Map");
             bindingMap.Source = board.DataContext;
-            bindingMap.Mode = BindingMode.TwoWay;
+            bindingMap.Mode = BindingMode.OneWayToSource;
             this.SetBinding(ScrenConstruction.MapProperty, bindingMap);
 
             timer.Elapsed += Timer_Elapsed;
@@ -72,8 +72,8 @@ namespace SuperTankWPF.View
                 for (int j = 0; j < col; j++)
                 {
                     ElementMap em = new ElementMap();
-                    em.SetValue(Canvas.LeftProperty, (double)i * ConfigurationWPF.WidthTile);
-                    em.SetValue(Canvas.TopProperty, (double)j * ConfigurationWPF.HeightTile);
+                    em.SetValue(Canvas.LeftProperty, (double)j * ConfigurationWPF.WidthTile);
+                    em.SetValue(Canvas.TopProperty, (double)i * ConfigurationWPF.HeightTile);
                     elements[i, j] = em;
                     board.Children.Add(elements[i, j]);
                 }
@@ -150,9 +150,9 @@ namespace SuperTankWPF.View
 
         private void ChangType(int x, int y)
         {
-            for (int i = x; i < 2 + x; i++)
+            for (int i = y; i < 2 + y; i++)
             {
-                for (int j = y; j < 2 + y; j++)
+                for (int j = x; j < 2 + x; j++)
                 {
                     ElementMap em = elements[i, j];
                     em.Source = GetImg(currentChar);
@@ -225,9 +225,26 @@ namespace SuperTankWPF.View
             {
                 this.Focus();
                 timer.Start();
+                ClearBoard();
             }
             else
                 timer.Stop();
+        }
+
+        private void ClearBoard()
+        {
+            currentChar = spaceChar;
+            TankPosX = 0;
+            TankPosY = 0;
+            for (int i = 0; i < row; i++)
+            {
+                for (int j = 0; j < col; j++)
+                {
+                    if (elements[i, j].Type != spaceChar)
+                        ChangType(j, i);
+
+                }
+            }
         }
 
         private void board_KeyDown(object sender, KeyEventArgs e)
@@ -248,6 +265,7 @@ namespace SuperTankWPF.View
                     break;
                 case Key.Space:
                     space = true;
+                    ChangType((int)(TankPosX / ConfigurationWPF.WidthTile), (int)(TankPosY / ConfigurationWPF.HeightTile));
                     break;
                 case Key.Enter:
                     enter = true;
@@ -281,7 +299,6 @@ namespace SuperTankWPF.View
                 case Key.Escape:
                     InitMap();
                     e.Handled = true;
-                    this.Visibility = Visibility.Collapsed;
                     ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Visible;
                     break;
             }
@@ -289,9 +306,9 @@ namespace SuperTankWPF.View
 
         private void InitMap()
         {
-            for (int i = 0; i < col; i++)
+            for (int i = 0; i < row; i++)
             {
-                for (int j = 0; j < row; j++)
+                for (int j = 0; j < col; j++)
                 {
                     map[i, j] = elements[i, j].Type;
                 }

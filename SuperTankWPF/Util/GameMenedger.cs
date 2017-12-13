@@ -24,14 +24,15 @@ namespace SuperTankWPF.Util
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
         private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
         private MainViewModel mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
+        private ScrenConstructionViewModel construction = ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
         private Comunication comunication = ServiceLocator.Current.GetInstance<Comunication>();
         private Game game;
 
-        public void IPlayerExecute()
+        public async void IPlayerExecute()
         {
             mainViewModel.ScrenGameVisibility = Visibility.Visible;
 
-            ThreadPool.QueueUserWorkItem(s =>
+            await Task.Run(() =>
             {
                 screnGame.Clear();
                 screnGame.IsShowAnimationNewLevel = true;
@@ -40,15 +41,21 @@ namespace SuperTankWPF.Util
                 levelInfo.Cler();
 
                 comunication.OpenHost();
-
-                screnGame.Keyboard = comunication.OpenChannel();
             });
 
-            ThreadPool.QueueUserWorkItem(s =>
+            await Task.Run(() =>
             {
                 game = new Game();
-                game.Start(null, null);
+                if (construction.HasMap)
+                {
+                    game.Start(construction.GetAndClerMap(), null, null);
+                    construction.Map = null;
+                }
+                else
+                    game.Start(null, null);
             });
+
+            ThreadPool.QueueUserWorkItem(s => screnGame.Keyboard = comunication.OpenChannel());
         }
         public void IIPlayerExecute()
         {
@@ -112,10 +119,11 @@ namespace SuperTankWPF.Util
             StpoGame();
         }
 
-        private void StpoGame()
+        private async void StpoGame()
         {
             screnGame.Keyboard = null;
             game?.Stop();
+            //await Task.Delay(ConfigurationWPF.TimerInterval * 5);
             comunication?.CloseChannelFactory();
             comunication?.CloseChannelFactory();
             game?.CloseHost();
