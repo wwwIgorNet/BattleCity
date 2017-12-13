@@ -20,6 +20,8 @@ namespace SuperTankWPF.ViewModel
         public MainViewModel()
         {
             ColapsAll();
+
+            startScrenVisibility = Visibility.Visible;
         }
 
         public Visibility ScrenScoreVisibility

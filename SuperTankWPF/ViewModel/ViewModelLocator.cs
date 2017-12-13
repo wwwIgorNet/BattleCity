@@ -121,10 +121,5 @@ namespace SuperTankWPF.ViewModel
         {
             ServiceLocator.Current.GetInstance<GameMenedger>().Dispose();
         }
-
-        public static void Start()
-        {
-            ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Visible;
-        }
     }
 }
