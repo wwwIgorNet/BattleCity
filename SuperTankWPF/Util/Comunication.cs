@@ -36,10 +36,10 @@ namespace SuperTankWPF.Util
                 hostSound.Open();
             }, null);
 
-                hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
-                hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(50);
-                hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
-                hostSceneView.Open();
+            hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
+            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
+            hostSceneView.Open();
 
             hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
             hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
