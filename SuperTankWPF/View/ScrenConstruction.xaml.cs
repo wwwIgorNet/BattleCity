@@ -1,5 +1,6 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.Model;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,6 +38,7 @@ namespace SuperTankWPF.View
         
         private char spaceChar = ' ';
         private char currentChar = ' ';
+        private char[,] map;
         private int col;
         private int row;
 
@@ -46,6 +48,11 @@ namespace SuperTankWPF.View
         {
             InitializeComponent();
 
+            Binding bindingMap = new Binding("Map");
+            bindingMap.Source = board.DataContext;
+            bindingMap.Mode = BindingMode.TwoWay;
+            this.SetBinding(ScrenConstruction.MapProperty, bindingMap);
+
             timer.Elapsed += Timer_Elapsed;
             Elapsed = new Action(Update);
 
@@ -54,9 +61,9 @@ namespace SuperTankWPF.View
 
             this.IsVisibleChanged += ScrenConstruction_IsVisibleChanged;
 
-
             col = ConfigurationWPF.WidthBoard / ConfigurationWPF.WidthTile;
             row = ConfigurationWPF.HeightBoard / ConfigurationWPF.HeightTile;
+            map = new char[col, row];
 
             elements = new ElementMap[col, row];
 
@@ -72,6 +79,16 @@ namespace SuperTankWPF.View
                 }
             }
         }
+
+        #region DependencyProperty
+        public char[,] Map
+        {
+            get { return (char[,])GetValue(MapProperty); }
+            set { SetValue(MapProperty, value); }
+        }
+        
+        public static readonly DependencyProperty MapProperty =
+            DependencyProperty.Register("Map", typeof(char[,]), typeof(ScrenConstruction), new PropertyMetadata(null));
 
         public double TankPosX
         {
@@ -100,6 +117,7 @@ namespace SuperTankWPF.View
         {
             ((ScrenConstruction)d).tankCursor.SetValue(Canvas.TopProperty, e.NewValue);
         }
+        #endregion
 
         private void Update()
         {
@@ -260,9 +278,27 @@ namespace SuperTankWPF.View
                     enter = false;
                     NextChar();
                     break;
+                case Key.Escape:
+                    InitMap();
+                    e.Handled = true;
+                    this.Visibility = Visibility.Collapsed;
+                    ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Visible;
+                    break;
             }
         }
 
+        private void InitMap()
+        {
+            for (int i = 0; i < col; i++)
+            {
+                for (int j = 0; j < row; j++)
+                {
+                    map[i, j] = elements[i, j].Type;
+                }
+            }
+
+            Map = map;
+        }
 
         class ElementMap : Image
         {

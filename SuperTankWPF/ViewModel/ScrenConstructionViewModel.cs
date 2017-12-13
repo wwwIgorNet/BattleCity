@@ -10,10 +10,15 @@ namespace SuperTankWPF.ViewModel
 {
     class ScrenConstructionViewModel : ObservableObject
     {
-        public RelayCommand AddBrickWall = new RelayCommand(() => { });
-        public RelayCommand AddConcreteWall = new RelayCommand(() => { });
-        public RelayCommand AddForest = new RelayCommand(() => { });
-        public RelayCommand AddWater = new RelayCommand(() => { });
-        public RelayCommand AddIce = new RelayCommand(() => { });
+        private char[,] map;
+
+        public char[,] Map
+        {
+            get { return map; }
+            set
+            {
+                Set(nameof(Map), ref map, value);
+            }
+        }
     }
 }
