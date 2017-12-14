@@ -26,6 +26,7 @@ namespace SuperTankWPF.Util
         private MainViewModel mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
         private ScrenConstructionViewModel construction = ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
         private Comunication comunication = ServiceLocator.Current.GetInstance<Comunication>();
+        private IViewSound sound = ServiceLocator.Current.GetInstance<IViewSound>();
         private Game game;
 
         public async void IPlayerExecute()
@@ -91,6 +92,7 @@ namespace SuperTankWPF.Util
         public async void StartLevel(int level)
         {
             screnGame.Level = level;
+            sound.LevelStart();
             await Task.Delay((int)ConfigurationWPF.DelayScrenLoadLevel.TotalMilliseconds /2);
             levelInfo.Level = level;
         }
@@ -98,6 +100,7 @@ namespace SuperTankWPF.Util
         public void GameOver()
         {
             screnGame.IsShowGameOver = true;
+            sound.GameOver();
         }
 
         public void SetCountTankEnemy(int count)
@@ -119,11 +122,10 @@ namespace SuperTankWPF.Util
             StpoGame();
         }
 
-        private /*async*/ void StpoGame()
+        private void StpoGame()
         {
             screnGame.Keyboard = null;
             game?.Stop();
-            //await Task.Delay(ConfigurationWPF.TimerInterval * 5);
             comunication?.CloseChannelFactory();
             comunication?.CloseChannelFactory();
             game?.CloseHost();

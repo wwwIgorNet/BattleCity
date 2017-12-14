@@ -280,7 +280,7 @@ namespace SuperTankWPF.Model
         {
             try
             {
-                return img == null ? img = new BitmapImage(new Uri(@"pack://application:,,,/" + ConfigurationWPF.TexturePath + imgName, UriKind.Absolute)) : img;
+                return img == null ? img = new BitmapImage(new Uri(ConfigurationWPF.TexturePath + imgName, UriKind.Absolute)) : img;
             }
             catch (Exception ex)
             {

@@ -2,6 +2,8 @@
 using SuperTank.View;
 using System.Windows.Media;
 using System.ServiceModel;
+using System.Threading;
+using System.Collections.Generic;
 
 namespace SuperTank.Audio
 {
@@ -11,22 +13,28 @@ namespace SuperTank.Audio
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class SoundGame : ISoundGame, IViewSound, IDisposable
     {
-        protected readonly MediaPlayer stop = new MediaPlayer();
-        protected readonly MediaPlayer move = new MediaPlayer();
-        protected readonly MediaPlayer glide = new MediaPlayer();
-        protected readonly MediaPlayer detonationShell = new MediaPlayer();
-        protected readonly MediaPlayer bigDetonation = new MediaPlayer();
-        protected readonly MediaPlayer fire = new MediaPlayer();
-        protected readonly MediaPlayer fire2 = new MediaPlayer();
-        protected readonly MediaPlayer gameStart = new MediaPlayer();
-        protected readonly MediaPlayer gameOver = new MediaPlayer();
-        protected readonly MediaPlayer detonationBrickWall = new MediaPlayer();
-        protected readonly MediaPlayer detonationEagle = new MediaPlayer();
-        protected readonly MediaPlayer bonus = new MediaPlayer();
-        protected readonly MediaPlayer newBonus = new MediaPlayer();
-        protected readonly MediaPlayer countTankIncrement = new MediaPlayer();
-        protected readonly MediaPlayer highScore = new MediaPlayer();
-        protected readonly MediaPlayer twoFire = new MediaPlayer();
+        private enum NameSound {
+            Stop,
+            Move,
+            Glide,
+            DetonationShell,
+            BigDetonation,
+            Fire,
+            Fire2,
+            GameStart,
+            GameOver,
+            DetonationBrickWall,
+            DetonationEagle,
+            Bonus,
+            NewBonus,
+            CountTankIncrement,
+            HighScore,
+            TwoFire
+        }
+
+        private readonly Dictionary<NameSound, MediaPlayer> mediaPlayers = new Dictionary<NameSound, MediaPlayer>();
+
+        private readonly CountdownEvent countdownEvent = new CountdownEvent(Enum.GetValues(typeof(NameSound)).Length - 1);
 
         public SoundGame()
         {
@@ -37,131 +45,158 @@ namespace SuperTank.Audio
             OpenMedia(path, UriKind.Relative);
         }
 
-        protected virtual void OpenMedia(string path, UriKind uriKind)
+        public void OpenMedia(string path, UriKind uriKind)
         {
-            move.Open(new Uri(path + "SoundMove.wav", uriKind));
+            ThreadPool.QueueUserWorkItem(s =>
+            {
+                DateTime start = DateTime.Now;
+                countdownEvent.Wait();
 
-            stop.Open(new Uri(path + "SoundStop.wav", uriKind));
+                Console.WriteLine(DateTime.Now - start);
+            });
 
-            gameStart.Open(new Uri(path + "GameStart.wav", uriKind));
+            foreach (NameSound name in Enum.GetValues(typeof(NameSound)))
+            {
+                MediaPlayer mp = new MediaPlayer();
+                mp.MediaOpened += MediaOpened;
+                mediaPlayers.Add(name, mp);
+            }
 
-            gameOver.Open(new Uri(path + "GameOver.wav", uriKind));
+            mediaPlayers[NameSound.Move].Open(new Uri(path + "SoundMove.wav", uriKind));
+            mediaPlayers[NameSound.Move].MediaEnded += SoundGame_Move_MediaEnded;
 
-            fire.Open(new Uri(path + "Fire.wav", uriKind));
+            mediaPlayers[NameSound.Stop].Open(new Uri(path + "SoundStop.wav", uriKind));
+            mediaPlayers[NameSound.Stop].MediaEnded += SoundGame_Stop_MediaEnded;
 
-            bigDetonation.Open(new Uri(path + "DetonationShellBig.wav", uriKind));
+            mediaPlayers[NameSound.GameStart].Open(new Uri(path + "GameStart.wav", uriKind));
 
-            detonationShell.Open(new Uri(path + "DetonationShell.wav", uriKind));
+            mediaPlayers[NameSound.GameOver].Open(new Uri(path + "GameOver.wav", uriKind));
 
-            glide.Open(new Uri(path + "Glide.wav", uriKind));
+            mediaPlayers[NameSound.Fire].Open(new Uri(path + "Fire.wav", uriKind));
 
-            detonationBrickWall.Open(new Uri(path + "DetonationBrickWall.wav", uriKind));
+            mediaPlayers[NameSound.BigDetonation].Open(new Uri(path + "DetonationShellBig.wav", uriKind));
 
-            detonationEagle.Open(new Uri(path + "DetonationEagle.wav", uriKind));
+            mediaPlayers[NameSound.DetonationShell].Open(new Uri(path + "DetonationShell.wav", uriKind));
 
-            bonus.Open(new Uri(path + "Bonus.wav", uriKind));
+            mediaPlayers[NameSound.Glide].Open(new Uri(path + "Glide.wav", uriKind));
 
-            newBonus.Open(new Uri(path + "NewBonus.wav", uriKind));
+            mediaPlayers[NameSound.DetonationBrickWall].Open(new Uri(path + "DetonationBrickWall.wav", uriKind));
 
-            countTankIncrement.Open(new Uri(path + "CountTankIncrement.wav", uriKind));
+            mediaPlayers[NameSound.DetonationEagle].Open(new Uri(path + "DetonationEagle.wav", uriKind));
 
-            highScore.Open(new Uri(path + "HighScore.wav", uriKind));
+            mediaPlayers[NameSound.Bonus].Open(new Uri(path + "Bonus.wav", uriKind));
 
-            twoFire.Open(new Uri(path + "TwoFire.wav", uriKind));
+            mediaPlayers[NameSound.NewBonus].Open(new Uri(path + "NewBonus.wav", uriKind));
+
+            mediaPlayers[NameSound.CountTankIncrement].Open(new Uri(path + "CountTankIncrement.wav", uriKind));
+
+            mediaPlayers[NameSound.HighScore].Open(new Uri(path + "HighScore.wav", uriKind));
+
+            mediaPlayers[NameSound.TwoFire].Open(new Uri(path + "TwoFire.wav", uriKind));
+
+            //countdownEvent.Wait();
+        }
+
+        private void SoundGame_Move_MediaEnded(object sender, EventArgs e)
+        {
+            mediaPlayers[NameSound.Move].Stop();
+            mediaPlayers[NameSound.Move].Play();
+        }
+
+        private void SoundGame_Stop_MediaEnded(object sender, EventArgs e)
+        {
+            mediaPlayers[NameSound.Stop].Stop();
+            mediaPlayers[NameSound.Stop].Play();
+        }
+        
+        private void MediaOpened(object sender, EventArgs e)
+        {
+            countdownEvent.Signal();
         }
 
         public void GameOver()
         {
-            gameOver.Stop();
-            gameOver.Play();
+            mediaPlayers[NameSound.GameOver].Stop();
+            mediaPlayers[NameSound.GameOver].Play();
         }
         public void LevelStart()
         {
-            gameStart.Stop();
-            gameStart.Play();
+            mediaPlayers[NameSound.GameStart].Stop();
+            mediaPlayers[NameSound.GameStart].Play();
         }
         public void Fire()
         {
-            fire.Stop();
-            fire.Play();
+            mediaPlayers[NameSound.Fire].Stop();
+            mediaPlayers[NameSound.Fire].Play();
         }
         public void TwoFire()
         {
-            twoFire.Stop();
-            twoFire.Play();
+            mediaPlayers[NameSound.TwoFire].Stop();
+            mediaPlayers[NameSound.TwoFire].Play();
         }
         public void DetonationTank()
         {
-            bigDetonation.Stop();
-            bigDetonation.Play();
+            mediaPlayers[NameSound.BigDetonation].Stop();
+            mediaPlayers[NameSound.BigDetonation].Play();
         }
         public void DetonationShell()
         {
-            detonationShell.Stop();
-            detonationShell.Play();
+            mediaPlayers[NameSound.DetonationShell].Stop();
+            mediaPlayers[NameSound.DetonationShell].Play();
         }
         public void Glide()
         {
-            glide.Stop();
-            glide.Play();
+            mediaPlayers[NameSound.Glide].Stop();
+            mediaPlayers[NameSound.Glide].Play();
         }
         public void Move()
         {
-            stop.Stop();
-            move.Play();
+            mediaPlayers[NameSound.Stop].Stop();
+            mediaPlayers[NameSound.Move].Play();
         }
         public void Stop()
         {
-            move.Stop();
-            stop.Play();
+            mediaPlayers[NameSound.Move].Stop();
+            mediaPlayers[NameSound.Stop].Play();
         }
         public void Dispose()
         {
-            stop.Close();
-            move.Close();
-            glide.Close();
-            detonationShell.Close();
-            bigDetonation.Close();
-            fire.Close();
-            gameStart.Close();
-            gameOver.Close();
-            detonationBrickWall.Close();
-            highScore.Close();
-            twoFire.Close();
+            foreach (NameSound name in Enum.GetValues(typeof(NameSound)))
+                mediaPlayers[name].Close();
         }
         public void DetonationBrickWall()
         {
-            detonationBrickWall.Stop();
-            detonationBrickWall.Play();
+            mediaPlayers[NameSound.DetonationBrickWall].Stop();
+            mediaPlayers[NameSound.DetonationBrickWall].Play();
         }
         public void TankSoundStop()
         {
-            stop.Stop();
-            move.Stop();
+            mediaPlayers[NameSound.Stop].Stop();
+            mediaPlayers[NameSound.Move].Stop();
         }
         public void DetonationEagle()
         {
-            detonationEagle.Stop();
-            detonationEagle.Play();
+            mediaPlayers[NameSound.DetonationEagle].Stop();
+            mediaPlayers[NameSound.DetonationEagle].Play();
         }
         public void Bonus()
         {
-            bonus.Stop();
-            bonus.Play();
+            mediaPlayers[NameSound.Bonus].Stop();
+            mediaPlayers[NameSound.Bonus].Play();
         }
         public void NewBonus()
         {
-            newBonus.Stop();
-            newBonus.Play();
+            mediaPlayers[NameSound.NewBonus].Stop();
+            mediaPlayers[NameSound.NewBonus].Play();
         }
         public void CountTankIncrement()
         {
-            countTankIncrement.Stop();
-            countTankIncrement.Play();
+            mediaPlayers[NameSound.CountTankIncrement].Stop();
+            mediaPlayers[NameSound.CountTankIncrement].Play();
         }
         public void HighScore()
         {
-            highScore.Play();
+            mediaPlayers[NameSound.HighScore].Play();
         }
     }
 }

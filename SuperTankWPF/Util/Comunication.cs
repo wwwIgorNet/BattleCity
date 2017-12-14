@@ -34,6 +34,11 @@ namespace SuperTankWPF.Util
                 hostSound.CloseTimeout = TimeSpan.FromMilliseconds(50);
                 hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
                 hostSound.Open();
+
+                hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
+                hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
+                hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
+                hostGameInfo.Open();
             }, null);
 
             hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
@@ -41,10 +46,6 @@ namespace SuperTankWPF.Util
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             hostSceneView.Open();
 
-            hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
-            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
-            hostGameInfo.Open();
         }
         public IKeyboard OpenChannel()
         {

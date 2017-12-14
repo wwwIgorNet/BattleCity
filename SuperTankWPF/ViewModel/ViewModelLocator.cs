@@ -39,6 +39,7 @@ namespace SuperTankWPF.ViewModel
 
             SoundGame sg = new SoundGame(ConfigurationWPF.SoundPath);
             SimpleIoc.Default.Register<ISoundGame>(() => sg);
+            SimpleIoc.Default.Register<IViewSound>(() => sg);
 
             SimpleIoc.Default.Register<Comunication>();
         }
