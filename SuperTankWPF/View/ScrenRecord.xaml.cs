@@ -43,7 +43,6 @@ namespace SuperTankWPF.View
         {
             if (IsVisible)
             {
-                ServiceLocator.Current.GetInstance<IViewSound>().HighScore();
                 objectAnimationUsingKeyFrames.Completed += ColorAnimationUsingKeyFrames_Completed;
                 textHiscore.BeginAnimation(TextBlock.ForegroundProperty, objectAnimationUsingKeyFrames);
             }

@@ -82,7 +82,8 @@ namespace SuperTankWPF.ViewModel
                             if (detonation != null) detonation.Detonation = (bool)value;
                             break;
                         case PropertiesType.IsInvulnerable:
-                            ((IInvulnerable)unitView).IsInvulnerable = (bool)value;
+                            IInvulnerable invulnerable = unitView as IInvulnerable;
+                            if(invulnerable != null) invulnerable.IsInvulnerable = (bool)value;
                             break;
                         case PropertiesType.NumberOfHits:
                             ((INumberOfHits)unitView).NumberOfHits = (int)value;

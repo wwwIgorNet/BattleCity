@@ -7,6 +7,7 @@ using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -19,6 +20,7 @@ namespace SuperTankWPF.Util
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class GameMenedger : IGameInfo, IDisposable
     {
+        private ScrenRecordViewModel screnRecord = ServiceLocator.Current.GetInstance<ScrenRecordViewModel>();
         private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
         private ScrenSceneViewModel screnScene = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
         private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
@@ -84,7 +86,18 @@ namespace SuperTankWPF.Util
             {
                 mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
                 StpoGame();
-                await Task.Delay(ConfigurationGame.TimeGameOver);
+                await Task.Delay(ConfigurationWPF.TimeGameOver);
+
+                int maxPointsPath = int.Parse(File.ReadAllText(ConfigurationWPF.MaxPointsPath));
+                if (maxPointsPath < countPointsIPlayer)
+                {
+                    sound.HighScore();
+                    screnRecord.CountPoints = countPointsIPlayer;
+                    mainViewModel.ScrenRecordVisibility = Visibility.Visible;
+                    File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsIPlayer.ToString());
+                    await Task.Delay(ConfigurationWPF.DelayScrenRecord);
+                }
+
                 mainViewModel.StartScrenVisibility = Visibility.Visible;
             }
         }
