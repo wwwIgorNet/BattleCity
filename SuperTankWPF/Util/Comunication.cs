@@ -19,29 +19,20 @@ namespace SuperTankWPF.Util
         private ServiceHost hostGameInfo;
         private ServiceHost hostSceneView;
         private ServiceHost hostSound;
-        private SynchronizationContext synchronizationContext;
-
-        public Comunication(SynchronizationContext synchronizationContext)
-        {
-            this.synchronizationContext = synchronizationContext;
-        }
 
         public void OpenHost()
         {
-            synchronizationContext.Post((s) =>
-            {
-                hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
-                hostSound.CloseTimeout = TimeSpan.FromMilliseconds(50);
-                hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
-                hostSound.Open();
+            hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
+            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
+            hostSound.Open();
 
-                hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<GameMenedger>());
-                hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
-                hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
-                hostGameInfo.Open();
-            }, null);
+            hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<IGameInfo>());
+            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
+            hostGameInfo.Open();
 
-            hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
+            hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<IRender>());
             hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(50);
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             hostSceneView.Open();

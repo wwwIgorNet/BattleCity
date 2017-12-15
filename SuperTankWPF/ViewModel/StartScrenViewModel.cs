@@ -18,9 +18,8 @@ namespace SuperTankWPF.ViewModel
 {
     class StartScrenViewModel : ObservableObject
     {
-        public StartScrenViewModel()
+        public StartScrenViewModel(GameMenedger gameMenedger)
         {
-            GameMenedger gameMenedger = ServiceLocator.Current.GetInstance<GameMenedger>();
             ListMenu = new ObservableCollection<MenuItem> {
                 new MenuItem("I PLAYER", new RelayCommand(gameMenedger.IPlayerExecute)),
                 new MenuItem("II PLAYERS", new RelayCommand(gameMenedger.IIPlayerExecute)),

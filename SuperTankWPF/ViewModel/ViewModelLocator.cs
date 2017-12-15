@@ -27,17 +27,23 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<StartScrenViewModel>();
             SimpleIoc.Default.Register<ScrenScoreViewModel>();
-            SimpleIoc.Default.Register<LevelInfoViewModel>(() => new LevelInfoViewModel());
+            SimpleIoc.Default.Register<LevelInfoViewModel>();
             SimpleIoc.Default.Register<ScrenGameViewModel>();
             SimpleIoc.Default.Register<ScrenRecordViewModel>();
             SimpleIoc.Default.Register<ScrenConstructionViewModel>();
 
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
+            SimpleIoc.Default.Register<IRender>(() => ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
+
             SimpleIoc.Default.Register<GameMenedger>();
+            SimpleIoc.Default.Register<IGameInfo>(() => ServiceLocator.Current.GetInstance<GameMenedger>());
+
+
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
-            SoundGame sg = new SoundGame(ConfigurationWPF.SoundPath);
+            Model.SoundGame sg = new Model.SoundGame(ServiceLocator.Current.GetInstance<SynchronizationContext>());
+            sg.OpenMedia(ConfigurationWPF.SoundPath, UriKind.Relative);
             SimpleIoc.Default.Register<ISoundGame>(() => sg);
             SimpleIoc.Default.Register<IViewSound>(() => sg);
 

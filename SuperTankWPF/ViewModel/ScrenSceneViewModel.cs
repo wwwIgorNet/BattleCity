@@ -57,9 +57,9 @@ namespace SuperTankWPF.ViewModel
 
         public void Update(int id, PropertiesType prop, object value)
         {
-            try
+            synchronizationContext.Post(s =>
             {
-                synchronizationContext.Post(s =>
+                try
                 {
                     UnitView unitView = Units.FirstOrDefault(u => u.ID == id);
 
@@ -83,18 +83,18 @@ namespace SuperTankWPF.ViewModel
                             break;
                         case PropertiesType.IsInvulnerable:
                             IInvulnerable invulnerable = unitView as IInvulnerable;
-                            if(invulnerable != null) invulnerable.IsInvulnerable = (bool)value;
+                            if (invulnerable != null) invulnerable.IsInvulnerable = (bool)value;
                             break;
                         case PropertiesType.NumberOfHits:
                             ((INumberOfHits)unitView).NumberOfHits = (int)value;
                             break;
                     }
-                }, null);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }, null);
         }
     }
 }

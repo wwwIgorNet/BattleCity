@@ -20,16 +20,33 @@ namespace SuperTankWPF.Util
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class GameMenedger : IGameInfo, IDisposable
     {
-        private ScrenRecordViewModel screnRecord = ServiceLocator.Current.GetInstance<ScrenRecordViewModel>();
-        private ScrenGameViewModel screnGame = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
-        private ScrenSceneViewModel screnScene = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
-        private LevelInfoViewModel levelInfo = ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
-        private ScrenScoreViewModel screnScore = ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
-        private MainViewModel mainViewModel = ServiceLocator.Current.GetInstance<MainViewModel>();
-        private ScrenConstructionViewModel construction = ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
-        private Comunication comunication = ServiceLocator.Current.GetInstance<Comunication>();
-        private IViewSound sound = ServiceLocator.Current.GetInstance<IViewSound>();
+        private ScrenRecordViewModel screnRecord;
+        private ScrenGameViewModel screnGame;
+        private ScrenSceneViewModel screnScene;
+        private LevelInfoViewModel levelInfo;
+        private ScrenScoreViewModel screnScore;
+        private MainViewModel mainViewModel;
+        private ScrenConstructionViewModel construction;
+        private Comunication comunication;
+        private IViewSound sound;
         private Game game;
+
+        public GameMenedger(ScrenRecordViewModel screnRecord, ScrenGameViewModel screnGame
+            , ScrenSceneViewModel screnScene, LevelInfoViewModel levelInfo
+            , ScrenScoreViewModel screnScore, MainViewModel mainViewModel
+            , ScrenConstructionViewModel construction, Comunication comunication
+            , IViewSound sound)
+        {
+            this.screnRecord = screnRecord;
+            this.screnGame = screnGame;
+            this.screnScene = screnScene;
+            this.levelInfo = levelInfo;
+            this.screnScore = screnScore;
+            this.mainViewModel = mainViewModel;
+            this.construction = construction;
+            this.comunication = comunication;
+            this.sound = sound;
+        }
 
         public async void IPlayerExecute()
         {
@@ -83,23 +100,26 @@ namespace SuperTankWPF.Util
                 screnGame.IsShowAnimationNewLevel = true;
             }
             else
+                await GameOver(countPointsIPlayer);
+        }
+
+        private async Task GameOver(int countPointsIPlayer)
+        {
+            mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
+            StpoGame();
+            await Task.Delay(ConfigurationWPF.TimeGameOver);
+
+            int maxPointsPath = int.Parse(File.ReadAllText(ConfigurationWPF.MaxPointsPath));
+            if (maxPointsPath < countPointsIPlayer)
             {
-                mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
-                StpoGame();
-                await Task.Delay(ConfigurationWPF.TimeGameOver);
-
-                int maxPointsPath = int.Parse(File.ReadAllText(ConfigurationWPF.MaxPointsPath));
-                if (maxPointsPath < countPointsIPlayer)
-                {
-                    sound.HighScore();
-                    screnRecord.CountPoints = countPointsIPlayer;
-                    mainViewModel.ScrenRecordVisibility = Visibility.Visible;
-                    File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsIPlayer.ToString());
-                    await Task.Delay(ConfigurationWPF.DelayScrenRecord);
-                }
-
-                mainViewModel.StartScrenVisibility = Visibility.Visible;
+                sound.HighScore();
+                screnRecord.CountPoints = countPointsIPlayer;
+                mainViewModel.ScrenRecordVisibility = Visibility.Visible;
+                File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsIPlayer.ToString());
+                await Task.Delay(ConfigurationWPF.DelayScrenRecord);
             }
+
+            mainViewModel.StartScrenVisibility = Visibility.Visible;
         }
 
         public async void StartLevel(int level)
@@ -139,6 +159,7 @@ namespace SuperTankWPF.Util
         {
             screnGame.Keyboard = null;
             game?.Stop();
+            Thread.Sleep(ConfigurationWPF.TimerInterval * 4);
             comunication?.CloseChannelFactory();
             comunication?.CloseChannelFactory();
             game?.CloseHost();
