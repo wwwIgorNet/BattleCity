@@ -1,4 +1,5 @@
 ﻿<UserControl
+             x:Class="SuperTankWPF.View.ScrenGame"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +7,6 @@
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              xmlns:SuperTank="clr-namespace:SuperTank;assembly=GameLibrary"
-             x:Class="SuperTankWPF.View.ScrenGame"
              mc:Ignorable="d" 
              Height="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
              Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
@@ -31,8 +31,8 @@
             <Rectangle x:Name="bottomRect" Fill="{StaticResource backGround}" DockPanel.Dock="Bottom" SnapsToDevicePixels="True"/>
         </DockPanel>
         <TextBlock x:Name="showNewLevelNumber" Text="{Binding Level, StringFormat=STAGE \{0\}}" Style="{StaticResource infoText}" HorizontalAlignment="Center" Foreground="Black" Visibility="Collapsed" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
-        <StackPanel x:Name="textGameOver" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed">
-            <StackPanel.Resources>
+        <Grid x:Name="textGameOver" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="Collapsed">
+            <Grid.Resources>
                 <Style TargetType="{x:Type TextBlock}">
                     <Setter Property="FontFamily" Value="{StaticResource fontFamilyBattleCitiesText}"/>
                     <Setter Property="Foreground" Value="Red"/>
@@ -43,9 +43,20 @@
                         </Setter.Value>
                     </Setter>
                 </Style>
-            </StackPanel.Resources>
-            <TextBlock Text="GAME"/>
-            <TextBlock Text="OVER"/>
-        </StackPanel>
+                <SolidColorBrush x:Key="gameOvetTextForeColor" Color="Black"/>
+            </Grid.Resources>
+            <StackPanel Margin="1,1,0,0">
+                <TextBlock Text="{Binding ElementName=textBlockGame, Path=Text}" Foreground="{StaticResource gameOvetTextForeColor}"/>
+                <TextBlock Text="{Binding ElementName=textBlockOver, Path=Text}" Foreground="{StaticResource gameOvetTextForeColor}"/>
+            </StackPanel>
+            <StackPanel Margin="-1,-1,0,0">
+                <TextBlock Text="{Binding ElementName=textBlockGame, Path=Text}" Foreground="{StaticResource gameOvetTextForeColor}"/>
+                <TextBlock Text="{Binding ElementName=textBlockOver, Path=Text}" Foreground="{StaticResource gameOvetTextForeColor}"/>
+            </StackPanel>
+            <StackPanel>
+                <TextBlock x:Name="textBlockGame" Text="GAME"/>
+                <TextBlock x:Name="textBlockOver" Text="OVER"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

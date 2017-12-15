@@ -22,18 +22,24 @@ namespace SuperTankWPF.Util
 
         public void OpenHost()
         {
-            hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>());
-            hostSound.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostSound = new ServiceHost(ServiceLocator.Current.GetInstance<ISoundGame>())
+            {
+                CloseTimeout = TimeSpan.FromMilliseconds(50)
+            };
             hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
             hostSound.Open();
 
-            hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<IGameInfo>());
-            hostGameInfo.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostGameInfo = new ServiceHost(ServiceLocator.Current.GetInstance<IGameInfo>())
+            {
+                CloseTimeout = TimeSpan.FromMilliseconds(50)
+            };
             hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
             hostGameInfo.Open();
 
-            hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<IRender>());
-            hostSceneView.CloseTimeout = TimeSpan.FromMilliseconds(50);
+            hostSceneView = new ServiceHost(ServiceLocator.Current.GetInstance<IRender>())
+            {
+                CloseTimeout = TimeSpan.FromMilliseconds(50)
+            };
             hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             hostSceneView.Open();
 

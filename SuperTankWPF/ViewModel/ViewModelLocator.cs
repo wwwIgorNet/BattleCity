@@ -37,15 +37,18 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<GameMenedger>();
             SimpleIoc.Default.Register<IGameInfo>(() => ServiceLocator.Current.GetInstance<GameMenedger>());
-
-
+            
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
-            Model.SoundGame sg = new Model.SoundGame(ServiceLocator.Current.GetInstance<SynchronizationContext>());
-            sg.OpenMedia(ConfigurationWPF.SoundPath, UriKind.Relative);
-            SimpleIoc.Default.Register<ISoundGame>(() => sg);
-            SimpleIoc.Default.Register<IViewSound>(() => sg);
+            SimpleIoc.Default.Register<Model.SoundGame>(() =>
+            {
+                Model.SoundGame soundGame = new Model.SoundGame(ServiceLocator.Current.GetInstance<SynchronizationContext>());
+                soundGame.OpenMedia(ConfigurationWPF.SoundPath, UriKind.Relative);
+                return soundGame;
+            });
+            SimpleIoc.Default.Register<ISoundGame>(() => ServiceLocator.Current.GetInstance<Model.SoundGame>());
+            SimpleIoc.Default.Register<IViewSound>(() => ServiceLocator.Current.GetInstance<Model.SoundGame>());
 
             SimpleIoc.Default.Register<Comunication>();
         }
@@ -127,6 +130,7 @@ namespace SuperTankWPF.ViewModel
         public static void Cleanup()
         {
             ServiceLocator.Current.GetInstance<GameMenedger>().Dispose();
+            ServiceLocator.Current.GetInstance<Model.SoundGame>().Dispose();
         }
     }
 }
