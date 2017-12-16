@@ -120,6 +120,9 @@
     <Compile Include="ViewModel\StartScrenViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Units\CentrAnimationView.cs" />
+    <Compile Include="View\DialogIP.xaml.cs">
+      <DependentUpon>DialogIP.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\LevelInfo.xaml.cs">
       <DependentUpon>LevelInfo.xaml</DependentUpon>
     </Compile>
@@ -156,6 +159,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\DialogIP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\LevelInfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

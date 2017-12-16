@@ -1,0 +1,71 @@
+﻿<Window x:Class="SuperTankWPF.View.DialogIP"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:model="clr-namespace:SuperTankWPF.Model"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuperTankWPF.View"
+        mc:Ignorable="d"
+        Title="IP"
+        BorderBrush="White"
+        BorderThickness="1"
+        Background="Black"
+        Icon="/SuperTankWPF;component/Content/Ico/Ico.ico"
+        WindowStartupLocation="CenterOwner" 
+        WindowStyle="ToolWindow"
+        SizeToContent="WidthAndHeight">
+    <!--Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}"-->
+    <Grid Margin="20" HorizontalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <Style x:Key="focusVisual">
+                <Setter Property="Control.Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Rectangle Margin="-2" StrokeThickness="1.5" Stroke="Gray" StrokeDashArray="1 2"/>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style x:Name="textLebel" TargetType="Label" BasedOn="{StaticResource infoText}"/>
+            <Style x:Name="textRadioButton" TargetType="RadioButton" BasedOn="{StaticResource infoText}">
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="IsTabStop" Value="True"/>
+            </Style>
+            <Style x:Name="textRadioTextBox" TargetType="TextBox" BasedOn="{StaticResource infoText}">
+                <Setter Property="Background" Value="Gray"/>
+                <Setter Property="IsTabStop" Value="True"/>
+                <Setter Property="MinWidth" Value="240"/>
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                <Setter Property="Padding" Value="5"/>
+                <Setter Property="CaretBrush" Value="White"/>
+                <Setter Property="FocusVisualStyle" Value="{StaticResource focusVisual}"/>
+            </Style>
+            <Style x:Name="textButton" TargetType="Button" BasedOn="{StaticResource infoText}">
+                <Setter Property="Padding" Value="20,5"/>
+                <Setter Property="Foreground" Value="Black"/>
+            </Style>
+        </Grid.Resources>
+        <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+            <StackPanel>
+                <RadioButton x:Name="newGame" FocusVisualStyle="{StaticResource focusVisual}" IsChecked="True" Content="NEW GAME"/>
+                <RadioButton x:Name="joinToGame" FocusVisualStyle="{StaticResource focusVisual}" Content="JOIN TO GAME"/>
+            </StackPanel>
+        </GroupBox>
+        <Label Content="YOUR IP:" Target="{Binding ElementName=textBox1PlayerIP}" Grid.Row="1" HorizontalAlignment="Right"/>
+        <Label Content="IP SECOND COMPUTER:" Target="{Binding ElementName=textBox2PlayerIP}" Grid.Row="2" HorizontalAlignment="Right"/>
+        <TextBox x:Name="textBox1PlayerIP" Text="255.255.255.255" Grid.Row="1" Grid.Column="1" />
+        <TextBox x:Name="textBox2PlayerIP" Grid.Row="2" Grid.Column="1"/>
+        <Button Content="OK" Grid.Row="3" HorizontalAlignment="Right" IsDefault="True" Click="Button_Click_OK"/>
+        <Button Content="Cancel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" IsCancel="True" Click="Button_Click_Cancel"/>
+    </Grid>
+</Window>

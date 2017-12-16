@@ -3,6 +3,7 @@ using SuperTank;
 using SuperTank.Audio;
 using SuperTank.View;
 using SuperTankWPF.Model;
+using SuperTankWPF.View;
 using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,6 @@ namespace SuperTankWPF.Util
         public async void IPlayerExecute()
         {
             mainViewModel.ScrenGameVisibility = Visibility.Visible;
-
             await Task.Run(() =>
             {
                 screnGame.Clear();
@@ -73,7 +73,10 @@ namespace SuperTankWPF.Util
         }
         public void IIPlayerExecute()
         {
-            MessageBox.Show("Command II PLAYERS");
+            new DialogIP
+            {
+                Owner = Application.Current.Windows[0]
+            }.ShowDialog();
         }
         public void ConstructionExecute()
         {
