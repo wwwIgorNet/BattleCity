@@ -251,6 +251,7 @@ namespace SuperTankWPF.Model
         {
             synchronizationContext.Post(s =>
             {
+                mediaPlayers[NameSound.HighScore].Stop();
                 mediaPlayers[NameSound.HighScore].Play();
             }, null);
         }
