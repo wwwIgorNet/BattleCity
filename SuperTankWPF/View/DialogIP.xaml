@@ -5,7 +5,8 @@
         xmlns:model="clr-namespace:SuperTankWPF.Model"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperTankWPF.View"
-        xmlns:Util="clr-namespace:SuperTankWPF.Util" x:Class="SuperTankWPF.View.DialogIP"
+        xmlns:Util="clr-namespace:SuperTankWPF.Util"
+        x:Class="SuperTankWPF.View.DialogIP"
         mc:Ignorable="d"
         Title="IP"
         BorderBrush="White"
@@ -18,7 +19,7 @@
     <Window.Resources>
         <Util:IPAddressConverter x:Key="IPAddressConverter"/>
     </Window.Resources>
-    <Grid Margin="20" HorizontalAlignment="Stretch">
+    <Grid x:Name="gridConteiner" Margin="20" HorizontalAlignment="Stretch">
         <Grid.Resources>
             <Style x:Key="focusVisual">
                 <Setter Property="Control.Template">

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,7 +28,11 @@ namespace SuperTankWPF.View
 
         private void Button_Click_OK(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            buttonOK.Focus();
+            iPRemoteComputer.Focus();
+            //if (string.Empty == ((IDataErrorInfo)this.gridConteiner.DataContext)["IDataErrorInfo"])
+            if (IPAddress.TryParse(this.iPRemoteComputer.Text, out IPAddress iPAddress))
+                this.DialogResult = true;
         }
     }
 }

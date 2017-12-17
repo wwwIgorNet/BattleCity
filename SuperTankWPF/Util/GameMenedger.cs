@@ -85,8 +85,6 @@ namespace SuperTankWPF.Util
 
             if (dialogIP.ShowDialog() == true)
             {
-                if (null == dialogIPViewModel.IPRemoteComputer) return;
-
                 Console.WriteLine(dialogIPViewModel.IPCurrentComputer);
                 Console.WriteLine(dialogIPViewModel.IPRemoteComputer);
             }

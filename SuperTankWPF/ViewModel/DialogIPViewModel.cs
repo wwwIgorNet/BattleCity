@@ -13,6 +13,8 @@ namespace SuperTankWPF.ViewModel
     {
         private IPAddress iPCurrentComputer;
         private IPAddress iPRemoteComputer;
+        private bool newGame;
+        private bool joinGame;
 
         public string this[string columnName]
         {
@@ -28,6 +30,16 @@ namespace SuperTankWPF.ViewModel
                 }
                 return error;
             }
+        }
+        public bool NewGame
+        {
+            get { return newGame; }
+            set { Set(nameof(NewGame), ref newGame, value); }
+        }
+        public bool JoinGame
+        {
+            get { return joinGame; }
+            set { Set(nameof(JoinGame), ref joinGame, value); }
         }
         public IPAddress IPCurrentComputer
         {
