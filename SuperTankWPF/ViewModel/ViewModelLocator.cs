@@ -31,6 +31,7 @@ namespace SuperTankWPF.ViewModel
             SimpleIoc.Default.Register<ScrenGameViewModel>();
             SimpleIoc.Default.Register<ScrenRecordViewModel>();
             SimpleIoc.Default.Register<ScrenConstructionViewModel>();
+            SimpleIoc.Default.Register<DialogIPViewModel>();
 
             SimpleIoc.Default.Register<ScrenSceneViewModel>();
             SimpleIoc.Default.Register<IRender>(() => ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
@@ -116,6 +117,13 @@ namespace SuperTankWPF.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
+            }
+        }
+        public DialogIPViewModel DialogIP
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<DialogIPViewModel>();
             }
         }
         public IImageSourceStor ImageSource

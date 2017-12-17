@@ -106,10 +106,12 @@
     <Compile Include="Units\TankView.cs" />
     <Compile Include="Util\Comunication.cs" />
     <Compile Include="Util\GameMenedger.cs" />
+    <Compile Include="Util\IPAddressConverter.cs" />
     <Compile Include="Util\IPlayerGameManedger.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Units\UnitView.cs" />
     <Compile Include="Util\WPFCommands.cs" />
+    <Compile Include="ViewModel\DialogIPViewModel.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ScrenConstructionViewModel.cs" />

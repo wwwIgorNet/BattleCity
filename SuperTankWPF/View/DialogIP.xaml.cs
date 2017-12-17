@@ -26,12 +26,7 @@ namespace SuperTankWPF.View
 
         private void Button_Click_OK(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("ok");
-        }
-
-        private void Button_Click_Cancel(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show("cancel");
+            this.DialogResult = true;
         }
     }
 }

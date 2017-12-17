@@ -1,6 +1,7 @@
 ﻿using Microsoft.Practices.ServiceLocation;
 using SuperTank;
 using SuperTank.Audio;
+using SuperTank.FH;
 using SuperTank.View;
 using SuperTankWPF.Model;
 using SuperTankWPF.View;
@@ -28,12 +29,14 @@ namespace SuperTankWPF.Util
         private Comunication comunication;
         private IViewSound sound;
         private IPlayerGameManedger iPlayerGameManedger;
+        private DialogIPViewModel dialogIPViewModel;
         private Game game;
 
         public GameMenedger(ScrenGameViewModel screnGame, MainViewModel mainViewModel, 
             ScrenSceneViewModel screnScene, LevelInfoViewModel levelInfo, 
             ScrenConstructionViewModel construction, Comunication comunication, 
-            IViewSound sound, IPlayerGameManedger iPlayerGameManedger)
+            IViewSound sound, IPlayerGameManedger iPlayerGameManedger,
+            DialogIPViewModel dialogIPViewModel)
         {
             this.screnGame = screnGame;
             this.mainViewModel = mainViewModel;
@@ -43,6 +46,7 @@ namespace SuperTankWPF.Util
             this.comunication = comunication;
             this.sound = sound;
             this.iPlayerGameManedger = iPlayerGameManedger;
+            this.dialogIPViewModel = dialogIPViewModel;
         }
 
         public async void IPlayerExecute()
@@ -63,7 +67,6 @@ namespace SuperTankWPF.Util
                 if (construction.HasMap)
                 {
                     game.Start(construction.GetAndClerMap(), null, null);
-                    construction.Map = null;
                 }
                 else
                     game.Start(null, null);
@@ -73,10 +76,20 @@ namespace SuperTankWPF.Util
         }
         public void IIPlayerExecute()
         {
-            new DialogIP
+            FirewallHelper.Test();
+            dialogIPViewModel.Init();
+            DialogIP dialogIP = new DialogIP
             {
                 Owner = Application.Current.Windows[0]
-            }.ShowDialog();
+            };
+
+            if (dialogIP.ShowDialog() == true)
+            {
+                if (null == dialogIPViewModel.IPRemoteComputer) return;
+
+                Console.WriteLine(dialogIPViewModel.IPCurrentComputer);
+                Console.WriteLine(dialogIPViewModel.IPRemoteComputer);
+            }
         }
         public void ConstructionExecute()
         {
