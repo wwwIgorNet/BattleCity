@@ -20,13 +20,12 @@ namespace SuperTankWPF.Model
         {
             Stop,
             Move,
-            Glide,
-            DetonationShell,
-            BigDetonation,
-            Fire,
-            Fire2,
             GameStart,
             GameOver,
+            Fire,
+            BigDetonation,
+            DetonationShell,
+            Glide,
             DetonationBrickWall,
             DetonationEagle,
             Bonus,
@@ -38,27 +37,19 @@ namespace SuperTankWPF.Model
 
         private SynchronizationContext synchronizationContext;
         private readonly Dictionary<NameSound, MediaPlayer> mediaPlayers = new Dictionary<NameSound, MediaPlayer>();
-
-        private readonly CountdownEvent countdownEvent = new CountdownEvent(Enum.GetValues(typeof(NameSound)).Length - 1);
+        private int countSoundNotLoaded = Enum.GetValues(typeof(NameSound)).Length;
 
         public SoundGame(SynchronizationContext synchronizationContext)
         {
             this.synchronizationContext = synchronizationContext;
         }
 
+        public static Action IsLoaded;
+
         public void OpenMedia(string path, UriKind uriKind)
         {
-            ThreadPool.QueueUserWorkItem(s =>
-            {
-                DateTime start = DateTime.Now;
-                countdownEvent.Wait();
-
-                Console.WriteLine(DateTime.Now - start);
-            });
-
             synchronizationContext.Post(s =>
             {
-
                 foreach (NameSound name in Enum.GetValues(typeof(NameSound)))
                 {
                     MediaPlayer mp = new MediaPlayer();
@@ -97,8 +88,6 @@ namespace SuperTankWPF.Model
                 mediaPlayers[NameSound.HighScore].Open(new Uri(path + "HighScore.wav", uriKind));
 
                 mediaPlayers[NameSound.TwoFire].Open(new Uri(path + "TwoFire.wav", uriKind));
-
-                //countdownEvent.Wait();
             }, null);
         }
 
@@ -116,7 +105,9 @@ namespace SuperTankWPF.Model
 
         private void MediaOpened(object sender, EventArgs e)
         {
-            countdownEvent.Signal();
+            countSoundNotLoaded--;
+            if (countSoundNotLoaded == 0)
+                IsLoaded?.Invoke();
         }
 
         public void GameOver()

@@ -13,9 +13,13 @@
         KeyUp="Window_KeyUp"
         Background="Transparent"
         d:DesignHeight="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
-        d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
+        d:DesignWidth="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}" WindowStartupLocation="CenterScreen">
     <Viewbox>
         <Grid DataContext="{Binding Main, Mode=OneWay, Source={StaticResource Locator}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="381*"/>
+                <ColumnDefinition Width="239*"/>
+            </Grid.ColumnDefinitions>
             <view:StartScren x:Name="startScren" Visibility="{Binding StartScrenVisibility}"/>
             <view:ScrenGame Visibility="{Binding ScrenGameVisibility}"/>
             <view:ScrenScore Visibility="{Binding ScrenScoreVisibility}"/>

@@ -4,7 +4,6 @@
              xmlns:local="clr-namespace:SuperTankWPF"
              xmlns:vm="clr-namespace:SuperTankWPF.ViewModel"
              StartupUri="MainWindow.xaml"
-             Startup="Application_Startup"
              Exit="Application_Exit"
              DispatcherUnhandledException="Application_DispatcherUnhandledException">
     <Application.Resources>

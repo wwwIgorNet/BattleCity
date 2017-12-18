@@ -1,4 +1,6 @@
-﻿using SuperTankWPF.ViewModel;
+﻿using CommonServiceLocator;
+using SuperTankWPF.Model;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,6 +8,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace SuperTankWPF
 {
@@ -22,11 +25,6 @@ namespace SuperTankWPF
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             ViewModelLocator.Cleanup();
-        }
-
-        private void Application_Startup(object sender, StartupEventArgs e)
-        {
-            
         }
     }
 }

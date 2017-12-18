@@ -15,11 +15,6 @@ namespace SuperTankWPF.Util
 {
     class Comunication : IDisposable
     {
-        private ChannelFactory<IKeyboard> factoryKeyboard;
-        private ServiceHost hostGameInfo;
-        private ServiceHost hostSceneView;
-        private ServiceHost hostSound;
-
         private ISoundGame soundGame;
         private IGameInfo gameInfo;
         private IRender render;
@@ -31,53 +26,69 @@ namespace SuperTankWPF.Util
             this.render = render;
         }
 
+        protected ChannelFactory<IKeyboard> FactoryKeyboard { get; set; }
+        protected ServiceHost HostGameInfo { get; set; }
+        protected ServiceHost HostSceneView { get; set; }
+        protected ServiceHost HostSound { get; set; }
+
+        protected ISoundGame SoundGame { get => soundGame; }
+        protected IGameInfo GameInfo { get => gameInfo; }
+        protected IRender Render { get => render; }
+
+        protected int CloseTimeout { get; } = 50;
+
         public void OpenHost()
         {
-            hostSound = new ServiceHost(soundGame)
+            HostSound = new ServiceHost(SoundGame)
             {
-                CloseTimeout = TimeSpan.FromMilliseconds(50)
+                CloseTimeout = TimeSpan.FromMilliseconds(CloseTimeout)
             };
-            hostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
-            hostSound.Open();
+            HostSound.AddServiceEndpoint(typeof(ISoundGame), new NetNamedPipeBinding(), "net.pipe://localhost/ISoundGame");
+            HostSound.Open();
 
-            hostGameInfo = new ServiceHost(gameInfo)
+            HostGameInfo = new ServiceHost(GameInfo)
             {
-                CloseTimeout = TimeSpan.FromMilliseconds(50)
+                CloseTimeout = TimeSpan.FromMilliseconds(CloseTimeout)
             };
-            hostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
-            hostGameInfo.Open();
+            HostGameInfo.AddServiceEndpoint(typeof(IGameInfo), new NetNamedPipeBinding(), "net.pipe://localhost/IGameInfo");
+            HostGameInfo.Open();
 
-            hostSceneView = new ServiceHost(render)
+            HostSceneView = new ServiceHost(Render)
             {
-                CloseTimeout = TimeSpan.FromMilliseconds(50)
+                CloseTimeout = TimeSpan.FromMilliseconds(CloseTimeout)
             };
-            hostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
-            hostSceneView.Open();
+            HostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
+            HostSceneView.Open();
 
         }
-        public IKeyboard OpenChannel()
+        public IKeyboard GetKeyboard()
         {
-            factoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            factoryKeyboard.Open(TimeSpan.FromSeconds(1));
-            return factoryKeyboard.CreateChannel();
+            FactoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
+            FactoryKeyboard.Open(TimeSpan.FromSeconds(1));
+            return FactoryKeyboard.CreateChannel();
         }
 
         public void CloseHost()
         {
-            hostSound?.Close();
-            hostSceneView?.Close();
-            hostGameInfo?.Close();
+            HostSound?.Close();
+            HostSceneView?.Close();
+            HostGameInfo?.Close();
         }
 
         public void CloseChannelFactory()
         {
-            factoryKeyboard?.Close();
+            FactoryKeyboard?.Close();
+        }
+
+        public void Close()
+        {
+            CloseHost();
+            CloseChannelFactory();
         }
 
         public void Dispose()
         {
-            CloseHost();
-            CloseChannelFactory();
+            Close();
         }
     }
 }

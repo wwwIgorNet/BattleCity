@@ -26,7 +26,7 @@ namespace SuperTankWPF.Util
         private ScrenSceneViewModel screnScene;
         private MainViewModel mainViewModel;
         private ScrenConstructionViewModel construction;
-        private Comunication comunication;
+        private ComunicationTCP comunication;
         private IViewSound sound;
         private IPlayerGameManedger iPlayerGameManedger;
         private DialogIPViewModel dialogIPViewModel;
@@ -34,7 +34,7 @@ namespace SuperTankWPF.Util
 
         public GameMenedger(ScrenGameViewModel screnGame, MainViewModel mainViewModel, 
             ScrenSceneViewModel screnScene, LevelInfoViewModel levelInfo, 
-            ScrenConstructionViewModel construction, Comunication comunication, 
+            ScrenConstructionViewModel construction, ComunicationTCP comunication, 
             IViewSound sound, IPlayerGameManedger iPlayerGameManedger,
             DialogIPViewModel dialogIPViewModel)
         {
@@ -72,7 +72,7 @@ namespace SuperTankWPF.Util
                     game.Start(null, null);
             });
 
-            ThreadPool.QueueUserWorkItem(s => screnGame.Keyboard = comunication.OpenChannel());
+            ThreadPool.QueueUserWorkItem(s => screnGame.Keyboard = comunication.GetKeyboard());
         }
         public void IIPlayerExecute()
         {
@@ -80,7 +80,7 @@ namespace SuperTankWPF.Util
             dialogIPViewModel.Init();
             DialogIP dialogIP = new DialogIP
             {
-                Owner = Application.Current.Windows[0]
+                Owner = Application.Current.MainWindow
             };
 
             if (dialogIP.ShowDialog() == true)
