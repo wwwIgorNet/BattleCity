@@ -25,9 +25,9 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenGame.xaml
     /// </summary>
-    public partial class ScrenGame : UserControl
+    public partial class ScreenGame : UserControl
     {
-        private ScrenGameViewModel viewModel = ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
+        private ScreenGameViewModel viewModel = ServiceLocator.Current.GetInstance<ScreenGameViewModel>();
         private EasingFunctionBase easingFunction;
         private ThicknessAnimation animationGameOver = new ThicknessAnimation();
         private DoubleAnimation animationTop;
@@ -37,7 +37,7 @@ namespace SuperTankWPF.View
         private TimeSpan durationClosOpenLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
         private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver / 2);
 
-        public ScrenGame()
+        public ScreenGame()
         {
             InitializeComponent();
 
@@ -91,12 +91,12 @@ namespace SuperTankWPF.View
         }
 
         public static readonly DependencyProperty IsShowAnimationNewLevelProperty =
-            DependencyProperty.Register("IsShowAnimationNewLevel", typeof(bool), typeof(ScrenGame), new PropertyMetadata(false, IsShowAnimationNewLevelChangedCallback));
+            DependencyProperty.Register("IsShowAnimationNewLevel", typeof(bool), typeof(ScreenGame), new PropertyMetadata(false, IsShowAnimationNewLevelChangedCallback));
 
         private static void IsShowAnimationNewLevelChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue.Equals(true))
-                ((ScrenGame)d).StartAnimationNewLevel();
+                ((ScreenGame)d).StartAnimationNewLevel();
         }
 
 
@@ -107,14 +107,14 @@ namespace SuperTankWPF.View
         }
 
         public static readonly DependencyProperty IsShowGameOverProperty =
-            DependencyProperty.Register("IsShowGameOver", typeof(bool), typeof(ScrenGame), new PropertyMetadata(false, IsShowGameOverChangedCallback));
+            DependencyProperty.Register("IsShowGameOver", typeof(bool), typeof(ScreenGame), new PropertyMetadata(false, IsShowGameOverChangedCallback));
 
         private static void IsShowGameOverChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue.Equals(true))
-                ((ScrenGame)d).AnimationGameOver();
+                ((ScreenGame)d).AnimationGameOver();
             else
-                ((ScrenGame)d).textGameOver.Visibility = Visibility.Collapsed;
+                ((ScreenGame)d).textGameOver.Visibility = Visibility.Collapsed;
 
         }
         #endregion
@@ -133,13 +133,13 @@ namespace SuperTankWPF.View
             bindingShowNewLevel.Source = mainGrid.DataContext;
             bindingShowNewLevel.Path = new PropertyPath("IsShowAnimationNewLevel");
             bindingShowNewLevel.Mode = BindingMode.TwoWay;
-            this.SetBinding(ScrenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
+            this.SetBinding(ScreenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
 
             Binding bindingIsShowGameOver = new Binding();
             bindingIsShowGameOver.Source = mainGrid.DataContext;
             bindingIsShowGameOver.Path = new PropertyPath("IsShowGameOver");
             bindingIsShowGameOver.Mode = BindingMode.TwoWay;
-            this.SetBinding(ScrenGame.IsShowGameOverProperty, bindingIsShowGameOver);
+            this.SetBinding(ScreenGame.IsShowGameOverProperty, bindingIsShowGameOver);
         }
 
         private void AnimationGameOver()

@@ -23,12 +23,12 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenRecord.xaml
     /// </summary>
-    public partial class ScrenRecord : UserControl
+    public partial class ScreenRecord : UserControl
     {
         ObjectAnimationUsingKeyFrames objectAnimationUsingKeyFrames = new ObjectAnimationUsingKeyFrames();
         private int milisecondAnimation = 20;
 
-        public ScrenRecord()
+        public ScreenRecord()
         {
             InitializeComponent();
 

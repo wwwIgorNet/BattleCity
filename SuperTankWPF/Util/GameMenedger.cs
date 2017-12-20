@@ -22,22 +22,22 @@ namespace SuperTankWPF.Util
 {
     class GameMenedger : IDisposable
     {
-        private ScrenGameViewModel screnGame;
+        private ScreenGameViewModel screnGame;
         private LevelInfoViewModel levelInfo;
-        private ScrenSceneViewModel screnScene;
+        private ScreenSceneViewModel screnScene;
         private MainViewModel mainViewModel;
-        private ScrenConstructionViewModel construction;
+        private ScreenConstructionViewModel construction;
         private ComunicationTCP comunication;
-        private ScrenScoreViewModel screnScore;
+        private ScreenScoreViewModel screnScore;
         private IViewSound sound;
         private GameInfo iPlayerGameManedger;
         private DialogIPViewModel dialogIPViewModel;
         private Game game;
 
-        public GameMenedger(ScrenGameViewModel screnGame, MainViewModel mainViewModel, 
-            ScrenSceneViewModel screnScene, LevelInfoViewModel levelInfo, 
-            ScrenConstructionViewModel construction, ComunicationTCP comunication,
-            ScrenScoreViewModel screnScore, IViewSound sound,
+        public GameMenedger(ScreenGameViewModel screnGame, MainViewModel mainViewModel, 
+            ScreenSceneViewModel screnScene, LevelInfoViewModel levelInfo, 
+            ScreenConstructionViewModel construction, ComunicationTCP comunication,
+            ScreenScoreViewModel screnScore, IViewSound sound,
             GameInfo iPlayerGameManedger, DialogIPViewModel dialogIPViewModel)
         {
             this.screnGame = screnGame;
@@ -61,7 +61,7 @@ namespace SuperTankWPF.Util
 
         private async void StartGame(IPAddress iPCurrentComputer, IPAddress iPRemoteComputer)
         {
-            mainViewModel.ScrenGameVisibility = Visibility.Visible;
+            mainViewModel.ScreenGameVisibility = Visibility.Visible;
             await Task.Run(() =>
             {
                 comunication.OpenHost();
@@ -109,7 +109,7 @@ namespace SuperTankWPF.Util
                         comunication.OpenTCPHost(dialogIPViewModel.IPCurrentComputer);
                         screnGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);
                         iPlayerGameManedger.EndOfGame += StopoGame;
-                        mainViewModel.ScrenGameVisibility = Visibility.Visible;
+                        mainViewModel.ScreenGameVisibility = Visibility.Visible;
                     });
                 }
 
@@ -119,7 +119,7 @@ namespace SuperTankWPF.Util
         }
         public void ConstructionExecute()
         {
-            mainViewModel.ScrenConstructionVisibility = Visibility.Visible;
+            mainViewModel.ScreenConstructionVisibility = Visibility.Visible;
         }
 
         public void StopoGame()

@@ -1,5 +1,5 @@
 ﻿<UserControl
-             x:Class="SuperTankWPF.View.ScrenGame"
+             x:Class="SuperTankWPF.View.ScreenGame"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -19,12 +19,12 @@
     <UserControl.Background>
         <Binding Mode="OneWay" Source="{StaticResource backGround}"/>
     </UserControl.Background>
-    <Grid x:Name="mainGrid" DataContext="{Binding ScrenGame, Source={StaticResource Locator}}" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Grid x:Name="mainGrid" DataContext="{Binding ScreenGame, Source={StaticResource Locator}}" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <local:ScrenScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static SuperTank:ConfigurationBase.WidthTile}}"/>
+        <local:ScreenScene Grid.Row="0" Grid.Column="0" Margin="{Binding Source={x:Static SuperTank:ConfigurationBase.WidthTile}}"/>
         <local:LevelInfo x:Name="levelInfo" Margin="0,20,20,20" Grid.Row="0" Grid.Column="1"/>
         <DockPanel LastChildFill="False" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
             <Rectangle x:Name="topRect" Fill="{StaticResource backGround}" DockPanel.Dock="Top" SnapsToDevicePixels="True"/>

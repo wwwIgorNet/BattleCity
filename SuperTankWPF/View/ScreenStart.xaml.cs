@@ -21,11 +21,11 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for StartScren.xaml
     /// </summary>
-    public partial class StartScren : UserControl
+    public partial class ScreenStart : UserControl
     {
         private ThicknessAnimation animation = new ThicknessAnimation();
 
-        public StartScren()
+        public ScreenStart()
         {
             InitializeComponent();
 

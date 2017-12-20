@@ -17,12 +17,12 @@ using System.Windows;
 namespace SuperTankWPF.ViewModel
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class ScrenSceneViewModel : ObservableObject, IRender
+    class ScreenSceneViewModel : ObservableObject, IRender
     {
         private IFactoryUnitView factoryUnitView;
         private SynchronizationContext synchronizationContext;
 
-        public ScrenSceneViewModel(IFactoryUnitView factoryUnitView, SynchronizationContext synchronizationContext)
+        public ScreenSceneViewModel(IFactoryUnitView factoryUnitView, SynchronizationContext synchronizationContext)
         {
             this.factoryUnitView = factoryUnitView;
             this.synchronizationContext = synchronizationContext;

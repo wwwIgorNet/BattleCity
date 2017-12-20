@@ -25,16 +25,16 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<SynchronizationContext>(() => SynchronizationContext.Current);
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<StartScrenViewModel>();
-            SimpleIoc.Default.Register<ScrenScoreViewModel>();
+            SimpleIoc.Default.Register<ScreenStartViewModel>();
+            SimpleIoc.Default.Register<ScreenScoreViewModel>();
             SimpleIoc.Default.Register<LevelInfoViewModel>();
-            SimpleIoc.Default.Register<ScrenGameViewModel>();
-            SimpleIoc.Default.Register<ScrenRecordViewModel>();
-            SimpleIoc.Default.Register<ScrenConstructionViewModel>();
+            SimpleIoc.Default.Register<ScreenGameViewModel>();
+            SimpleIoc.Default.Register<ScreenRecordViewModel>();
+            SimpleIoc.Default.Register<ScreenConstructionViewModel>();
             SimpleIoc.Default.Register<DialogIPViewModel>();
 
-            SimpleIoc.Default.Register<ScrenSceneViewModel>();
-            SimpleIoc.Default.Register<IRender>(() => ServiceLocator.Current.GetInstance<ScrenSceneViewModel>());
+            SimpleIoc.Default.Register<ScreenSceneViewModel>();
+            SimpleIoc.Default.Register<IRender>(() => ServiceLocator.Current.GetInstance<ScreenSceneViewModel>());
 
             SimpleIoc.Default.Register<GameMenedger>();
 
@@ -70,18 +70,18 @@ namespace SuperTankWPF.ViewModel
             }
         }
 
-        public StartScrenViewModel StartScren
+        public ScreenStartViewModel ScreenStart
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<StartScrenViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenStartViewModel>();
             }
         }
-        public ScrenScoreViewModel ScrenScore
+        public ScreenScoreViewModel ScreenScore
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ScrenScoreViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenScoreViewModel>();
             }
         }
         public LevelInfoViewModel LevelInfoLeve
@@ -91,32 +91,32 @@ namespace SuperTankWPF.ViewModel
                 return ServiceLocator.Current.GetInstance<LevelInfoViewModel>();
             }
         }
-        public ScrenGameViewModel ScrenGame
+        public ScreenGameViewModel ScreenGame
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ScrenGameViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenGameViewModel>();
             }
         }
-        public ScrenRecordViewModel ScrenRecord
+        public ScreenRecordViewModel ScreenRecord
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ScrenRecordViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenRecordViewModel>();
             }
         }
-        public ScrenSceneViewModel ScrenScene
+        public ScreenSceneViewModel ScreenScene
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenSceneViewModel>();
             }
         }
-        public ScrenConstructionViewModel ScrenConstruction
+        public ScreenConstructionViewModel ScreenConstruction
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<ScrenConstructionViewModel>();
+                return ServiceLocator.Current.GetInstance<ScreenConstructionViewModel>();
             }
         }
         public DialogIPViewModel DialogIP

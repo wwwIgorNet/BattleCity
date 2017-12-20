@@ -15,7 +15,7 @@ using System.Windows.Media.Imaging;
 
 namespace SuperTankWPF.ViewModel
 {
-    public class ScrenScoreViewModel : ObservableObject
+    public class ScreenScoreViewModel : ObservableObject
     {
         private string textStage;
         private int level;
@@ -25,7 +25,7 @@ namespace SuperTankWPF.ViewModel
         private bool isTwoPlayer;
         private IViewSound sound;
 
-        public ScrenScoreViewModel(IViewSound sound)
+        public ScreenScoreViewModel(IViewSound sound)
         {
             this.sound = sound;
             Init();

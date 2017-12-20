@@ -34,35 +34,35 @@ namespace SuperTankWPF.ViewModel
             screenVisibility[Screen.Start] = Visibility.Visible;
         }
 
-        public Visibility ScrenScoreVisibility
+        public Visibility ScreenScoreVisibility
         {
             get { return screenVisibility[Screen.Score]; }
-            set { UpdateValue(nameof(ScrenScoreVisibility), Screen.Score, value); }
+            set { UpdateValue(nameof(ScreenScoreVisibility), Screen.Score, value); }
         }
-        public Visibility ScrenGameVisibility
+        public Visibility ScreenGameVisibility
         {
             get { return screenVisibility[Screen.Game]; }
-            set { UpdateValue(nameof(ScrenGameVisibility), Screen.Game, value); }
+            set { UpdateValue(nameof(ScreenGameVisibility), Screen.Game, value); }
         }
-        public Visibility StartScrenVisibility
+        public Visibility ScreenStartVisibility
         {
             get { return screenVisibility[Screen.Start]; }
-            set { UpdateValue(nameof(StartScrenVisibility), Screen.Start, value); }
+            set { UpdateValue(nameof(ScreenStartVisibility), Screen.Start, value); }
         }
-        public Visibility ScrenGameOverVisibility
+        public Visibility ScreenGameOverVisibility
         {
             get { return screenVisibility[Screen.GameOver]; }
-            set { UpdateValue(nameof(ScrenGameOverVisibility), Screen.GameOver, value); }
+            set { UpdateValue(nameof(ScreenGameOverVisibility), Screen.GameOver, value); }
         }
-        public Visibility ScrenRecordVisibility
+        public Visibility ScreenRecordVisibility
         {
             get { return screenVisibility[Screen.Record]; }
-            set { UpdateValue(nameof(ScrenRecordVisibility), Screen.Record, value); }
+            set { UpdateValue(nameof(ScreenRecordVisibility), Screen.Record, value); }
         }
-        public Visibility ScrenConstructionVisibility
+        public Visibility ScreenConstructionVisibility
         {
             get { return screenVisibility[Screen.Construction]; }
-            set { UpdateValue(nameof(ScrenConstructionVisibility), Screen.Construction, value); }
+            set { UpdateValue(nameof(ScreenConstructionVisibility), Screen.Construction, value); }
         }
         public Visibility ScreenLockVisibility
         {

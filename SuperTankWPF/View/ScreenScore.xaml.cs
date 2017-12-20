@@ -18,9 +18,9 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenScore.xaml
     /// </summary>
-    public partial class ScrenScore : UserControl
+    public partial class ScreenScore : UserControl
     {
-        public ScrenScore()
+        public ScreenScore()
         {
             InitializeComponent();
         }

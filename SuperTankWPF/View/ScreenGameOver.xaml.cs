@@ -18,9 +18,9 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenGameOver.xaml
     /// </summary>
-    public partial class ScrenGameOver : UserControl
+    public partial class ScreenGameOver : UserControl
     {
-        public ScrenGameOver()
+        public ScreenGameOver()
         {
             InitializeComponent();
         }

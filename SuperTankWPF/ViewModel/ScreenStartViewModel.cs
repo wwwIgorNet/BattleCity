@@ -16,9 +16,9 @@ using System.Windows.Media.Imaging;
 
 namespace SuperTankWPF.ViewModel
 {
-    class StartScrenViewModel : ObservableObject
+    class ScreenStartViewModel : ObservableObject
     {
-        public StartScrenViewModel(GameMenedger gameMenedger)
+        public ScreenStartViewModel(GameMenedger gameMenedger)
         {
             ListMenu = new ObservableCollection<MenuItem> {
                 new MenuItem("I PLAYER", new RelayCommand(gameMenedger.IPlayerExecute)),

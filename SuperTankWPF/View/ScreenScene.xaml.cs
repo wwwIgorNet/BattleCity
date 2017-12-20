@@ -24,13 +24,13 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenScene.xaml
     /// </summary>
-    public partial class ScrenScene : UserControl
+    public partial class ScreenScene : UserControl
     {
-        public ScrenScene()
+        public ScreenScene()
         {
             InitializeComponent();
 
-            ScrenSceneViewModel ssvm = ServiceLocator.Current.GetInstance<ScrenSceneViewModel>();
+            ScreenSceneViewModel ssvm = ServiceLocator.Current.GetInstance<ScreenSceneViewModel>();
             ssvm.Units.CollectionChanged += ScrenScene_CollectionChanged;
         }
 

@@ -17,15 +17,15 @@ namespace SuperTankWPF.Util
     class GameInfo : IGameInfo
     {
         private MainViewModel mainViewModel;
-        private ScrenGameViewModel screnGame;
-        private ScrenScoreViewModel screnScore;
-        private ScrenRecordViewModel screnRecord;
+        private ScreenGameViewModel screnGame;
+        private ScreenScoreViewModel screnScore;
+        private ScreenRecordViewModel screnRecord;
         private LevelInfoViewModel levelInfo;
         private IViewSound sound;
 
-        public GameInfo(MainViewModel mainViewModel, ScrenGameViewModel screnGame,
-            LevelInfoViewModel levelInfo, ScrenScoreViewModel screnScore,
-            ScrenRecordViewModel screnRecord, IViewSound sound)
+        public GameInfo(MainViewModel mainViewModel, ScreenGameViewModel screnGame,
+            LevelInfoViewModel levelInfo, ScreenScoreViewModel screnScore,
+            ScreenRecordViewModel screnRecord, IViewSound sound)
         {
             this.mainViewModel = mainViewModel;
             this.screnGame = screnGame;
@@ -40,7 +40,7 @@ namespace SuperTankWPF.Util
         public async void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
                                         int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            mainViewModel.ScrenScoreVisibility = Visibility.Visible;
+            mainViewModel.ScreenScoreVisibility = Visibility.Visible;
             screnScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
 
             int delay = destrouTanksIPlaeyr.Values.Sum();
@@ -49,7 +49,7 @@ namespace SuperTankWPF.Util
 
             if (!screnGame.IsShowGameOver)
             {
-                mainViewModel.ScrenGameVisibility = Visibility.Visible;
+                mainViewModel.ScreenGameVisibility = Visibility.Visible;
             }
             else
                 await GameOver(countPointsIPlayer);
@@ -83,7 +83,7 @@ namespace SuperTankWPF.Util
 
         private async Task GameOver(int countPointsPlayer)
         {
-            mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
+            mainViewModel.ScreenGameOverVisibility = Visibility.Visible;
             EndOfGame?.Invoke();
             await Task.Delay(ConfigurationWPF.TimeGameOver);
 
@@ -92,12 +92,12 @@ namespace SuperTankWPF.Util
             {
                 sound.HighScore();
                 screnRecord.CountPoints = countPointsPlayer;
-                mainViewModel.ScrenRecordVisibility = Visibility.Visible;
+                mainViewModel.ScreenRecordVisibility = Visibility.Visible;
                 File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsPlayer.ToString());
                 await Task.Delay(ConfigurationWPF.DelayScrenRecord);
             }
 
-            mainViewModel.StartScrenVisibility = Visibility.Visible;
+            mainViewModel.ScreenStartVisibility = Visibility.Visible;
         }
     }
 }

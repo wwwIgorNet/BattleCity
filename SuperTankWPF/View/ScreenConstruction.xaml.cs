@@ -22,7 +22,7 @@ namespace SuperTankWPF.View
     /// <summary>
     /// Interaction logic for ScrenConstruction.xaml
     /// </summary>
-    public partial class ScrenConstruction : UserControl
+    public partial class ScreenConstruction : UserControl
     {
         private Timer timer = new Timer(100);
         private Action Elapsed;
@@ -44,14 +44,14 @@ namespace SuperTankWPF.View
 
         private ElementMap[,] elements;
 
-        public ScrenConstruction()
+        public ScreenConstruction()
         {
             InitializeComponent();
 
             Binding bindingMap = new Binding("Map");
             bindingMap.Source = board.DataContext;
             bindingMap.Mode = BindingMode.OneWayToSource;
-            this.SetBinding(ScrenConstruction.MapProperty, bindingMap);
+            this.SetBinding(ScreenConstruction.MapProperty, bindingMap);
 
             timer.Elapsed += Timer_Elapsed;
             Elapsed = new Action(Update);
@@ -91,7 +91,7 @@ namespace SuperTankWPF.View
         }
         
         public static readonly DependencyProperty MapProperty =
-            DependencyProperty.Register("Map", typeof(char[,]), typeof(ScrenConstruction), new PropertyMetadata(null));
+            DependencyProperty.Register("Map", typeof(char[,]), typeof(ScreenConstruction), new PropertyMetadata(null));
 
         public double TankPosX
         {
@@ -100,11 +100,11 @@ namespace SuperTankWPF.View
         }
         
         public static readonly DependencyProperty TankPosXProperty =
-            DependencyProperty.Register("TankPosX", typeof(double), typeof(ScrenConstruction), new PropertyMetadata(0.0, TankPosXChangedCallback));
+            DependencyProperty.Register("TankPosX", typeof(double), typeof(ScreenConstruction), new PropertyMetadata(0.0, TankPosXChangedCallback));
 
         private static void TankPosXChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((ScrenConstruction)d).tankCursor.SetValue(Canvas.LeftProperty, e.NewValue);
+            ((ScreenConstruction)d).tankCursor.SetValue(Canvas.LeftProperty, e.NewValue);
         }
 
         public double TankPosY
@@ -114,11 +114,11 @@ namespace SuperTankWPF.View
         }
 
         public static readonly DependencyProperty TankPosYProperty =
-            DependencyProperty.Register("TankPosY", typeof(double), typeof(ScrenConstruction), new PropertyMetadata(0.0, TankPosYChangedCallback));
+            DependencyProperty.Register("TankPosY", typeof(double), typeof(ScreenConstruction), new PropertyMetadata(0.0, TankPosYChangedCallback));
 
         private static void TankPosYChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            ((ScrenConstruction)d).tankCursor.SetValue(Canvas.TopProperty, e.NewValue);
+            ((ScreenConstruction)d).tankCursor.SetValue(Canvas.TopProperty, e.NewValue);
         }
         #endregion
 
@@ -320,7 +320,7 @@ namespace SuperTankWPF.View
                 case Key.Escape:
                     InitMap();
                     e.Handled = true;
-                    ServiceLocator.Current.GetInstance<MainViewModel>().StartScrenVisibility = Visibility.Visible;
+                    ServiceLocator.Current.GetInstance<MainViewModel>().ScreenStartVisibility = Visibility.Visible;
                     break;
             }
         }

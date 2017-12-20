@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace SuperTankWPF.ViewModel
 {
-    class ScrenGameViewModel : ObservableObject
+    class ScreenGameViewModel : ObservableObject
     {
         private int level;
         private bool isShowAnimationNewLevel;

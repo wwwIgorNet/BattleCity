@@ -121,12 +121,12 @@
     <Compile Include="ViewModel\DialogIPViewModel.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ScrenConstructionViewModel.cs" />
-    <Compile Include="ViewModel\ScrenGameViewModel.cs" />
-    <Compile Include="ViewModel\ScrenRecordViewModel.cs" />
-    <Compile Include="ViewModel\ScrenSceneViewModel.cs" />
-    <Compile Include="ViewModel\ScrenScoreViewModel.cs" />
-    <Compile Include="ViewModel\StartScrenViewModel.cs" />
+    <Compile Include="ViewModel\ScreenConstructionViewModel.cs" />
+    <Compile Include="ViewModel\ScreenGameViewModel.cs" />
+    <Compile Include="ViewModel\ScreenRecordViewModel.cs" />
+    <Compile Include="ViewModel\ScreenSceneViewModel.cs" />
+    <Compile Include="ViewModel\ScreenScoreViewModel.cs" />
+    <Compile Include="ViewModel\ScreenStartViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Units\CentrAnimationView.cs" />
     <Compile Include="View\DialogIP.xaml.cs">
@@ -138,26 +138,26 @@
     <Compile Include="View\ScreenLock.xaml.cs">
       <DependentUpon>ScreenLock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenConstruction.xaml.cs">
-      <DependentUpon>ScrenConstruction.xaml</DependentUpon>
+    <Compile Include="View\ScreenConstruction.xaml.cs">
+      <DependentUpon>ScreenConstruction.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenGame.xaml.cs">
-      <DependentUpon>ScrenGame.xaml</DependentUpon>
+    <Compile Include="View\ScreenGame.xaml.cs">
+      <DependentUpon>ScreenGame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenGameOver.xaml.cs">
-      <DependentUpon>ScrenGameOver.xaml</DependentUpon>
+    <Compile Include="View\ScreenGameOver.xaml.cs">
+      <DependentUpon>ScreenGameOver.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenRecord.xaml.cs">
-      <DependentUpon>ScrenRecord.xaml</DependentUpon>
+    <Compile Include="View\ScreenRecord.xaml.cs">
+      <DependentUpon>ScreenRecord.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenScene.xaml.cs">
-      <DependentUpon>ScrenScene.xaml</DependentUpon>
+    <Compile Include="View\ScreenScene.xaml.cs">
+      <DependentUpon>ScreenScene.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScrenScore.xaml.cs">
-      <DependentUpon>ScrenScore.xaml</DependentUpon>
+    <Compile Include="View\ScreenScore.xaml.cs">
+      <DependentUpon>ScreenScore.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\StartScren.xaml.cs">
-      <DependentUpon>StartScren.xaml</DependentUpon>
+    <Compile Include="View\ScreenStart.xaml.cs">
+      <DependentUpon>ScreenStart.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -183,31 +183,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenConstruction.xaml">
+    <Page Include="View\ScreenConstruction.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenGame.xaml">
+    <Page Include="View\ScreenGame.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenGameOver.xaml">
+    <Page Include="View\ScreenGameOver.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenRecord.xaml">
+    <Page Include="View\ScreenRecord.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenScene.xaml">
+    <Page Include="View\ScreenScene.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScrenScore.xaml">
+    <Page Include="View\ScreenScore.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\StartScren.xaml">
+    <Page Include="View\ScreenStart.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SuperTankWPF.ViewModel
 {
-    class ScrenRecordViewModel : ObservableObject
+    class ScreenRecordViewModel : ObservableObject
     {
         private int countPoints;
 

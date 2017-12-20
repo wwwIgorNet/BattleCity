@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SuperTankWPF.ViewModel
 {
-    class ScrenConstructionViewModel : ObservableObject
+    class ScreenConstructionViewModel : ObservableObject
     {
         private char[,] map;
 

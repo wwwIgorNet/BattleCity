@@ -1,4 +1,4 @@
-﻿<UserControl x:Name="userControl" x:Class="SuperTankWPF.View.StartScren"
+﻿<UserControl x:Name="userControl" x:Class="SuperTankWPF.View.ScreenStart"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -21,7 +21,7 @@
         <Style TargetType="TextBlock" BasedOn="{StaticResource infoText}"/>
         <Style x:Key="menuText" TargetType="TextBlock" BasedOn="{StaticResource infoText}"/>
     </UserControl.Resources>
-    <Border x:Name="mainBborder" DataContext="{Binding StartScren, Source={StaticResource Locator}}" HorizontalAlignment="Center" VerticalAlignment="Center">
+    <Border x:Name="mainBborder" DataContext="{Binding ScreenStart, Source={StaticResource Locator}}" HorizontalAlignment="Center" VerticalAlignment="Center">
         <StackPanel>
             <TextBlock Text="I-      00 HI- 20000   "/>
             <TextBlock Text="BATTLE" Style="{StaticResource gameName}"/>

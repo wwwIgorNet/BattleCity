@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="SuperTankWPF.View.ScrenConstruction"
+﻿<UserControl x:Class="SuperTankWPF.View.ScreenConstruction"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -17,7 +17,7 @@
             Margin="{Binding Source={x:Static model:ConfigurationWPF.WidthTile}}"
              Height="{Binding Source={x:Static model:ConfigurationWPF.HeightBoard}}"
              Width="{Binding Source={x:Static model:ConfigurationWPF.WidthBoard}}"
-            DataContext="{Binding ScrenConstruction, Mode=OneWay, Source={StaticResource Locator}}">
+            DataContext="{Binding ScreenConstruction, Mode=OneWay, Source={StaticResource Locator}}">
         <Canvas.FocusVisualStyle>
             <Style/>
         </Canvas.FocusVisualStyle>
