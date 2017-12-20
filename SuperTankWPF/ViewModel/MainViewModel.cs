@@ -67,7 +67,7 @@ namespace SuperTankWPF.ViewModel
         public Visibility ScreenLockVisibility
         {
             get { return screenVisibility[Screen.Lock]; }
-            set { UpdateValue(nameof(ScrenConstructionVisibility), Screen.Lock, value); }
+            set { UpdateValue(nameof(ScreenLockVisibility), Screen.Lock, value); }
         }
 
         private void UpdateValue(string propertyName, Screen screen, Visibility newValue)

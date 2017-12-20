@@ -78,6 +78,9 @@ namespace SuperTankWPF.View
                     board.Children.Add(elements[i, j]);
                 }
             }
+
+            eagle.SetValue(Canvas.LeftProperty, (double)ConfigurationWPF.WidthBoard / 2 - ConfigurationWPF.WidthTile);
+            eagle.SetValue(Canvas.TopProperty, (double)ConfigurationWPF.HeightBoard - ConfigurationWPF.WidthTile * 2);
         }
 
         #region DependencyProperty
@@ -144,11 +147,11 @@ namespace SuperTankWPF.View
 
             if (space)
             {
-                ChangType((int)(TankPosX / ConfigurationWPF.WidthTile), (int)(TankPosY / ConfigurationWPF.HeightTile));
+                ChangeType((int)(TankPosX / ConfigurationWPF.WidthTile), (int)(TankPosY / ConfigurationWPF.HeightTile));
             }
         }
 
-        private void ChangType(int x, int y)
+        private void ChangeType(int x, int y)
         {
             for (int i = y; i < 2 + y; i++)
             {
@@ -240,9 +243,27 @@ namespace SuperTankWPF.View
             {
                 for (int j = 0; j < col; j++)
                 {
-                    if (elements[i, j].Type != spaceChar)
-                        ChangType(j, i);
+                    ElementMap em = elements[i, j];
+                    if (em.Type != currentChar)
+                    {
+                        em.Type = currentChar;
+                        em.Source = GetImg(currentChar);
+                    }
 
+                }
+            }
+
+            int x = (ConfigurationWPF.WidthBoard / 2 - ConfigurationWPF.WidthTile * 2) / ConfigurationWPF.WidthTile;
+            int y = (ConfigurationWPF.HeightBoard - ConfigurationWPF.HeightTile * 3) / ConfigurationWPF.HeightTile;
+            for (int i = y; i < y + 3; i++)
+            {
+                for (int j = x; j < x + 4; j++)
+                {
+                    if (i == y || j == x || j == x + 3) {
+                        ElementMap em = elements[i, j];
+                        em.Source = GetImg(ConfigurationWPF.CharBrickWall);
+                        em.Type = ConfigurationWPF.CharBrickWall;
+                    }
                 }
             }
         }
@@ -265,7 +286,7 @@ namespace SuperTankWPF.View
                     break;
                 case Key.Space:
                     space = true;
-                    ChangType((int)(TankPosX / ConfigurationWPF.WidthTile), (int)(TankPosY / ConfigurationWPF.HeightTile));
+                    ChangeType((int)(TankPosX / ConfigurationWPF.WidthTile), (int)(TankPosY / ConfigurationWPF.HeightTile));
                     break;
                 case Key.Enter:
                     enter = true;

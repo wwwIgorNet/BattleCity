@@ -94,7 +94,7 @@ namespace SuperTankWPF.Util
                 if (dialogIPViewModel.NewGame)
                 {
                     comunication.StartMainComputer(dialogIPViewModel.IPCurrentComputer);
-
+                    mainViewModel.ScreenLockVisibility = Visibility.Visible;
                     comunication.StartedTwoComputer += () =>
                     {
                         StartGame(dialogIPViewModel.IPCurrentComputer, dialogIPViewModel.IPRemoteComputer);
@@ -104,6 +104,7 @@ namespace SuperTankWPF.Util
                 {
                     ThreadPool.QueueUserWorkItem(s =>
                     {
+                        mainViewModel.ScreenLockVisibility = Visibility.Visible;
                         comunication.StartTwoPlayerComputer(dialogIPViewModel.IPRemoteComputer);
                         comunication.OpenTCPHost(dialogIPViewModel.IPCurrentComputer);
                         screnGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);

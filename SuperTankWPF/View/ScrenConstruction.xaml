@@ -22,5 +22,6 @@
             <Style/>
         </Canvas.FocusVisualStyle>
         <Image x:Name="tankCursor" Source="{Binding ImageSource.Plaeyr.SmallTank.Up1, Mode=OneWay, Source={StaticResource Locator}}" Panel.ZIndex="10"/>
+        <Image x:Name="eagle" Source="{Binding ImageSource.Eagle, Mode=OneWay, Source={StaticResource Locator}}" Panel.ZIndex="-5"/>
     </Canvas>
 </UserControl>

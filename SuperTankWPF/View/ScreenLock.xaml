@@ -6,11 +6,10 @@
              xmlns:local="clr-namespace:SuperTankWPF.View"
              xmlns:model="clr-namespace:SuperTankWPF.Model"
              Background="Black"
-             Opacity="0.75"
              mc:Ignorable="d" 
              Height="{Binding Source={x:Static model:ConfigurationWPF.WindowClientHeight}}"
              Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <StackPanel VerticalAlignment="Center">
-        <TextBlock Text="Wait..." Style="{StaticResource infoText}"/>
+        <TextBlock Text="WAIT FOR ANOTHER COMPUTER TO CONNECT..." Style="{StaticResource infoText}"/>
     </StackPanel>
 </UserControl>

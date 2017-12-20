@@ -81,19 +81,19 @@ namespace SuperTankWPF.Util
             levelInfo.Level = level;
         }
 
-        private async Task GameOver(int countPointsIPlayer)
+        private async Task GameOver(int countPointsPlayer)
         {
             mainViewModel.ScrenGameOverVisibility = Visibility.Visible;
             EndOfGame?.Invoke();
             await Task.Delay(ConfigurationWPF.TimeGameOver);
 
             int maxPointsPath = int.Parse(File.ReadAllText(ConfigurationWPF.MaxPointsPath));
-            if (maxPointsPath < countPointsIPlayer)
+            if (maxPointsPath < countPointsPlayer)
             {
                 sound.HighScore();
-                screnRecord.CountPoints = countPointsIPlayer;
+                screnRecord.CountPoints = countPointsPlayer;
                 mainViewModel.ScrenRecordVisibility = Visibility.Visible;
-                File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsIPlayer.ToString());
+                File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsPlayer.ToString());
                 await Task.Delay(ConfigurationWPF.DelayScrenRecord);
             }
 
