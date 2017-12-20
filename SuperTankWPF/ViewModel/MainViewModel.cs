@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,68 +11,82 @@ namespace SuperTankWPF.ViewModel
 {
     class MainViewModel : ObservableObject
     {
-        private Visibility screnScoreVisibility;
-        private Visibility screnGameVisibility;
-        private Visibility startScrenVisibility;
-        private Visibility screnGameOverVisibility;
-        private Visibility screnRecordVisibility;
-        private Visibility screnConstructionVisibility;
+        private enum Screen
+        {
+            Score,
+            Game,
+            Start,
+            GameOver,
+            Record,
+            Construction,
+            Lock
+        }
 
+        private Dictionary<Screen, Visibility> screenVisibility = new Dictionary<Screen, Visibility>();
+        
         public MainViewModel()
         {
-            ColapsAll();
+            foreach (Screen screen in Enum.GetValues(typeof(Screen)))
+            {
+                screenVisibility.Add(screen, Visibility.Collapsed);
+            }
 
-            startScrenVisibility = Visibility.Visible;
+            screenVisibility[Screen.Start] = Visibility.Visible;
         }
 
         public Visibility ScrenScoreVisibility
         {
-            get { return screnScoreVisibility; }
-            set { UpdateValue(nameof(ScrenScoreVisibility), ref screnScoreVisibility, value); }
+            get { return screenVisibility[Screen.Score]; }
+            set { UpdateValue(nameof(ScrenScoreVisibility), Screen.Score, value); }
         }
-
         public Visibility ScrenGameVisibility
         {
-            get { return screnGameVisibility; }
-            set { UpdateValue(nameof(ScrenGameVisibility), ref screnGameVisibility, value); }
+            get { return screenVisibility[Screen.Game]; }
+            set { UpdateValue(nameof(ScrenGameVisibility), Screen.Game, value); }
         }
         public Visibility StartScrenVisibility
         {
-            get { return startScrenVisibility; }
-            set { UpdateValue(nameof(StartScrenVisibility), ref startScrenVisibility, value); }
+            get { return screenVisibility[Screen.Start]; }
+            set { UpdateValue(nameof(StartScrenVisibility), Screen.Start, value); }
         }
         public Visibility ScrenGameOverVisibility
         {
-            get { return screnGameOverVisibility; }
-            set { UpdateValue(nameof(ScrenGameOverVisibility), ref screnGameOverVisibility, value); }
+            get { return screenVisibility[Screen.GameOver]; }
+            set { UpdateValue(nameof(ScrenGameOverVisibility), Screen.GameOver, value); }
         }
         public Visibility ScrenRecordVisibility
         {
-            get { return screnRecordVisibility; }
-            set { UpdateValue(nameof(ScrenRecordVisibility), ref screnRecordVisibility, value); }
+            get { return screenVisibility[Screen.Record]; }
+            set { UpdateValue(nameof(ScrenRecordVisibility), Screen.Record, value); }
         }
         public Visibility ScrenConstructionVisibility
         {
-            get { return screnConstructionVisibility; }
-            set { UpdateValue(nameof(ScrenConstructionVisibility), ref screnConstructionVisibility, value); }
+            get { return screenVisibility[Screen.Construction]; }
+            set { UpdateValue(nameof(ScrenConstructionVisibility), Screen.Construction, value); }
+        }
+        public Visibility ScreenLockVisibility
+        {
+            get { return screenVisibility[Screen.Lock]; }
+            set { UpdateValue(nameof(ScrenConstructionVisibility), Screen.Lock, value); }
         }
 
-        private void UpdateValue(string propertyName, ref Visibility field, Visibility newValue)
+        private void UpdateValue(string propertyName, Screen screen, Visibility newValue)
         {
-            ColapsAll();
-            Set(propertyName, ref field, newValue);
+            if (newValue == screenVisibility[screen]) return;
+
+            ChangeVisibility(Visibility.Collapsed);
+            screenVisibility[screen] = newValue;
+            RaisePropertyChanged(propertyName);
         }
 
-        public void ColapsAll()
+        public void ChangeVisibility(Visibility visibility)
         {
-            Visibility visibility = Visibility.Collapsed;
+            foreach (Screen screen in Enum.GetValues(typeof(Screen)))
+                if (screenVisibility[screen] != visibility)
+                    screenVisibility[screen] = visibility;
 
-            Set(nameof(ScrenScoreVisibility), ref screnScoreVisibility, visibility);
-            Set(nameof(ScrenGameVisibility), ref screnGameVisibility, visibility);
-            Set(nameof(StartScrenVisibility), ref startScrenVisibility, visibility);
-            Set(nameof(ScrenGameOverVisibility), ref screnGameOverVisibility, visibility);
-            Set(nameof(ScrenRecordVisibility), ref screnRecordVisibility, visibility);
-            Set(nameof(ScrenConstructionVisibility), ref screnConstructionVisibility, visibility);
+            foreach (var prop in this.GetType().GetProperties())
+                    this.RaisePropertyChanged(prop.Name);
         }
     }
 }
