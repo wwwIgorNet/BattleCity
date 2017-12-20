@@ -14,7 +14,7 @@ using System.Windows;
 namespace SuperTankWPF.Util
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class IPlayerGameManedger : IGameInfo
+    class GameInfo : IGameInfo
     {
         private MainViewModel mainViewModel;
         private ScrenGameViewModel screnGame;
@@ -23,7 +23,7 @@ namespace SuperTankWPF.Util
         private LevelInfoViewModel levelInfo;
         private IViewSound sound;
 
-        public IPlayerGameManedger(MainViewModel mainViewModel, ScrenGameViewModel screnGame,
+        public GameInfo(MainViewModel mainViewModel, ScrenGameViewModel screnGame,
             LevelInfoViewModel levelInfo, ScrenScoreViewModel screnScore,
             ScrenRecordViewModel screnRecord, IViewSound sound)
         {
@@ -43,7 +43,9 @@ namespace SuperTankWPF.Util
             mainViewModel.ScrenScoreVisibility = Visibility.Visible;
             screnScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
 
-            await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(destrouTanksIPlaeyr.Values.Sum()));
+            int delay = destrouTanksIPlaeyr.Values.Sum();
+            if (destrouTanksIIPlaeyr != null) delay = Math.Max(delay, destrouTanksIIPlaeyr.Values.Sum());
+            await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(delay));
 
             if (!screnGame.IsShowGameOver)
             {
@@ -64,11 +66,8 @@ namespace SuperTankWPF.Util
             levelInfo.CountTankEnemy = count;
         }
 
-        public async void SetCountTankPlaeyr(int count, Owner owner)
+        public void SetCountTankPlaeyr(int count, Owner owner)
         {
-            if (screnGame.IsShowAnimationNewLevel)
-                await Task.Delay((int)ConfigurationWPF.DelayScrenLoadLevel.TotalMilliseconds / 2);
-
             if (owner == Owner.IPlayer) levelInfo.CountTank1Player = count;
             else if (owner == Owner.IIPlayer) levelInfo.CountTank2Player = count;
         }

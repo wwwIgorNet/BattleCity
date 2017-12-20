@@ -31,26 +31,72 @@ namespace SuperTankWPF.ViewModel
             Init();
         }
 
-        public async void Set(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
+        public void Set(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
                                    int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             Clear();
 
+            if (isTwoPlayer)
+                ShowInfo(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+            else
+                ShowInfo(level, countPointsIPlayer, destrouTanksIPlaeyr);
+        }
+
+        private async void ShowInfo(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr)
+        {
             Level = level;
             Player1.TotalCountPoints = countPointsIPlayer;
 
             foreach (var item in ListDeteils)
             {
-                for (int i = 0; i <= destrouTanksIPlaeyr[item.Key]; i++)
+                int count = destrouTanksIPlaeyr[item.Key];
+                for (int i = 0; i <= count; i++)
                 {
                     item.Value.CountTanl1Player = i;
                     item.Value.Points1Player = i * ConfigurationWPF.GetCountPoints(item.Key);
-                    await Task.Delay(150);
                     if (i != 0)
                         sound.CountTankIncrement();
+                    await Task.Delay(150);
                 }
             }
             player1.TotalCountTank = destrouTanksIPlaeyr.Sum(kv => kv.Value);
+        }
+
+        private async void ShowInfo(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
+        {
+            Level = level;
+            Player1.TotalCountPoints = countPointsIPlayer;
+            Player2.TotalCountPoints = countPointsIIPlayer;
+
+            foreach (var item in ListDeteils)
+            {
+                int countIPlayer = destrouTanksIPlaeyr[item.Key];
+                int countIIPlayer = destrouTanksIIPlaeyr[item.Key];
+                for (int i = 0, j = 0; ;)
+                {
+                    if (i <= countIPlayer)
+                    {
+                        item.Value.CountTanl1Player = i;
+                        item.Value.Points1Player = i * ConfigurationWPF.GetCountPoints(item.Key);
+                        i++;
+                    }
+                    if (j <= countIIPlayer)
+                    {
+                        item.Value.CountTanl2Player = j;
+                        item.Value.Points2Player = j * ConfigurationWPF.GetCountPoints(item.Key);
+                        j++;
+                    }
+
+                    if (i > 1 || j > 1)
+                        sound.CountTankIncrement();
+
+                    await Task.Delay(150);
+
+                    if (i > countIPlayer && j > countIIPlayer) break;
+                }
+            }
+            player1.TotalCountTank = destrouTanksIPlaeyr.Sum(kv => kv.Value);
+            player2.TotalCountTank = destrouTanksIIPlaeyr.Sum(kv => kv.Value);
         }
 
         public void Init()
@@ -106,6 +152,8 @@ namespace SuperTankWPF.ViewModel
                 isTwoPlayer = value;
                 InitTextIsTwoPlayer();
                 TankDetils.InitIsTwoPlayer(value);
+                foreach (var item in ListDeteils)
+                    item.Value.Init();
             }
         }
 
@@ -163,7 +211,7 @@ namespace SuperTankWPF.ViewModel
             public string PTS2P
             {
                 get { return pts2p; }
-                private set { Set(nameof(PTS2P), ref pts2p, value); }
+                private set { RaisePropertyChanged(nameof(PTS2P)); }
             }
             public string ArrowLeft
             {
@@ -173,7 +221,7 @@ namespace SuperTankWPF.ViewModel
             public string ArrowRight
             {
                 get { return arrowRight; }
-                private set { Set(nameof(ArrowRight), ref arrowRight, value); }
+                private set { RaisePropertyChanged(nameof(ArrowRight)); }
             }
 
             public int Points1Player
@@ -213,6 +261,12 @@ namespace SuperTankWPF.ViewModel
                     pts2p = new string(' ', pts1p.Length);
                     arrowRight = new string(' ', arrowLeft.Length);
                 }
+            }
+
+            public void Init()
+            {
+                this.PTS2P = pts2p;
+                this.ArrowRight = arrowRight;
             }
 
             public void Clear()

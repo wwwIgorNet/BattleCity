@@ -64,8 +64,8 @@
         </Grid.ColumnDefinitions>
         <GroupBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Header="GAME MODE" Style="{StaticResource infoText}" HorizontalAlignment="Stretch">
             <StackPanel>
-                <RadioButton x:Name="newGame" FocusVisualStyle="{StaticResource focusVisual}" IsChecked="True" Content="NEW GAME"/>
-                <RadioButton x:Name="joinToGame" FocusVisualStyle="{StaticResource focusVisual}" Content="JOIN TO GAME"/>
+                <RadioButton x:Name="newGame" FocusVisualStyle="{StaticResource focusVisual}" IsChecked="{Binding NewGame}" Content="NEW GAME"/>
+                <RadioButton x:Name="joinToGame" FocusVisualStyle="{StaticResource focusVisual}" Content="JOIN TO GAME" IsChecked="{Binding JoinGame}"/>
             </StackPanel>
         </GroupBox>
         <Label Content="IP CURRENT COMPUTER:" Grid.Row="1" HorizontalAlignment="Right"/>

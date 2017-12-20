@@ -35,7 +35,7 @@ namespace SuperTankWPF.Util
         protected IGameInfo GameInfo { get => gameInfo; }
         protected IRender Render { get => render; }
 
-        protected int CloseTimeout { get; } = 50;
+        protected int CloseTimeout { get; } = 300;
 
         public void OpenHost()
         {
@@ -68,14 +68,14 @@ namespace SuperTankWPF.Util
             return FactoryKeyboard.CreateChannel();
         }
 
-        public void CloseHost()
+        public virtual void CloseHost()
         {
             HostSound?.Close();
             HostSceneView?.Close();
             HostGameInfo?.Close();
         }
 
-        public void CloseChannelFactory()
+        public virtual void CloseChannelFactory()
         {
             FactoryKeyboard?.Close();
         }

@@ -114,7 +114,7 @@
     <Compile Include="Util\ComunicationTCP.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\IPAddressConverter.cs" />
-    <Compile Include="Util\IPlayerGameManedger.cs" />
+    <Compile Include="Util\GameInfo.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Units\UnitView.cs" />
     <Compile Include="Util\WPFCommands.cs" />
@@ -134,6 +134,9 @@
     </Compile>
     <Compile Include="View\LevelInfo.xaml.cs">
       <DependentUpon>LevelInfo.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ScreenLock.xaml.cs">
+      <DependentUpon>ScreenLock.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ScrenConstruction.xaml.cs">
       <DependentUpon>ScrenConstruction.xaml</DependentUpon>
@@ -173,6 +176,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\LevelInfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScreenLock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

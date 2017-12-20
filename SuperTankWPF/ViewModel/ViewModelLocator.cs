@@ -38,8 +38,8 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<GameMenedger>();
 
-            SimpleIoc.Default.Register<IPlayerGameManedger>();
-            SimpleIoc.Default.Register<IGameInfo>(() => ServiceLocator.Current.GetInstance<IPlayerGameManedger>());
+            SimpleIoc.Default.Register<GameInfo>();
+            SimpleIoc.Default.Register<IGameInfo>(() => ServiceLocator.Current.GetInstance<GameInfo>());
             
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();

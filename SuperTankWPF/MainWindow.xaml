@@ -26,6 +26,7 @@
             <view:ScrenRecord Visibility="{Binding ScrenRecordVisibility}"/>
             <view:ScrenGameOver Visibility="{Binding ScrenGameOverVisibility}"/>
             <view:ScrenConstruction Visibility="{Binding ScrenConstructionVisibility}"/>
+            <view:ScreenLock />
         </Grid>
     </Viewbox>
 </Window>

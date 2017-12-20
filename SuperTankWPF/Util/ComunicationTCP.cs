@@ -22,30 +22,25 @@ namespace SuperTankWPF.Util
         private readonly int portHostInfo = 9090;
 
         private ServiceHost hostTwoComputer;
-        private IPAddress iPAddress;
+        private ChannelFactory<ITwoComputer> factoryTwoComputer;
 
         public ComunicationTCP(ISoundGame soundGame, IGameInfo gameInfo, IRender render)
             : base(soundGame, gameInfo, render)
         { }
 
-        public event Action StartTwoComputer;
+        public event Action StartedTwoComputer;
 
-        public void SetIPAddress(IPAddress iPAddress)
+        public IKeyboard GetTCPKeyboard(IPAddress iPRemoteComputer)
         {
-            this.iPAddress = iPAddress;
-        }
-
-        public IKeyboard GetTCPKeyboard()
-        {
-            string ipAddress = iPAddress.ToString();
+            string ipAddress = iPRemoteComputer.ToString();
             FactoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelKeyboard + "/IKeyboard");
             FactoryKeyboard.Open(TimeSpan.FromSeconds(1));
             return FactoryKeyboard.CreateChannel();
         }
 
-        private void OpenTCPHost()
+        public void OpenTCPHost(IPAddress iPCurrentComputer)
         {
-            string ipAddress = iPAddress.ToString();
+            string ipAddress = iPCurrentComputer.ToString();
             HostSound = new ServiceHost(SoundGame)
             {
                 CloseTimeout = TimeSpan.FromMilliseconds(CloseTimeout)
@@ -68,29 +63,42 @@ namespace SuperTankWPF.Util
             HostGameInfo.Open();
         }
 
-        public void StartManComputer()
+        public void StartMainComputer(IPAddress iPAddressCurrentComputer)
         {
             hostTwoComputer = new ServiceHost(this)
             {
                 CloseTimeout = TimeSpan.FromMilliseconds(0)
             };
-            string conStr = "net.tcp://" + iPAddress.ToString() + ":" + portTwoComputer + "/ITwoComputer";
+            string conStr = "net.tcp://" + iPAddressCurrentComputer.ToString() + ":" + portTwoComputer + "/ITwoComputer";
             hostTwoComputer.AddServiceEndpoint(typeof(ITwoComputer), new NetTcpBinding(SecurityMode.None), conStr);
             hostTwoComputer.Open();
         }
 
-        public void StartTwoPlayerComputer()
+        public void StartTwoPlayerComputer(IPAddress iPAddressRemouteComputr)
         {
-            string conStr = "net.tcp://" + iPAddress.ToString() + ":" + portTwoComputer + "/ITwoComputer";
-            ChannelFactory<ITwoComputer> factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(SecurityMode.None), conStr);
+            string conStr = "net.tcp://" + iPAddressRemouteComputr.ToString() + ":" + portTwoComputer + "/ITwoComputer";
+            factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(SecurityMode.None), conStr);
             factoryTwoComputer.CreateChannel().StartedTwoComp();
-            factoryTwoComputer.Close();
+            factoryTwoComputer.Abort();
         }
 
         void ITwoComputer.StartedTwoComp()
         {
             hostTwoComputer.Close();
-            StartTwoComputer?.Invoke();
+            StartedTwoComputer?.Invoke();
+        }
+
+        public override void CloseChannelFactory()
+        {
+            factoryTwoComputer?.Close();
+            base.CloseChannelFactory();
+        }
+
+        public override void CloseHost()
+        {
+            StartedTwoComputer = null;
+            hostTwoComputer?.Close();
+            base.CloseHost();
         }
     }
 }

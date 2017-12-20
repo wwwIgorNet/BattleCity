@@ -60,6 +60,14 @@ namespace SuperTankWPF.ViewModel
             String host = System.Net.Dns.GetHostName();
             IPCurrentComputer = Dns.GetHostByName(host).AddressList[0];
             IPRemoteComputer = IPCurrentComputer;
+            NewGame = true;
+        }
+
+        internal void Clerar()
+        {
+            JoinGame = false;
+            IPCurrentComputer = null;
+            IPRemoteComputer = null;
         }
     }
 }
