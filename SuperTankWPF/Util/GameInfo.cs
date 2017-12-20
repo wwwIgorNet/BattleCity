@@ -17,21 +17,21 @@ namespace SuperTankWPF.Util
     class GameInfo : IGameInfo
     {
         private MainViewModel mainViewModel;
-        private ScreenGameViewModel screnGame;
-        private ScreenScoreViewModel screnScore;
-        private ScreenRecordViewModel screnRecord;
+        private ScreenGameViewModel screenGame;
+        private ScreenScoreViewModel screenScore;
+        private ScreenRecordViewModel screenRecord;
         private LevelInfoViewModel levelInfo;
         private IViewSound sound;
 
-        public GameInfo(MainViewModel mainViewModel, ScreenGameViewModel screnGame,
+        public GameInfo(MainViewModel mainViewModel, ScreenGameViewModel screenGame,
             LevelInfoViewModel levelInfo, ScreenScoreViewModel screnScore,
-            ScreenRecordViewModel screnRecord, IViewSound sound)
+            ScreenRecordViewModel screenRecord, IViewSound sound)
         {
             this.mainViewModel = mainViewModel;
-            this.screnGame = screnGame;
+            this.screenGame = screenGame;
             this.levelInfo = levelInfo;
-            this.screnScore = screnScore;
-            this.screnRecord = screnRecord;
+            this.screenScore = screnScore;
+            this.screenRecord = screenRecord;
             this.sound = sound;
         }
 
@@ -41,13 +41,13 @@ namespace SuperTankWPF.Util
                                         int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
             mainViewModel.ScreenScoreVisibility = Visibility.Visible;
-            screnScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+            screenScore.Set(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
 
             int delay = destrouTanksIPlaeyr.Values.Sum();
             if (destrouTanksIIPlaeyr != null) delay = Math.Max(delay, destrouTanksIIPlaeyr.Values.Sum());
             await Task.Delay(ConfigurationWPF.GetDelayScrenPoints(delay));
 
-            if (!screnGame.IsShowGameOver)
+            if (!screenGame.IsShowGameOver)
             {
                 mainViewModel.ScreenGameVisibility = Visibility.Visible;
             }
@@ -57,7 +57,7 @@ namespace SuperTankWPF.Util
 
         public void GameOver()
         {
-            screnGame.IsShowGameOver = true;
+            screenGame.IsShowGameOver = true;
             sound.GameOver();
         }
 
@@ -74,8 +74,8 @@ namespace SuperTankWPF.Util
 
         public async void StartLevel(int level)
         {
-            screnGame.IsShowAnimationNewLevel = true;
-            screnGame.Level = level;
+            screenGame.IsShowAnimationNewLevel = true;
+            screenGame.Level = level;
             sound.LevelStart();
             await Task.Delay((int)ConfigurationWPF.DelayScrenLoadLevel.TotalMilliseconds / 2);
             levelInfo.Level = level;
@@ -91,13 +91,16 @@ namespace SuperTankWPF.Util
             if (maxPointsPath < countPointsPlayer)
             {
                 sound.HighScore();
-                screnRecord.CountPoints = countPointsPlayer;
+                screenRecord.CountPoints = countPointsPlayer;
                 mainViewModel.ScreenRecordVisibility = Visibility.Visible;
                 File.WriteAllText(ConfigurationWPF.MaxPointsPath, countPointsPlayer.ToString());
                 await Task.Delay(ConfigurationWPF.DelayScrenRecord);
             }
 
-            mainViewModel.ScreenStartVisibility = Visibility.Visible;
+            if(mainViewModel.ScreenGameOverVisibility == Visibility.Visible || mainViewModel.ScreenRecordVisibility == Visibility.Visible)
+            {
+                mainViewModel.ScreenStartVisibility = Visibility.Visible;
+            }
         }
     }
 }

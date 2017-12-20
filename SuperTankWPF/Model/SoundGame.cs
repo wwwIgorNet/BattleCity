@@ -246,5 +246,10 @@ namespace SuperTankWPF.Model
                 mediaPlayers[NameSound.HighScore].Play();
             }, null);
         }
+
+        public void HighScoreStop()
+        {
+            mediaPlayers[NameSound.HighScore].Stop();
+        }
     }
 }

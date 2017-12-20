@@ -1,6 +1,7 @@
 ﻿using CommonServiceLocator;
 using SuperTank.Audio;
 using SuperTankWPF.Model;
+using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,11 +33,21 @@ namespace SuperTankWPF.View
         {
             InitializeComponent();
 
+            Focusable = true;
             IsVisibleChanged += ScrenRecord_IsVisibleChanged;
 
             objectAnimationUsingKeyFrames.KeyFrames.Add(new DiscreteObjectKeyFrame(Brushes.White, TimeSpan.FromMilliseconds(milisecondAnimation)));
             objectAnimationUsingKeyFrames.KeyFrames.Add(new DiscreteObjectKeyFrame(Brushes.Blue, TimeSpan.FromMilliseconds(milisecondAnimation * 2)));
             objectAnimationUsingKeyFrames.KeyFrames.Add(new DiscreteObjectKeyFrame(Brushes.Yellow, TimeSpan.FromMilliseconds(milisecondAnimation * 3)));
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+
+            ViewModelLocator vml = ((ViewModelLocator)this.FindResource("Locator"));
+            vml.Main.ScreenStartVisibility = Visibility.Visible;
+            vml.SoundGame.HighScoreStop();
         }
 
         private void ScrenRecord_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -45,6 +56,7 @@ namespace SuperTankWPF.View
             {
                 objectAnimationUsingKeyFrames.Completed += ColorAnimationUsingKeyFrames_Completed;
                 textHiscore.BeginAnimation(TextBlock.ForegroundProperty, objectAnimationUsingKeyFrames);
+                this.Focus();
             }
             else
                 objectAnimationUsingKeyFrames.Completed -= ColorAnimationUsingKeyFrames_Completed;

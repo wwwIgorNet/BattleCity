@@ -77,7 +77,7 @@ namespace SuperTankWPF.Util
 
         public virtual void CloseChannelFactory()
         {
-            FactoryKeyboard?.Close();
+            FactoryKeyboard?.Abort();
         }
 
         public void Close()

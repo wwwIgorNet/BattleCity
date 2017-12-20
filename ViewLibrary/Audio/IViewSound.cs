@@ -18,5 +18,6 @@
         /// Sound at a record
         /// </summary>
         void HighScore();
+        void HighScoreStop();
     }
 }

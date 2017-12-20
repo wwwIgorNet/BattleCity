@@ -196,7 +196,13 @@ namespace SuperTank.Audio
         }
         public void HighScore()
         {
+            mediaPlayers[NameSound.HighScore].Stop();
             mediaPlayers[NameSound.HighScore].Play();
+        }
+
+        public void HighScoreStop()
+        {
+            mediaPlayers[NameSound.HighScore].Stop();
         }
     }
 }

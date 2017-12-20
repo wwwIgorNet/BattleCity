@@ -22,31 +22,33 @@ namespace SuperTankWPF.Util
 {
     class GameMenedger : IDisposable
     {
-        private ScreenGameViewModel screnGame;
+        private ScreenGameViewModel screenGame;
         private LevelInfoViewModel levelInfo;
-        private ScreenSceneViewModel screnScene;
+        private ScreenSceneViewModel screenScene;
         private MainViewModel mainViewModel;
         private ScreenConstructionViewModel construction;
         private ComunicationTCP comunication;
-        private ScreenScoreViewModel screnScore;
+        private ScreenScoreViewModel screenScore;
+        private ScreenLockViewModel screenLock;
         private IViewSound sound;
         private GameInfo iPlayerGameManedger;
         private DialogIPViewModel dialogIPViewModel;
         private Game game;
 
-        public GameMenedger(ScreenGameViewModel screnGame, MainViewModel mainViewModel, 
-            ScreenSceneViewModel screnScene, LevelInfoViewModel levelInfo, 
+        public GameMenedger(ScreenGameViewModel screenGame, MainViewModel mainViewModel, 
+            ScreenSceneViewModel screenScene, LevelInfoViewModel levelInfo, 
             ScreenConstructionViewModel construction, ComunicationTCP comunication,
-            ScreenScoreViewModel screnScore, IViewSound sound,
+            ScreenScoreViewModel screenScore, ScreenLockViewModel screenLock, IViewSound sound,
             GameInfo iPlayerGameManedger, DialogIPViewModel dialogIPViewModel)
         {
-            this.screnGame = screnGame;
+            this.screenGame = screenGame;
             this.mainViewModel = mainViewModel;
-            this.screnScene = screnScene;
+            this.screenScene = screenScene;
             this.levelInfo = levelInfo;
             this.construction = construction;
             this.comunication = comunication;
-            this.screnScore = screnScore;
+            this.screenScore = screenScore;
+            this.screenLock = screenLock;
             this.sound = sound;
             this.iPlayerGameManedger = iPlayerGameManedger;
             this.dialogIPViewModel = dialogIPViewModel;
@@ -56,7 +58,7 @@ namespace SuperTankWPF.Util
         {
             StartGame(null, null);
             levelInfo.IsTwoPlayer = false;
-            screnScore.IsTwoPlayer = false;
+            screenScore.IsTwoPlayer = false;
         }
 
         private async void StartGame(IPAddress iPCurrentComputer, IPAddress iPRemoteComputer)
@@ -77,7 +79,7 @@ namespace SuperTankWPF.Util
                     game.Start(iPCurrentComputer, iPRemoteComputer);
             });
 
-            ThreadPool.QueueUserWorkItem(s => screnGame.Keyboard = comunication.GetKeyboard());
+            ThreadPool.QueueUserWorkItem(s => screenGame.Keyboard = comunication.GetKeyboard());
         }
 
         public void IIPlayerExecute()
@@ -94,6 +96,11 @@ namespace SuperTankWPF.Util
                 if (dialogIPViewModel.NewGame)
                 {
                     comunication.StartMainComputer(dialogIPViewModel.IPCurrentComputer);
+                    screenLock.IsCancelVisible = Visibility.Visible;
+                    screenLock.Cancel += () =>
+                    {
+                        StopoGame(); mainViewModel.ScreenStartVisibility = Visibility.Visible;
+                    };
                     mainViewModel.ScreenLockVisibility = Visibility.Visible;
                     comunication.StartedTwoComputer += () =>
                     {
@@ -107,14 +114,14 @@ namespace SuperTankWPF.Util
                         mainViewModel.ScreenLockVisibility = Visibility.Visible;
                         comunication.StartTwoPlayerComputer(dialogIPViewModel.IPRemoteComputer);
                         comunication.OpenTCPHost(dialogIPViewModel.IPCurrentComputer);
-                        screnGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);
+                        screenGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);
                         iPlayerGameManedger.EndOfGame += StopoGame;
                         mainViewModel.ScreenGameVisibility = Visibility.Visible;
                     });
                 }
 
                 levelInfo.IsTwoPlayer = true;
-                screnScore.IsTwoPlayer = true;
+                screenScore.IsTwoPlayer = true;
             }
         }
         public void ConstructionExecute()
@@ -125,7 +132,7 @@ namespace SuperTankWPF.Util
         public void StopoGame()
         {
             iPlayerGameManedger.EndOfGame -= StopoGame;
-            screnGame.Keyboard = null;
+            screenGame.Keyboard = null;
             game?.Stop();
             Thread.Sleep(ConfigurationWPF.TimerInterval * 4);
             comunication?.CloseChannelFactory();
@@ -134,10 +141,11 @@ namespace SuperTankWPF.Util
             comunication?.CloseHost();
 
             dialogIPViewModel.Clerar();
-            screnGame.Clear();
-            screnScene.Clear();
+            screenGame.Clear();
+            screenScene.Clear();
             levelInfo.Cler();
-            screnScore.Clear();
+            screenScore.Clear();
+            screenLock.Clear();
         }
         public void Dispose()
         {

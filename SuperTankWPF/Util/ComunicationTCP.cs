@@ -90,7 +90,7 @@ namespace SuperTankWPF.Util
 
         public override void CloseChannelFactory()
         {
-            factoryTwoComputer?.Close();
+            factoryTwoComputer?.Abort();
             base.CloseChannelFactory();
         }
 

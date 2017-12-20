@@ -123,6 +123,7 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ScreenConstructionViewModel.cs" />
     <Compile Include="ViewModel\ScreenGameViewModel.cs" />
+    <Compile Include="ViewModel\ScreenLockViewModel.cs" />
     <Compile Include="ViewModel\ScreenRecordViewModel.cs" />
     <Compile Include="ViewModel\ScreenSceneViewModel.cs" />
     <Compile Include="ViewModel\ScreenScoreViewModel.cs" />
