@@ -79,7 +79,14 @@ namespace SuperTankWPF.Util
             string conStr = "net.tcp://" + iPAddressRemouteComputr.ToString() + ":" + portTwoComputer + "/ITwoComputer";
             factoryTwoComputer = new ChannelFactory<ITwoComputer>(new NetTcpBinding(SecurityMode.None), conStr);
             factoryTwoComputer.CreateChannel().StartedTwoComp();
-            factoryTwoComputer.Abort();
+            try
+            {
+                factoryTwoComputer.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         void ITwoComputer.StartedTwoComp()

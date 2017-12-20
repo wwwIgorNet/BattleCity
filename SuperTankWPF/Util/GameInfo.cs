@@ -36,6 +36,8 @@ namespace SuperTankWPF.Util
         }
 
         public event Action EndOfGame;
+        public Owner OwnerPlayer { get; set; }
+
 
         public async void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr,
                                         int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
@@ -52,7 +54,15 @@ namespace SuperTankWPF.Util
                 mainViewModel.ScreenGameVisibility = Visibility.Visible;
             }
             else
-                await GameOver(countPointsIPlayer);
+            {
+                int countPoints = 0;
+                if (OwnerPlayer == Owner.IPlayer)
+                    countPoints = countPointsIPlayer;
+                else if (OwnerPlayer == Owner.IIPlayer)
+                    countPoints = countPointsIIPlayer;
+
+                await GameOver(countPoints);
+            }
         }
 
         public void GameOver()

@@ -31,7 +31,7 @@ namespace SuperTankWPF.Util
         private ScreenScoreViewModel screenScore;
         private ScreenLockViewModel screenLock;
         private IViewSound sound;
-        private GameInfo iPlayerGameManedger;
+        private GameInfo gameInfo;
         private DialogIPViewModel dialogIPViewModel;
         private Game game;
 
@@ -50,7 +50,7 @@ namespace SuperTankWPF.Util
             this.screenScore = screenScore;
             this.screenLock = screenLock;
             this.sound = sound;
-            this.iPlayerGameManedger = iPlayerGameManedger;
+            this.gameInfo = iPlayerGameManedger;
             this.dialogIPViewModel = dialogIPViewModel;
         }
 
@@ -67,7 +67,8 @@ namespace SuperTankWPF.Util
             await Task.Run(() =>
             {
                 comunication.OpenHost();
-                iPlayerGameManedger.EndOfGame += StopoGame;
+                gameInfo.OwnerPlayer = Owner.IPlayer;
+                gameInfo.EndOfGame += StopoGame;
             });
 
             await Task.Run(() =>
@@ -115,7 +116,8 @@ namespace SuperTankWPF.Util
                         comunication.StartTwoPlayerComputer(dialogIPViewModel.IPRemoteComputer);
                         comunication.OpenTCPHost(dialogIPViewModel.IPCurrentComputer);
                         screenGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);
-                        iPlayerGameManedger.EndOfGame += StopoGame;
+                        gameInfo.OwnerPlayer = Owner.IIPlayer;
+                        gameInfo.EndOfGame += StopoGame;
                         mainViewModel.ScreenGameVisibility = Visibility.Visible;
                     });
                 }
@@ -131,7 +133,7 @@ namespace SuperTankWPF.Util
 
         public void StopoGame()
         {
-            iPlayerGameManedger.EndOfGame -= StopoGame;
+            gameInfo.EndOfGame -= StopoGame;
             screenGame.Keyboard = null;
             game?.Stop();
             Thread.Sleep(ConfigurationWPF.TimerInterval * 4);
