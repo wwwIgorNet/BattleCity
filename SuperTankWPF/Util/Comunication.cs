@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using SuperTank;
+﻿using SuperTank;
 using SuperTank.Audio;
 using SuperTank.View;
 using SuperTankWPF.ViewModel;

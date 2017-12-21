@@ -1,5 +1,4 @@
-﻿using Microsoft.Practices.ServiceLocation;
-using SuperTankWPF.Model;
+﻿using SuperTankWPF.Model;
 using SuperTankWPF.View;
 using SuperTankWPF.ViewModel;
 using System;

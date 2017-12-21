@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using SuperTankWPF.ViewModel;
+﻿using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;

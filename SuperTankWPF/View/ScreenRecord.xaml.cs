@@ -1,5 +1,4 @@
-﻿using CommonServiceLocator;
-using SuperTank.Audio;
+﻿using SuperTank.Audio;
 using SuperTankWPF.Model;
 using SuperTankWPF.ViewModel;
 using System;

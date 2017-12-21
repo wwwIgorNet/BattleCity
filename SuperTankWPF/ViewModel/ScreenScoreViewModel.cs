@@ -18,7 +18,6 @@ namespace SuperTankWPF.ViewModel
     public class ScreenScoreViewModel : ObservableObject
     {
         private string textStage;
-        private int level;
         private string stage;
         private PlayerDeteils player1;
         private PlayerDeteils player2;
@@ -44,7 +43,7 @@ namespace SuperTankWPF.ViewModel
 
         private async void ShowInfo(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr)
         {
-            Level = level;
+            SetLevel(level);
             Player1.TotalCountPoints = countPointsIPlayer;
 
             foreach (var item in ListDeteils)
@@ -64,7 +63,7 @@ namespace SuperTankWPF.ViewModel
 
         private async void ShowInfo(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            Level = level;
+            SetLevel(level);
             Player1.TotalCountPoints = countPointsIPlayer;
             Player2.TotalCountPoints = countPointsIIPlayer;
 
@@ -157,10 +156,9 @@ namespace SuperTankWPF.ViewModel
             }
         }
 
-        public int Level
+        public void SetLevel(int level)
         {
-            get { return level; }
-            private set { Stage = textStage + " " + value; }
+            Stage = textStage + " " + level;
         }
 
         public string Stage

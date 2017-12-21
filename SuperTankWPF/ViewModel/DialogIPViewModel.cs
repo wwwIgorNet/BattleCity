@@ -58,7 +58,9 @@ namespace SuperTankWPF.ViewModel
         {
             // Получение ip-адреса.
             String host = System.Net.Dns.GetHostName();
+#pragma warning disable CS0618 // Type or member is obsolete
             IPCurrentComputer = Dns.GetHostByName(host).AddressList[0];
+#pragma warning restore CS0618 // Type or member is obsolete
             IPRemoteComputer = IPCurrentComputer;
             NewGame = true;
         }

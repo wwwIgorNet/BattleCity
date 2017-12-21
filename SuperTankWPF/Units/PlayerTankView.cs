@@ -8,7 +8,6 @@ using SuperTank;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using SuperTankWPF.Model;
-using Microsoft.Practices.ServiceLocation;
 using SuperTankWPF.ViewModel;
 using System.Timers;
 
