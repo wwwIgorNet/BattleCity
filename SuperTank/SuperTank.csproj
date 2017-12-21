@@ -83,6 +83,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <Compile Include="ConfigurationWinForms.cs" />
+    <Compile Include="SoundGame.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
     <Compile Include="View\FactoryViewUnit.cs" />

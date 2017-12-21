@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\IViewSound.cs" />
-    <Compile Include="Audio\SoundGame.cs" />
     <Compile Include="Comunication\ITwoComputer.cs" />
     <Compile Include="ConfigurationView.cs" />
     <Compile Include="FH\FirewallHelper.cs" />
