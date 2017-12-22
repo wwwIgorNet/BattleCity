@@ -14,6 +14,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using ViewLibrary.Audio;
 
 namespace SuperTankWPF.ViewModel
 {
@@ -139,11 +140,11 @@ namespace SuperTankWPF.ViewModel
                 return ServiceLocator.Current.GetInstance<IImageSourceStor>();
             }
         }
-        public Model.SoundGame SoundGame
+        public SoundGame SoundGame
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<Model.SoundGame>();
+                return ServiceLocator.Current.GetInstance<SoundGame>();
             }
         }
 
@@ -153,7 +154,7 @@ namespace SuperTankWPF.ViewModel
         public static void Cleanup()
         {
             ServiceLocator.Current.GetInstance<GameMenedger>().Dispose();
-            ServiceLocator.Current.GetInstance<Model.SoundGame>().Dispose();
+            ServiceLocator.Current.GetInstance<SoundGame>().Dispose();
         }
     }
 }

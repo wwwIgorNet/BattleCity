@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Media;
 using ViewLibrary.Audio;
 
-namespace SuperTankWPF.Model
+namespace ViewLibrary.Audio
 {
     /// <summary>
     /// All sounds of the game
@@ -102,12 +102,12 @@ namespace SuperTankWPF.Model
         }
         public void Move()
         {
-            soundPlayers[NameSound.Stop].Stop();
+            soundPlayers[NameSound.Stop].Pause();
             soundPlayers[NameSound.Move].Play();
         }
         public void Stop()
         {
-            soundPlayers[NameSound.Move].Stop();
+            soundPlayers[NameSound.Move].Pause();
             soundPlayers[NameSound.Stop].Play();
         }
         public void Dispose()

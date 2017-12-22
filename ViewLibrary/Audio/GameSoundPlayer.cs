@@ -43,5 +43,10 @@ namespace ViewLibrary.Audio
         {
             directSoundOut.Stop();
         }
+
+        public void Pause()
+        {
+            directSoundOut.Pause();
+        }
     }
 }

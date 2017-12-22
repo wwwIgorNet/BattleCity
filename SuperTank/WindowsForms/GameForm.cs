@@ -18,6 +18,7 @@ using System.Net;
 using SuperTank.Comunication;
 using SuperTank.FH;
 using GameLibrary.Lib;
+using ViewLibrary.Audio;
 
 namespace SuperTank.WindowsForms
 {
@@ -64,6 +65,7 @@ namespace SuperTank.WindowsForms
             InitializeComponent();
 
             soundGame = new SoundGame();
+            soundGame.OpenMedia(ConfigurationWinForms.SoundPath);
 
             GameForm.viewSound = soundGame;
             this.ClientSize = new Size(ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);

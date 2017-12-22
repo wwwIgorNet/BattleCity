@@ -10,5 +10,6 @@ namespace ViewLibrary.Audio
     {
         void Play();
         void Stop();
+        void Pause();
     }
 }
