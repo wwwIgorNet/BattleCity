@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using GameLibrary.Lib;
+using System.ServiceModel;
 using System.Windows.Forms;
 
 namespace SuperTank
@@ -14,13 +15,15 @@ namespace SuperTank
         /// </summary>
         /// <param name="key">Key code</param>
         [OperationContract(IsOneWay = true)]
-        void KeyDown(Keys key);
+        [ServiceKnownType(typeof(KeysGame))]
+        void KeyDown(KeysGame key);
         /// <summary>
         /// Key up
         /// </summary>
         /// <param name="key">Key code</param>
         [OperationContract(IsOneWay = true)]
-        void KeyUp(Keys key);
+        [ServiceKnownType(typeof(KeysGame))]
+        void KeyUp(KeysGame key);
 
         bool Down { get; }
         bool Enter { get; }
@@ -29,5 +32,7 @@ namespace SuperTank
         bool Right { get; }
         bool Space { get; }
         bool Up { get; }
+
+        void Clear();
     }
 }

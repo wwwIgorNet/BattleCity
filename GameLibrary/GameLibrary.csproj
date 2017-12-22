@@ -50,6 +50,7 @@
     <Compile Include="Lib\IKeyboard.cs" />
     <Compile Include="Lib\IRender.cs" />
     <Compile Include="Lib\ISoundGame.cs" />
+    <Compile Include="Lib\KeysGame.cs" />
     <Compile Include="Lib\Owner.cs" />
     <Compile Include="Lib\PropertiesType.cs" />
     <Compile Include="Lib\TypeBlickWall.cs" />

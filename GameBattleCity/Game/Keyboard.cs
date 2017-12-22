@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using GameLibrary.Lib;
+using System.ServiceModel;
 using System.Windows.Forms;
 
 namespace SuperTank
@@ -17,39 +18,50 @@ namespace SuperTank
         public bool Up { get; protected set; }
         public bool Space { get; protected set; }
 
-        public void KeyDown(Keys key)
+        public void KeyDown(KeysGame key)
         {
-            if (key == Keys.Left)
+            if (key == KeysGame.Left)
                 Left = true;
-            else if (key == Keys.Right)
+            else if (key == KeysGame.Right)
                 Right = true;
-            else if (key == Keys.Up)
+            else if (key == KeysGame.Up)
                 Up = true;
-            else if (key == Keys.Down)
+            else if (key == KeysGame.Down)
                 Down = true;
-            else if (key == Keys.Space)
+            else if (key == KeysGame.Space)
                 Space = true;
-            else if (key == Keys.Enter)
+            else if (key == KeysGame.Enter)
                 Enter = true;
-            else if (key == Keys.Escape)
+            else if (key == KeysGame.Escape)
                 Escape = true;
         }
-        public void KeyUp(Keys key)
+        public void KeyUp(KeysGame key)
         {
-            if (key == Keys.Left)
+            if (key == KeysGame.Left)
                 Left = false;
-            else if (key == Keys.Right)
+            else if (key == KeysGame.Right)
                 Right = false;
-            else if (key == Keys.Up)
+            else if (key == KeysGame.Up)
                 Up = false;
-            else if (key == Keys.Down)
+            else if (key == KeysGame.Down)
                 Down = false;
-            else if (key == Keys.Space)
+            else if (key == KeysGame.Space)
                 Space = false;
-            else if (key == Keys.Enter)
+            else if (key == KeysGame.Enter)
                 Enter = false;
-            else if (key == Keys.Escape)
+            else if (key == KeysGame.Escape)
                 Escape = false;
+        }
+
+        public void Clear()
+        {
+            Enter = false;
+            Escape = false;
+            Left = false;
+            Right = false;
+            Down = false;
+            Up = false;
+            Space = false;
         }
     }
 }

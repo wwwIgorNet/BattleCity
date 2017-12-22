@@ -81,7 +81,7 @@ namespace SuperTank
             IPlaeyr = new Player(sound, Owner.IPlayer, keyboard, gameInfo, ()=> new Point(ConfigurationGame.StartPositionTankIPlaeyr.X, ConfigurationGame.StartPositionTankIPlaeyr.Y));
             enemy = new Enemy(gameInfo);
             Scene.Render = render;
-            levelManager = new LevelManager(sound, gameInfo, IPlaeyr, IIPlaeyr, enemy);
+            levelManager = new LevelManager(sound, gameInfo, IPlaeyr, IIPlaeyr, enemy, keyboard);
         }
         private void OpenChanelFactoryIIPlayer(out IRender renderIIPlayer, out ISoundGame soundIIPlayer, out IGameInfo gameInfoIIPlayer, string ipAddress)
         {

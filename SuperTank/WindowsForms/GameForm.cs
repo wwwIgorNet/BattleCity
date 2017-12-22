@@ -17,6 +17,7 @@ using System.IO;
 using System.Net;
 using SuperTank.Comunication;
 using SuperTank.FH;
+using GameLibrary.Lib;
 
 namespace SuperTank.WindowsForms
 {
@@ -94,24 +95,39 @@ namespace SuperTank.WindowsForms
 
             if (!isGameStop)
             {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                    case Keys.Right:
-                    case Keys.Up:
-                    case Keys.Down:
-                    case Keys.Space:
-                    case Keys.Enter:
-                    case Keys.Escape:
-                        Keyboard.KeyDown(e.KeyCode);
-                        break;
-                }
+                KeysGame keysGame = KeyConverter(e.KeyCode);
+                if (keysGame != KeysGame.None)
+                    Keyboard.KeyDown(keysGame);
             }
             else if (screnConstructor.IsActiv)
             {
                 screnConstructor.KeyDown(e.KeyCode);
             }
         }
+
+        private static KeysGame KeyConverter(Keys keys)
+        {
+            switch (keys)
+            {
+                case Keys.Left:
+                    return KeysGame.Left;
+                case Keys.Right:
+                    return KeysGame.Right;
+                case Keys.Up:
+                    return KeysGame.Up;
+                case Keys.Down:
+                    return KeysGame.Down;
+                case Keys.Space:
+                    return KeysGame.Space;
+                case Keys.Enter:
+                    return KeysGame.Enter;
+                case Keys.Escape:
+                    return KeysGame.Escape;
+            }
+
+            return KeysGame.None;
+        }
+
         protected override void OnKeyUp(KeyEventArgs e)
         {
             base.OnKeyUp(e);
@@ -120,18 +136,9 @@ namespace SuperTank.WindowsForms
 
             if (!isGameStop)
             {
-                switch (e.KeyCode)
-                {
-                    case Keys.Left:
-                    case Keys.Right:
-                    case Keys.Up:
-                    case Keys.Down:
-                    case Keys.Space:
-                    case Keys.Enter:
-                    case Keys.Escape:
-                        Keyboard.KeyUp(e.KeyCode);
-                        break;
-                }
+                KeysGame keysGame = KeyConverter(e.KeyCode);
+                if (keysGame != KeysGame.None)
+                    Keyboard.KeyUp(keysGame);
             }
             else if (isStartScren)
             {

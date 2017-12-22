@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GameLibrary.Lib;
 using SuperTank;
 using System;
 using System.Collections.Generic;
@@ -51,23 +52,23 @@ namespace SuperTankWPF.ViewModel
             Keyboard?.KeyUp(KeyConverter(key));
         }
 
-        private Keys KeyConverter(Key key)
+        private KeysGame KeyConverter(Key key)
         {
             switch (key)
             {
                 case Key.Up:
-                    return Keys.Up;
+                    return KeysGame.Up;
                 case Key.Down:
-                    return Keys.Down;
+                    return KeysGame.Down;
                 case Key.Left:
-                    return Keys.Left;
+                    return KeysGame.Left;
                 case Key.Right:
-                    return Keys.Right;
+                    return KeysGame.Right;
                 case Key.Space:
-                    return Keys.Space;
+                    return KeysGame.Space;
             }
 
-            return Keys.None;
+            return KeysGame.None;
         }
     }
 }
