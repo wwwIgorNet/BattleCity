@@ -41,18 +41,16 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<GameInfo>();
             SimpleIoc.Default.Register<IGameInfo>(() => ServiceLocator.Current.GetInstance<GameInfo>());
-            
+
             SimpleIoc.Default.Register<IImageSourceStor, ImageSourceStor>();
             SimpleIoc.Default.Register<IFactoryUnitView, FactoryUnitView>();
 
-            SimpleIoc.Default.Register<Model.SoundGame>(() =>
-            {
-                Model.SoundGame soundGame = new Model.SoundGame(ServiceLocator.Current.GetInstance<SynchronizationContext>());
-                soundGame.OpenMedia(ConfigurationWPF.SoundPath, UriKind.Relative);
-                return soundGame;
-            });
-            SimpleIoc.Default.Register<ISoundGame>(() => ServiceLocator.Current.GetInstance<Model.SoundGame>());
-            SimpleIoc.Default.Register<IViewSound>(() => ServiceLocator.Current.GetInstance<Model.SoundGame>());
+            SoundGame soundGame = new SoundGame();
+            soundGame.OpenMedia(ConfigurationWPF.SoundPath);
+            SimpleIoc.Default.Register<SoundGame>(() => soundGame);
+
+            SimpleIoc.Default.Register<ISoundGame>(() => ServiceLocator.Current.GetInstance<SoundGame>());
+            SimpleIoc.Default.Register<IViewSound>(() => ServiceLocator.Current.GetInstance<SoundGame>());
 
             SimpleIoc.Default.Register<ComunicationTCP>();
         }

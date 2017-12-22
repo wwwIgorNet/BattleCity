@@ -106,7 +106,6 @@
     <Compile Include="Model\ConfigurationWPF.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
-    <Compile Include="Model\SoundGame.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\ArmoredTankView.cs" />
     <Compile Include="Units\BlickWall.cs" />
@@ -395,51 +394,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Ico\Ico.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\Bonus.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\CountTankIncrement.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\DetonationBrickWall.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\DetonationEagle.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\DetonationShell.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\DetonationShellBig.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\Fire.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\GameOver.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\GameStart.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\Glide.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\HighScore.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\NewBonus.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\SoundMove.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\SoundStop.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Content\Sound\TwoFire.wav" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Textures\Bonus\Clock.png" />

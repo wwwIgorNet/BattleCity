@@ -12,7 +12,5 @@ namespace SuperTankWPF.Model
         protected ConfigurationWPF() { }
 
         public new static string TexturePath => @"pack://application:,,,/..\" + ConfigurationView.TexturePath;
-
-        public new static string SoundPath => @"..\..\" + ConfigurationView.SoundPath;
     }
 }
