@@ -19,5 +19,7 @@
         /// </summary>
         void HighScore();
         void HighScoreStop();
+
+        float Volume { get; set; }
     }
 }

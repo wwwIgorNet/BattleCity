@@ -37,6 +37,19 @@ namespace ViewLibrary.Audio
         }
 
         private readonly Dictionary<NameSound, ISoundPlayer> soundPlayers = new Dictionary<NameSound, ISoundPlayer>();
+        private float volume = 1F;
+
+        public float Volume
+        {
+            get => volume;
+            set
+            {
+                foreach (var sp in soundPlayers)
+                    sp.Value.Volume = value;
+
+                volume = value;
+            }
+        }
 
         public void OpenMedia(string path)
         {

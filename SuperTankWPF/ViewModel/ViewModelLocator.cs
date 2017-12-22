@@ -140,11 +140,11 @@ namespace SuperTankWPF.ViewModel
                 return ServiceLocator.Current.GetInstance<IImageSourceStor>();
             }
         }
-        public SoundGame SoundGame
+        public IViewSound SoundGame
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<SoundGame>();
+                return ServiceLocator.Current.GetInstance<IViewSound>();
             }
         }
 

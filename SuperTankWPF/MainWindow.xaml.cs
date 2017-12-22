@@ -23,16 +23,35 @@ namespace SuperTankWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private float volumeIncrement = 0.1f;
+
         public MainWindow()
         {
             InitializeComponent();
 
             ClientWidth = ConfigurationWPF.WindowClientWidth;
             ClientHeight = ConfigurationWPF.WindowClientHeight;
+
+            Binding binding = new Binding
+            {
+                Mode = BindingMode.OneWayToSource,
+                Source = this.FindResource("Locator"),
+                Path = new PropertyPath("SoundGame.Volume")
+            };
+            this.SetBinding(MainWindow.VolumeProperty, binding);
         }
 
-
         #region DependencyProperty
+        public float Volume
+        {
+            get { return (float)GetValue(VolumeProperty); }
+            set { SetValue(VolumeProperty, value); }
+        }
+        
+        public static readonly DependencyProperty VolumeProperty =
+            DependencyProperty.Register("Volume", typeof(float), typeof(MainWindow), new PropertyMetadata(0.5f));
+
+
         public double ClientHeight
         {
             get { return (double)GetValue(ClientHeightProperty); }
@@ -75,6 +94,14 @@ namespace SuperTankWPF
             else if (e.Key == Key.Escape)
             {
                 this.Close();
+            }
+            else if (e.Key == Key.PageUp)
+            {
+                if (Volume <= 1 - volumeIncrement) Volume += volumeIncrement;
+            }
+            else if (e.Key == Key.PageDown)
+            {
+                if (Volume >= 0 + volumeIncrement) Volume -= volumeIncrement;
             }
         }
     }
