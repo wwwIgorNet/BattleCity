@@ -17,6 +17,7 @@
         NumberOfHits,  // количество попаданий снаряда в танк
         IsBonusTank,
         IsInvulnerable, // неуязвимый
-        Points
+        Points,
+        TypeBlickWall
     }
 }

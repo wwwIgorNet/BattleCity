@@ -38,7 +38,6 @@ namespace SuperTankWPF.Model
         private ImageSource shellDetonationBig;
         private ImageSource shellDetonationBig2;
 
-        private ImageSource brickWall;
         private ImageSource concreteWall;
         private ImageSource forest;
         private ImageSource ice;
@@ -61,6 +60,17 @@ namespace SuperTankWPF.Model
         private string pathForInvulnerable = @"Tank\";
         private ImageSource invulnerable1;
         private ImageSource invulnerable2;
+
+        private string pathBrickWall = @"BrickWall\";
+        private ImageSource brickWall;
+        private ImageSource brickWallTopLeft;
+        private ImageSource brickWallTopRight;
+        private ImageSource brickWallBottomLeft;
+        private ImageSource brickWallBottomRight;
+        private ImageSource brickWallTop;
+        private ImageSource brickWallBottom;
+        private ImageSource brickWallRight;
+        private ImageSource brickWallLeft;
 #pragma warning restore CS0649
 
         public Bonus Bonuses { get { return bonuses; } }
@@ -190,7 +200,63 @@ namespace SuperTankWPF.Model
         {
             get
             {
-                return Validate(brickWall, "BrickWall.png");
+                return Validate(brickWall, pathBrickWall + "BrickWall.png");
+            }
+        }
+        public ImageSource BlickWallTopLeft
+        {
+            get
+            {
+                return Validate(brickWallTopLeft, pathBrickWall + "TopLeft.png");
+            }
+        }
+        public ImageSource BlickWallTopRight
+        {
+            get
+            {
+                return Validate(brickWallTopRight, pathBrickWall + "TopRight.png");
+            }
+        }
+        public ImageSource BlickWallBottomLeft
+        {
+            get
+            {
+                return Validate(brickWallBottomLeft, pathBrickWall + "BottomLeft.png");
+            }
+        }
+        public ImageSource BlickWallBottomRight
+        {
+            get
+            {
+                return Validate(brickWallBottomRight, pathBrickWall + "BottomRight.png");
+            }
+        }
+        public ImageSource BlickWallTop
+        {
+            get
+            {
+                return Validate(brickWallTop, pathBrickWall + "Top.png");
+            }
+        }
+        public ImageSource BlickWallBottom
+        {
+            get
+            {
+                return Validate(brickWallBottom, pathBrickWall + "Bottom.png");
+            }
+        }
+        public ImageSource BlickWallLeft
+        {
+            get
+            {
+                return Validate(brickWallLeft, pathBrickWall + "Left.png");
+            }
+        }
+        public ImageSource BlickWallRight
+        {
+            get
+            {
+                return Validate(brickWallRight, pathBrickWall + "Right.png");
             }
         }
         public ImageSource Forest

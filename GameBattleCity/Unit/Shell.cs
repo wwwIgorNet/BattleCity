@@ -1,4 +1,7 @@
-﻿using System.Timers;
+﻿using GameBattleCity.Lib;
+using System;
+using System.Collections.Generic;
+using System.Timers;
 
 namespace SuperTank
 {
@@ -111,8 +114,8 @@ namespace SuperTank
                             }
                             break;
                         case TypeUnit.BrickWall:
-                            Detonation(item, true);
-                            return;
+                            DestroyBlickWall(item);
+                            break;
                         case TypeUnit.ConcreteWall:
                             Detonation(item, false);
                             break;
@@ -125,6 +128,126 @@ namespace SuperTank
                     }
                 }
             }
+        }
+
+        private void DestroyBlickWall(Unit unit)
+        {
+            switch ((TypeBlickWall)unit.Properties[PropertiesType.TypeBlickWall])
+            {
+                case TypeBlickWall.Whole:
+                    switch (Direction)
+                    {
+                        case Direction.Up:
+                            SetTypeBlickWall(unit, TypeBlickWall.Top);
+                            unit.Height /= 2;
+                            break;
+                        case Direction.Right:
+                            SetTypeBlickWall(unit, TypeBlickWall.Right);
+                            unit.Width /= 2;
+                            unit.X += unit.Width;
+                            break;
+                        case Direction.Down:
+                            SetTypeBlickWall(unit, TypeBlickWall.Bottom);
+                            unit.Height /= 2;
+                            unit.Y += unit.Height;
+                            break;
+                        case Direction.Left:
+                            SetTypeBlickWall(unit, TypeBlickWall.Left);
+                            unit.Width /= 2;
+                            break;
+                    }
+                    Detonation(unit, false);
+                    break;
+                case TypeBlickWall.Top:
+                    switch (Direction)
+                    {
+                        case Direction.Up:
+                        case Direction.Down:
+                            Detonation(unit, true);
+                            return;
+                        case Direction.Right:
+                            SetTypeBlickWall(unit, TypeBlickWall.TopRight);
+                            unit.X += ConfigurationGame.WidthTile / 2;
+                            break;
+                        case Direction.Left:
+                            SetTypeBlickWall(unit, TypeBlickWall.TopLeft);
+                            break;
+                    }
+                    unit.Width /= 2;
+                    Detonation(unit, false);
+                    break;
+                case TypeBlickWall.Bottom:
+                    switch (Direction)
+                    {
+                        case Direction.Up:
+                        case Direction.Down:
+                            Detonation(unit, true);
+                            return;
+                        case Direction.Right:
+                            SetTypeBlickWall(unit, TypeBlickWall.BootomRight);
+                            unit.X += ConfigurationGame.WidthTile / 2;
+                            break;
+                        case Direction.Left:
+                            SetTypeBlickWall(unit, TypeBlickWall.BottomLeft);
+                            break;
+                    }
+                    unit.Width /= 2;
+                    Detonation(unit, false);
+                    break;
+                case TypeBlickWall.Left:
+                    switch (Direction)
+                    {
+                        case Direction.Right:
+                        case Direction.Left:
+                            Detonation(unit, true);
+                            return;
+                        case Direction.Up:
+                            SetTypeBlickWall(unit, TypeBlickWall.TopLeft);
+                            break;
+                        case Direction.Down:
+                            SetTypeBlickWall(unit, TypeBlickWall.BottomLeft);
+                            unit.Y += ConfigurationGame.HeightTile / 2;
+                            break;
+                    }
+                    unit.Height /= 2;
+                    Detonation(unit, false);
+                    break;
+                case TypeBlickWall.Right:
+                    switch (Direction)
+                    {
+                        case Direction.Right:
+                        case Direction.Left:
+                            Detonation(unit, true);
+                            return;
+                        case Direction.Up:
+                            SetTypeBlickWall(unit, TypeBlickWall.TopRight);
+                            break;
+                        case Direction.Down:
+                            SetTypeBlickWall(unit, TypeBlickWall.BootomRight);
+                            unit.Y += ConfigurationGame.HeightTile / 2;
+                            break;
+                    }
+                    unit.Height /= 2;
+                    Detonation(unit, false);
+                    break;
+                case TypeBlickWall.TopLeft:
+                    Detonation(unit, true);
+                    break;
+                case TypeBlickWall.TopRight:
+                    Detonation(unit, true);
+                    break;
+                case TypeBlickWall.BottomLeft:
+                    Detonation(unit, true);
+                    break;
+                case TypeBlickWall.BootomRight:
+                    Detonation(unit, true);
+                    break;
+            }
+        }
+
+        private static void SetTypeBlickWall(Unit unit, TypeBlickWall typeBlickWall)
+        {
+            unit.Properties[PropertiesType.TypeBlickWall] = typeBlickWall;
         }
 
         private static void PauseTankPlayer(Unit item)

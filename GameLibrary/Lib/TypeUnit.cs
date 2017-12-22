@@ -25,7 +25,7 @@
         PlainTank,
         ArmoredPersonnelCarrierTank,
         QuickFireTank,
-        ArmoredTank,
+        ArmoredTank, 
 
         Clock,
         Grenade,

@@ -14,6 +14,14 @@ namespace SuperTank.View
             this.img = img;
         }
 
-        public override Image Img { get { return img; } }
+        public override Image Img
+        {
+            get { return img; }
+        }
+
+        protected void SetImg(Image img)
+        {
+            this.img = img;
+        }
     }
 }

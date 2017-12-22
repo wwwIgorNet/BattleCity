@@ -13,6 +13,7 @@ namespace SuperTank.View
         private static TankPlaeyr tankPlaeyr2 = new TankPlaeyr(@"Tank\Plaeyr2\SmallTank\", @"Tank\Plaeyr2\LightTank\", @"Tank\Plaeyr2\MediumTank\", @"Tank\Plaeyr2\HeavyTank\");
         private static TankEnemyExtend tankEnemy = new TankEnemyExtend(@"Tank\Enemy\PlainTank\", @"Tank\Enemy\ArmoredPersonnelCarrier\", @"Tank\Enemy\QuickFireTank\", @"Tank\Enemy\ArmoredTank\", @"Tank\Enemy\ArmoredTankGreen\", @"Tank\Enemy\ArmoredTankYellow\");
         private static TankEnemy tankRed = new TankEnemy(@"Tank\Enemy\Red\PlainTank\", @"Tank\Enemy\Red\ArmoredPersonnelCarrier\", @"Tank\Enemy\Red\QuickFireTank\", @"Tank\Enemy\Red\ArmoredTank\");
+        private static ImageBlickWall imagesBlickWall = new Images.ImageBlickWall(@"BrickWall\");
 
 #pragma warning disable CS0649
         private static Image dashboardInfo;
@@ -33,7 +34,6 @@ namespace SuperTank.View
         private static Image shellDetonationBig;
         private static Image shellDetonationBig2;
 
-        private static Image brickWall;
         private static Image concreteWall;
         private static Image forest;
         private static Image ice;
@@ -66,6 +66,7 @@ namespace SuperTank.View
         public static TankPlaeyr Plaeyr2 { get { return tankPlaeyr2; } }
         public static TankEnemyExtend Enemy { get { return tankEnemy; } }
         public static TankEnemy TankRed { get { return tankRed; } }
+        public static ImageBlickWall ImagesBlickWall { get { return imagesBlickWall; } }
 
 
         public static Image DashboardInfo
@@ -184,14 +185,7 @@ namespace SuperTank.View
                 return Validate(water_3, pathForWater + @"Water_3.png");
             }
         }
-
-        public static Image BrickWall
-        {
-            get
-            {
-                return Validate(brickWall, "BrickWall.png");
-            }
-        }
+        
         public static Image Forest
         {
             get
@@ -553,6 +547,89 @@ namespace SuperTank.View
                 get
                 {
                     return Validate(tank, pathForBonus + @"Tank.png");
+                }
+            }
+        }
+
+        public class ImageBlickWall
+        {
+            private string path;
+            private Image brickWall;
+            private Image brickWallTopLeft;
+            private Image brickWallTopRight;
+            private Image brickWallBottomLeft;
+            private Image brickWallBottomRight;
+            private Image brickWallTop;
+            private Image brickWallBottom;
+            private Image brickWallRight;
+            private Image brickWallLeft;
+
+            public ImageBlickWall(string path)
+            {
+                this.path = path;
+            }
+
+            public Image BrickWall
+            {
+                get
+                {
+                    return Validate(brickWall, path + "BrickWall.png");
+                }
+            }
+            public Image BlickWallTopLeft
+            {
+                get
+                {
+                    return Validate(brickWallTopLeft, path + "TopLeft.png");
+                }
+            }
+            public Image BlickWallTopRight
+            {
+                get
+                {
+                    return Validate(brickWallTopRight, path + "TopRight.png");
+                }
+            }
+            public Image BlickWallBottomLeft
+            {
+                get
+                {
+                    return Validate(brickWallBottomLeft, path + "BottomLeft.png");
+                }
+            }
+            public Image BlickWallBottomRight
+            {
+                get
+                {
+                    return Validate(brickWallBottomRight, path + "BottomRight.png");
+                }
+            }
+            public Image BlickWallTop
+            {
+                get
+                {
+                    return Validate(brickWallTop, path + "Top.png");
+                }
+            }
+            public Image BlickWallBottom
+            {
+                get
+                {
+                    return Validate(brickWallBottom, path + "Bottom.png");
+                }
+            }
+            public Image BlickWallLeft
+            {
+                get
+                {
+                    return Validate(brickWallLeft, path + "Left.png");
+                }
+            }
+            public Image BlickWallRight
+            {
+                get
+                {
+                    return Validate(brickWallRight, path + "Right.png");
                 }
             }
         }

@@ -109,11 +109,13 @@
     <Compile Include="Model\SoundGame.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\ArmoredTankView.cs" />
+    <Compile Include="Units\BlickWall.cs" />
     <Compile Include="Units\BonusArmoredTankView.cs" />
     <Compile Include="Units\BonusTankAnimation.cs" />
     <Compile Include="Units\BonusTankView.cs" />
     <Compile Include="Units\EagleView.cs" />
     <Compile Include="Units\FactoryUnitView.cs" />
+    <Compile Include="Units\IBlickWall.cs" />
     <Compile Include="Units\IDetonation.cs" />
     <Compile Include="Units\IDirection.cs" />
     <Compile Include="Units\IFactoryUnitView.cs" />
@@ -461,7 +463,7 @@
     <Resource Include="Content\Textures\Bonus\Tank.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Content\Textures\BrickWall.png" />
+    <Resource Include="Content\Textures\BrickWall\BrickWall.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Content\Textures\ConcreteWall.png" />
@@ -993,6 +995,22 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Textures\BrickWall\TopLeft.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Textures\BrickWall\TopRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Textures\BrickWall\BottomLeft.png" />
+    <Resource Include="Content\Textures\BrickWall\BottomRight.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Content\Textures\BrickWall\Bottom.png" />
+    <Resource Include="Content\Textures\BrickWall\Left.png" />
+    <Resource Include="Content\Textures\BrickWall\Right.png" />
+    <Resource Include="Content\Textures\BrickWall\Top.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

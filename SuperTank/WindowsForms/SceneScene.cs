@@ -1,4 +1,5 @@
-﻿using SuperTank.View;
+﻿using GameBattleCity.Lib;
+using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -48,6 +49,9 @@ namespace SuperTank
                         break;
                     case PropertiesType.Y:
                         viewUpdate.Y = (int)value;
+                        break;
+                    case PropertiesType.TypeBlickWall:
+                        ((IBlickWallVeiw)viewUpdate).TypeBlickWall = (TypeBlickWall)value;
                         break;
                     //case PropertiesType.Direction:
                     //case PropertiesType.IsStop:

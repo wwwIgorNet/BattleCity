@@ -86,7 +86,9 @@
     <Compile Include="SoundGame.cs" />
     <Compile Include="View\BaseView.cs" />
     <Compile Include="View\BigDetonationView.cs" />
+    <Compile Include="View\BlickWallVeiw.cs" />
     <Compile Include="View\FactoryViewUnit.cs" />
+    <Compile Include="View\IBlickWallVeiw.cs" />
     <Compile Include="View\IFactoryViewUnit.cs" />
     <Compile Include="View\Images.cs" />
     <Compile Include="View\SortedView.cs" />
@@ -391,9 +393,33 @@
     <Content Include="Content\Textures\Bonus\Tank.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Content\Textures\BrickWall.png">
+    <None Include="Content\Textures\BrickWall\Bottom.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Include="Content\Textures\BrickWall\BottomLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\BottomRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\BrickWall.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\Left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\Right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\Top.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\TopLeft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\Textures\BrickWall\TopRight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="Content\Textures\ConcreteWall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

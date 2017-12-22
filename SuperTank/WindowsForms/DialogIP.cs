@@ -23,8 +23,10 @@ namespace SuperTank.WindowsForms
             // Получение имени компьютера.
             String host = System.Net.Dns.GetHostName();
             // Получение ip-адреса.
+#pragma warning disable CS0618 // Type or member is obsolete
             MyIP = Dns.GetHostByName(host).AddressList[0];
-            // Показ адреса в label'е.
+#pragma warning restore CS0618 // Type or member is obsolete
+                              // Показ адреса в label'е.
             textBoxYourIP.Text = MyIP.ToString();
 
             textBoxIPSecondComputer.Text = MyIP.ToString();

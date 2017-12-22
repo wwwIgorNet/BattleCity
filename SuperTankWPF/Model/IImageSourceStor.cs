@@ -9,6 +9,14 @@ namespace SuperTankWPF.Model
     {
         ImageSourceStor.Bonus Bonuses { get; }
         ImageSource BrickWall { get; }
+        ImageSource BlickWallTopLeft { get; }
+        ImageSource BlickWallTopRight { get; }
+        ImageSource BlickWallBottomLeft { get; }
+        ImageSource BlickWallBottomRight { get; }
+        ImageSource BlickWallTop{ get; }
+        ImageSource BlickWallBottom{ get; }
+        ImageSource BlickWallRight { get; }
+        ImageSource BlickWallLeft { get; }
         ImageSource ConcreteWall { get; }
         ImageSource DashboardInfo { get; }
         ImageSource DashboardInfoIIPlayer { get; }

@@ -82,7 +82,7 @@ namespace SuperTankWPF.Units
 
 
                 case TypeUnit.BrickWall:
-                    resView = new UnitView() { Source = imgStor.BrickWall };
+                    resView = new BlickWall(imgStor) { Source = imgStor.BrickWall };
                     break;
                 case TypeUnit.ConcreteWall:
                     resView = new UnitView() { Source = imgStor.ConcreteWall };

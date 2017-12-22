@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GameBattleCity.Lib;
 using SuperTank;
 using SuperTank.View;
 using SuperTankWPF.Model;
@@ -87,6 +88,9 @@ namespace SuperTankWPF.ViewModel
                             break;
                         case PropertiesType.NumberOfHits:
                             ((INumberOfHits)unitView).NumberOfHits = (int)value;
+                            break;
+                        case PropertiesType.TypeBlickWall:
+                            ((IBlickWall)unitView).TypeBlickWall = (TypeBlickWall)value;
                             break;
                     }
                 }

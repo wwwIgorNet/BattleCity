@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GameBattleCity.Lib;
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace SuperTank.View
@@ -19,6 +20,7 @@ namespace SuperTank.View
         /// <param name="properties">Properties unit</param>
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
+        [ServiceKnownType(typeof(TypeBlickWall))]
         [ServiceKnownType(typeof(Owner))]
         void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties);
         /// <summary>
@@ -40,6 +42,7 @@ namespace SuperTank.View
         /// <param name="value">Value property</param>
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
+        [ServiceKnownType(typeof(TypeBlickWall))]
         void Update(int id, PropertiesType prop, object value);
         /// <summary>
         /// Add renge units

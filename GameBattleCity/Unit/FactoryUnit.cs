@@ -1,4 +1,5 @@
-﻿using SuperTank.Audio;
+﻿using GameBattleCity.Lib;
+using SuperTank.Audio;
 using System.Collections.Generic;
 
 namespace SuperTank
@@ -14,7 +15,9 @@ namespace SuperTank
         }
         public static Unit CreateUnit(int x, int y, int width, int height, TypeUnit type)
         {
-            return new Unit(NextID, x, y, width, height, type);
+            Unit u = new Unit(NextID, x, y, width, height, type);
+            if (u.Type == TypeUnit.BrickWall) u.Properties[PropertiesType.TypeBlickWall] = TypeBlickWall.Whole;
+            return u;
         }
         public static Tank CreateTank(int x, int y, TypeUnit type, Direction direction, IDriver driver, bool isBonusTank)
         {

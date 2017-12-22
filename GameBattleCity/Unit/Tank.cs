@@ -230,19 +230,19 @@ namespace SuperTank
         /// <param name="coordXOrY">
         /// Если направление движения в лево или в право передайом координату X иначе Y
         /// </param>
-        /// <param name="sizeSide">
+        /// <param name="side">
         /// Если направление движения в лево или в право передайом координату WidhtTile иначе HeightTile
         /// </param>
         /// <returns>
         /// Если смищение == 0 return true else false
         /// </returns>
-        private bool Offset(bool directionDownOrRight, int coordXOrY, int sizeSide)
+        private bool Offset(bool directionDownOrRight, int coordXOrY, int side)
         {
-            int offset = coordXOrY % sizeSide;
+            int offset = coordXOrY % side;
             if (offset == 0) return true;
 
 
-            if (directionDownOrRight) offset = sizeSide - offset;
+            if (directionDownOrRight) offset = side - offset;
 
             int vel;
             if (offset >= Velosity)
@@ -258,10 +258,7 @@ namespace SuperTank
             MoveToRect(rect);
             TestOnIce(colision);
 
-            if (colision.Find(u => u.Type == TypeUnit.SmallTankPlaeyr) != null)
-                return true;
-
-            return false;
+            return colision.Count > 0;
         }
         #endregion
 

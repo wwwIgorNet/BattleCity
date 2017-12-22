@@ -2,6 +2,7 @@
 using SuperTank.View;
 using System.Drawing;
 using SuperTank;
+using GameBattleCity.Lib;
 
 namespace SuperTank
 {
@@ -87,7 +88,7 @@ namespace SuperTank
 
 
                 case TypeUnit.BrickWall:
-                    resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.BrickWall);
+                    resView = new BlickWallVeiw(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, null, Images.ImagesBlickWall);
                     break;
                 case TypeUnit.ConcreteWall:
                     resView = new ViewUnit(id, x, y, ConfigurationView.WidthTile, ConfigurationView.HeightTile, 0, Images.ConcreteWall);

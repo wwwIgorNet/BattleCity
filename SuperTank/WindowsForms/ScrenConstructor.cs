@@ -34,7 +34,7 @@ namespace SuperTank.WindowsForms
 
         public ScrenConstructor()
         {
-            brickWall = Images.BrickWall;
+            brickWall = Images.ImagesBlickWall.BrickWall;
             concreteWall = Images.ConcreteWall;
             water_1 = Images.Water_1;
             forest = Images.Forest;
