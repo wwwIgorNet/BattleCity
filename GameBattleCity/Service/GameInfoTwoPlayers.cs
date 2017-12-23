@@ -1,4 +1,5 @@
-﻿using SuperTank;
+﻿using GameLibrary.Service;
+using SuperTank;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,14 +7,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace GameBattleCity.TwoPlayers
+namespace GameBattleCity.Service
 {
     class GameInfoTwoPlayers : IGameInfo
     {
-        private IGameInfo IPlayer;
-        private IGameInfo IIPlayer;
+        private IGameClient IPlayer;
+        private IGameClient IIPlayer;
 
-        public GameInfoTwoPlayers(IGameInfo IPlayer, IGameInfo IIPlayer)
+        public GameInfoTwoPlayers(IGameClient IPlayer, IGameClient IIPlayer)
         {
             this.IPlayer = IPlayer;
             this.IIPlayer = IIPlayer;
@@ -51,6 +52,15 @@ namespace GameBattleCity.TwoPlayers
             {
                 IPlayer.SetCountTankPlaeyr(count, owner);
                 IIPlayer.SetCountTankPlaeyr(count, owner);
+            });
+        }
+
+        public void StartGame()
+        {
+            ThreadPool.QueueUserWorkItem(s =>
+            {
+                IPlayer.StartGame();
+                IIPlayer.StartGame();
             });
         }
 

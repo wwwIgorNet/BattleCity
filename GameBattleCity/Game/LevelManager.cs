@@ -22,7 +22,7 @@ namespace SuperTank
 
         private IGameInfo gameInfo;
         private ISoundGame soundGame;
-        private IKeyboard keyboard;
+        private Keyboard keyboard;
         private int curentLevel;
         private Player IPlayer;
         private Player IIPlayer;
@@ -36,7 +36,7 @@ namespace SuperTank
             timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
         }
-        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy, IKeyboard keyboard)
+        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy, Keyboard keyboard)
         {
             this.keyboard = keyboard;
             countPlayers = 1;

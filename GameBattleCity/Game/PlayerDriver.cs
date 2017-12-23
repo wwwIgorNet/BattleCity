@@ -5,10 +5,10 @@
     /// </summary>
     class PlayerDriver : IDriver
     {
-        private IKeyboard keyboard;
+        private Keyboard keyboard;
         private Tank tank;
 
-        public PlayerDriver(IKeyboard keyboard)
+        public PlayerDriver(Keyboard keyboard)
         {
             this.keyboard = keyboard;
         }

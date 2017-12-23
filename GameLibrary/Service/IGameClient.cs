@@ -5,28 +5,32 @@ using System.Text;
 using System.ServiceModel;
 using SuperTank;
 using GameBattleCity.Lib;
+using SuperTank.View;
+using SuperTank.Audio;
 
-namespace GameLibrary.Lib
+namespace GameLibrary.Service
 {
     [ServiceContract]
     public interface IGameClient
     {
         [OperationContract(IsOneWay = true)]
-        void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr);
+        void StartGame();
 
         [OperationContract(IsOneWay = true)]
+        void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr);
+        
+        [OperationContract(IsOneWay = true)]
         void StartLevel(int level);
-       
+
         [OperationContract(IsOneWay = true)]
         void GameOver();
-        
+
         [OperationContract(IsOneWay = true)]
         void SetCountTankEnemy(int count);
-        
+
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Owner))]
         void SetCountTankPlaeyr(int count, Owner owner);
-
 
 
         [OperationContract(IsOneWay = true)]
@@ -49,7 +53,6 @@ namespace GameLibrary.Lib
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
         void AddRange(List<UnitDataForView> collection);
-
 
 
         [OperationContract(IsOneWay = true)]
@@ -81,7 +84,6 @@ namespace GameLibrary.Lib
 
         [OperationContract(IsOneWay = true)]
         void TankSoundStop();
-
         [OperationContract(IsOneWay = true)]
         void Bonus();
 

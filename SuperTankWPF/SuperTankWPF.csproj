@@ -106,6 +106,7 @@
     <Compile Include="Model\ConfigurationWPF.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
+    <Compile Include="Service\GameClient.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\ArmoredTankView.cs" />
     <Compile Include="Units\BlickWall.cs" />
@@ -126,7 +127,6 @@
     <Compile Include="Units\ShellView.cs" />
     <Compile Include="Units\TankView.cs" />
     <Compile Include="Util\ServerClient.cs" />
-    <Compile Include="Util\ComunicationTCP.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\IPAddressConverter.cs" />
     <Compile Include="Util\GameInfo.cs" />

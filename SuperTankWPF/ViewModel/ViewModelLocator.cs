@@ -52,8 +52,6 @@ namespace SuperTankWPF.ViewModel
 
             SimpleIoc.Default.Register<ISoundGame>(() => ServiceLocator.Current.GetInstance<SoundGame>());
             SimpleIoc.Default.Register<IViewSound>(() => ServiceLocator.Current.GetInstance<SoundGame>());
-
-            SimpleIoc.Default.Register<ComunicationTCP>();
         }
 
         /// <summary>

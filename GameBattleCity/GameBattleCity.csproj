@@ -68,8 +68,12 @@
     <Compile Include="Game\Scene.cs" />
     <Compile Include="Game\ServerGame.cs" />
     <Compile Include="Game\UpdatableBase.cs" />
-    <Compile Include="TwoPlayers\GameInfoTwoPlayers.cs" />
-    <Compile Include="TwoPlayers\RenderTwoPlayers.cs" />
+    <Compile Include="Service\GameInfo.cs" />
+    <Compile Include="Service\GameService.cs" />
+    <Compile Include="Service\Render.cs" />
+    <Compile Include="Service\SoundForServices.cs" />
+    <Compile Include="Service\GameInfoTwoPlayers.cs" />
+    <Compile Include="Service\RenderTwoPlayers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unit\BigDetonation.cs" />
     <Compile Include="Unit\Bonus.cs" />

@@ -1,8 +1,11 @@
-﻿using SuperTank;
+﻿using GameLibrary.Lib;
+using GameLibrary.Service;
+using SuperTank;
 using SuperTank.Audio;
 using SuperTank.FH;
 using SuperTank.View;
 using SuperTankWPF.Model;
+using SuperTankWPF.Service;
 using SuperTankWPF.View;
 using SuperTankWPF.ViewModel;
 using System;
@@ -16,6 +19,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using ViewLibrary.Audio;
+using ViewLibrary.Service;
 
 namespace SuperTankWPF.Util
 {
@@ -26,18 +31,17 @@ namespace SuperTankWPF.Util
         private ScreenSceneViewModel screenScene;
         private MainViewModel mainViewModel;
         private ScreenConstructionViewModel construction;
-        private ComunicationTCP comunication;
         private ScreenScoreViewModel screenScore;
         private ScreenLockViewModel screenLock;
-        private IViewSound sound;
+        private SoundGame sound;
         private GameInfo gameInfo;
         private DialogIPViewModel dialogIPViewModel;
         private Game game;
 
-        public GameMenedger(ScreenGameViewModel screenGame, MainViewModel mainViewModel, 
-            ScreenSceneViewModel screenScene, LevelInfoViewModel levelInfo, 
-            ScreenConstructionViewModel construction, ComunicationTCP comunication,
-            ScreenScoreViewModel screenScore, ScreenLockViewModel screenLock, IViewSound sound,
+        public GameMenedger(ScreenGameViewModel screenGame, MainViewModel mainViewModel,
+            ScreenSceneViewModel screenScene, LevelInfoViewModel levelInfo,
+            ScreenConstructionViewModel construction,
+            ScreenScoreViewModel screenScore, ScreenLockViewModel screenLock, SoundGame sound,
             GameInfo iPlayerGameManedger, DialogIPViewModel dialogIPViewModel)
         {
             this.screenGame = screenGame;
@@ -45,7 +49,6 @@ namespace SuperTankWPF.Util
             this.screenScene = screenScene;
             this.levelInfo = levelInfo;
             this.construction = construction;
-            this.comunication = comunication;
             this.screenScore = screenScore;
             this.screenLock = screenLock;
             this.sound = sound;
@@ -55,31 +58,35 @@ namespace SuperTankWPF.Util
 
         public void IPlayerExecute()
         {
-            StartGame(null, null);
+            StartGame(null);
             levelInfo.IsTwoPlayer = false;
             screenScore.IsTwoPlayer = false;
         }
 
-        private async void StartGame(IPAddress iPCurrentComputer, IPAddress iPRemoteComputer)
+        private async void StartGame(IPAddress iPCurrentComputer)
         {
-            mainViewModel.ScreenGameVisibility = Visibility.Visible;
             await Task.Run(() =>
             {
-                comunication.OpenHost();
                 gameInfo.OwnerPlayer = Owner.IPlayer;
                 gameInfo.EndOfGame += StopoGame;
-            });
 
-            await Task.Run(() =>
-            {
-                game = new Game();
-                if (construction.HasMap)
-                    game.Start(construction.GetAndClerMap(), iPCurrentComputer, iPRemoteComputer);
+                game = new Game(); if (construction.HasMap)
+                    game.Start(construction.GetAndClerMap(), iPCurrentComputer);
                 else
-                    game.Start(iPCurrentComputer, iPRemoteComputer);
+                    game.Start(iPCurrentComputer);
             });
 
-            ThreadPool.QueueUserWorkItem(s => screenGame.Keyboard = comunication.GetKeyboard());
+            ThreadPool.QueueUserWorkItem(s =>
+            {
+                InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
+                DuplexChannelFactory<IGameService> factory =
+                    new DuplexChannelFactory<IGameService>(context, new NetNamedPipeBinding(),
+                        "net.pipe://localhost/GameService");
+                IGameService proxy = factory.CreateChannel();
+                proxy.Connect(Owner.IPlayer);
+
+                screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IPlayer);
+            });
         }
 
         public void IIPlayerExecute()
@@ -95,29 +102,32 @@ namespace SuperTankWPF.Util
             {
                 if (dialogIPViewModel.NewGame)
                 {
-                    comunication.StartMainComputer(dialogIPViewModel.IPCurrentComputer);
                     screenLock.IsCancelVisible = Visibility.Visible;
                     screenLock.Cancel += () =>
                     {
-                        StopoGame(); mainViewModel.ScreenStartVisibility = Visibility.Visible;
+                        StopoGame();
+                        mainViewModel.ScreenStartVisibility = Visibility.Visible;
                     };
                     mainViewModel.ScreenLockVisibility = Visibility.Visible;
-                    comunication.StartedTwoComputer += () =>
-                    {
-                        StartGame(dialogIPViewModel.IPCurrentComputer, dialogIPViewModel.IPRemoteComputer);
-                    };
+                    StartGame(dialogIPViewModel.IPCurrentComputer);
                 }
                 else if (dialogIPViewModel.JoinGame)
                 {
                     ThreadPool.QueueUserWorkItem(s =>
                     {
                         mainViewModel.ScreenLockVisibility = Visibility.Visible;
-                        comunication.StartTwoPlayerComputer(dialogIPViewModel.IPRemoteComputer);
-                        comunication.OpenTCPHost(dialogIPViewModel.IPCurrentComputer);
-                        screenGame.Keyboard = comunication.GetTCPKeyboard(dialogIPViewModel.IPRemoteComputer);
+
+                        InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
+                        DuplexChannelFactory<IGameService> factory =
+                            new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
+                                "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":9090/GameService");
+                        IGameService proxy = factory.CreateChannel();
+                        proxy.Connect(Owner.IIPlayer);
+
+                        screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IIPlayer);
+                        
                         gameInfo.OwnerPlayer = Owner.IIPlayer;
                         gameInfo.EndOfGame += StopoGame;
-                        mainViewModel.ScreenGameVisibility = Visibility.Visible;
                     });
                 }
 
@@ -135,11 +145,7 @@ namespace SuperTankWPF.Util
             gameInfo.EndOfGame -= StopoGame;
             screenGame.Keyboard = null;
             game?.Stop();
-            Thread.Sleep(ConfigurationWPF.TimerInterval * 4);
-            comunication.CloseChannel();
             game?.CloseHost();
-            game?.CloseChannelFactory();
-            comunication.CloseHost();
 
             dialogIPViewModel.Clerar();
             screenGame.Clear();

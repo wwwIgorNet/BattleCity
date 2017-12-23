@@ -1,5 +1,7 @@
 ﻿using GameBattleCity.Game;
-using GameBattleCity.TwoPlayers;
+using GameBattleCity.Service;
+using GameLibrary.Lib;
+using GameLibrary.Service;
 using SuperTank.Audio;
 using SuperTank.View;
 using System;
@@ -12,68 +14,96 @@ namespace SuperTank
     /// <summary>
     /// Initializes the game and manages connections
     /// </summary>
-    public class Game
+    public class Game : IDisposable
     {
-        private ServerGame serverGame = new ServerGame();
+        private ServiceHost host;
+        private GameService gameService;
+
+        Keyboard keyboardIPlayer;
+        Keyboard keyboardIIPlayer;
         private LevelManager levelManager;
-        private Player IPlaeyr;
-        private Player IIPlaeyr;
         private Enemy enemy;
+        private char[,] map;
 
-        public void Start(IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
+        public void Start(IPAddress ipAddress)
         {
-            InitGame(ipFirstPlayer, ipSecondPlayer);
+            Start(null, ipAddress);
+        }
+        public void Start(char[,] map, IPAddress ipAddress)
+        {
+            this.map = map;
+            InitGame(ipAddress);
+        }
 
-            levelManager.StartLevel();
-        }
-        public void Start(char[,] map, IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
+        private void InitGame(IPAddress ipAddress)
         {
-            InitGame(ipFirstPlayer, ipSecondPlayer);
+            keyboardIPlayer = new Keyboard();
 
-            levelManager.StartLevel(map);
+            if (ipAddress != null)
+                keyboardIIPlayer = new Keyboard();
+
+            gameService = new GameService(keyboardIPlayer, keyboardIIPlayer);
+            gameService.ClientsConected += GameService_ClientConected;
+
+            host = new ServiceHost(gameService);
+            host.CloseTimeout = TimeSpan.FromMilliseconds(ConfigurationGame.CloseTimeout);
+            host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding(),
+                "net.pipe://localhost/GameService");
+
+            if (ipAddress != null)
+                host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding(),
+                    "net.tcp://" + ipAddress + ":9090/GameService");
+
+                host.Open();
         }
-        public void CloseChannelFactory()
+
+        private void GameService_ClientConected()
         {
-            serverGame.CloseChannel();
+            IRender render;
+            IGameInfo gameInfo;
+            ISoundGame soundIPlayer = new SoundForServices(gameService.IPlayerClient);
+            ISoundGame soundIIPlayer = null;
+            Player IIPlaeyr = null;
+
+            if (!gameService.IsTwoPlayer)
+            {
+                render = new Render(gameService.IPlayerClient);
+                gameInfo = new GameInfo(gameService.IPlayerClient);
+            }
+            else
+            {
+                soundIIPlayer = new SoundForServices(gameService.IIPlayerClient);
+                render = new RenderTwoPlayers(gameService.IPlayerClient, gameService.IIPlayerClient);
+                gameInfo = new GameInfoTwoPlayers(gameService.IPlayerClient, gameService.IIPlayerClient);
+
+                IIPlaeyr = new Player(soundIIPlayer, Owner.IIPlayer, keyboardIIPlayer, gameInfo,
+                    () => new Point(ConfigurationGame.StartPositionTankIIPlaeyr.X, ConfigurationGame.StartPositionTankIIPlaeyr.Y));
+            }
+
+            Player IPlaeyr = new Player(soundIPlayer, Owner.IPlayer, keyboardIPlayer, gameInfo, () => new Point(ConfigurationGame.StartPositionTankIPlaeyr.X, ConfigurationGame.StartPositionTankIPlaeyr.Y));
+            enemy = new Enemy(gameInfo);
+            Scene.Render = render;
+            levelManager = new LevelManager(soundIPlayer, gameInfo, IPlaeyr, IIPlaeyr, enemy, keyboardIPlayer);
+
+            gameInfo.StartGame();
+            if (map == null)
+                levelManager.StartLevel();
+            else
+                levelManager.StartLevel(map);
         }
+
         public void CloseHost()
         {
-            serverGame.CloseHost();
+            host.Close();
         }
         public void Stop()
         {
-            levelManager.Stop();
+            levelManager?.Stop();
         }
-
-        private void InitGame(IPAddress ipFirstPlayer, IPAddress ipSecondPlayer)
+        public void Dispose()
         {
-            IKeyboard keyboard = serverGame.OpenIPlayerHost();
-
-            IRender render;
-            ISoundGame sound;
-            IGameInfo gameInfo;
-            serverGame.OpenChanelFactoryIPlayer(out render, out sound, out gameInfo);
-
-            if (ipSecondPlayer != null)
-            {
-                IRender renderIIPlayer;
-                ISoundGame soundIIPlayer;
-                IGameInfo gameInfoIIPlayer;
-
-                IKeyboard keyboardIIPlayer = serverGame.OpenIIPlayerHost(ipFirstPlayer.ToString());
-
-                serverGame.OpenChanelFactoryIIPlayer(out renderIIPlayer, out soundIIPlayer, out gameInfoIIPlayer, ipSecondPlayer.ToString());
-
-                render = new RenderTwoPlayers(render, renderIIPlayer);
-                gameInfo = new GameInfoTwoPlayers(gameInfo, gameInfoIIPlayer);
-
-                IIPlaeyr = new Player(soundIIPlayer, Owner.IIPlayer, keyboardIIPlayer, gameInfo, () => new Point(ConfigurationGame.StartPositionTankIIPlaeyr.X, ConfigurationGame.StartPositionTankIIPlaeyr.Y));
-            }
-
-            IPlaeyr = new Player(sound, Owner.IPlayer, keyboard, gameInfo, () => new Point(ConfigurationGame.StartPositionTankIPlaeyr.X, ConfigurationGame.StartPositionTankIPlaeyr.Y));
-            enemy = new Enemy(gameInfo);
-            Scene.Render = render;
-            levelManager = new LevelManager(sound, gameInfo, IPlaeyr, IIPlaeyr, enemy, keyboard);
+            Stop();
+            host.Close();
         }
     }
 }

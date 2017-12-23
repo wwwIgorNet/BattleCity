@@ -46,9 +46,9 @@
   <ItemGroup>
     <Compile Include="Lib\ConfigurationBase.cs" />
     <Compile Include="Lib\Direction.cs" />
-    <Compile Include="Lib\IGameClient.cs" />
+    <Compile Include="Service\IGameClient.cs" />
     <Compile Include="Lib\IGameInfo.cs" />
-    <Compile Include="Lib\IGameServer.cs" />
+    <Compile Include="Service\IGameService.cs" />
     <Compile Include="Lib\IKeyboard.cs" />
     <Compile Include="Lib\IRender.cs" />
     <Compile Include="Lib\ISoundGame.cs" />

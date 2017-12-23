@@ -554,6 +554,8 @@ namespace SuperTank.View
         public class ImageBlickWall
         {
             private string path;
+
+#pragma warning disable CS0649
             private Image brickWall;
             private Image brickWallTopLeft;
             private Image brickWallTopRight;
@@ -563,6 +565,7 @@ namespace SuperTank.View
             private Image brickWallBottom;
             private Image brickWallRight;
             private Image brickWallLeft;
+#pragma warning restore CS0649
 
             public ImageBlickWall(string path)
             {

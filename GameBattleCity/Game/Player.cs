@@ -12,13 +12,13 @@ namespace SuperTank
     {
         private ISoundGame soundGame;
         private Owner owner;
-        private IKeyboard keyboard;
+        private Keyboard keyboard;
         private IGameInfo gameInfo;
         private int countTank;
         private bool isEagleDestroed;
         protected Func<Point> getPos;
 
-        public Player(ISoundGame soundGame, Owner owner, IKeyboard keyboard, IGameInfo gameInfo, Func<Point> getPos)
+        public Player(ISoundGame soundGame, Owner owner, Keyboard keyboard, IGameInfo gameInfo, Func<Point> getPos)
         {
             this.soundGame = soundGame;
             this.owner = owner;

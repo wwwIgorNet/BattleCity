@@ -8,6 +8,7 @@ using System.IO;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -111,6 +112,11 @@ namespace SuperTankWPF.Util
             {
                 mainViewModel.ScreenStartVisibility = Visibility.Visible;
             }
+        }
+
+        public void StartGame()
+        {
+            mainViewModel.ScreenGameVisibility = Visibility.Visible;
         }
     }
 }
