@@ -136,10 +136,10 @@ namespace SuperTankWPF.Util
             screenGame.Keyboard = null;
             game?.Stop();
             Thread.Sleep(ConfigurationWPF.TimerInterval * 4);
-            comunication?.CloseChannelFactory();
+            comunication.CloseChannel();
             game?.CloseHost();
             game?.CloseChannelFactory();
-            comunication?.CloseHost();
+            comunication.CloseHost();
 
             dialogIPViewModel.Clerar();
             screenGame.Clear();

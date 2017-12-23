@@ -91,18 +91,7 @@ namespace SuperTank
 
         private static void Unit_PropertyChanged(int id, PropertiesType propType, object val)
         {
-            //switch (propType)
-            //{
-            //    case PropertiesType.Direction:
-            //    case PropertiesType.IsParking:
-            //    case PropertiesType.X:
-            //    case PropertiesType.Y:
-            //    case PropertiesType.Detonation:
-            //    case PropertiesType.NumberOfHits:
-            //    case PropertiesType.IsInvulnerable:
-                    Render.Update(id, propType, val);
-            //        break;
-            //}
+            Render.Update(id, propType, val);
         }
         private static Dictionary<PropertiesType, object> GetPropertiesForView(Unit unit)
         {

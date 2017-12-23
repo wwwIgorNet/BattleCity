@@ -125,7 +125,7 @@
     <Compile Include="Units\PointsView.cs" />
     <Compile Include="Units\ShellView.cs" />
     <Compile Include="Units\TankView.cs" />
-    <Compile Include="Util\Comunication.cs" />
+    <Compile Include="Util\ServerClient.cs" />
     <Compile Include="Util\ComunicationTCP.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\IPAddressConverter.cs" />

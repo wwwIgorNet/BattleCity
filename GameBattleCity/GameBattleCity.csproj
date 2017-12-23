@@ -66,6 +66,7 @@
     <Compile Include="Game\Player.cs" />
     <Compile Include="Game\PlayerDriver.cs" />
     <Compile Include="Game\Scene.cs" />
+    <Compile Include="Game\ServerGame.cs" />
     <Compile Include="Game\UpdatableBase.cs" />
     <Compile Include="TwoPlayers\GameInfoTwoPlayers.cs" />
     <Compile Include="TwoPlayers\RenderTwoPlayers.cs" />

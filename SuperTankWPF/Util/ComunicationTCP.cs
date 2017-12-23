@@ -2,6 +2,7 @@
 using SuperTank.Audio;
 using SuperTank.Comunication;
 using SuperTank.View;
+using SuperTankWPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 namespace SuperTankWPF.Util
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    class ComunicationTCP : Comunication, ITwoComputer
+    class ComunicationTCP : ServerClient, ITwoComputer
     {
         private readonly int portChannelKeyboard = 9091;
         private readonly int portTwoComputer = 9092;
@@ -34,7 +35,7 @@ namespace SuperTankWPF.Util
         {
             string ipAddress = iPRemoteComputer.ToString();
             FactoryKeyboard = new ChannelFactory<IKeyboard>(new NetTcpBinding(SecurityMode.None), "net.tcp://" + ipAddress + ":" + portChannelKeyboard + "/IKeyboard");
-            FactoryKeyboard.Open(TimeSpan.FromSeconds(1));
+            FactoryKeyboard.Open(TimeSpan.FromSeconds(OpenTimeout));
             return FactoryKeyboard.CreateChannel();
         }
 
@@ -95,10 +96,10 @@ namespace SuperTankWPF.Util
             StartedTwoComputer?.Invoke();
         }
 
-        public override void CloseChannelFactory()
+        public override void CloseChannel()
         {
             factoryTwoComputer?.Abort();
-            base.CloseChannelFactory();
+            base.CloseChannel();
         }
 
         public override void CloseHost()

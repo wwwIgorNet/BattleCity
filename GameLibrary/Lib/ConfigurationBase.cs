@@ -29,6 +29,9 @@ namespace SuperTank
             DelayScrenLoadLevel = TimeSpan.FromSeconds(3);
 
             CountLevel = 35;
+
+            CloseTimeout = 300;
+            OpenTimeout = 1000;
         }
         /// <summary>
         /// The detonation time of the projectile
@@ -126,6 +129,14 @@ namespace SuperTank
         /// The armored tank symbol (on the map)
         /// </summary>
         public static char CharArmoredTank { get { return 'B'; } }
+        /// <summary>
+        /// Time close services host
+        /// </summary>
+        public static int CloseTimeout { get; private set; }
+        /// <summary>
+        /// Time (milisecond) open services host
+        /// </summary>
+        public static int OpenTimeout { get; private set; }
 
         /// <summary>
         /// Returns the number of points

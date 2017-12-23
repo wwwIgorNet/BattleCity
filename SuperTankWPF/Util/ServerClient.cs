@@ -1,6 +1,8 @@
-﻿using SuperTank;
+﻿using GameLibrary.Lib;
+using SuperTank;
 using SuperTank.Audio;
 using SuperTank.View;
+using SuperTankWPF.Model;
 using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,13 +14,13 @@ using System.Threading.Tasks;
 
 namespace SuperTankWPF.Util
 {
-    class Comunication : IDisposable
+    class ServerClient
     {
         private ISoundGame soundGame;
         private IGameInfo gameInfo;
         private IRender render;
 
-        public Comunication(ISoundGame soundGame, IGameInfo gameInfo, IRender render)
+        public ServerClient(ISoundGame soundGame, IGameInfo gameInfo, IRender render)
         {
             this.soundGame = soundGame;
             this.gameInfo = gameInfo;
@@ -34,7 +36,8 @@ namespace SuperTankWPF.Util
         protected IGameInfo GameInfo { get => gameInfo; }
         protected IRender Render { get => render; }
 
-        protected int CloseTimeout { get; } = 300;
+        protected double CloseTimeout { get; } = ConfigurationWPF.CloseTimeout;
+        public double OpenTimeout { get; } = ConfigurationWPF.OpenTimeout;
 
         public void OpenHost()
         {
@@ -58,12 +61,11 @@ namespace SuperTankWPF.Util
             };
             HostSceneView.AddServiceEndpoint(typeof(IRender), new NetNamedPipeBinding(), "net.pipe://localhost/IRender");
             HostSceneView.Open();
-
         }
         public IKeyboard GetKeyboard()
         {
             FactoryKeyboard = new ChannelFactory<IKeyboard>(new NetNamedPipeBinding(), "net.pipe://localhost/IKeyboard");
-            FactoryKeyboard.Open(TimeSpan.FromSeconds(1));
+            FactoryKeyboard.Open(TimeSpan.FromMilliseconds(OpenTimeout));
             return FactoryKeyboard.CreateChannel();
         }
 
@@ -74,7 +76,7 @@ namespace SuperTankWPF.Util
             HostGameInfo?.Close();
         }
 
-        public virtual void CloseChannelFactory()
+        public virtual void CloseChannel()
         {
             FactoryKeyboard?.Abort();
         }
@@ -82,7 +84,7 @@ namespace SuperTankWPF.Util
         public void Close()
         {
             CloseHost();
-            CloseChannelFactory();
+            CloseChannel();
         }
 
         public void Dispose()
