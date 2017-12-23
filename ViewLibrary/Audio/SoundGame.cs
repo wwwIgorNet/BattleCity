@@ -37,17 +37,17 @@ namespace ViewLibrary.Audio
         }
 
         private readonly Dictionary<NameSound, ISoundPlayer> soundPlayers = new Dictionary<NameSound, ISoundPlayer>();
-        private float volume = 1F;
+        private float volume;
 
         public float Volume
         {
             get => volume;
             set
             {
+                volume = value;
+
                 foreach (var sp in soundPlayers)
                     sp.Value.Volume = value;
-
-                volume = value;
             }
         }
 
@@ -82,6 +82,8 @@ namespace ViewLibrary.Audio
             soundPlayers.Add(NameSound.HighScore, new GameSoundPlayer(path + "HighScore.wav"));
 
             soundPlayers.Add(NameSound.TwoFire, new GameSoundPlayer(path + "TwoFire.wav"));
+
+            volume = soundPlayers[NameSound.Move].Volume;
         }
 
         public void GameOver()
@@ -134,8 +136,8 @@ namespace ViewLibrary.Audio
         }
         public void TankSoundStop()
         {
-            soundPlayers[NameSound.Stop].Stop();
-            soundPlayers[NameSound.Move].Stop();
+            soundPlayers[NameSound.Stop].Pause();
+            soundPlayers[NameSound.Move].Pause();
         }
         public void DetonationEagle()
         {
@@ -159,7 +161,7 @@ namespace ViewLibrary.Audio
         }
         public void HighScoreStop()
         {
-            soundPlayers[NameSound.HighScore].Stop();
+            soundPlayers[NameSound.HighScore].Pause();
         }
     }
 }

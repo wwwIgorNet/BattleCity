@@ -23,7 +23,7 @@ namespace SuperTankWPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private float volumeIncrement = 0.1f;
+        private float volumeIncrement = ConfigurationWPF.VolumeIncrement;
 
         public MainWindow()
         {
@@ -49,7 +49,7 @@ namespace SuperTankWPF
         }
         
         public static readonly DependencyProperty VolumeProperty =
-            DependencyProperty.Register("Volume", typeof(float), typeof(MainWindow), new PropertyMetadata(0.5f));
+            DependencyProperty.Register("Volume", typeof(float), typeof(MainWindow), new PropertyMetadata(ConfigurationWPF.VolumeDefoult));
 
 
         public double ClientHeight

@@ -19,6 +19,9 @@ namespace SuperTank.View
             WindowClientWidth = 31 * ConfigurationBase.WidthTile;
             
             ZIndexTank = 5;
+
+            VolumeDefoult = 0.5f;
+            VolumeIncrement = 0.1f;
         }
 
         /// <summary>
@@ -61,5 +64,10 @@ namespace SuperTank.View
         /// Time to display the score screen
         /// </summary>
         public static TimeSpan DelayScrenRecord { get; private set; }
+        /// <summary>
+        /// Volume defoult
+        /// </summary>
+        public static float VolumeDefoult { get; private set; }
+        public static float VolumeIncrement { get; private set; }
     }
 }

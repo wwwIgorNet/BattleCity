@@ -49,6 +49,7 @@ namespace SuperTank.WindowsForms
         private SceneScene sceneView;
         private ScrenGame screnGame;
         private static IViewSound viewSound;
+        private float incrementVolume = ConfigurationWinForms.VolumeIncrement;
 
         private bool wcfClose;
         private bool isGameStop = true;
@@ -79,6 +80,8 @@ namespace SuperTank.WindowsForms
 
             startScren.Start();
             Controls.Add(startScren);
+
+            soundGame.Volume = ConfigurationWinForms.VolumeDefoult;
         }
 
         public static IViewSound Sound { get { return viewSound; } }
@@ -105,6 +108,12 @@ namespace SuperTank.WindowsForms
             {
                 screnConstructor.KeyDown(e.KeyCode);
             }
+
+            if (e.KeyCode == Keys.PageUp && soundGame.Volume <= 1 - incrementVolume)
+                soundGame.Volume += incrementVolume;
+
+            else if (e.KeyCode == Keys.PageDown && soundGame.Volume >= incrementVolume)
+                soundGame.Volume -= incrementVolume;
         }
 
         private static KeysGame KeyConverter(Keys keys)
