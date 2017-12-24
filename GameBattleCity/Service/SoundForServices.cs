@@ -74,7 +74,7 @@ namespace GameBattleCity.Service
                 gameClient.NewBonus();
         }
 
-        public void Stop()
+        public void StopSondTank()
         {
             if (playerContextChanel.State == CommunicationState.Opened)
                 gameClient.Stop();

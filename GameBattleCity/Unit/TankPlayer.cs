@@ -23,7 +23,7 @@ namespace SuperTank
                 if (base.IsParking != value)
                 {
                     base.IsParking = value;
-                    if (value) soundGame.Stop();
+                    if (value) soundGame.StopSondTank();
                     else soundGame.Move();
                 }
             }

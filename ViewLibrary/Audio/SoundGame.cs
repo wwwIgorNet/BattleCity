@@ -120,7 +120,7 @@ namespace ViewLibrary.Audio
             soundPlayers[NameSound.Stop].Pause();
             soundPlayers[NameSound.Move].Play();
         }
-        public void Stop()
+        public void StopSondTank()
         {
             soundPlayers[NameSound.Move].Pause();
             soundPlayers[NameSound.Stop].Play();
@@ -129,6 +129,11 @@ namespace ViewLibrary.Audio
         {
             foreach (var sp in soundPlayers)
                 ((IDisposable)sp.Value).Dispose();
+        }
+        public void StopAll()
+        {
+            foreach (var sp in soundPlayers)
+                sp.Value.Pause();
         }
         public void DetonationBrickWall()
         {

@@ -118,7 +118,7 @@ namespace ViewLibrary.Service
 
         public void Stop()
         {
-            soundGame.Stop();
+            soundGame.StopSondTank();
         }
 
         public void DetonationBrickWall()

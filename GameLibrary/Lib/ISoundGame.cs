@@ -11,7 +11,7 @@ namespace SuperTank.Audio
         void TwoFire();
         void Glide();
         void Move();
-        void Stop();
+        void StopSondTank();
         void DetonationBrickWall();
         void TankSoundStop();
         void Bonus();

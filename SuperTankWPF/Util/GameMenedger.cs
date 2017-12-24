@@ -61,19 +61,27 @@ namespace SuperTankWPF.Util
             levelInfo.IsTwoPlayer = false;
             screenScore.IsTwoPlayer = false;
         }
+        public void IIPlayerExecute()
+        {
+            GameForTwoPlayer();
+        }
+        public void ConstructionExecute()
+        {
+            mainViewModel.ScreenConstructionVisibility = Visibility.Visible;
+        }
 
         private async void StartGame(IPAddress iPCurrentComputer)
         {
             await Task.Run(() =>
-            {
-                gameInfo.OwnerPlayer = Owner.IPlayer;
-                gameInfo.EndOfGame += StopoGame;
+                {
+                    gameInfo.OwnerPlayer = Owner.IPlayer;
+                    gameInfo.EndOfGame += StopoGame;
 
-                game = new Game(); if (construction.HasMap)
-                    game.Start(construction.GetAndClerMap(), iPCurrentComputer);
-                else
-                    game.Start(iPCurrentComputer);
-            });
+                    game = new Game(); if (construction.HasMap)
+                        game.Start(construction.GetAndClerMap(), iPCurrentComputer);
+                    else
+                        game.Start(iPCurrentComputer);
+                });
 
             ThreadPool.QueueUserWorkItem(s =>
             {
@@ -84,11 +92,11 @@ namespace SuperTankWPF.Util
                 IGameService proxy = factory.CreateChannel();
                 proxy.Connect(Owner.IPlayer);
 
-                screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IPlayer);
+                screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IPlayer, Errot);
             });
         }
 
-        public void IIPlayerExecute()
+        private void GameForTwoPlayer()
         {
             FirewallHelper.Test();
             dialogIPViewModel.Init();
@@ -114,19 +122,26 @@ namespace SuperTankWPF.Util
                 {
                     ThreadPool.QueueUserWorkItem(s =>
                     {
-                        mainViewModel.ScreenLockVisibility = Visibility.Visible;
+                        try
+                        {
+                            mainViewModel.ScreenLockVisibility = Visibility.Visible;
 
-                        InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
-                        DuplexChannelFactory<IGameService> factory =
-                            new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
-                                "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":" + ConfigurationWPF.ServisePort + "/GameService");
-                        IGameService proxy = factory.CreateChannel();
-                        proxy.Connect(Owner.IIPlayer);
+                            InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
+                            DuplexChannelFactory<IGameService> factory =
+                                new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
+                                    "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":" + ConfigurationWPF.ServisePort + "/GameService");
+                            IGameService proxy = factory.CreateChannel();
+                            proxy.Connect(Owner.IIPlayer);
 
-                        screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IIPlayer);
-                        
-                        gameInfo.OwnerPlayer = Owner.IIPlayer;
-                        gameInfo.EndOfGame += StopoGame;
+                            screenGame.Keyboard = new KeyboardWrapper(proxy, Owner.IIPlayer, Errot);
+
+                            gameInfo.OwnerPlayer = Owner.IIPlayer;
+                            gameInfo.EndOfGame += StopoGame;
+                        }
+                        catch(Exception ex)
+                        {
+                            Errot(ex);
+                        }
                     });
                 }
 
@@ -134,13 +149,10 @@ namespace SuperTankWPF.Util
                 screenScore.IsTwoPlayer = true;
             }
         }
-        public void ConstructionExecute()
-        {
-            mainViewModel.ScreenConstructionVisibility = Visibility.Visible;
-        }
 
         public void StopoGame()
         {
+            sound.StopAll();
             gameInfo.EndOfGame -= StopoGame;
             screenGame.Keyboard = null;
             game?.Dispose();
@@ -155,6 +167,13 @@ namespace SuperTankWPF.Util
         public void Dispose()
         {
             StopoGame();
+        }
+
+        private void Errot(Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            StopoGame();
+            mainViewModel.ScreenStartVisibility = Visibility.Visible;
         }
     }
 }
