@@ -20,6 +20,8 @@ namespace SuperTank.WindowsForms
         {
             InitializeComponent();
 
+            radioButtonNewGame.CheckedChanged += RadioButtonNewGame_CheckedChanged;
+
             // Получение имени компьютера.
             String host = System.Net.Dns.GetHostName();
             // Получение ip-адреса.
@@ -32,6 +34,20 @@ namespace SuperTank.WindowsForms
             textBoxIPSecondComputer.Text = MyIP.ToString();
 
             this.ActiveControl = textBoxIPSecondComputer;
+        }
+
+        private void RadioButtonNewGame_CheckedChanged(object sender, EventArgs e)
+        {
+            if(radioButtonNewGame.Checked)
+            {
+                textBoxIPSecondComputer.Enabled = false;
+                textBoxIPSecondComputer.ForeColor = textBoxIPSecondComputer.BackColor;
+            }
+            else
+            {
+                textBoxIPSecondComputer.Enabled = true;
+                textBoxIPSecondComputer.ForeColor = Color.Black;
+            }
         }
 
         public IPAddress IPSecondComputer { get; private set; }

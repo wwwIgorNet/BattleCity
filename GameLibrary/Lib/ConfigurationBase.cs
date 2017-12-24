@@ -31,7 +31,7 @@ namespace SuperTank
             CountLevel = 35;
 
             CloseTimeout = 300;
-            OpenTimeout = 1000;
+            ServisePort = 9090;
         }
         /// <summary>
         /// The detonation time of the projectile
@@ -136,7 +136,7 @@ namespace SuperTank
         /// <summary>
         /// Time (milisecond) open services host
         /// </summary>
-        public static int OpenTimeout { get; private set; }
+        public static int ServisePort { get; private set; }
 
         /// <summary>
         /// Returns the number of points

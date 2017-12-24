@@ -55,7 +55,6 @@
     <Compile Include="Lib\KeysGame.cs" />
     <Compile Include="Lib\Owner.cs" />
     <Compile Include="Lib\PropertiesType.cs" />
-    <Compile Include="Lib\ServerBase.cs" />
     <Compile Include="Lib\TypeBlickWall.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Lib\TypeUnit.cs" />

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SuperTankWPF.Service
+namespace ViewLibrary.Service
 {
     public class GameClient : IGameClient
     {

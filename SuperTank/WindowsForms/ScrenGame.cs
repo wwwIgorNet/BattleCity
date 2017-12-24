@@ -13,7 +13,8 @@ namespace SuperTank.WindowsForms
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     class ScrenGame : Label, IGameInfo
     {
-        private Action gameOver;
+        private Action gameOver = ()=> { };
+        private Action startGame=()=> { };
         private Timer timerInvalidate = new Timer();
         private LevelInfo levelInfo;
         private SceneScene sceneView;
@@ -24,9 +25,10 @@ namespace SuperTank.WindowsForms
         private int countPointsIIPlayer = 0;
         private System.Threading.AutoResetEvent autoResetEvent = new System.Threading.AutoResetEvent(false);
 
-        public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, ScrenScore screnScore, Action gameOver)
+        public ScrenGame(SceneScene sceneView, LevelInfo levelInfo, ScrenScore screnScore, Action gameOver, Action startGame)
         {
-            this.gameOver = gameOver;
+            this.startGame += startGame;
+            this.gameOver += gameOver;
             timerInvalidate.Interval = ConfigurationWinForms.TimerInterval;
             timerInvalidate.Tick += (s, e) => { Invalidate(); };
             timerInvalidate.Start();
@@ -106,6 +108,11 @@ namespace SuperTank.WindowsForms
         private void GraphicsOption()
         {
             base.SetStyle(ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
+        }
+
+        public void StartGame()
+        {
+            startGame.Invoke();
         }
     }
 }

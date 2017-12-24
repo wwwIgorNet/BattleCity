@@ -33,6 +33,7 @@ namespace SuperTank.WindowsForms
             IsAcive = true;
             TimerStart();
         }
+
         public abstract void UpdateImage();
 
         protected void SetInterval(int interval)

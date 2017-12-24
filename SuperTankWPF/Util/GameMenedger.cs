@@ -5,7 +5,6 @@ using SuperTank.Audio;
 using SuperTank.FH;
 using SuperTank.View;
 using SuperTankWPF.Model;
-using SuperTankWPF.Service;
 using SuperTankWPF.View;
 using SuperTankWPF.ViewModel;
 using System;
@@ -120,7 +119,7 @@ namespace SuperTankWPF.Util
                         InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
                         DuplexChannelFactory<IGameService> factory =
                             new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
-                                "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":9090/GameService");
+                                "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":" + ConfigurationWPF.ServisePort + "/GameService");
                         IGameService proxy = factory.CreateChannel();
                         proxy.Connect(Owner.IIPlayer);
 
@@ -144,8 +143,7 @@ namespace SuperTankWPF.Util
         {
             gameInfo.EndOfGame -= StopoGame;
             screenGame.Keyboard = null;
-            game?.Stop();
-            game?.CloseHost();
+            game?.Dispose();
 
             dialogIPViewModel.Clerar();
             screenGame.Clear();

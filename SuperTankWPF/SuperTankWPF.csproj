@@ -106,7 +106,6 @@
     <Compile Include="Model\ConfigurationWPF.cs" />
     <Compile Include="Model\ImageSourceStor.cs" />
     <Compile Include="Model\IImageSourceStor.cs" />
-    <Compile Include="Service\GameClient.cs" />
     <Compile Include="Units\AnimationView.cs" />
     <Compile Include="Units\ArmoredTankView.cs" />
     <Compile Include="Units\BlickWall.cs" />

@@ -1,5 +1,4 @@
-﻿using GameBattleCity.Game;
-using GameBattleCity.Service;
+﻿using GameBattleCity.Service;
 using GameLibrary.Lib;
 using GameLibrary.Service;
 using SuperTank.Audio;
@@ -52,7 +51,7 @@ namespace SuperTank
 
             if (ipAddress != null)
                 host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding(),
-                    "net.tcp://" + ipAddress + ":9090/GameService");
+                    "net.tcp://" + ipAddress + ":" + ConfigurationGame.ServisePort + "/GameService");
 
                 host.Open();
         }

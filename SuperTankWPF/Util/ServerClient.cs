@@ -37,7 +37,7 @@ namespace SuperTankWPF.Util
         protected IRender Render { get => render; }
 
         protected double CloseTimeout { get; } = ConfigurationWPF.CloseTimeout;
-        public double OpenTimeout { get; } = ConfigurationWPF.OpenTimeout;
+        public double OpenTimeout { get; } = ConfigurationWPF.ServisePort;
 
         public void OpenHost()
         {
