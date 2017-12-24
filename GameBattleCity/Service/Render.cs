@@ -5,6 +5,7 @@ using SuperTank.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 
 namespace GameBattleCity.Service
@@ -13,9 +14,9 @@ namespace GameBattleCity.Service
     {
         private IGameClient gameClient;
 
-        public Render(IGameClient gameClient)
+        public Render(OperationContext gameClientContext)
         {
-            this.gameClient = gameClient;
+            this.gameClient = gameClientContext.GetCallbackChannel<IGameClient>();
         }
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)

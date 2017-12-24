@@ -53,51 +53,14 @@ namespace SuperTankWPF.ViewModel
 
         public void Remove(int id)
         {
-            synchronizationContext.Post(s => Units.Remove(Units.First(uv => uv.ID == id)), null);
+            synchronizationContext.Post(s => Units.Remove(Units.FirstOrDefault(uv => uv.ID == id)), null);
         }
 
         public void Update(int id, PropertiesType prop, object value)
         {
             synchronizationContext.Post(s =>
             {
-                try
-                {
-                    UnitView unitView = Units.FirstOrDefault(u => u.ID == id);
-
-                    switch (prop)
-                    {
-                        case PropertiesType.X:
-                            unitView.X = (int)value;
-                            break;
-                        case PropertiesType.Y:
-                            unitView.Y = (int)value;
-                            break;
-                        case PropertiesType.Direction:
-                            ((IDirection)unitView).Direction = (Direction)value;
-                            break;
-                        case PropertiesType.IsParking:
-                            ((IParking)unitView).IsParking = (bool)value;
-                            break;
-                        case PropertiesType.Detonation:
-                            IDetonation detonation = unitView as IDetonation;
-                            if (detonation != null) detonation.Detonation = (bool)value;
-                            break;
-                        case PropertiesType.IsInvulnerable:
-                            IInvulnerable invulnerable = unitView as IInvulnerable;
-                            if (invulnerable != null) invulnerable.IsInvulnerable = (bool)value;
-                            break;
-                        case PropertiesType.NumberOfHits:
-                            ((INumberOfHits)unitView).NumberOfHits = (int)value;
-                            break;
-                        case PropertiesType.TypeBlickWall:
-                            ((IBlickWall)unitView).TypeBlickWall = (TypeBlickWall)value;
-                            break;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
+                Units.FirstOrDefault(u => u.ID == id)?.Update(prop, value);
             }, null);
         }
     }

@@ -67,6 +67,7 @@
     <Compile Include="Game\PlayerDriver.cs" />
     <Compile Include="Game\Scene.cs" />
     <Compile Include="Game\UpdatableBase.cs" />
+    <Compile Include="Service\ExtendThreadPool.cs" />
     <Compile Include="Service\GameInfo.cs" />
     <Compile Include="Service\GameService.cs" />
     <Compile Include="Service\Render.cs" />

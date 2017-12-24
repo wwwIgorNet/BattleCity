@@ -3,73 +3,83 @@ using SuperTank;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using static GameBattleCity.Service.ExtendThreadPool;
 
 namespace GameBattleCity.Service
 {
     class GameInfoTwoPlayers : IGameInfo
     {
+        private IContextChannel IIPlayerContextChannel;
         private IGameClient IPlayer;
         private IGameClient IIPlayer;
 
-        public GameInfoTwoPlayers(IGameClient IPlayer, IGameClient IIPlayer)
+        public GameInfoTwoPlayers(OperationContext IPlayerContext, OperationContext IIPlayerContext)
         {
-            this.IPlayer = IPlayer;
-            this.IIPlayer = IIPlayer;
+            this.IPlayer = IPlayerContext.GetCallbackChannel<IGameClient>();
+            this.IIPlayer = IIPlayerContext.GetCallbackChannel< IGameClient>();
+            this.IIPlayerContextChannel = IIPlayerContext.Channel;
         }
         public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
-                IIPlayer.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.EndLevel(level, countPointsIPlayer, destrouTanksIPlaeyr, countPointsIIPlayer, destrouTanksIIPlaeyr);
             });
         }
 
         public void GameOver()
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.GameOver();
-                IIPlayer.GameOver();
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.GameOver();
             });
         }
 
         public void SetCountTankEnemy(int count)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.SetCountTankEnemy(count);
-                IIPlayer.SetCountTankEnemy(count);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.SetCountTankEnemy(count);
             });
         }
 
         public void SetCountTankPlaeyr(int count, Owner owner)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.SetCountTankPlaeyr(count, owner);
-                IIPlayer.SetCountTankPlaeyr(count, owner);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.SetCountTankPlaeyr(count, owner);
             });
         }
 
         public void StartGame()
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.StartGame();
-                IIPlayer.StartGame();
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.StartGame();
             });
         }
 
         public void StartLevel(int level)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.StartLevel(level);
-                IIPlayer.StartLevel(level);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.StartLevel(level);
             });
         }
     }

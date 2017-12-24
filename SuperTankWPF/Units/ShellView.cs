@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using SuperTank;
 
 namespace SuperTankWPF.Units
 {
-    class ShellView : CentrAnimationView, IDetonation
+    class ShellView : CentrAnimationView
     {
         public ShellView(int updateInterval, ImageSource[] detonation)
             : base(updateInterval, detonation, false)
@@ -30,6 +31,14 @@ namespace SuperTankWPF.Units
             {
                 ((ShellView)d).AnimStart();
             }
+        }
+
+        public override void Update(PropertiesType prop, object value)
+        {
+            if (prop == PropertiesType.Detonation)
+                this.SetValue(DetonationProperty, value);
+            else
+                base.Update(prop, value);
         }
     }
 }

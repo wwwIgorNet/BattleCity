@@ -13,7 +13,7 @@ using System.Timers;
 
 namespace SuperTankWPF.Units
 {
-    class PlayerTankView : TankView, IInvulnerable
+    class PlayerTankView : TankView
     {
         private ImageSource[] invulnerable;
         private bool isInvulnerable;
@@ -48,6 +48,14 @@ namespace SuperTankWPF.Units
             }
         }
 
+        public override void Update(PropertiesType prop, object value)
+        {
+            if (prop == PropertiesType.IsInvulnerable)
+                IsInvulnerable = (bool)value;
+            else
+                base.Update(prop, value);
+        }
+
         protected override void OnRender(DrawingContext dc)
         {
             base.OnRender(dc);
@@ -66,7 +74,7 @@ namespace SuperTankWPF.Units
 
         private static readonly DependencyProperty FremeProperty = DependencyProperty.Register("Invalidate", typeof(bool), typeof(PlayerTankView), new FrameworkPropertyMetadata(false) { AffectsRender = true });
 
-       private void InvalidateRender()
+        private void InvalidateRender()
         {
             Invalidate = !Invalidate;
         }

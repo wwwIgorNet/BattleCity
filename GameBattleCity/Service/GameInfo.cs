@@ -4,6 +4,7 @@ using SuperTank;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 
 namespace GameBattleCity.Service
@@ -12,9 +13,9 @@ namespace GameBattleCity.Service
     {
         private IGameClient gameClient;
 
-        public GameInfo(IGameClient gameClient)
+        public GameInfo(OperationContext gameClientContext)
         {
-            this.gameClient = gameClient;
+            this.gameClient = gameClientContext.GetCallbackChannel<IGameClient>();
         }
 
         public void EndLevel(int level, int countPointsIPlayer, Dictionary<TypeUnit, int> destrouTanksIPlaeyr, int countPointsIIPlayer, Dictionary<TypeUnit, int> destrouTanksIIPlaeyr)

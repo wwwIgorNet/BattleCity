@@ -8,7 +8,7 @@ using SuperTank;
 
 namespace SuperTankWPF.Units
 {
-    class ArmoredTankView : TankView, INumberOfHits
+    class ArmoredTankView : TankView
     {
         private readonly Dictionary<Direction, ImageSource[]> tankGray;
         private readonly Dictionary<Direction, ImageSource[]> tankGreen;
@@ -43,6 +43,14 @@ namespace SuperTankWPF.Units
                         break;
                 }
             }
+        }
+
+        public override void Update(PropertiesType prop, object value)
+        {
+            if (prop == PropertiesType.NumberOfHits)
+                NumberOfHits = (int)value;
+            else
+                base.Update(prop, value);
         }
     }
 }

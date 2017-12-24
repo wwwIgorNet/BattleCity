@@ -44,8 +44,11 @@ namespace SuperTank
             gameService = new GameService(keyboardIPlayer, keyboardIIPlayer);
             gameService.ClientsConected += GameService_ClientConected;
 
-            host = new ServiceHost(gameService);
-            host.CloseTimeout = TimeSpan.FromMilliseconds(ConfigurationGame.CloseTimeout);
+            host = new ServiceHost(gameService)
+            {
+                CloseTimeout = TimeSpan.FromMilliseconds(ConfigurationGame.CloseTimeout)
+            };
+
             host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding(),
                 "net.pipe://localhost/GameService");
 
@@ -58,22 +61,24 @@ namespace SuperTank
 
         private void GameService_ClientConected()
         {
+            OperationContext operationContextIPlayer = gameService.GetClientContext(Owner.IPlayer);
             IRender render;
             IGameInfo gameInfo;
-            ISoundGame soundIPlayer = new SoundForServices(gameService.IPlayerClient);
+            ISoundGame soundIPlayer = new SoundForServices(operationContextIPlayer);
             ISoundGame soundIIPlayer = null;
             Player IIPlaeyr = null;
 
             if (!gameService.IsTwoPlayer)
             {
-                render = new Render(gameService.IPlayerClient);
-                gameInfo = new GameInfo(gameService.IPlayerClient);
+                render = new Render(operationContextIPlayer);
+                gameInfo = new GameInfo(operationContextIPlayer);
             }
             else
             {
-                soundIIPlayer = new SoundForServices(gameService.IIPlayerClient);
-                render = new RenderTwoPlayers(gameService.IPlayerClient, gameService.IIPlayerClient);
-                gameInfo = new GameInfoTwoPlayers(gameService.IPlayerClient, gameService.IIPlayerClient);
+                OperationContext operationContextIIPlayer = gameService.GetClientContext(Owner.IIPlayer);
+                soundIIPlayer = new SoundForServices(operationContextIIPlayer);
+                render = new RenderTwoPlayers(operationContextIPlayer, operationContextIIPlayer);
+                gameInfo = new GameInfoTwoPlayers(operationContextIPlayer, operationContextIIPlayer);
 
                 IIPlaeyr = new Player(soundIIPlayer, Owner.IIPlayer, keyboardIIPlayer, gameInfo,
                     () => new Point(ConfigurationGame.StartPositionTankIIPlaeyr.X, ConfigurationGame.StartPositionTankIIPlaeyr.Y));

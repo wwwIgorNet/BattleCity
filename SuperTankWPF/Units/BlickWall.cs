@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameBattleCity.Lib;
+using SuperTank;
 using SuperTankWPF.Model;
 
 namespace SuperTankWPF.Units
 {
-    class BlickWall : UnitView, IBlickWall
+    class BlickWall : UnitView
     {
         private IImageSourceStor imageSourceStor;
 
@@ -52,6 +53,14 @@ namespace SuperTankWPF.Units
                         break;
                 }
             }
+        }
+
+        public override void Update(PropertiesType prop, object value)
+        {
+            if (prop == PropertiesType.TypeBlickWall)
+                TypeBlickWall = (TypeBlickWall)value;
+            else
+                base.Update(prop, value);
         }
     }
 }

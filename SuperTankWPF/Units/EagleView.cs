@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using SuperTank;
 
 namespace SuperTankWPF.Units
 {
-    class EagleView : UnitView, IDetonation
+    class EagleView : UnitView
     {
         private ImageSource img;
 
@@ -16,14 +17,12 @@ namespace SuperTankWPF.Units
             this.img = img;
         }
 
-        public bool Detonation
+        public override void Update(PropertiesType prop, object value)
         {
-            get { return false; }
-
-            set
-            {
-                if (value) Source = img;
-            }
+            if (prop == PropertiesType.Detonation && value.Equals(true))
+                Source = img;
+            else
+                base.Update(prop, value);
         }
     }
 }

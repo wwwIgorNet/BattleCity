@@ -12,9 +12,9 @@ using System.Windows.Media;
 
 namespace SuperTankWPF.Units
 {
-    class TankView : AnimationView, IDirection, IParking
+    class TankView : AnimationView
     {
-        public TankView(Direction direction, Dictionary<Direction,ImageSource[]> imgSources, int updateInterval)
+        public TankView(Direction direction, Dictionary<Direction, ImageSource[]> imgSources, int updateInterval)
             : base(updateInterval, imgSources[direction])
         {
             this.ImagesWithDirection = imgSources;
@@ -36,7 +36,7 @@ namespace SuperTankWPF.Units
             get { return (Direction)GetValue(DirectionProperty); }
             set { SetValue(DirectionProperty, value); }
         }
-        
+
         public static readonly DependencyProperty DirectionProperty =
             DependencyProperty.Register("Direction", typeof(Direction), typeof(TankView), new PropertyMetadata(DirectionChangedCallback));
 
@@ -51,16 +51,26 @@ namespace SuperTankWPF.Units
             get { return (bool)GetValue(IsParkingProperty); }
             set { SetValue(IsParkingProperty, value); }
         }
-        
+
         public static readonly DependencyProperty IsParkingProperty =
             DependencyProperty.Register("IsParking", typeof(bool), typeof(TankView), new PropertyMetadata(true, IsParkingChangedCallback));
         private Dictionary<Direction, ImageSource[]> imagesWithDirection;
 
         private static void IsParkingChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            if(e.NewValue.Equals(true))
+            if (e.NewValue.Equals(true))
                 ((TankView)d).AnimStop();
             else ((TankView)d).AnimStart();
+        }
+
+        public override void Update(PropertiesType prop, object value)
+        {
+            if (prop == PropertiesType.Direction)
+                this.SetValue(DirectionProperty, value);
+            else if (prop == PropertiesType.IsParking)
+                this.SetValue(IsParkingProperty, value);
+            else
+                base.Update(prop, value);
         }
     }
 }

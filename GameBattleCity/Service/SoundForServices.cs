@@ -4,77 +4,92 @@ using SuperTank.Audio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 
 namespace GameBattleCity.Service
 {
     public class SoundForServices : ISoundGame
     {
+        private IContextChannel playerContextChanel;
         private IGameClient gameClient;
 
-        public SoundForServices(IGameClient gameClient)
+        public SoundForServices(OperationContext playerContext)
         {
-            this.gameClient = gameClient;
+            this.gameClient = playerContext.GetCallbackChannel<IGameClient>();
+            this.playerContextChanel = playerContext.Channel;
         }
 
         public void Bonus()
         {
-            gameClient.Bonus();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.Bonus();
         }
 
         public void DetonationBrickWall()
         {
-            gameClient.DetonationBrickWall();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.DetonationBrickWall();
         }
 
         public void DetonationEagle()
         {
-            gameClient.DetonationEagle();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.DetonationEagle();
         }
 
         public void DetonationShell()
         {
-            gameClient.DetonationShell();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.DetonationShell();
         }
 
         public void DetonationTank()
         {
-            gameClient.DetonationTank();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.DetonationTank();
         }
 
         public void Fire()
         {
-            gameClient.Fire();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.Fire();
         }
 
         public void Glide()
         {
-            gameClient.Glide();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.Glide();
         }
 
         public void Move()
         {
-            gameClient.Move();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.Move();
         }
 
         public void NewBonus()
         {
-            gameClient.NewBonus();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.NewBonus();
         }
 
         public void Stop()
         {
-            gameClient.Stop();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.Stop();
         }
 
         public void TankSoundStop()
         {
-            gameClient.TankSoundStop();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.TankSoundStop();
         }
 
         public void TwoFire()
         {
-            gameClient.TwoFire();
+            if (playerContextChanel.State == CommunicationState.Opened)
+                gameClient.TwoFire();
         }
     }
 }

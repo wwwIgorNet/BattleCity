@@ -3,62 +3,72 @@ using System.Collections.Generic;
 using SuperTank;
 using GameLibrary.Service;
 using System.Threading;
+using System.ServiceModel;
+using System;
+using static GameBattleCity.Service.ExtendThreadPool;
 
 namespace GameBattleCity.Service
 {
     class RenderTwoPlayers : IRender
     {
+        private IContextChannel IIPlayerContextChannel;
         private IGameClient IPlayer;
         private IGameClient IIPlayer;
 
-        public RenderTwoPlayers(IGameClient IPlayer, IGameClient IIPlayer)
+        public RenderTwoPlayers(OperationContext IPlayerContext, OperationContext IIPlayerContext)
         {
-            this.IPlayer = IPlayer;
-            this.IIPlayer = IIPlayer;
+            this.IPlayer = IPlayerContext.GetCallbackChannel<IGameClient>();
+            this.IIPlayerContextChannel = IIPlayerContext.Channel;
+            this.IIPlayer = IIPlayerContext.GetCallbackChannel<IGameClient>();
         }
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.Add(id, typeUnit, x, y, properties);
-                IIPlayer.Add(id, typeUnit, x, y, properties);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.Add(id, typeUnit, x, y, properties);
             });
         }
 
         public void AddRange(List<UnitDataForView> collection)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.AddRange(collection);
-                IIPlayer.AddRange(collection);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.AddRange(collection);
             });
         }
 
         public void Clear()
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.Clear();
-                IIPlayer.Clear();
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.Clear();
             });
         }
 
         public void Remove(int id)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.Remove(id);
-                IIPlayer.Remove(id);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.Remove(id);
             });
         }
 
         public void Update(int id, PropertiesType prop, object value)
         {
-            ThreadPool.QueueUserWorkItem(s =>
+            InvokWithTryCatch(() =>
             {
                 IPlayer.Update(id, prop, value);
-                IIPlayer.Update(id, prop, value);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.Update(id, prop, value);
             });
         }
     }

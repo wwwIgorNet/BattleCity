@@ -77,5 +77,18 @@ namespace SuperTankWPF.Units
             ((UnitView)d).SetValue(Canvas.TopProperty, e.NewValue);
         }
         #endregion
+
+        public virtual void Update(PropertiesType prop, object value)
+        {
+            switch (prop)
+            {
+                case PropertiesType.X:
+                    X = (int)value;
+                    break;
+                case PropertiesType.Y:
+                    Y = (int)value;
+                    break;
+            }
+        }
     }
 }

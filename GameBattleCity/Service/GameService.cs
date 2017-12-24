@@ -12,6 +12,9 @@ namespace GameBattleCity.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class GameService : IGameService
     {
+        private OperationContext IPlayerContext;
+        private OperationContext IIPlayerContext;
+
         private IKeyboard keyboardIPlayer;
         private IKeyboard keyboardIIPlayer;
 
@@ -27,8 +30,15 @@ namespace GameBattleCity.Service
 
         public event Action ClientsConected = () => { };
 
-        public IGameClient IPlayerClient { get; private set; }
-        public IGameClient IIPlayerClient { get; private set; }
+        public OperationContext GetClientContext(Owner owner)
+        {
+            if (owner == Owner.IPlayer)
+                return IPlayerContext;
+            else if (owner == Owner.IIPlayer)
+                return IIPlayerContext;
+
+            return null;
+        }
 
         public bool IsTwoPlayer { get; private set; }
 
@@ -37,13 +47,13 @@ namespace GameBattleCity.Service
             switch (owner)
             {
                 case Owner.IPlayer:
-                    IPlayerClient = OperationContext.Current.GetCallbackChannel<IGameClient>();
+                    IPlayerContext = OperationContext.Current;
                     if (!IsTwoPlayer) ClientsConected.Invoke();
-                    else if (IIPlayerClient != null) ClientsConected.Invoke();
+                    else if (IIPlayerContext != null) ClientsConected.Invoke();
                     break;
                 case Owner.IIPlayer:
-                    IIPlayerClient = OperationContext.Current.GetCallbackChannel<IGameClient>();
-                    if (IPlayerClient != null) ClientsConected.Invoke();
+                    IIPlayerContext = OperationContext.Current;
+                    if (IPlayerContext != null) ClientsConected.Invoke();
                     break;
             }
         }
