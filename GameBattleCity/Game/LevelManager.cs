@@ -23,7 +23,6 @@ namespace SuperTank
 
         private IGameInfo gameInfo;
         private ISoundGame soundGame;
-        private Keyboard keyboard;
         private int curentLevel;
         private Player IPlayer;
         private Player IIPlayer;
@@ -37,9 +36,8 @@ namespace SuperTank
             timer.Interval = ConfigurationGame.TimerInterval;
             timer.Elapsed += Timer_Elapsed;
         }
-        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy, Keyboard keyboard)
+        public LevelManager(ISoundGame soundGame, IGameInfo gameInfo, Player IPlayer, Player IIPlayer, Enemy enemy)
         {
-            this.keyboard = keyboard;
             countPlayers = 1;
             abortUpdate = false;
             curentLevel = 0;
@@ -134,7 +132,8 @@ namespace SuperTank
             if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
             gameInfo.StartLevel(curentLevel + 1);
             System.Threading.Thread.Sleep(1200);
-            keyboard.Clear();
+            IPlayer.Keyboard.Clear();
+            IIPlayer?.Keyboard.Clear();
             Scene.Clear();
             CreateLevel(curentLevel + 1);
             TimeSpan timeSlip = ConfigurationGame.DelayScrenLoadLevel - (DateTime.Now - start);

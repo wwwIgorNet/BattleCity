@@ -36,6 +36,7 @@ namespace SuperTank
         public int Points { get; set; }
         public TankPlayer CurrentTank { get; set; }
         public ISoundGame SoundGame { get { return soundGame; } }
+        public Keyboard Keyboard { get { return keyboard; } }
         public int CountTank
         {
             get

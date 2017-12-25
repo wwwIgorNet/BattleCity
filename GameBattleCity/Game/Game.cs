@@ -53,11 +53,11 @@ namespace SuperTank
                 CloseTimeout = TimeSpan.FromMilliseconds(ConfigurationGame.CloseTimeout)
             };
 
-            host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding(),
+            host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding() { MaxConnections = 1 },
                 "net.pipe://localhost/GameService");
 
             if (ipAddress != null)
-                host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding(),
+                host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding() { MaxConnections = 1 },
                     "net.tcp://" + ipAddress + ":" + ConfigurationGame.ServisePort + "/GameService");
 
                 host.Open();
@@ -91,7 +91,7 @@ namespace SuperTank
             Player IPlaeyr = new Player(soundIPlayer, Owner.IPlayer, keyboardIPlayer, gameInfo, () => new Point(ConfigurationGame.StartPositionTankIPlaeyr.X, ConfigurationGame.StartPositionTankIPlaeyr.Y));
             enemy = new Enemy(gameInfo);
             Scene.Render = render;
-            levelManager = new LevelManager(soundIPlayer, gameInfo, IPlaeyr, IIPlaeyr, enemy, keyboardIPlayer);
+            levelManager = new LevelManager(soundIPlayer, gameInfo, IPlaeyr, IIPlaeyr, enemy);
 
             gameInfo.StartGame();
             if (map == null)
