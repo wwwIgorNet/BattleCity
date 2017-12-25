@@ -51,17 +51,41 @@ namespace SuperTankWPF.ViewModel
                 Units.RemoveAt(i);
         }
 
-        public void Remove(int id)
+        public async void Remove(int id)
         {
-            synchronizationContext.Post(s => Units.Remove(Units.FirstOrDefault(uv => uv.ID == id)), null);
+            // из за разных потоков елемент можит добавтится пожже чем придет событие remove
+            // (если обьект токо появляется и его сразу убивают)
+            UnitView unitView = FirstOrDefoult(id);
+            while (unitView == null)
+            {
+                await Task.Delay(10);
+                unitView = FirstOrDefoult(id);
+            }
+
+            synchronizationContext.Post(s => Units.Remove(unitView), null);
         }
 
         public void Update(int id, PropertiesType prop, object value)
         {
             synchronizationContext.Post(s =>
             {
-                Units.FirstOrDefault(u => u.ID == id)?.Update(prop, value);
+                Units.FirstOrDefault(item => item.ID == id)?.Update(prop, value);
             }, null);
+        }
+
+        private UnitView FirstOrDefoult(int id)
+        {
+            UnitView unitView = null;
+            for (int i = 0; i < Units.Count; i++)
+            {
+                if (Units[i].ID == id)
+                {
+                    unitView = Units[i];
+                    break;
+                }
+            }
+
+            return unitView;
         }
     }
 }

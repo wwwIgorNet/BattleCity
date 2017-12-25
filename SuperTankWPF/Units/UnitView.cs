@@ -15,6 +15,8 @@ namespace SuperTankWPF.Units
 {
     class UnitView : Image
     {
+        public int ID { get; set; }
+
         #region DependencyProperty
         public TypeUnit TypeUnit
         {
@@ -24,17 +26,7 @@ namespace SuperTankWPF.Units
 
         public static readonly DependencyProperty TypeUnitProperty =
             DependencyProperty.Register("TypeUnit", typeof(TypeUnit), typeof(UnitView));
-
-
-        public int ID
-        {
-            get { return (int)GetValue(IDProperty); }
-            set { SetValue(IDProperty, value); }
-        }
-
-        public static readonly DependencyProperty IDProperty =
-            DependencyProperty.Register("ID", typeof(int), typeof(UnitView), new PropertyMetadata(0));
-
+        
         public int ZIndex
         {
             get { return (int)GetValue(ZIndexProperty); }
