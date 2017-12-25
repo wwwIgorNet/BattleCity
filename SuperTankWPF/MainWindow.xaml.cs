@@ -3,9 +3,12 @@ using SuperTankWPF.View;
 using SuperTankWPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -87,9 +90,9 @@ namespace SuperTankWPF
 
         private void Window_KeyUp(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            if (e.Key == Key.F1)
             {
-
+                Process.Start("IExplore.exe", @"file:///" + Directory.GetCurrentDirectory() + @"\Content\Help\Index.html");
             }
             else if (e.Key == Key.Escape)
             {

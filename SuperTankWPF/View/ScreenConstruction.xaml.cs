@@ -317,9 +317,8 @@ namespace SuperTankWPF.View
                     enter = false;
                     NextChar();
                     break;
-                case Key.Escape:
+                case Key.S:
                     InitMap();
-                    e.Handled = true;
                     ServiceLocator.Current.GetInstance<MainViewModel>().ScreenStartVisibility = Visibility.Visible;
                     break;
             }
