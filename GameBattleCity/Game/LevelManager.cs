@@ -14,6 +14,7 @@ namespace SuperTank
     /// </summary>
     public class LevelManager
     {
+        private bool removeAllTankEnemy;
         private DateTime startGameOver;
         private static bool abortUpdate;
         private static Random random = new Random();
@@ -218,6 +219,22 @@ namespace SuperTank
         public void Stop()
         {
             timer.Stop();
+            IPlayer.SoundGame.StopAll();
+            IIPlayer?.SoundGame.StopAll();
+        }
+        public bool Pause(bool isPause)
+        {
+            if (removeAllTankEnemy) return false;
+
+            if (isPause) Stop();
+            else
+            {
+                timer.Start();
+                IPlayer.SoundGame.StopSondTank();
+                IIPlayer?.SoundGame.StopSondTank();
+            }
+
+            return true;
         }
 
         private void ClerPos(char[,] map, Point point)
@@ -299,6 +316,7 @@ namespace SuperTank
         }
         private void Enemy_RemoveAllTank()
         {
+            removeAllTankEnemy = true;
             if (curentLevel == ConfigurationBase.CountLevel)
                 curentLevel = 0;
 
@@ -310,6 +328,7 @@ namespace SuperTank
                 EndLevel();
 
                 StartLevel();
+                removeAllTankEnemy = false;
             });
         }
     }

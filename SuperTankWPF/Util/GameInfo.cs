@@ -118,5 +118,10 @@ namespace SuperTankWPF.Util
         {
             mainViewModel.ScreenGameVisibility = Visibility.Visible;
         }
+
+        public void PauseGame(bool isPause)
+        {
+            screenGame.IsPause = isPause;
+        }
     }
 }

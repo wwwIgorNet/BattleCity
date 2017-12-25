@@ -32,6 +32,9 @@ namespace GameLibrary.Service
         [ServiceKnownType(typeof(Owner))]
         void SetCountTankPlaeyr(int count, Owner owner);
 
+        [OperationContract(IsOneWay = true)]
+        void PauseGame(bool isPause);
+
 
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Direction))]
@@ -89,5 +92,8 @@ namespace GameLibrary.Service
 
         [OperationContract(IsOneWay = true)]
         void NewBonus();
+
+        [OperationContract(IsOneWay = true)]
+        void StopAll();
     }
 }

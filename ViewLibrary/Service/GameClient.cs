@@ -53,6 +53,11 @@ namespace ViewLibrary.Service
             gameInfo.SetCountTankPlaeyr(count, owner);
         }
 
+        public void PauseGame(bool isPause)
+        {
+            gameInfo.PauseGame(isPause);
+        }
+
 
 
         public void Add(int id, TypeUnit typeUnit, int x, int y, Dictionary<PropertiesType, object> properties)
@@ -128,7 +133,7 @@ namespace ViewLibrary.Service
 
         public void TankSoundStop()
         {
-            soundGame.TankSoundStop();
+            soundGame.TankSoundStopMove();
         }
 
         public void Bonus()
@@ -139,6 +144,11 @@ namespace ViewLibrary.Service
         public void NewBonus()
         {
             soundGame.NewBonus();
+        }
+
+        public void StopAll()
+        {
+            soundGame.StopAll();
         }
     }
 }

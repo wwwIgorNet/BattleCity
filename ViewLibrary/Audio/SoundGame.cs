@@ -139,7 +139,7 @@ namespace ViewLibrary.Audio
         {
             soundPlayers[NameSound.DetonationBrickWall].Play();
         }
-        public void TankSoundStop()
+        public void TankSoundStopMove()
         {
             soundPlayers[NameSound.Stop].Pause();
             soundPlayers[NameSound.Move].Pause();

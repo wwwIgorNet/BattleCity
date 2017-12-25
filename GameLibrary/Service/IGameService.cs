@@ -24,5 +24,8 @@ namespace GameLibrary.Service
         [OperationContract(IsOneWay = true)]
         [ServiceKnownType(typeof(Owner))]
         void Connect(Owner owner);
+
+        [OperationContract(IsOneWay = true)]
+        void PauseGame(bool isPause);
     }
 }

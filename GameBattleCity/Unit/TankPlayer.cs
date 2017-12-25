@@ -39,7 +39,7 @@ namespace SuperTank
         public override void Dispose()
         {
             base.Dispose();
-            soundGame.TankSoundStop();
+            soundGame.TankSoundStopMove();
             soundGame.DetonationEagle();
             OwnerPlaeyr.CurrentTank = null;
             OwnerPlaeyr.TryAddToScene();

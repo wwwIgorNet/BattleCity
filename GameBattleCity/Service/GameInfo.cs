@@ -47,5 +47,10 @@ namespace GameBattleCity.Service
         {
             gameClient.StartLevel(level);
         }
+
+        public void PauseGame(bool isPause)
+        {
+            gameClient.PauseGame(isPause);
+        }
     }
 }

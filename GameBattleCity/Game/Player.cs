@@ -35,6 +35,7 @@ namespace SuperTank
         public Owner Owner { get { return owner; } }
         public int Points { get; set; }
         public TankPlayer CurrentTank { get; set; }
+        public ISoundGame SoundGame { get { return soundGame; } }
         public int CountTank
         {
             get
@@ -51,7 +52,7 @@ namespace SuperTank
 
         public void Clear()
         {
-            soundGame.TankSoundStop();
+            soundGame.TankSoundStopMove();
             InitDestroyedTanks();
         }
         public override void Start()
@@ -88,7 +89,7 @@ namespace SuperTank
         public void EagleDestoed()
         {
             LevelManager.Updatable.Remove(CurrentTank);
-            soundGame.TankSoundStop();
+            soundGame.TankSoundStopMove();
             isEagleDestroed = true;
         }
 

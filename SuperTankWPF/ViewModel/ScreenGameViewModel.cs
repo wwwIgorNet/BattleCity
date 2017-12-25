@@ -1,6 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using GameLibrary.Lib;
 using SuperTank;
+using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +19,18 @@ namespace SuperTankWPF.ViewModel
         private int level;
         private bool isShowAnimationNewLevel;
         private bool isShowGameOver;
+        private bool isPause;
+        private RelayCommand<bool> commandPause;
+
+        public event Action<bool> ActionPause = isPause => { };
+
+        public RelayCommand<bool> CommandPause
+        {
+            get
+            {
+                return commandPause ?? (commandPause = new RelayCommand<bool>(ActionPause));
+            }
+        }
 
         public int Level
         {
@@ -33,10 +47,16 @@ namespace SuperTankWPF.ViewModel
             get { return isShowGameOver; }
             set { Set(nameof(IsShowGameOver), ref isShowGameOver, value); }
         }
+        public bool IsPause
+        {
+            get { return isPause; }
+            set { Set(nameof(IsPause), ref isPause, value); }
+        }
         public IKeyboard Keyboard { get; set; }
 
         public void Clear()
         {
+            ActionPause = (isPause) => { };
             Level = 0;
             IsShowAnimationNewLevel = false;
             IsShowGameOver = false;

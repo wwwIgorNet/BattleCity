@@ -33,7 +33,7 @@ namespace SuperTankWPF.View
         private DoubleAnimation animationTop;
         private DoubleAnimation animationBottom;
         private ObjectAnimationUsingKeyFrames animationText = new ObjectAnimationUsingKeyFrames();
-        private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds /  3);
+        private TimeSpan durationShowLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
         private TimeSpan durationClosOpenLevel = TimeSpan.FromSeconds(ConfigurationWPF.DelayScrenLoadLevel.Seconds / 3);
         private TimeSpan durationGameOver = TimeSpan.FromMilliseconds(ConfigurationWPF.TimeGameOver / 2);
 
@@ -48,7 +48,7 @@ namespace SuperTankWPF.View
 
         private void ScrenGame_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            if(e.NewValue.Equals(true)) this.Focus();
+            if (e.NewValue.Equals(true)) this.Focus();
         }
 
         protected override void OnKeyDown(KeyEventArgs e)
@@ -57,6 +57,9 @@ namespace SuperTankWPF.View
 
             switch (e.Key)
             {
+                case Key.P:
+                    CommandPause();
+                    break;
                 case Key.Up:
                 case Key.Down:
                 case Key.Left:
@@ -65,6 +68,32 @@ namespace SuperTankWPF.View
                     viewModel?.KeyDown(e.Key);
                     break;
             }
+        }
+
+        private void CommandPause()
+        {
+            if (IsShowGameOver || IsShowAnimationNewLevel) return;
+            ServiceLocator.Current.GetInstance<ScreenGameViewModel>().CommandPause.Execute(!IsPause);
+        }
+
+        private void AnimationPause(bool pause)
+        {   
+            ThicknessAnimation animationPause = new ThicknessAnimation();
+            if (pause)
+            {
+                rectPause.Visibility = Visibility.Visible;
+                animationPause.Duration = TimeSpan.FromSeconds(3);
+                animationPause.EasingFunction = new ElasticEase() { EasingMode = EasingMode.EaseOut };
+                animationPause.To = new Thickness(0, this.ActualHeight / 2 - textBlockPause.ActualHeight / 2, 0, 0);
+            }
+            else
+            {
+                rectPause.Visibility = Visibility.Collapsed;
+                animationPause.Duration = TimeSpan.FromSeconds(1);
+                animationPause.EasingFunction = new PowerEase() { EasingMode = EasingMode.EaseOut };
+                animationPause.To = new Thickness(0, this.ActualHeight, 0, 0);
+            }
+            textBlockPause.BeginAnimation(TextBlock.MarginProperty, animationPause);
         }
 
         protected override void OnKeyUp(KeyEventArgs e)
@@ -84,6 +113,20 @@ namespace SuperTankWPF.View
         }
 
         #region Dependensy
+        public bool IsPause
+        {
+            get { return (bool)GetValue(IsPauseProperty); }
+            set { SetValue(IsPauseProperty, value); }
+        }
+        
+        public static readonly DependencyProperty IsPauseProperty =
+            DependencyProperty.Register("IsPause", typeof(bool), typeof(ScreenGame), new PropertyMetadata(false, IsPauseChangedCallback));
+
+        private static void IsPauseChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((ScreenGame)d).AnimationPause((bool)e.NewValue);
+        }
+
         public bool IsShowAnimationNewLevel
         {
             get { return (bool)GetValue(IsShowAnimationNewLevelProperty); }
@@ -121,25 +164,39 @@ namespace SuperTankWPF.View
 
         private void ScrenGame_Loaded(object sender, RoutedEventArgs e)
         {
+            textBlockPause.Margin = new Thickness(0, ConfigurationWPF.WindowClientHeight, 0, 0);
+
             animationText.KeyFrames.Add(new DiscreteObjectKeyFrame(Visibility.Visible, TimeSpan.Zero));
 
-            easingFunction = new PowerEase();
-            easingFunction.EasingMode = EasingMode.EaseInOut;
+            easingFunction = new PowerEase { EasingMode = EasingMode.EaseInOut };
 
             animationGameOver.EasingFunction = easingFunction;
             animationGameOver.Duration = durationGameOver;
 
-            Binding bindingShowNewLevel = new Binding();
-            bindingShowNewLevel.Source = mainGrid.DataContext;
-            bindingShowNewLevel.Path = new PropertyPath("IsShowAnimationNewLevel");
-            bindingShowNewLevel.Mode = BindingMode.TwoWay;
+            Binding bindingShowNewLevel = new Binding
+            {
+                Source = mainGrid.DataContext,
+                Path = new PropertyPath("IsShowAnimationNewLevel"),
+                Mode = BindingMode.TwoWay
+            };
             this.SetBinding(ScreenGame.IsShowAnimationNewLevelProperty, bindingShowNewLevel);
 
-            Binding bindingIsShowGameOver = new Binding();
-            bindingIsShowGameOver.Source = mainGrid.DataContext;
-            bindingIsShowGameOver.Path = new PropertyPath("IsShowGameOver");
-            bindingIsShowGameOver.Mode = BindingMode.TwoWay;
+            Binding bindingIsShowGameOver = new Binding
+            {
+                Source = mainGrid.DataContext,
+                Path = new PropertyPath("IsShowGameOver"),
+                Mode = BindingMode.TwoWay
+            };
             this.SetBinding(ScreenGame.IsShowGameOverProperty, bindingIsShowGameOver);
+
+            Binding bindingAnimationPause = new Binding
+            {
+                Source = mainGrid.DataContext,
+                Path = new PropertyPath("IsPause"),
+                Mode = BindingMode.TwoWay
+            };
+            this.SetBinding(ScreenGame.IsPauseProperty, bindingAnimationPause);
+
         }
 
         private void AnimationGameOver()
@@ -167,10 +224,10 @@ namespace SuperTankWPF.View
             animationText.Duration = durationShowLevel;
 
             animationTop.From = 0.0;
-            animationTop.To = this.ActualHeight / 2 + 4;
+            animationTop.To = ConfigurationWPF.WindowClientHeight / 2 + 4;
 
             animationBottom.From = 0.0;
-            animationBottom.To = this.ActualHeight / 2 + 4;
+            animationBottom.To = ConfigurationWPF.WindowClientHeight / 2 + 4;
 
             topRect.BeginAnimation(Rectangle.HeightProperty, animationTop);
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);
@@ -179,6 +236,7 @@ namespace SuperTankWPF.View
         private void Animation_Completed(object sender, EventArgs e)
         {
             animationTop.Completed -= Animation_Completed;
+            animationTop.Completed += AnimationTop_Completed;
 
             animationTop.From = this.ActualHeight / 2;
             animationTop.BeginTime = durationShowLevel;
@@ -191,6 +249,11 @@ namespace SuperTankWPF.View
             bottomRect.BeginAnimation(Rectangle.HeightProperty, animationBottom);
 
             showNewLevelNumber.BeginAnimation(TextBlock.VisibilityProperty, animationText);
+        }
+
+        private void AnimationTop_Completed(object sender, EventArgs e)
+        {
+            animationTop.Completed -= AnimationTop_Completed;
             IsShowAnimationNewLevel = false;
         }
     }

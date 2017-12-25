@@ -11,6 +11,6 @@
              Width="{Binding Source={x:Static model:ConfigurationWPF.WindowClientWidth}}">
     <StackPanel VerticalAlignment="Center" DataContext="{Binding ScreenLock, Mode=OneWay, Source={StaticResource Locator}}">
         <TextBlock Text="WAIT FOR ANOTHER COMPUTER TO CONNECT..." Style="{StaticResource infoText}"/>
-        <Button Content="Cancel" Style="{StaticResource infoText}" Background="Gray" Padding="5" Foreground="Black" Command="{Binding CancelCommand, Mode=OneWay}" Visibility="{Binding IsCancelVisible}"/>
+        <Button x:Name="buttonCancel" Content="Cancel" Style="{StaticResource infoText}" Background="Gray" Padding="5" Foreground="Black" Command="{Binding CancelCommand, Mode=OneWay}" Visibility="{Binding IsCancelVisible}"/>
     </StackPanel>
 </UserControl>

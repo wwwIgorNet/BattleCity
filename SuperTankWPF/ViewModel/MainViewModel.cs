@@ -28,9 +28,9 @@ namespace SuperTankWPF.ViewModel
         {
             foreach (Screen screen in Enum.GetValues(typeof(Screen)))
             {
-                screenVisibility.Add(screen, Visibility.Hidden);
+                screenVisibility.Add(screen, Visibility.Collapsed);
             }
-
+            
             screenVisibility[Screen.Start] = Visibility.Visible;
         }
 

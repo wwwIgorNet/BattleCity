@@ -7,6 +7,7 @@ using System;
 using System.Drawing;
 using System.Net;
 using System.ServiceModel;
+using System.Threading;
 
 namespace SuperTank
 {
@@ -18,8 +19,10 @@ namespace SuperTank
         private ServiceHost host;
         private GameService gameService;
 
-        Keyboard keyboardIPlayer;
-        Keyboard keyboardIIPlayer;
+        private OperationContext operationContextIIPlayer;
+        private OperationContext operationContextIPlayer;
+        private Keyboard keyboardIPlayer;
+        private Keyboard keyboardIIPlayer;
         private LevelManager levelManager;
         private Enemy enemy;
         private char[,] map;
@@ -42,6 +45,7 @@ namespace SuperTank
                 keyboardIIPlayer = new Keyboard();
 
             gameService = new GameService(keyboardIPlayer, keyboardIIPlayer);
+            gameService.Pause += Pause;
             gameService.ClientsConected += GameService_ClientConected;
 
             host = new ServiceHost(gameService)
@@ -61,7 +65,7 @@ namespace SuperTank
 
         private void GameService_ClientConected()
         {
-            OperationContext operationContextIPlayer = gameService.GetClientContext(Owner.IPlayer);
+            operationContextIPlayer = gameService.GetClientContext(Owner.IPlayer);
             IRender render;
             IGameInfo gameInfo;
             ISoundGame soundIPlayer = new SoundForServices(operationContextIPlayer);
@@ -75,7 +79,7 @@ namespace SuperTank
             }
             else
             {
-                OperationContext operationContextIIPlayer = gameService.GetClientContext(Owner.IIPlayer);
+                operationContextIIPlayer = gameService.GetClientContext(Owner.IIPlayer);
                 soundIIPlayer = new SoundForServices(operationContextIIPlayer);
                 render = new RenderTwoPlayers(operationContextIPlayer, operationContextIIPlayer);
                 gameInfo = new GameInfoTwoPlayers(operationContextIPlayer, operationContextIIPlayer);
@@ -96,6 +100,15 @@ namespace SuperTank
                 levelManager.StartLevel(map);
         }
 
+        public void Pause(bool isPause)
+        {
+            if (levelManager.Pause(isPause))
+            {
+                operationContextIPlayer.GetCallbackChannel<IGameClient>().PauseGame(isPause);
+                if (operationContextIIPlayer != null && operationContextIIPlayer.Channel.State == CommunicationState.Opened)
+                    operationContextIIPlayer?.GetCallbackChannel<IGameClient>().PauseGame(isPause);
+            }
+        }
         public void CloseHost()
         {
             host.Close();

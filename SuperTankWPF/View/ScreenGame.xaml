@@ -58,5 +58,7 @@
                 <TextBlock x:Name="textBlockOver" Text="OVER"/>
             </StackPanel>
         </Grid>
+        <Rectangle x:Name="rectPause" Grid.ColumnSpan="2" Fill="Black" Opacity="0.75" Visibility="Collapsed" Width="{Binding ActualWidth, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ScreenGame}}}" Height="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:ScreenGame}}}"/>
+        <TextBlock x:Name="textBlockPause" HorizontalAlignment="Center" VerticalAlignment="Top" Text="PAUSE" Style="{StaticResource infoText}"/>
     </Grid>
 </UserControl>

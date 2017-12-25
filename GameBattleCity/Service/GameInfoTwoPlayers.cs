@@ -82,5 +82,15 @@ namespace GameBattleCity.Service
                     IIPlayer.StartLevel(level);
             });
         }
+
+        public void PauseGame(bool isPause)
+        {
+            InvokWithTryCatch(() =>
+            {
+                IPlayer.PauseGame(isPause);
+                if (IIPlayerContextChannel.State == CommunicationState.Opened)
+                    IIPlayer.PauseGame(isPause);
+            });
+        }
     }
 }

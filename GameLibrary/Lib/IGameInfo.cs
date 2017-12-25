@@ -14,5 +14,6 @@ namespace SuperTank
         void StartGame();
         void SetCountTankEnemy(int count);
         void SetCountTankPlaeyr(int count, Owner owner);
+        void PauseGame(bool isPause);
     }
 }

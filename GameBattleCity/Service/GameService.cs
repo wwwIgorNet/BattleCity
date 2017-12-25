@@ -29,6 +29,7 @@ namespace GameBattleCity.Service
         }
 
         public event Action ClientsConected = () => { };
+        public event Action<bool> Pause = isPause => { };
 
         public OperationContext GetClientContext(Owner owner)
         {
@@ -82,6 +83,11 @@ namespace GameBattleCity.Service
                     keyboardIIPlayer.KeyUp(key);
                     break;
             }
+        }
+
+        public void PauseGame(bool isPause)
+        {
+            Pause.Invoke(isPause);
         }
     }
 }

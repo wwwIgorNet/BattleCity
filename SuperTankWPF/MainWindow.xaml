@@ -20,13 +20,13 @@
                 <ColumnDefinition Width="381*"/>
                 <ColumnDefinition Width="239*"/>
             </Grid.ColumnDefinitions>
-            <view:ScreenStart x:Name="startScren" Visibility="{Binding ScreenStartVisibility}"/>
             <view:ScreenGame Visibility="{Binding ScreenGameVisibility}"/>
             <view:ScreenScore Visibility="{Binding ScreenScoreVisibility}"/>
             <view:ScreenRecord Visibility="{Binding ScreenRecordVisibility}"/>
             <view:ScreenGameOver Visibility="{Binding ScreenGameOverVisibility}"/>
             <view:ScreenConstruction Visibility="{Binding ScreenConstructionVisibility}"/>
             <view:ScreenLock Visibility="{Binding ScreenLockVisibility}"/>
+            <view:ScreenStart x:Name="screenStart" Visibility="{Binding ScreenStartVisibility}"/>
         </Grid>
     </Viewbox>
 </Window>
