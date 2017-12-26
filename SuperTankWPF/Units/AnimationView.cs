@@ -1,4 +1,5 @@
 ﻿using SuperTankWPF.Model;
+using SuperTankWPF.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +10,13 @@ using System.Windows.Media;
 
 namespace SuperTankWPF.Units
 {
-    class AnimationView : UnitView, IDisposable
+    class AnimationView : UnitView, IDisposable, IItimerGame
     {
         private Timer timer = new Timer();
         private Action method;
         private int frame;
         private ImageSource[] imagesSources;
+        private bool isAnim = false;
 
         public AnimationView(int updateInterval, ImageSource[] imgSources, bool animStart)
         {
@@ -23,6 +25,7 @@ namespace SuperTankWPF.Units
             CountFrame = imgSources.Length;
             timer.Interval = ConfigurationWPF.TimerInterval * updateInterval;
             timer.Elapsed += Timer_Elapsed;
+            AnimationMenedger.Animations.Add(this);
 
             if (animStart) AnimStart();
         }
@@ -44,10 +47,12 @@ namespace SuperTankWPF.Units
 
         protected void AnimStop()
         {
+            isAnim = false;
             timer.Stop();
         }
         public void AnimStart()
         {
+            isAnim = true;
             timer.Start();
         }
         protected virtual void UpdateSource()
@@ -63,7 +68,14 @@ namespace SuperTankWPF.Units
 
         public virtual void Dispose()
         {
+            AnimationMenedger.Animations.Remove(this);
             timer.Dispose();
+        }
+
+        public void Pause(bool isPause)
+        {
+            if (isPause && isAnim) timer.Stop();
+            else if (!isPause && isAnim) timer.Start();
         }
     }
 }

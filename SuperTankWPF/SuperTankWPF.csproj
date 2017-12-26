@@ -119,12 +119,14 @@
     <Compile Include="Units\PointsView.cs" />
     <Compile Include="Units\ShellView.cs" />
     <Compile Include="Units\TankView.cs" />
+    <Compile Include="Util\IItimerGame.cs" />
     <Compile Include="Util\ServerClient.cs" />
     <Compile Include="Util\GameMenedger.cs" />
     <Compile Include="Util\IPAddressConverter.cs" />
     <Compile Include="Util\GameInfo.cs" />
     <Compile Include="Util\PointsConverter.cs" />
     <Compile Include="Units\UnitView.cs" />
+    <Compile Include="Util\TimerMenedger.cs" />
     <Compile Include="Util\WPFCommands.cs" />
     <Compile Include="ViewModel\DialogIPViewModel.cs" />
     <Compile Include="ViewModel\LevelInfoViewModel.cs" />

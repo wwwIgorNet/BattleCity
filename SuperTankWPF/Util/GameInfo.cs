@@ -122,6 +122,8 @@ namespace SuperTankWPF.Util
         public void PauseGame(bool isPause)
         {
             screenGame.IsPause = isPause;
+
+            AnimationMenedger.Pause(isPause);
         }
     }
 }

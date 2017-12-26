@@ -46,6 +46,7 @@ namespace SuperTank.WindowsForms
             GraphicsOption();
         }
 
+        public bool IsPause { get; private set; }
         public int CountPointsIPlayer { get { return countPointsIPlayer; } }
         public int CountPointsIIPlayer { get { return countPointsIIPlayer; } }
 
@@ -102,6 +103,14 @@ namespace SuperTank.WindowsForms
                 {
                     e.Graphics.DrawImage(screnGameOver.ImgScren, 0, 0, ConfigurationWinForms.WindowClientWidth, ConfigurationWinForms.WindowClientHeight);
                 }
+
+                if (IsPause)
+                {
+                    string pause = "PAUSE";
+                    Font font = new Font(this.Font.FontFamily, 20, FontStyle.Bold);
+                    SizeF size = e.Graphics.MeasureString(pause, font);
+                    e.Graphics.DrawString(pause, font, Brushes.White, this.Width / 2 - size.Width / 2 - 40, this.Height / 2 - size.Height / 2);
+                }
             }
         }
 
@@ -113,6 +122,21 @@ namespace SuperTank.WindowsForms
         public void StartGame()
         {
             startGame.Invoke();
+        }
+
+        public void PauseGame(bool isPause)
+        {
+            if (isPause)
+            {
+                timerInvalidate.Stop();
+            }
+            else
+            {
+                timerInvalidate.Start();
+            }
+
+            IsPause = isPause;
+            Invalidate();
         }
     }
 }

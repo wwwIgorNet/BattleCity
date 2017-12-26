@@ -16,6 +16,8 @@ namespace SuperTank.WindowsForms
     /// </summary>
     public partial class DialogIP : Form
     {
+        private string textBoxIPSecondComputerText = "";
+
         public DialogIP()
         {
             InitializeComponent();
@@ -34,19 +36,22 @@ namespace SuperTank.WindowsForms
             textBoxIPSecondComputer.Text = MyIP.ToString();
 
             this.ActiveControl = textBoxIPSecondComputer;
+
+            radioButtonNewGame.Checked = true;
         }
 
         private void RadioButtonNewGame_CheckedChanged(object sender, EventArgs e)
-        {
+        { 
             if(radioButtonNewGame.Checked)
             {
                 textBoxIPSecondComputer.Enabled = false;
-                textBoxIPSecondComputer.ForeColor = textBoxIPSecondComputer.BackColor;
+                textBoxIPSecondComputerText = textBoxIPSecondComputer.Text;
+                textBoxIPSecondComputer.Text = "";
             }
             else
             {
                 textBoxIPSecondComputer.Enabled = true;
-                textBoxIPSecondComputer.ForeColor = Color.Black;
+                textBoxIPSecondComputer.Text = textBoxIPSecondComputerText;
             }
         }
 
@@ -60,16 +65,21 @@ namespace SuperTank.WindowsForms
 
         private void PressOk()
         {
-            IPAddress ip = null;
-            if (IPAddress.TryParse(textBoxIPSecondComputer.Text, out ip))
+            if (radioButtonJoinGame.Checked)
             {
-                IPSecondComputer = ip;
-                this.DialogResult = DialogResult.OK;
+
+                if (IPAddress.TryParse(textBoxIPSecondComputer.Text, out IPAddress ip))
+                {
+                    IPSecondComputer = ip;
+                    this.DialogResult = DialogResult.OK;
+                }
+                else
+                {
+                    textBoxIPSecondComputer.ForeColor = Color.Red;
+                }
             }
             else
-            {
-                textBoxIPSecondComputer.ForeColor = Color.Red;
-            }
+                this.DialogResult = DialogResult.OK;
         }
 
         public bool NewGame { get { return radioButtonNewGame.Checked; } }
@@ -90,18 +100,6 @@ namespace SuperTank.WindowsForms
             if(textBoxIPSecondComputer.ForeColor == Color.Red)
             {
                 textBoxIPSecondComputer.ForeColor = Color.Black;
-            }
-        }
-
-        private void textBoxIPSecondComputer_KeyUp(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-            {
-                PressOk();
-            }
-            else if(e.KeyCode == Keys.Escape)
-            {
-                PressCancel();
             }
         }
     }

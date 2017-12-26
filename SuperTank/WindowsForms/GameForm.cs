@@ -43,6 +43,7 @@ namespace SuperTank.WindowsForms
         private ScrenGame screnGame;
         private static IViewSound viewSound;
         private float incrementVolume = ConfigurationWinForms.VolumeIncrement;
+        private IGameService proxyGameService;
         
         private bool isGameStop = true;
         private bool isStartScren = true;
@@ -66,11 +67,12 @@ namespace SuperTank.WindowsForms
             gameOver.Size = this.ClientSize;
             startScren = new StartScren(this.ClientSize);
 
-            screnConstructor = new ScrenConstructor();
-            screnConstructor.Size = this.ClientSize;
+            screnConstructor = new ScrenConstructor
+            {
+                Size = this.ClientSize
+            };
 
-            startScren.Start();
-            Controls.Add(startScren);
+            ShowStartScren();
 
             soundGame.Volume = ConfigurationWinForms.VolumeDefoult;
         }
@@ -107,6 +109,12 @@ namespace SuperTank.WindowsForms
 
             if (!isGameStop)
             {
+                if (e.KeyCode == Keys.P)
+                {
+                    proxyGameService.PauseGame(!screnGame.IsPause);
+                    return;
+                }
+
                 KeysGame keysGame = KeyConverter(e.KeyCode);
                 if (keysGame != KeysGame.None)
                     Keyboard.KeyUp(keysGame);
@@ -197,19 +205,16 @@ namespace SuperTank.WindowsForms
                 ownerPlayer = SuperTank.Owner.IPlayer;
             });
 
-            ThreadPool.QueueUserWorkItem(s =>
-            {
-                InstanceContext context = new InstanceContext(new GameClient(screnGame, sceneView, soundGame));
-                DuplexChannelFactory<IGameService> factory =
-                    new DuplexChannelFactory<IGameService>(context, new NetNamedPipeBinding(),
-                        "net.pipe://localhost/GameService");
-                IGameService proxy = factory.CreateChannel();
-                proxy.Connect(SuperTank.Owner.IPlayer);
+            InstanceContext context = new InstanceContext(new GameClient(screnGame, sceneView, soundGame));
+            DuplexChannelFactory<IGameService> factory =
+                new DuplexChannelFactory<IGameService>(context, new NetNamedPipeBinding(),
+                    "net.pipe://localhost/GameService");
+            proxyGameService = factory.CreateChannel();
+            proxyGameService.Connect(SuperTank.Owner.IPlayer);
 
-                closeChannelFactory += () => { factory.Abort(); };
+            closeChannelFactory += () => { factory.Abort(); };
 
-                Keyboard = new KeyboardWrapper(proxy, SuperTank.Owner.IPlayer);
-            });
+            Keyboard = new KeyboardWrapper(proxyGameService, SuperTank.Owner.IPlayer, Error);
         }
         private void StartConstructor()
         {
@@ -259,10 +264,12 @@ namespace SuperTank.WindowsForms
                 DuplexChannelFactory<IGameService> factory =
                     new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
                         "net.tcp://" + dialogIP.IPSecondComputer + ":" + ConfigurationWinForms.ServisePort + "/GameService");
-                IGameService proxy = factory.CreateChannel();
-                proxy.Connect(SuperTank.Owner.IIPlayer);
+                proxyGameService = factory.CreateChannel();
+                proxyGameService.Connect(SuperTank.Owner.IIPlayer);
 
-                Keyboard = new KeyboardWrapper(proxy, SuperTank.Owner.IIPlayer);
+                closeChannelFactory += () => { factory.Abort(); };
+
+                Keyboard = new KeyboardWrapper(proxyGameService, SuperTank.Owner.IIPlayer, Error);
                 ownerPlayer = SuperTank.Owner.IIPlayer;
             }
             catch (Exception ex)
@@ -274,7 +281,6 @@ namespace SuperTank.WindowsForms
             }
 
             isStartScren = false;
-            isGameStop = false;
         }
 
         private void StartGame()
@@ -283,8 +289,7 @@ namespace SuperTank.WindowsForms
             {
                 isGameStop = false;
                 waitForConectToGame = false;
-                Controls.Remove(startScren);
-                Controls.Add(screnGame);
+                ShowGameScren();
             }));
         }
         private void GameOver()
@@ -335,16 +340,19 @@ namespace SuperTank.WindowsForms
                 StopGame();
                 Invoke(new Action(() =>
                 {
-                    Controls.Remove(gameOver);
-                    startScren.Start();
-                    Controls.Add(startScren);
+                    ShowStartScren();
                     isStartScren = true;
                 }));
             });
         }
-        private void StopGame()
+        private async void StopGame()
         {
-            game?.Dispose();
+            ipFirstPlayer = null;
+            ipSecondPlayer = null;
+            isGameStop = true;
+            game?.Stop();
+            await Task.Delay(500);
+            game?.CloseHost();
             СloseChannelFactory();
         }
         private void СloseChannelFactory()
@@ -361,6 +369,26 @@ namespace SuperTank.WindowsForms
         private void GameForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             this.Dispose();
+        }
+
+        private void Error(Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            StopGame();
+
+            ShowStartScren();
+        }
+
+        private void ShowStartScren()
+        {
+            this.Controls.Clear();
+            this.Controls.Add(startScren);
+            startScren.Start();
+        }
+        private void ShowGameScren()
+        {
+            this.Controls.Clear();
+            this.Controls.Add(screnGame);
         }
     }
 }

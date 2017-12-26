@@ -44,35 +44,38 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 101);
+            this.label2.Location = new System.Drawing.Point(20, 124);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.Size = new System.Drawing.Size(62, 17);
             this.label2.TabIndex = 0;
             this.label2.Text = "Your IP: ";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 128);
+            this.label1.Location = new System.Drawing.Point(24, 158);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(105, 13);
+            this.label1.Size = new System.Drawing.Size(137, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "IP second computer:";
             // 
             // textBoxIPSecondComputer
             // 
-            this.textBoxIPSecondComputer.Location = new System.Drawing.Point(128, 125);
+            this.textBoxIPSecondComputer.Location = new System.Drawing.Point(171, 154);
+            this.textBoxIPSecondComputer.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxIPSecondComputer.Name = "textBoxIPSecondComputer";
-            this.textBoxIPSecondComputer.Size = new System.Drawing.Size(109, 20);
+            this.textBoxIPSecondComputer.Size = new System.Drawing.Size(144, 22);
             this.textBoxIPSecondComputer.TabIndex = 2;
             this.textBoxIPSecondComputer.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxIPSecond_KeyPress);
-            this.textBoxIPSecondComputer.KeyUp += new System.Windows.Forms.KeyEventHandler(this.textBoxIPSecondComputer_KeyUp);
             // 
             // buttonOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(16, 162);
+            this.buttonOk.Location = new System.Drawing.Point(21, 199);
+            this.buttonOk.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
+            this.buttonOk.Size = new System.Drawing.Size(100, 28);
             this.buttonOk.TabIndex = 3;
             this.buttonOk.Text = "OK";
             this.buttonOk.UseVisualStyleBackColor = true;
@@ -80,9 +83,10 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(162, 162);
+            this.buttonCancel.Location = new System.Drawing.Point(216, 199);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(100, 28);
             this.buttonCancel.TabIndex = 4;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
@@ -90,50 +94,52 @@
             // 
             // textBoxYourIP
             // 
-            this.textBoxYourIP.Location = new System.Drawing.Point(128, 98);
+            this.textBoxYourIP.Location = new System.Drawing.Point(171, 121);
+            this.textBoxYourIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBoxYourIP.Name = "textBoxYourIP";
             this.textBoxYourIP.ReadOnly = true;
-            this.textBoxYourIP.Size = new System.Drawing.Size(109, 20);
+            this.textBoxYourIP.Size = new System.Drawing.Size(144, 22);
             this.textBoxYourIP.TabIndex = 5;
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.radioButtonJoinGame);
             this.groupBox1.Controls.Add(this.radioButtonNewGame);
-            this.groupBox1.Location = new System.Drawing.Point(16, 12);
+            this.groupBox1.Location = new System.Drawing.Point(21, 15);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(221, 71);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(295, 87);
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
             // radioButtonJoinGame
             // 
             this.radioButtonJoinGame.AutoSize = true;
-            this.radioButtonJoinGame.Location = new System.Drawing.Point(17, 43);
+            this.radioButtonJoinGame.Location = new System.Drawing.Point(23, 53);
+            this.radioButtonJoinGame.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonJoinGame.Name = "radioButtonJoinGame";
-            this.radioButtonJoinGame.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonJoinGame.Size = new System.Drawing.Size(110, 21);
             this.radioButtonJoinGame.TabIndex = 3;
-            this.radioButtonJoinGame.TabStop = true;
             this.radioButtonJoinGame.Text = "Join to game";
             this.radioButtonJoinGame.UseVisualStyleBackColor = true;
             // 
             // radioButtonNewGame
             // 
             this.radioButtonNewGame.AutoSize = true;
-            this.radioButtonNewGame.Checked = true;
-            this.radioButtonNewGame.Location = new System.Drawing.Point(17, 19);
+            this.radioButtonNewGame.Location = new System.Drawing.Point(23, 23);
+            this.radioButtonNewGame.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.radioButtonNewGame.Name = "radioButtonNewGame";
-            this.radioButtonNewGame.Size = new System.Drawing.Size(76, 17);
+            this.radioButtonNewGame.Size = new System.Drawing.Size(95, 21);
             this.radioButtonNewGame.TabIndex = 2;
-            this.radioButtonNewGame.TabStop = true;
             this.radioButtonNewGame.Text = "New game";
             this.radioButtonNewGame.UseVisualStyleBackColor = true;
             // 
             // DialogIP
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(251, 200);
+            this.ClientSize = new System.Drawing.Size(335, 246);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.textBoxYourIP);
             this.Controls.Add(this.buttonCancel);
@@ -143,6 +149,7 @@
             this.Controls.Add(this.label2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DialogIP";

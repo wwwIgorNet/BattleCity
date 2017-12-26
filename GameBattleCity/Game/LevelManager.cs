@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using System.Timers;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace SuperTank
 {
@@ -27,7 +28,8 @@ namespace SuperTank
         private Player IPlayer;
         private Player IIPlayer;
         private Enemy enemy;
-        private bool gameOver;
+        private bool isGameOver;
+        private bool isLevelStart;
         private int countPlayers;
         private TimeSpan DelayScrenPoints;
 
@@ -79,9 +81,9 @@ namespace SuperTank
         }
         public void GameOver()
         {
-            if (gameOver) return;
+            if (isGameOver) return;
 
-            gameOver = true;
+            isGameOver = true;
             startGameOver = DateTime.Now;
             Timer t = new Timer(ConfigurationBase.TimeGameOver);
             t.Elapsed += (s, a) =>
@@ -111,6 +113,7 @@ namespace SuperTank
 
         private void SetPointsToView()
         {
+            isLevelStart = false;
             int countTank;
             if (IIPlayer == null)
             {
@@ -126,12 +129,12 @@ namespace SuperTank
             DelayScrenPoints = ConfigurationGame.GetDelayScrenPoints(countTank);
         }
 
-        public void StartLevel()
+        public async void StartLevel()
         {
             DateTime start = DateTime.Now;
             if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
             gameInfo.StartLevel(curentLevel + 1);
-            System.Threading.Thread.Sleep(1200);
+            await Task.Delay(500);
             IPlayer.Keyboard.Clear();
             IIPlayer?.Keyboard.Clear();
             Scene.Clear();
@@ -143,6 +146,7 @@ namespace SuperTank
             enemy.Start();
             abortUpdate = false;
             timer.Start();
+            isLevelStart = true;
         }
         public void StartLevel(char[,] map)
         {
@@ -223,7 +227,7 @@ namespace SuperTank
         }
         public bool Pause(bool isPause)
         {
-            if (removeAllTankEnemy) return false;
+            if (removeAllTankEnemy || isGameOver || !isLevelStart) return false;
 
             if (isPause) Stop();
             else
@@ -322,7 +326,7 @@ namespace SuperTank
             System.Threading.ThreadPool.QueueUserWorkItem(s =>
             {
                 System.Threading.Thread.Sleep(3000);
-                if (gameOver) return;
+                if (isGameOver) return;
 
                 EndLevel();
 

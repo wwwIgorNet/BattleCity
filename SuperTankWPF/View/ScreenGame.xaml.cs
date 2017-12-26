@@ -72,7 +72,6 @@ namespace SuperTankWPF.View
 
         private void CommandPause()
         {
-            if (IsShowGameOver || IsShowAnimationNewLevel) return;
             ServiceLocator.Current.GetInstance<ScreenGameViewModel>().CommandPause.Execute(!IsPause);
         }
 

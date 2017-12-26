@@ -60,7 +60,7 @@ namespace SuperTank
                 host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding() { MaxConnections = 1 },
                     "net.tcp://" + ipAddress + ":" + ConfigurationGame.ServisePort + "/GameService");
 
-                host.Open();
+            host.Open();
         }
 
         private void GameService_ClientConected()
