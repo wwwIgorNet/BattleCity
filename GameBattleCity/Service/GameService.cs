@@ -12,6 +12,7 @@ namespace GameBattleCity.Service
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class GameService : IGameService
     {
+        private bool isClientConected;
         private OperationContext IPlayerContext;
         private OperationContext IIPlayerContext;
 
@@ -20,6 +21,11 @@ namespace GameBattleCity.Service
 
         public GameService(IKeyboard keyboardIPlayer, IKeyboard keyboardIIPlayer)
         {
+            ClientsConected = () =>
+            {
+                isClientConected = true;
+            };
+
             this.keyboardIPlayer = keyboardIPlayer;
             if (keyboardIIPlayer != null)
             {
@@ -28,7 +34,7 @@ namespace GameBattleCity.Service
             }
         }
 
-        public event Action ClientsConected = () => { };
+        public event Action ClientsConected;
         public event Action<bool> Pause = isPause => { };
 
         public OperationContext GetClientContext(Owner owner)
@@ -45,6 +51,8 @@ namespace GameBattleCity.Service
 
         public void Connect(Owner owner)
         {
+            if (isClientConected) return;
+
             switch (owner)
             {
                 case Owner.IPlayer:
