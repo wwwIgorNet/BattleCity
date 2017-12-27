@@ -32,9 +32,9 @@ namespace SuperTankWPF.Util
         protected ServiceHost HostSceneView { get; set; }
         protected ServiceHost HostSound { get; set; }
 
-        protected ISoundGame SoundGame { get => soundGame; }
-        protected IGameInfo GameInfo { get => gameInfo; }
-        protected IRender Render { get => render; }
+        protected ISoundGame SoundGame { get { return soundGame; } }
+        protected IGameInfo GameInfo { get { return gameInfo; } }
+        protected IRender Render { get { return render; } }
 
         protected double CloseTimeout { get; } = ConfigurationWPF.CloseTimeout;
         public double OpenTimeout { get; } = ConfigurationWPF.ServisePort;

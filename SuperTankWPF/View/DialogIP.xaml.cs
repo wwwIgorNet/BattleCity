@@ -30,8 +30,8 @@ namespace SuperTankWPF.View
         {
             buttonOK.Focus();
             iPRemoteComputer.Focus();
-            //if (string.Empty == ((IDataErrorInfo)this.gridConteiner.DataContext)["IDataErrorInfo"])
-            if (IPAddress.TryParse(this.iPRemoteComputer.Text, out IPAddress iPAddress))
+            IPAddress iPAddress;
+            if (IPAddress.TryParse(this.iPRemoteComputer.Text, out iPAddress))
                 this.DialogResult = true;
         }
     }

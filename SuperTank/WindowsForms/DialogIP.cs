@@ -67,8 +67,8 @@ namespace SuperTank.WindowsForms
         {
             if (radioButtonJoinGame.Checked)
             {
-
-                if (IPAddress.TryParse(textBoxIPSecondComputer.Text, out IPAddress ip))
+                IPAddress ip;
+                if (IPAddress.TryParse(textBoxIPSecondComputer.Text, out ip))
                 {
                     IPSecondComputer = ip;
                     this.DialogResult = DialogResult.OK;

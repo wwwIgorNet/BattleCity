@@ -7,7 +7,9 @@ using System;
 using System.Drawing;
 using System.Net;
 using System.ServiceModel;
+using System.ServiceModel.Channels;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace SuperTank
 {
@@ -53,14 +55,20 @@ namespace SuperTank
                 CloseTimeout = TimeSpan.FromMilliseconds(ConfigurationGame.CloseTimeout)
             };
 
-            host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding() { MaxConnections = 1 },
+            host.AddServiceEndpoint(typeof(IGameService), new NetNamedPipeBinding(),
                 "net.pipe://localhost/GameService");
 
             if (ipAddress != null)
-                host.AddServiceEndpoint(typeof(IGameService), new NetTcpBinding() { MaxConnections = 1 },
+            {
+                CustomBinding customBinding = new CustomBinding();
+                customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
+                customBinding.Elements.Add(new TcpTransportBindingElement());
+                host.AddServiceEndpoint(typeof(IGameService), customBinding,
                     "net.tcp://" + ipAddress + ":" + ConfigurationGame.ServisePort + "/GameService");
+            }
 
             host.Open();
+            MessageBox.Show("open host");
         }
 
         private void GameService_ClientConected()

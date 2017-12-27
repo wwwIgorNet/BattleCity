@@ -134,7 +134,7 @@ namespace SuperTank
             DateTime start = DateTime.Now;
             if (curentLevel == ConfigurationGame.CountLevel) curentLevel = 0;
             gameInfo.StartLevel(curentLevel + 1);
-            await Task.Delay(500);
+            await Task.Delay(1200);
             IPlayer.Keyboard.Clear();
             IIPlayer?.Keyboard.Clear();
             Scene.Clear();

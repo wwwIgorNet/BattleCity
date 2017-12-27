@@ -14,14 +14,14 @@ namespace SuperTankWPF.ViewModel
 
         public char[,] Map
         {
-            get => map;
+            get { return map; }
             set
             {
                 Set(nameof(Map), ref map, value);
             }
         }
 
-        public bool HasMap { get => map != null; }
+        public bool HasMap { get { return map != null; } }
 
         public char[,] GetAndClerMap()
         {

@@ -24,8 +24,8 @@ namespace SuperTankWPF.Util
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             prevIp = (string)value;
-
-            IPAddress.TryParse((string)value, out IPAddress iPAddress);
+            IPAddress iPAddress;
+            IPAddress.TryParse((string)value, out iPAddress);
             return iPAddress;
         }
     }
