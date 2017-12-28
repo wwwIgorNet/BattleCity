@@ -68,7 +68,6 @@ namespace SuperTank
             }
 
             host.Open();
-            MessageBox.Show("open host");
         }
 
         private void GameService_ClientConected()

@@ -87,9 +87,6 @@
                     Path=(Validation.Errors)[0].ErrorContent}"/>
                             <Setter Property="Foreground" Value="Red"/>
                         </Trigger>
-                        <Trigger Property="IsEnabled" Value="false">
-                            <Setter Property="Foreground" Value="Gray"/>
-                        </Trigger>
                     </Style.Triggers>
                 </Style>
             </TextBox.Style>

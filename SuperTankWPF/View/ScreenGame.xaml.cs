@@ -61,9 +61,13 @@ namespace SuperTankWPF.View
                     CommandPause();
                     break;
                 case Key.Up:
+                case Key.W:
                 case Key.Down:
+                case Key.S:
                 case Key.Left:
+                case Key.A:
                 case Key.Right:
+                case Key.D:
                 case Key.Space:
                     viewModel?.KeyDown(e.Key);
                     break;
@@ -102,9 +106,13 @@ namespace SuperTankWPF.View
             switch (e.Key)
             {
                 case Key.Up:
+                case Key.W:
                 case Key.Down:
+                case Key.S:
                 case Key.Left:
+                case Key.A:
                 case Key.Right:
+                case Key.D:
                 case Key.Space:
                     viewModel?.KeyUp(e.Key);
                     break;

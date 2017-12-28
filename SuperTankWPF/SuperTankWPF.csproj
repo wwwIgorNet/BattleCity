@@ -51,8 +51,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>Content\Ico\Ico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>SuperTankWPF.App</StartupObject>
@@ -960,6 +959,11 @@
     <Resource Include="Content\Textures\BrickWall\Left.png" />
     <Resource Include="Content\Textures\BrickWall\Right.png" />
     <Resource Include="Content\Textures\BrickWall\Top.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\Help\Index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

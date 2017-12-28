@@ -21,18 +21,48 @@ namespace SuperTankWPF.View
     /// </summary>
     public partial class DialogIP : Window
     {
+        private string textIPRemouteComputer;
+
         public DialogIP()
         {
             InitializeComponent();
+
+            newGame.Checked += NewGame_Checked;
+            joinToGame.Checked += JoinToGame_Checked;
+            NewGame_Checked(null, null);
+        }
+
+        private void JoinToGame_Checked(object sender, RoutedEventArgs e)
+        {
+            if (joinToGame.IsChecked == true)
+            {
+                iPRemoteComputer.Text = textIPRemouteComputer;
+            }
+        }
+
+        private void NewGame_Checked(object sender, RoutedEventArgs e)
+        {
+            if (newGame.IsChecked == true)
+            {
+                textIPRemouteComputer = iPRemoteComputer.Text;
+                iPRemoteComputer.Text = "";
+            }
         }
 
         private void Button_Click_OK(object sender, RoutedEventArgs e)
         {
-            buttonOK.Focus();
-            iPRemoteComputer.Focus();
-            IPAddress iPAddress;
-            if (IPAddress.TryParse(this.iPRemoteComputer.Text, out iPAddress))
+            if (newGame.IsChecked == true)
+            {
                 this.DialogResult = true;
+            }
+            else
+            {
+                buttonOK.Focus();
+                iPRemoteComputer.Focus();
+                IPAddress iPAddress;
+                if (IPAddress.TryParse(this.iPRemoteComputer.Text, out iPAddress))
+                    this.DialogResult = true;
+            }
         }
     }
 }

@@ -130,11 +130,11 @@ namespace SuperTankWPF.Util
                             mainViewModel.ScreenLockVisibility = Visibility.Visible;
 
                             InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
-                            //CustomBinding customBinding = new CustomBinding();
-                            //customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
-                            //customBinding.Elements.Add(new TcpTransportBindingElement());
+                            CustomBinding customBinding = new CustomBinding();
+                            customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
+                            customBinding.Elements.Add(new TcpTransportBindingElement());
                             DuplexChannelFactory<IGameService> factory =
-                                new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
+                                new DuplexChannelFactory<IGameService>(context, customBinding,
                                     "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":" + ConfigurationWPF.ServisePort + "/GameService");
                             factory.Open();
                             proxyGameService = factory.CreateChannel();

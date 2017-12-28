@@ -77,12 +77,16 @@ namespace SuperTankWPF.ViewModel
             switch (key)
             {
                 case Key.Up:
+                case Key.W:
                     return KeysGame.Up;
                 case Key.Down:
+                case Key.S:
                     return KeysGame.Down;
                 case Key.Left:
+                case Key.A:
                     return KeysGame.Left;
                 case Key.Right:
+                case Key.D:
                     return KeysGame.Right;
                 case Key.Space:
                     return KeysGame.Space;
