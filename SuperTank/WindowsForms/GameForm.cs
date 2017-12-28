@@ -20,6 +20,7 @@ using GameLibrary.Lib;
 using ViewLibrary.Audio;
 using ViewLibrary.Service;
 using GameLibrary.Service;
+using System.ServiceModel.Channels;
 
 namespace SuperTank.WindowsForms
 {
@@ -261,8 +262,11 @@ namespace SuperTank.WindowsForms
                 screnGame = new ScrenGame(sceneView, new LevelInfoTwoPlayer(), screnScore, this.GameOver, StartGame);
 
                 InstanceContext context = new InstanceContext(new GameClient(screnGame, sceneView, soundGame));
+                CustomBinding customBinding = new CustomBinding();
+                customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
+                customBinding.Elements.Add(new TcpTransportBindingElement());
                 DuplexChannelFactory<IGameService> factory =
-                    new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
+                    new DuplexChannelFactory<IGameService>(context, customBinding,
                         "net.tcp://" + dialogIP.IPSecondComputer + ":" + ConfigurationWinForms.ServisePort + "/GameService");
                 proxyGameService = factory.CreateChannel();
                 proxyGameService.Connect(SuperTank.Owner.IIPlayer);
