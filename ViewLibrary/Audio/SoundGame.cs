@@ -41,7 +41,7 @@ namespace ViewLibrary.Audio
 
         public float Volume
         {
-            get => volume;
+            get { return volume; }
             set
             {
                 volume = value;

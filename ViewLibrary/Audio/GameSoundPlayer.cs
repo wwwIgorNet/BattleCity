@@ -14,7 +14,11 @@ namespace ViewLibrary.Audio
         private WaveChannel32 waveChannel32;
         private WaveOut directSoundOut;
 
-        public float Volume { get => directSoundOut.Volume; set => directSoundOut.Volume = value; }
+        public float Volume
+        {
+            get { return directSoundOut.Volume; }
+            set { directSoundOut.Volume = value; }
+        }
 
         public GameSoundPlayer(string soundFile)
         {

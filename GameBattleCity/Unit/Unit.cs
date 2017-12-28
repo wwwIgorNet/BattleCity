@@ -124,7 +124,8 @@ namespace SuperTank
                 }
                 set
                 {
-                    unit.Properties.TryGetValue(key, out object obj);
+                    object obj;
+                    unit.Properties.TryGetValue(key, out obj);
                     if (!value.Equals(obj))
                     {
                         base[key] = value;

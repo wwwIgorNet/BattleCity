@@ -52,8 +52,6 @@ namespace GameBattleCity.Service
 
         public void Connect(Owner owner)
         {
-            MessageBox.Show("conect client "+owner+" "+isClientConected);
-
             if (isClientConected) return;
 
             switch (owner)

@@ -120,7 +120,6 @@ namespace SuperTankWPF.Util
                     };
                     mainViewModel.ScreenLockVisibility = Visibility.Visible;
                     StartGame(dialogIPViewModel.IPCurrentComputer);
-                    MessageBox.Show(dialogIPViewModel.IPCurrentComputer + " new game");
                 }
                 else if (dialogIPViewModel.JoinGame)
                 {
@@ -129,20 +128,18 @@ namespace SuperTankWPF.Util
                         try
                         {
                             mainViewModel.ScreenLockVisibility = Visibility.Visible;
-                            MessageBox.Show(dialogIPViewModel.IPRemoteComputer + " remout comp");
 
                             InstanceContext context = new InstanceContext(new GameClient(gameInfo, screenScene, sound));
-                            CustomBinding customBinding = new CustomBinding();
-                            customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
-                            customBinding.Elements.Add(new TcpTransportBindingElement());
+                            //CustomBinding customBinding = new CustomBinding();
+                            //customBinding.Elements.Add(new BinaryMessageEncodingBindingElement());
+                            //customBinding.Elements.Add(new TcpTransportBindingElement());
                             DuplexChannelFactory<IGameService> factory =
-                                new DuplexChannelFactory<IGameService>(context, customBinding,
+                                new DuplexChannelFactory<IGameService>(context, new NetTcpBinding(),
                                     "net.tcp://" + dialogIPViewModel.IPRemoteComputer + ":" + ConfigurationWPF.ServisePort + "/GameService");
                             factory.Open();
                             proxyGameService = factory.CreateChannel();
-                            MessageBox.Show("open factory");
                             proxyGameService.Connect(Owner.IIPlayer);
-                            MessageBox.Show("send connected");
+                            
                             screenGame.Keyboard = new KeyboardWrapper(proxyGameService, Owner.IIPlayer, Errot);
                             screenGame.ActionPause += PauseGame;
 
